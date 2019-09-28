@@ -1,0 +1,34 @@
+FIXED-Blog posts grab text and put it in post comments on timeline/newsfeed. 
+
+-New posts don't show on home feed. If posted on home feed, they show at first and then don't show after page is refreshed. 
+
+-Image posts show 2 images, a blank one on the left and the image on the right. Will show normal after refreshing page.
+
+FIXED-When editing any post, the exsisting text is not retained in edit text box.
+
+FIXED-Pinning a post causes all posts to run together on user's wall and misplace "Recent Updates" label and post type fileter.
+
+FIXED-Boosting a post causes all posts on feed to run togehter with orange boost border around them all. All the side boxes are misplaced at end of posts.
+
+IGNORE-Editing some projects and adding tags does not update the "Trending" box on home page.
+
+FIXED-Notes on shared projects formatting is messed up, it shows partial "notes:" in text area and my cut of lines of text on the left side.
+
+-Clicking "Like" button on user project list page does not like the project.
+
+-Editing project loses images unless image is readded on editing.
+
+-Removing tag(s) on project notes leaves orphan trending tag in database.
+
+-Adding tag(s) to existing project does not update trending.
+
+-Custom widgets out of place on project/post views.
+
+-Poll post don't work.
+
+-----
+
+-Editing project images and colorway images does not work.
+
+
+
