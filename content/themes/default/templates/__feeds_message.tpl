@@ -8,6 +8,7 @@
             </div>
         {/if}
         <div class="conversation-body">
+            <!-- message text -->
             <div class="text {if $message['user_id'] == $user->_data['user_id']}js_chat-color-me{/if}">
                 {$message['message']}
                 {if $message['image'] != ""}
@@ -16,9 +17,21 @@
                     </span>
                 {/if}
             </div>
+            <!-- message text -->
+
+            <!-- message time -->
             <div class="time js_moment" data-time="{$message['time']}">
                 {$message['time']}
             </div>
+            <!-- message time -->
+
+            <!-- seen status -->
+            {if $last_seen_message_id == $message['message_id']}
+                <div class="seen">
+                    {__("Seen by")} {$conversation['seen_name_list']}
+                </div>
+            {/if}
+            <!-- seen status -->
         </div>
     </div>
 </li>

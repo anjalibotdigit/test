@@ -31,7 +31,7 @@ try {
             $get_users = $db->query(sprintf('SELECT user_id, user_firstname, user_lastname FROM users WHERE (user_name LIKE %1$s OR user_firstname LIKE %1$s OR user_lastname LIKE %1$s OR CONCAT(user_firstname,  " ", user_lastname) LIKE %1$s) ORDER BY user_firstname ASC LIMIT %2$s', secure($_POST['query'], 'search'), secure($system['min_results'], 'int', false) )) or _error("SQL_ERROR_THROWEN");
             if($get_users->num_rows > 0) {
                 while($_user = $get_users->fetch_assoc()) {
-                    $result['value'] = $_user['user_firstname']." ".$_user['user_lastname'];
+                    $result['value'] = trim($_user['user_firstname'])." ".trim($_user['user_lastname']);
                     $result['id'] = $_user['user_id'];
                     $list[] = $result;
                 }

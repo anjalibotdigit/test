@@ -71,7 +71,7 @@
                                     </li>
                                     <li {if $view == "settings" && $sub_view == "payments"}class="active"{/if}>
                                         <a href="{$system['system_url']}/admincp/settings/payments">
-                                            <i class="fa fa-money-bill-alt fa-fw mr10"></i>{__("Payments Settings")}
+                                            <i class="fa fa-credit-card fa-fw mr10"></i>{__("Payments Settings")}
                                         </a>
                                     </li>
                                     <li {if $view == "settings" && $sub_view == "limits"}class="active"{/if}>
@@ -112,6 +112,14 @@
                             </a>
                         </li>
                         <!-- Languages -->
+
+                        <!-- Currencies -->
+                        <li {if $view == "currencies"}class="active"{/if}>
+                            <a href="{$system['system_url']}/admincp/currencies">
+                                <i class="fa fa-money-bill-alt fa-fw mr10" style="color: #3F51B5"></i>{__("Currencies")}
+                            </a>
+                        </li>
+                        <!-- Currencies -->
 
                     </ul>
                 </div>
@@ -319,7 +327,7 @@
 
             <div class="card mb5">
                 <div class="card-header block-title">
-                    {__("Making Money")}
+                    {__("Money")}
                 </div>
                 <div class="card-body with-nav">
                     <ul class="side-nav">
@@ -377,6 +385,17 @@
                             </div>
                         </li>
                         <!-- Packages -->
+
+                        <!-- Bank Receipts -->
+                        {if $system['bank_transfers_enabled']}
+                            <li {if $view == "bank"}class="active"{/if}>
+                                <a href="{$system['system_url']}/admincp/bank">
+                                    {if $bank_transfers_insights}<span class="float-right badge badge-pill badge-danger">{$bank_transfers_insights}</span>{/if}
+                                    <i class="fa fa-university fa-fw mr10" style="color: #4CAF50"></i>{__("Bank Receipts")}
+                                </a>
+                            </li>
+                        {/if}
+                        <!-- Bank Receipts -->
 
                         <!-- Affiliates -->
                         <li {if $view == "affiliates"}class="active"{/if}>
@@ -558,6 +577,14 @@
                             </a>
                         </li>
                         <!-- Stickers -->
+
+                        <!-- Gifts -->
+                        <li {if $view == "gifts"}class="active"{/if}>
+                            <a href="{$system['system_url']}/admincp/gifts">
+                                <i class="fa fa-gift fa-fw mr10" style="color: #FF5722"></i>{__("Gifts")}
+                            </a>
+                        </li>
+                        <!-- Gifts -->
 
                     </ul>
                 </div>

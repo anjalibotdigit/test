@@ -1,6 +1,18 @@
 <div class="card panel-messages" data-cid="{$conversation['conversation_id']}" data-color="{$conversation['color']}" >
     <div class="card-header with-icon pb10 bg-transparent">
         <div class="float-right">
+            {if !$conversation['multiple_recipients']}
+                {if $system['video_call_enabled']}
+                    <button type="button" class="btn btn-icon btn-rounded btn-success js_chat-call-start" data-type="video" data-uid="{$conversation['user_id']}" data-name="{$conversation['name']}">
+                        <i class="fa fa-video fa-lg fa-fw"></i>
+                    </button>
+                {/if}
+                {if $system['audio_call_enabled']}
+                    <button type="button" class="btn btn-icon btn-rounded btn-info js_chat-call-start" data-type="audio" data-uid="{$conversation['user_id']}" data-name="{$conversation['name']}">
+                        <i class="fa fa-phone-alt fa-lg fa-fw"></i>
+                    </button>
+                {/if}
+            {/if}
             <button type="button" class="btn btn-sm btn-danger rounded-pill js_delete-conversation">
                 {__("Delete")}
             </button>
@@ -14,6 +26,9 @@
     <div class="card-body">
         <div class="chat-conversations js_scroller" data-slimScroll-height="440px" data-slimScroll-start="bottom">
             {include file='ajax.chat.conversation.messages.tpl'}
+        </div>
+        <div class="chat-typing">
+            <i class="far fa-comment-dots mr5"></i><span class="loading-dots"><span class="js_chat-typing-users"></span> {__("Typing")}</span>
         </div>
         <div class="chat-attachments attachments clearfix x-hidden">
             <ul>

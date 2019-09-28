@@ -266,20 +266,20 @@
             }
           },
           language: {
-            unmute: "Touch to unmute",
-            keyboardTip: "Press space to see next",
-            visitLink: "Visit link",
+            unmute: __['Touch to unmute'],
+            keyboardTip: __['Press space to see next'],
+            visitLink: __['Visit link'],
             time: {
-              ago: "ago",
-              hour: "hour ago",
-              hours: "hours ago",
-              minute: "minute ago",
-              minutes: "minutes ago",
-              fromnow: "from now",
-              seconds: "seconds ago",
-              yesterday: "yesterday",
-              tomorrow: "tomorrow",
-              days: "days ago"
+              ago: __['ago'],
+              hour: __['hour ago'],
+              hours: __['hours ago'],
+              minute: __['minute ago'],
+              minutes: __['minutes ago'],
+              fromnow: __['from now'],
+              seconds: __['seconds ago'],
+              yesterday: __['yesterday'],
+              tomorrow: __['tomorrow'],
+              days: __['days ago']
             }
           }
         };

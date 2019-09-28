@@ -131,6 +131,12 @@ try {
 				/* unset session */
 				unset($_SESSION['wallet_withdraw_points_amount']);
 			}
+			if(isset($_GET['package_payment_succeed']) && isset($_SESSION['wallet_package_payment_amount'])) {
+				/* assign variables */
+				$smarty->assign('wallet_package_payment_amount', $_SESSION['wallet_package_payment_amount']);
+				/* unset session */
+				unset($_SESSION['wallet_package_payment_amount']);
+			}
 
 			// get wallet transactions
 			$transactions = $user->wallet_get_transactions();

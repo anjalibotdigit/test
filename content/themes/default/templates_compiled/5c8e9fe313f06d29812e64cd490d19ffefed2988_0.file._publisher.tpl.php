@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:13:50
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/_publisher.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0c4e73cec3_58722544',
+  'unifunc' => 'content_5d8edec73455f0_89243765',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '5c8e9fe313f06d29812e64cd490d19ffefed2988' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/_publisher.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d7a0c4e73cec3_58722544 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec73455f0_89243765 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="publisher-overlay"></div>
 <div class="x-form publisher" data-handle="<?php echo $_smarty_tpl->tpl_vars['_handle']->value;?>
 " <?php if ($_smarty_tpl->tpl_vars['_id']->value) {?>data-id="<?php echo $_smarty_tpl->tpl_vars['_id']->value;?>
@@ -288,7 +288,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         </div>
                     </li>
                 <?php }?>
-                <?php if ($_smarty_tpl->tpl_vars['system']->value['blogs_enabled'] && $_smarty_tpl->tpl_vars['_handle']->value != "page" && $_smarty_tpl->tpl_vars['_handle']->value != "group" && $_smarty_tpl->tpl_vars['_handle']->value != "event") {?>
+                <?php if ($_smarty_tpl->tpl_vars['user']->value->_data['can_write_articles'] && $_smarty_tpl->tpl_vars['_handle']->value != "page" && $_smarty_tpl->tpl_vars['_handle']->value != "group" && $_smarty_tpl->tpl_vars['_handle']->value != "event") {?>
                     <li class="col-md-6">
                         <a class="publisher-tools-tab link js_publisher-tab" data-tab="article" href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
 /blogs/new">

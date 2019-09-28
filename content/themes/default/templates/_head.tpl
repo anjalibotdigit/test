@@ -42,7 +42,7 @@
 
     <!-- Fonts [Roboto|Font-Awesome] -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
     <!-- Fonts [Roboto|Font-Awesome] -->
     
     <!-- CSS -->

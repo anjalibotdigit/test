@@ -3,4 +3,5 @@
     <span>{__("Promoted Posts")}</span>
 </div>
 <!-- posts-filter -->
-{include file='__feeds_post.tpl' standalone=false boosted=true}
+
+{include file='__feeds_post.tpl' standalone=true boosted=true}

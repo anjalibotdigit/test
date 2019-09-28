@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:13:50
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/_announcements.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0c4e71b762_71237777',
+  'unifunc' => 'content_5d8edec729d150_81336397',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '72c4a1a4e251d27ae0e9278684af415d09fce258' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/_announcements.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d7a0c4e71b762_71237777 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec729d150_81336397 (Smarty_Internal_Template $_smarty_tpl) {
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['announcements']->value, 'announcement');
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['announcement']->value) {

@@ -33,7 +33,7 @@
                 <a href="{$system['system_url']}/posts/{$post['post_id']}" class="js_moment" data-time="{$post['time']}">{$post['time']}</a>
 
                 {if $post['location']}
-
+                ·
                 <i class="fa fa-map-marker"></i> <span>{$post['location']}</span>
                 {/if}
 
@@ -59,8 +59,8 @@
         <div class="mt10 clearfix">
             <div class="pg_wrapper">
                 <div class="pg_1x">
-                    <a href="{$system['system_url']}/photos/{$photo['photo_id']}" class="js_lightbox" data-id="{$photo['photo_id']}" data-image="{if $photo['source'] !=''}{$system['system_uploads']}/{$photo['source']}{else}{$system['system_url']}/content/themes/default/images/blank_product.jpg{/if}" data-context="{if $photo['is_single']}album{else}post{/if}">
-                        <img src="{if $photo['source'] !=''}{$system['system_uploads']}/{$photo['source']}{else}{$system['system_url']}/content/themes/default/images/blank_product.jpg{/if}">
+                    <a href="{$system['system_url']}/photos/{$photo['photo_id']}" class="js_lightbox" data-id="{$photo['photo_id']}" data-image="{$system['system_uploads']}/{$photo['source']}" data-context="{if $photo['is_single']}album{else}post{/if}">
+                        <img src="{$system['system_uploads']}/{$photo['source']}">
                     </a>
                 </div>
             </div>

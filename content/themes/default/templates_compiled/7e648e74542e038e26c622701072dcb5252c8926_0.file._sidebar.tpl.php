@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:13:50
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/_sidebar.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0c4e7140f0_14552575',
+  'unifunc' => 'content_5d8edec728c880_44400527',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7e648e74542e038e26c622701072dcb5252c8926' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/_sidebar.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d7a0c4e7140f0_14552575 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec728c880_44400527 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="card">
     <div class="card-body with-nav">
         <ul class="main-side-nav">
@@ -73,18 +73,6 @@ function content_5d7a0c4e7140f0_14552575 (Smarty_Internal_Template $_smarty_tpl)
                     </a>
                 </li>
             <?php }?>
-
-                <li <?php if ($_smarty_tpl->tpl_vars['page']->value == "index" && $_smarty_tpl->tpl_vars['view']->value == "projects") {?>class="active"<?php }?>>
-                    <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/projects">
-                        <img src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/content/themes/<?php echo $_smarty_tpl->tpl_vars['system']->value['theme'];?>
-/images/icons/folder.png">
-                        <?php echo __("Projects");?>
-
-                    </a>
-                </li>
-
             <!-- basic -->
 
             <!-- favorites -->
@@ -93,15 +81,63 @@ function content_5d7a0c4e7140f0_14552575 (Smarty_Internal_Template $_smarty_tpl)
 </small></strong>
             </li>
 
-            <li <?php if ($_smarty_tpl->tpl_vars['page']->value == "index" && $_smarty_tpl->tpl_vars['view']->value == '') {?>class="active"<?php }?>>
-                <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+            <li <?php if ($_smarty_tpl->tpl_vars['page']->value == "index" && ($_smarty_tpl->tpl_vars['view']->value == '' || $_smarty_tpl->tpl_vars['view']->value == "discover" || $_smarty_tpl->tpl_vars['view']->value == "popular")) {?>class="active"<?php }?>>
+                <?php if (!$_smarty_tpl->tpl_vars['system']->value['popular_posts_enabled'] && !$_smarty_tpl->tpl_vars['system']->value['discover_posts_enabled']) {?>
+                    <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
 ">
-                    <img src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+                        <img src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
 /content/themes/<?php echo $_smarty_tpl->tpl_vars['system']->value['theme'];?>
 /images/icons/newfeed.png">
-                    <?php echo __("News Feed");?>
+                        <?php echo __("News Feed");?>
 
-                </a>
+                    </a>
+                <?php } else { ?>
+                    <a href="#newsfeed" data-toggle="collapse" <?php if ($_smarty_tpl->tpl_vars['page']->value == "index" && ($_smarty_tpl->tpl_vars['view']->value == '' || $_smarty_tpl->tpl_vars['view']->value == "discover" || $_smarty_tpl->tpl_vars['view']->value == "popular")) {?>aria-expanded="true"<?php }?>>
+                        <img src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/content/themes/<?php echo $_smarty_tpl->tpl_vars['system']->value['theme'];?>
+/images/icons/newfeed.png">
+                        <?php echo __("News Feed");?>
+
+                    </a>
+                    <div class='collapse <?php if ($_smarty_tpl->tpl_vars['page']->value == "index" && ($_smarty_tpl->tpl_vars['view']->value == '' || $_smarty_tpl->tpl_vars['view']->value == "discover" || $_smarty_tpl->tpl_vars['view']->value == "popular")) {?>show<?php }?>' id="newsfeed">
+                        <ul>
+                            <li <?php if ($_smarty_tpl->tpl_vars['page']->value == "index" && $_smarty_tpl->tpl_vars['view']->value == '') {?>class="active"<?php }?>>
+                                <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+">
+                                    <img src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/content/themes/<?php echo $_smarty_tpl->tpl_vars['system']->value['theme'];?>
+/images/icons/posts_recent.png">
+                                    <?php echo __("Recent Updates");?>
+
+                                </a>
+                            </li>
+                            <?php if ($_smarty_tpl->tpl_vars['system']->value['popular_posts_enabled']) {?>
+                                <li <?php if ($_smarty_tpl->tpl_vars['page']->value == "index" && $_smarty_tpl->tpl_vars['view']->value == "popular") {?>class="active"<?php }?>>
+                                    <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/popular">
+                                        <img src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/content/themes/<?php echo $_smarty_tpl->tpl_vars['system']->value['theme'];?>
+/images/icons/posts_popular.png">
+                                        <?php echo __("Popular Posts");?>
+
+                                    </a>
+                                </li>
+                            <?php }?>
+                            <?php if ($_smarty_tpl->tpl_vars['system']->value['discover_posts_enabled']) {?>
+                                <li <?php if ($_smarty_tpl->tpl_vars['page']->value == "index" && $_smarty_tpl->tpl_vars['view']->value == "discover") {?>class="active"<?php }?>>
+                                    <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/discover">
+                                        <img src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/content/themes/<?php echo $_smarty_tpl->tpl_vars['system']->value['theme'];?>
+/images/icons/posts_discover.png">
+                                        <?php echo __("Discover Posts");?>
+
+                                    </a>
+                                </li>
+                            <?php }?>
+                        </ul>
+                    </div>
+                <?php }?>
             </li>
 
             <?php if ($_smarty_tpl->tpl_vars['system']->value['blogs_enabled']) {?>
@@ -140,6 +176,19 @@ function content_5d7a0c4e7140f0_14552575 (Smarty_Internal_Template $_smarty_tpl)
 
                 </a>
             </li>
+
+            <?php if ($_smarty_tpl->tpl_vars['system']->value['memories_enabled']) {?>
+                <li <?php if ($_smarty_tpl->tpl_vars['page']->value == "index" && $_smarty_tpl->tpl_vars['view']->value == "memories") {?>class="active"<?php }?>>
+                    <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/memories">
+                        <img src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/content/themes/<?php echo $_smarty_tpl->tpl_vars['system']->value['theme'];?>
+/images/icons/memories.png">
+                        <?php echo __("Memories");?>
+
+                    </a>
+                </li>
+            <?php }?>
             <!-- favorites -->
 
             <!-- advertising -->
@@ -194,24 +243,13 @@ function content_5d7a0c4e7140f0_14552575 (Smarty_Internal_Template $_smarty_tpl)
 </small>
             </li>
 
-            <li <?php if ($_smarty_tpl->tpl_vars['page']->value == "index" && $_smarty_tpl->tpl_vars['view']->value == "popular") {?>class="active"<?php }?>>
-                <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/popular">
-                    <img src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/content/themes/<?php echo $_smarty_tpl->tpl_vars['system']->value['theme'];?>
-/images/icons/hashtag.png">
-                    <?php echo __("Popular Posts");?>
-
-                </a>
-            </li>
-
             <li <?php if ($_smarty_tpl->tpl_vars['page']->value == "people") {?>class="active"<?php }?>>
                 <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
 /people">
                     <img src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
 /content/themes/<?php echo $_smarty_tpl->tpl_vars['system']->value['theme'];?>
 /images/icons/people.png">
-                    <?php echo __("Find People");?>
+                    <?php echo __("People");?>
 
                 </a>
             </li>

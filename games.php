@@ -14,14 +14,14 @@ if(!$system['games_enabled']) {
 	_error(404);
 }
 
-// user access
-user_access();
-
 try {
 
 	// get view content
 	switch ($_GET['view']) {
 		case '':
+
+			// user access
+			user_access();
 
 			// page header
 			page_header(__("Discover Games"));
@@ -36,6 +36,9 @@ try {
 		
 		case 'played':
 
+			// user access
+			user_access();
+
 			// page header
 			page_header(__("Your Games"));
 
@@ -49,6 +52,11 @@ try {
 
 		case 'game':
 
+			// user access
+			if(!$system['system_public']) {
+				user_access();
+			}
+
 			// get game
 			$game = $user->get_game($_GET['game_id']);
 			if(!$game)  {
@@ -58,7 +66,7 @@ try {
 			$smarty->assign('game', $game);
 
 			// page header
-			page_header($game['title']);
+			page_header($game['title'], $game['description'], $game['thumbnail']);
 			break;
 
 		default:

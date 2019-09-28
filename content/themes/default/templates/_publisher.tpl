@@ -205,7 +205,7 @@
                         </div>
                     </li>
                 {/if}
-                {if $system['blogs_enabled'] && $_handle != "page" && $_handle != "group" && $_handle != "event"}
+                {if $user->_data['can_write_articles'] && $_handle != "page" && $_handle != "group" && $_handle != "event"}
                     <li class="col-md-6">
                         <a class="publisher-tools-tab link js_publisher-tab" data-tab="article" href="{$system['system_url']}/blogs/new">
                             <img src="{$system['system_url']}/content/themes/{$system['theme']}/images/icons/publisher/edit.png">{__("Write Article")}

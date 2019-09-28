@@ -43,9 +43,11 @@ use Twilio\Rest\Preview\Wireless as PreviewWireless;
  * @property \Twilio\Rest\Preview\Wireless\CommandList $commands
  * @property \Twilio\Rest\Preview\Wireless\RatePlanList $ratePlans
  * @property \Twilio\Rest\Preview\Wireless\SimList $sims
+ * @property \Twilio\Rest\Preview\TrustedComms\BrandedCallList $brandedCalls
  * @property \Twilio\Rest\Preview\TrustedComms\DeviceList $devices
  * @property \Twilio\Rest\Preview\TrustedComms\PhoneCallList $phoneCalls
  * @property \Twilio\Rest\Preview\TrustedComms\CurrentCallList $currentCalls
+ * @property \Twilio\Rest\Preview\TrustedComms\CpsList $cps
  * @method \Twilio\Rest\Preview\BulkExports\ExportContext exports(string $resourceType)
  * @method \Twilio\Rest\Preview\BulkExports\ExportConfigurationContext exportConfiguration(string $resourceType)
  * @method \Twilio\Rest\Preview\DeployedDevices\FleetContext fleets(string $sid)
@@ -59,6 +61,7 @@ use Twilio\Rest\Preview\Wireless as PreviewWireless;
  * @method \Twilio\Rest\Preview\Wireless\RatePlanContext ratePlans(string $sid)
  * @method \Twilio\Rest\Preview\Wireless\SimContext sims(string $sid)
  * @method \Twilio\Rest\Preview\TrustedComms\CurrentCallContext currentCalls()
+ * @method \Twilio\Rest\Preview\TrustedComms\CpsContext cps()
  */
 class Preview extends Domain {
     protected $_bulkExports = null;
@@ -390,6 +393,13 @@ class Preview extends Domain {
     }
 
     /**
+     * @return \Twilio\Rest\Preview\TrustedComms\BrandedCallList
+     */
+    protected function getBrandedCalls() {
+        return $this->trustedComms->brandedCalls;
+    }
+
+    /**
      * @return \Twilio\Rest\Preview\TrustedComms\DeviceList
      */
     protected function getDevices() {
@@ -415,6 +425,20 @@ class Preview extends Domain {
      */
     protected function contextCurrentCalls() {
         return $this->trustedComms->currentCalls();
+    }
+
+    /**
+     * @return \Twilio\Rest\Preview\TrustedComms\CpsList
+     */
+    protected function getCps() {
+        return $this->trustedComms->cps;
+    }
+
+    /**
+     * @return \Twilio\Rest\Preview\TrustedComms\CpsContext
+     */
+    protected function contextCps() {
+        return $this->trustedComms->cps();
     }
 
     /**

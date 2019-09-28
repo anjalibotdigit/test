@@ -31,7 +31,7 @@ try {
 
 	// get data
 	/* get newsfeed & saved posts & boosted posts */
-	if($_POST['get'] == "newsfeed" || $_POST['get'] == "popular" || $_POST['get'] == "saved" || $_POST['get'] == "boosted") {
+	if($_POST['get'] == "newsfeed" || $_POST['get'] == "popular" || $_POST['get'] == "discover" || $_POST['get'] == "saved" || $_POST['get'] == "memories" || $_POST['get'] == "boosted") {
 		$data = $user->get_posts( array('get' => $_POST['get'], 'filter' => $_POST['filter'], 'offset' => $_POST['offset']) );
 
 		// get ads campaigns

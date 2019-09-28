@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:35:21
+/* Smarty version 3.1.33, created on 2019-09-28 04:18:13
   from '/home/cryptocodex/public_html/content/themes/default/templates/admin.dashboard.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a115933bc95_24564381',
+  'unifunc' => 'content_5d8edf05520449_93214311',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '34f1eb998a703f1ce4ce6d5b45d6d6f0694c4dde' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/admin.dashboard.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d7a115933bc95_24564381 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edf05520449_93214311 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="card">
     <div class="card-header with-icon">
         <?php echo __("Dashboard");?>

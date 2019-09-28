@@ -71,7 +71,6 @@
                 </label>
             {/if}
             <!-- Group -->
-
         </div>
         <!-- share to options -->
 

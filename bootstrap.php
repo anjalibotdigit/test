@@ -7,7 +7,7 @@
  */
 
 // set system version
-define('SYS_VER', '2.5.10');
+define('SYS_VER', '2.6');
 
 
 // set absolut & base path
@@ -102,7 +102,7 @@ if($system['s3_enabled']) {
 /* get system theme */
 $get_theme = $db->query("SELECT * FROM system_themes WHERE system_themes.default = '1'") or _error("SQL_ERROR");
 $theme = $get_theme->fetch_assoc();
-$system['theme'] = $theme['name'];
+$system['theme'] = ($theme['name'])? $theme['name'] : "default";
 
 /* set system theme (day|night) mode */
 if($system['system_theme_mode_select']) {
@@ -115,7 +115,6 @@ if($system['system_theme_mode_select']) {
     $system['theme_mode_night'] = $system['system_theme_night_on'];
 }
     
-
 /* get system languages */
 $get_languages = $db->query("SELECT * FROM system_languages WHERE enabled = '1'") or _error("SQL_ERROR");
 while($language = $get_languages->fetch_assoc()) {
@@ -147,9 +146,12 @@ if(isset($_GET['lang'])) {
     }
 }
 
-/* get system currency symbol */
-$currency = new NumberFormatter($system['language']['code'] . '@currency=' . $system['system_currency'], NumberFormatter::CURRENCY);
-$system['system_currency_symbol'] = $currency->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
+/* get system currency */
+$get_currency = $db->query("SELECT * FROM system_currencies WHERE system_currencies.default = '1'") or _error("SQL_ERROR");
+$currency = $get_currency->fetch_assoc();
+$system['system_currency'] = $currency['code'];
+$system['system_currency_symbol'] = $currency['symbol'];
+
 
 // static pages
 $static_pages = array();

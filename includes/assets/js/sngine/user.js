@@ -31,6 +31,22 @@ api['ads/campaign']  = ajax_path+"ads/campaign.php";
 
 // initialize the modal (plugins)
 function initialize_modal() {
+    // run Sngine scroll
+    $('.js_scroller').each(function(){
+        var _this = $(this);
+        var ini_height = _this.attr('data-slimScroll-height') || '280px';
+        var ini_start = _this.attr('data-slimScroll-start') || 'top';
+        /* return if the scroll already running  */
+        if(_this.parent().hasClass('custom-scrollbar')) {
+            //return;
+        }
+        /* run if not */
+        _this.parent().addClass('custom-scrollbar');
+        _this.css({"overflow-y": "auto", "height": ini_height});
+        if(ini_start == "bottom") {
+            _this.scrollTop(_this.height());
+        }
+    });
     // run geocomplete plugin
     if(geolocation_enabled) {
         $(".js_geocomplete").geocomplete();
@@ -55,7 +71,6 @@ function initialize_modal() {
 
 // initialize uploader
 function initialize_uploader() {
-
     $('.js_x-uploader').each(function(index) {
         /* return if the plugin already running  */
         if($(this).parents('form.x-uploader').length > 0) {
@@ -66,9 +81,6 @@ function initialize_uploader() {
         $(this).prev().append($(this));
     });
 }
-
-
-
 
 
 // browser notification
@@ -156,8 +168,8 @@ function data_heartbeat() {
     data['last_notification'] = $(".js_live-notifications").find(".js_scroller li:first").data('id') || 0;
     /* newsfeed check */
     var posts_stream =  $('.js_posts_stream');
-    /* "saved" excluded as ordered by time not id */
-    if(posts_stream.length > 0 && posts_stream.data('get') != 'saved' && posts_stream.data('get') != 'popular' && posts_stream.data('loading') === undefined) {
+    /* "popular" && "saved" & "memories" excluded as not ordered by id */
+    if(posts_stream.length > 0 && posts_stream.data('get') != 'popular' && posts_stream.data('get') != 'saved' && posts_stream.data('get') != 'memories' && posts_stream.data('loading') === undefined) {
         data['last_post'] = posts_stream.find("li:first .post").data('id') || 0;
         data['get'] = posts_stream.data('get');
         data['filter'] = posts_stream.data('filter');
@@ -369,6 +381,23 @@ $(function() {
             ]
         });
     }
+    if($(".js_wysiwyg-advanced").length > 0) {
+        tinymce.init({
+            selector: '.js_wysiwyg-advanced',
+            branding: false,
+            height: 300,
+            relative_urls : false,
+            remove_script_host : false,
+            convert_urls : true,
+            toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image  uploadImages |  preview media fullpage | forecolor backcolor | ltr rtl',
+            plugins: [
+                'advlist autolink link image  lists charmap  preview hr anchor pagebreak spellchecker',
+                'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+                'save table directionality template paste'
+            ],
+            extended_valid_elements : "script[src|async|defer|type|charset]"
+        });
+    }
 
 
     // init browser notifications
@@ -532,7 +561,7 @@ $(function() {
         var uid = $(this).data('uid');
         var name = $(this).data('name');
         var parent = $(this).parents('.js_autocomplete-tags');
-        var tag = '<li data-uid="'+uid+'">'+name+'<button type="button" class="close js_tag-remove" title="'+__["Remove"]+'"><span>&times;</span></button></li>'
+        var tag = '<li data-uid="'+uid+'">'+name+'<button type="button" class="close js_tag-remove" title="'+__['Remove']+'"><span>&times;</span></button></li>'
         parent.find('.tags').append(tag);
         parent.find('input').val('').focus();
         /* check if there is chat-form next to js_autocomplete-tags */
@@ -1235,7 +1264,7 @@ $(function() {
                 accept.remove();
                 decline.remove();
                 if(_do == 'friend-accept') {
-                    parent.append('<button type="button" class="btn btn-sm btn-success btn-delete js_friend-remove" data-uid="'+id+'"><i class="fa fa-check mr5"></i>'+__["Friends"]+'</button>');
+                    parent.append('<button type="button" class="btn btn-sm btn-success btn-delete js_friend-remove" data-uid="'+id+'"><i class="fa fa-check mr5"></i>'+__['Friends']+'</button>');
                 }
             }
         }, "json")
@@ -1269,9 +1298,9 @@ $(function() {
                 /* button reset */
                 button_status(_this, "reset");
                 if(_do == 'friend-add') {
-                    _this.after('<button type="button" class="btn btn-sm btn-warning js_friend-cancel" data-uid="'+id+'"><i class="fa fa-clock mr5"></i>'+__["Friend Request Sent"]+'</button>');
+                    _this.after('<button type="button" class="btn btn-sm btn-warning js_friend-cancel" data-uid="'+id+'"><i class="fa fa-clock mr5"></i>'+__['Friend Request Sent']+'</button>');
                 } else {
-                    _this.after('<button type"button" class="btn btn-sm btn-success js_friend-add" data-uid="'+id+'"><i class="fa fa-user-plus mr5"></i>'+__["Add Friend"]+'</button>');
+                    _this.after('<button type"button" class="btn btn-sm btn-success js_friend-add" data-uid="'+id+'"><i class="fa fa-user-plus mr5"></i>'+__['Add Friend']+'</button>');
                 }
                 _this.remove();
             }
@@ -1297,9 +1326,9 @@ $(function() {
                 eval(response.callback);
             } else {
                 if(_do == 'follow') {
-                    _this.replaceWith('<button type="button" class="btn btn-sm btn-info js_unfollow" data-uid="'+id+'"><i class="fa fa-check mr5"></i>'+__["Following"]+'</button>');
+                    _this.replaceWith('<button type="button" class="btn btn-sm btn-info js_unfollow" data-uid="'+id+'"><i class="fa fa-check mr5"></i>'+__['Following']+'</button>');
                 } else {
-                    _this.replaceWith('<button type="button" class="btn btn-sm btn-info js_follow" data-uid="'+id+'"><i class="fa fa-rss mr5"></i>'+__["Follow"]+'</button>');
+                    _this.replaceWith('<button type="button" class="btn btn-sm btn-info js_follow" data-uid="'+id+'"><i class="fa fa-rss mr5"></i>'+__['Follow']+'</button>');
                 }
             }
         }, "json")
@@ -1362,6 +1391,25 @@ $(function() {
             });
         });
     });
+    /* poke */
+    $('body').on('click', '.js_poke', function () {
+        var _this = $(this);
+        var id = _this.data('id');
+        var name = _this.data('name');
+        /* post the request */
+        $.post(api['users/connect'], {'do': 'poke', 'id': id} , function(response) {
+            /* remove poke */
+            _this.remove();
+            if(response.callback) {
+                eval(response.callback);
+            } else {
+                modal('#modal-message', {title: __['Message'], message: __['You haved poked']+" "+name});
+            }
+        }, "json")
+        .fail(function() {
+            modal('#modal-message', {title: __['Error'], message: __['There is something that went wrong!']});
+        });
+    });
     /* like & unlike page */
     $('body').on('click', '.js_like-page, .js_unlike-page', function () {
         var _this = $(this);
@@ -1388,32 +1436,6 @@ $(function() {
             button_status(_this, "reset");
             modal('#modal-message', {title: __['Error'], message: __['There is something that went wrong!']});
         });
-    });
-    $('body').on('click', '.js_like, .js_unlike', function () {
-        var _this = $(this);
-        var id = _this.data('id');
-        var _do = (_this.hasClass('js_like'))? 'project-like' : 'project-unlike';
-        /* button loading */
-        button_status(_this, "loading");
-        /* post the request */
-        $.post(api['users/connect'], {'do': _do, 'id': id} , function(response) {
-            if(response.callback) {
-                /* button reset */
-                button_status(_this, "reset");
-                eval(response.callback);
-            } else {
-                if(_do == 'project-like') {
-                    _this.replaceWith('<button type="button" class="btn btn-sm btn-primary js_unlike-project" data-id="'+id+'"><i class="fa fa-thumbs-up mr5"></i>'+__['Unlike']+'</button>');
-                } else {
-                    _this.replaceWith('<button type="button" class="btn btn-sm btn-primary js_like-project" data-id="'+id+'"><i class="fa fa-thumbs-up mr5"></i>'+__['Like']+'</button>');
-                }
-            }
-        }, "json")
-            .fail(function() {
-                /* button reset */
-                button_status(_this, "reset");
-                modal('#modal-message', {title: __['Error'], message: __['There is something that went wrong!']});
-            });
     });
     /* boost & unboost page */
     $('body').on('click', '.js_boost-page, .js_unboost-page', function () {

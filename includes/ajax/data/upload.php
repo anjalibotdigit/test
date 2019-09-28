@@ -202,27 +202,27 @@ try {
                             $db->query(sprintf("INSERT INTO posts_photos_albums (user_id, user_type, title, privacy) VALUES (%s, 'user', 'Cover Photos', 'public')", secure($user->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                             $user->_data['user_album_covers'] = $db->insert_id;
                             /* update user cover album id */
-                            $db->query(sprintf("UPDATE users SET user_album_covers = %s WHERE user_id = %s", secure($user->_data['user_album_covers'], 'int'), secure($user->_data['user_id'], 'int') ));
+                            $db->query(sprintf("UPDATE users SET user_album_covers = %s WHERE user_id = %s", secure($user->_data['user_album_covers'], 'int'), secure($user->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                         }
                         
                         /* insert updated cover photo post */
-                        $db->query(sprintf("INSERT INTO posts (user_id, user_type, post_type, time, privacy) VALUES (%s, 'user', 'profile_cover', %s, 'public')", secure($user->_data['user_id'], 'int'), secure($date) ));
+                        $db->query(sprintf("INSERT INTO posts (user_id, user_type, post_type, time, privacy) VALUES (%s, 'user', 'profile_cover', %s, 'public')", secure($user->_data['user_id'], 'int'), secure($date) )) or _error("SQL_ERROR_THROWEN");
                         $post_id = $db->insert_id;
                         /* insert new cover photo to album */
                         $db->query(sprintf("INSERT INTO posts_photos (post_id, album_id, source) VALUES (%s, %s, %s)", secure($post_id, 'int'), secure($user->_data['user_album_covers'], 'int'), secure($image_name) )) or _error("SQL_ERROR_THROWEN");
                         $photo_id = $db->insert_id;
                         /* update user cover */
-                        $db->query(sprintf("UPDATE users SET user_cover = %s, user_cover_id = %s WHERE user_id = %s", secure($image_name), secure($photo_id, 'int'), secure($user->_data['user_id'], 'int') ));
+                        $db->query(sprintf("UPDATE users SET user_cover = %s, user_cover_id = %s WHERE user_id = %s", secure($image_name), secure($photo_id, 'int'), secure($user->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                         break;
 
                     case 'picture-user':
                         /* check for profile pictures album */
                         if(!$user->_data['user_album_pictures']) {
                             /* create new profile pictures album */
-                            $db->query(sprintf("INSERT INTO posts_photos_albums (user_id, user_type, title, privacy) VALUES (%s, 'user', 'Profile Pictures', 'public')", secure($user->_data['user_id'], 'int') ));
+                            $db->query(sprintf("INSERT INTO posts_photos_albums (user_id, user_type, title, privacy) VALUES (%s, 'user', 'Profile Pictures', 'public')", secure($user->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                             $user->_data['user_album_pictures'] = $db->insert_id;
                             /* update user profile picture album id */
-                            $db->query(sprintf("UPDATE users SET user_album_pictures = %s WHERE user_id = %s", secure($user->_data['user_album_pictures'], 'int'), secure($user->_data['user_id'], 'int') ));
+                            $db->query(sprintf("UPDATE users SET user_album_pictures = %s WHERE user_id = %s", secure($user->_data['user_album_pictures'], 'int'), secure($user->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                         }
                         /* insert updated profile picture post */
                         $db->query(sprintf("INSERT INTO posts (user_id, user_type, post_type, time, privacy) VALUES (%s, 'user', 'profile_picture', %s, 'public')", secure($user->_data['user_id'], 'int'), secure($date) )) or _error("SQL_ERROR_THROWEN");
@@ -305,7 +305,6 @@ try {
                             $db->query(sprintf("UPDATE pages SET page_album_pictures = %s WHERE page_id = %s", secure($page['page_album_pictures'], 'int'), secure($page['page_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                         }
                         /* insert updated page picture post */
-                        
                         $db->query(sprintf("INSERT INTO posts (user_id, user_type, post_type, time, privacy) VALUES (%s, 'page', 'page_picture', %s, 'public')", secure($page['page_id'], 'int'), secure($date) )) or _error("SQL_ERROR_THROWEN");
                         $post_id = $db->insert_id;
                         /* insert new page picture to album */

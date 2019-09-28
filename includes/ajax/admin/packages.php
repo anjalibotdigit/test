@@ -24,6 +24,7 @@ try {
 	switch ($_GET['do']) {
 		case 'edit':
 			/* prepare */
+			$_POST['verification_badge_enabled'] = (isset($_POST['verification_badge_enabled']))? '1' : '0';
 			$_POST['boost_posts_enabled'] = (isset($_POST['boost_posts_enabled']))? '1' : '0';
 			$_POST['boost_pages_enabled'] = (isset($_POST['boost_pages_enabled']))? '1' : '0';
 			/* valid inputs */
@@ -51,13 +52,14 @@ try {
 				$_POST['boost_pages'] = 0;
 			}
 			/* update */
-			$db->query(sprintf("UPDATE packages SET name = %s, price = %s, period_num = %s, period = %s, color = %s, icon = %s, boost_posts_enabled = %s, boost_posts = %s, boost_pages_enabled = %s, boost_pages = %s WHERE package_id = %s", secure($_POST['name']), secure($_POST['price']), secure($_POST['period_num']), secure($_POST['period']), secure($_POST['color']), secure($_POST['icon']), secure($_POST['boost_posts_enabled']), secure($_POST['boost_posts'], 'int'), secure($_POST['boost_pages_enabled']), secure($_POST['boost_pages'], 'int'), secure($_GET['id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+			$db->query(sprintf("UPDATE packages SET name = %s, price = %s, period_num = %s, period = %s, color = %s, icon = %s, verification_badge_enabled = %s, boost_posts_enabled = %s, boost_posts = %s, boost_pages_enabled = %s, boost_pages = %s WHERE package_id = %s", secure($_POST['name']), secure($_POST['price']), secure($_POST['period_num']), secure($_POST['period']), secure($_POST['color']), secure($_POST['icon']), secure($_POST['verification_badge_enabled']), secure($_POST['boost_posts_enabled']), secure($_POST['boost_posts'], 'int'), secure($_POST['boost_pages_enabled']), secure($_POST['boost_pages'], 'int'), secure($_GET['id'], 'int') )) or _error("SQL_ERROR_THROWEN");
 			/* return */
 			return_json( array('success' => true, 'message' => __("Package info have been updated")) );
 			break;
 
 		case 'add':
 			/* prepare */
+			$_POST['verification_badge_enabled'] = (isset($_POST['verification_badge_enabled']))? '1' : '0';
 			$_POST['boost_posts_enabled'] = (isset($_POST['boost_posts_enabled']))? '1' : '0';
 			$_POST['boost_pages_enabled'] = (isset($_POST['boost_pages_enabled']))? '1' : '0';
 			/* valid inputs */
@@ -85,7 +87,7 @@ try {
 				$_POST['boost_pages'] = 0;
 			}
 			/* insert */
-			$db->query(sprintf("INSERT INTO packages (name, price, period_num, period, color, icon, boost_posts_enabled, boost_posts, boost_pages_enabled, boost_pages) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", secure($_POST['name']), secure($_POST['price']), secure($_POST['period_num']), secure($_POST['period']), secure($_POST['color']), secure($_POST['icon']), secure($_POST['boost_posts_enabled']), secure($_POST['boost_posts'], 'int'), secure($_POST['boost_pages_enabled']), secure($_POST['boost_pages'], 'int') )) or _error("SQL_ERROR_THROWEN");
+			$db->query(sprintf("INSERT INTO packages (name, price, period_num, period, color, icon, verification_badge_enabled, boost_posts_enabled, boost_posts, boost_pages_enabled, boost_pages) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", secure($_POST['name']), secure($_POST['price']), secure($_POST['period_num']), secure($_POST['period']), secure($_POST['color']), secure($_POST['icon']), secure($_POST['verification_badge_enabled']), secure($_POST['boost_posts_enabled']), secure($_POST['boost_posts'], 'int'), secure($_POST['boost_pages_enabled']), secure($_POST['boost_pages'], 'int') )) or _error("SQL_ERROR_THROWEN");
 			/* return */
 			return_json( array('callback' => 'window.location = "'.$system['system_url'].'/admincp/packages";') );
 			break;

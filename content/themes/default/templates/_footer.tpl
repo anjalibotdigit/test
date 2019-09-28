@@ -45,13 +45,13 @@
 	</audio>
 	<!-- Chat -->
 	<!-- Call -->
-	<audio id="voice-calling-sound" preload="auto" loop="true">
-		<source src="{$system['system_url']}/includes/assets/sounds/call.mp3" type="audio/mpeg">
+	<audio id="chat-calling-sound" preload="auto" loop="true">
+		<source src="{$system['system_url']}/includes/assets/sounds/calling.mp3" type="audio/mpeg">
 	</audio>
 	<!-- Call -->
 	<!-- Video -->
-	<audio id="video_calling-sound" preload="auto" loop="true">
-		<source src="{$system['system_url']}/includes/assets/sounds/video.mp3" type="audio/mpeg">
+	<audio id="chat-ringing-sound" preload="auto" loop="true">
+		<source src="{$system['system_url']}/includes/assets/sounds/ringing.mp3" type="audio/mpeg">
 	</audio>
 	<!-- Video -->
 {/if}

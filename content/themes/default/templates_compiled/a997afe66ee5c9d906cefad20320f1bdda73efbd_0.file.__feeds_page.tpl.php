@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:30:09
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_page.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a10217f9c46_59307408',
+  'unifunc' => 'content_5d8edec77e5f32_25970830',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a997afe66ee5c9d906cefad20320f1bdda73efbd' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_page.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d7a10217f9c46_59307408 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec77e5f32_25970830 (Smarty_Internal_Template $_smarty_tpl) {
 if ($_smarty_tpl->tpl_vars['_tpl']->value == "box") {?>
     <li class="col-md-6 col-lg-3">
         <div class="ui-box">

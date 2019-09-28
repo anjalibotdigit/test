@@ -49,7 +49,7 @@ try {
 }
 
 // page header
-page_header($photo['post']['post_author_name']);
+page_header($photo['og_title'], $photo['og_description'], $photo['og_image']);
 
 // page footer
 page_footer("photo");

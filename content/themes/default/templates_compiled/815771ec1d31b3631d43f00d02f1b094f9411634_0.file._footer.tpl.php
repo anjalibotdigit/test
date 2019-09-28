@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:12:10
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/_footer.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0bea400e95_38081387',
+  'unifunc' => 'content_5d8edec7897c29_57659056',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '815771ec1d31b3631d43f00d02f1b094f9411634' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/_footer.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -24,7 +24,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:_js_templates.tpl' => 1,
   ),
 ),false)) {
-function content_5d7a0bea400e95_38081387 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec7897c29_57659056 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- ads -->
 <?php $_smarty_tpl->_subTemplateRender('file:_ads.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('_ads'=>$_smarty_tpl->tpl_vars['ads_master']->value['footer'],'_master'=>true), 0, false);
 ?>
@@ -83,15 +83,15 @@ echo html_entity_decode($_smarty_tpl->tpl_vars['system']->value['analytics_code'
 	</audio>
 	<!-- Chat -->
 	<!-- Call -->
-	<audio id="voice-calling-sound" preload="auto" loop="true">
+	<audio id="chat-calling-sound" preload="auto" loop="true">
 		<source src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/includes/assets/sounds/call.mp3" type="audio/mpeg">
+/includes/assets/sounds/calling.mp3" type="audio/mpeg">
 	</audio>
 	<!-- Call -->
 	<!-- Video -->
-	<audio id="video_calling-sound" preload="auto" loop="true">
+	<audio id="chat-ringing-sound" preload="auto" loop="true">
 		<source src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/includes/assets/sounds/video.mp3" type="audio/mpeg">
+/includes/assets/sounds/ringing.mp3" type="audio/mpeg">
 	</audio>
 	<!-- Video -->
 <?php }?>

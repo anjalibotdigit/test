@@ -5,6 +5,64 @@
     <div class="card-body">
 
         <!-- Changelog -->
+        <h3>Version 2.6</h3>
+        <blockquote>Release Date: 16th September 2019</blockquote>
+        <ul class="change-log-list mb20">
+            <li>[Updated] Documentation</li>
+            <li>[Updated] System Security</li>
+            <li>[Updated] System Optimization</li>
+            <li>[Updated] Sngine Libs [AWS|Embed|Stripe|Twilio]</li>
+            <li>[Updated] Sngine JS Dependencies [codemirror|mustache|tinymce]</li>
+            <li>[Updated] Sngine CSS Dependencies [Font-Awesome]</li>
+            <li>[Added] Video Calls</li>
+            <li>[Added] Admin ability to turn Video Calls On/Off [Admin Panel]</li>
+            <li>[Added] Audio Calls</li>
+            <li>[Added] Admin ability to turn Audio Calls On/Off [Admin Panel]</li>
+            <li>[Added] Chat Typing Status</li>
+            <li>[Added] Admin ability to turn Chat Typing Status On/Off [Admin Panel]</li>
+            <li>[Added] Chat Seen Status</li>
+            <li>[Added] Admin ability to turn Chat Seen Status On/Off [Admin Panel]</li>
+            <li>[Added] Local Bank Transfers</li>
+            <li>[Added] Admin ability to turn Bank Transfers On/Off [Admin Panel]</li>
+            <li>[Added] Currencies Manager (Add/Edit/Delete) [Admin Panel]</li>
+            <li>[Added] Purchases Pro-Package with Wallet Credit</li>
+            <li>[Added] Admin ability to turn Purchases Pro-Package with Wallet Credit On/Off [Admin Panel]</li>
+            <li>[Added] Memories</li>
+            <li>[Added] Admin ability to turn Memories On/Off [Admin Panel]</li>
+            <li>[Added] Discover Posts</li>
+            <li>[Added] Admin ability to turn Discover Posts On/Off [Admin Panel]</li>
+            <li>[Added] Popular Posts</li>
+            <li>[Added] Admin ability to turn Popular Posts On/Off [Admin Panel]</li>
+            <li>[Added] Poke System</li>
+            <li>[Added] Admin ability to turn Poke System On/Off [Admin Panel]</li>
+            <li>[Added] User Privacy for Pokes</li>
+            <li>[Added] Gifts System</li>
+            <li>[Added] Admin ability to turn Gifts System On/Off [Admin Panel]</li>
+            <li>[Added] User Privacy for Gifts</li>
+            <li>[Added] Invite Friends Widget</li>
+            <li>[Added] Admin ability to turn Invite Friends Widget On/Off [Admin Panel]</li>
+            <li>[Added] Max Post Characters Length [Admin Panel]</li>
+            <li>[Added] Max Comment Characters Length [Admin Panel]</li>
+            <li>[Added] Max Posts/Hour [Admin Panel]</li>
+            <li>[Added] Max Comments/Hour [Admin Panel]</li>
+            <li>[Added] Maximum Friends/User Limit [Admin Panel]</li>
+            <li>[Added] Custom Home Page Wallpaper [Admin Panel]</li>
+            <li>[Added] og-meta for Photo Page</li>
+            <li>[Added] og-meta for Game Page</li>
+            <li>[Added] Game will be Public if Website Public</li>
+            <li>[Added] Verification Badge On/Off with Pro Package [Admin Panel]</li>
+            <li>[Added] Free Users Daily Points Limit [Points System] [Admin Panel]</li>
+            <li>[Added] Pro Users Daily Points Limit [Points System] [Admin Panel]</li>
+            <li>[Fixed] Loading for modal when change from one to another</li>
+            <li>[Fixed] Change Privacy of cover/profile photo post</li>
+            <li>[Fixed] Delete user's pages, groups & events when delete his account</li>
+            <li>[Fixed] Comments Duplicated while sending</li>
+            <li>[Fixed] Change/Remove the default theme without mark other theme as default</li>
+            <li>[Fixed] Minor Bugs</li>
+            <li>[Removed] Intl PHP extension as requirement for Sngine</li>
+        </ul>
+        <div class="divider"></div>
+
         <h3>Version 2.5.10</h3>
         <blockquote>Release Date: 21st June 2019</blockquote>
         <ul class="change-log-list mb20">

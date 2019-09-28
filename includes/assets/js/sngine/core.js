@@ -17,9 +17,17 @@ api['payments/paypal']  = ajax_path+"payments/paypal.php";
 api['payments/stripe']  = ajax_path+"payments/stripe.php";
 /* ads */
 api['ads/click']  = ajax_path+"ads/click.php";
+api['ads/wallet']  = ajax_path+"ads/wallet.php";
 
 
-// is_empty
+// stop audio
+Audio.prototype.stop = function() {
+    this.pause();
+    this.currentTime = 0;
+};
+
+
+// guid
 function guid() {
     function s4() {
         return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
@@ -67,19 +75,21 @@ function initialize() {
         var time = moment(time_utc).add({minutes:offset}).locale(locale);
         _this.text(time.fromNow()).attr('title', time.format("dddd, MMMM D, YYYY h:m a"));
     });
-    // run slimScroll plugin
+    // run Sngine scroll
     $('.js_scroller').each(function(){
         var _this = $(this);
-        /* return if the plugin already running  */
-        if(_this.parent('.slimScrollDiv').length > 0) {
+        var ini_height = _this.attr('data-slimScroll-height') || '280px';
+        var ini_start = _this.attr('data-slimScroll-start') || 'top';
+        /* return if the scroll already running  */
+        if(_this.parent().hasClass('custom-scrollbar')) {
             return;
         }
         /* run if not */
-        _this.slimScroll({
-            height: _this.attr('data-slimScroll-height') || '280px',
-            start: _this.attr('data-slimScroll-start') || 'top',
-            distance: '2px'
-        })
+        _this.parent().addClass('custom-scrollbar');
+        _this.css({"overflow-y": "auto", "height": ini_height});
+        if(ini_start == "bottom") {
+            _this.scrollTop(_this.height());
+        }
     });
     // run readmore
     $('.js_readmore').each(function(){
@@ -92,9 +102,16 @@ function initialize() {
         /* run if not */
         _this.readmore({
             collapsedHeight: height,
-            moreLink: '<a href="#">'+__["Read more"]+'</a>',
-            lessLink: '<a href="#">'+__["Read less"]+'</a>'
+            moreLink: '<a href="#">'+__['Read more']+'</a>',
+            lessLink: '<a href="#">'+__['Read less']+'</a>'
         });
+    });
+    // run load-more
+    /* load more data by scroll */
+    $('.js_see-more-infinite').bind('inview', function (event, visible) {
+        if(visible == true && $(window).width() >= 970) {
+            load_more($(this));
+        }
     });
     // run fluidplayer plugin
     $('video.js_fluidplayer').each(function(){
@@ -112,7 +129,7 @@ function initialize() {
 
 // modal
 function modal() {
-    if(arguments[0] == "#modal-login") {
+    if(arguments[0] == "#modal-login" || arguments[0] == "#chat-calling" || arguments[0] == "#chat-ringing") {
         /* disable the backdrop (don't close modal when click outside) */
         if($('#modal').data('bs.modal')) {
             $('#modal').data('bs.modal').options = {backdrop: 'static', keyboard: false};
@@ -319,6 +336,11 @@ $(function() {
     // init offcanvas-sidebar
     $('[data-toggle=offcanvas]').click(function() {
         $('.offcanvas').toggleClass('active');
+        if($('.offcanvas').hasClass('active')) {
+            $('.offcanvas').css('minHeight', $('.offcanvas-sidebar > .card').height());
+        } else {
+            $('.offcanvas').css('minHeight', 'unset');
+        }
     });
 
 
@@ -342,6 +364,8 @@ $(function() {
             /* open already loaded modal with #id */
             modal(url, options, size);
         } else {
+            /* init loading modal */
+            modal('#modal-loading');
             /* get & load modal from url */
             $.getJSON(ajax_path+url, function(response) {
                 /* check the response */
@@ -358,8 +382,8 @@ $(function() {
     });
 
 
-    // bootsrap dropdown keep open (and for slimScrollBar)
-    $('body').on('click', '.js_dropdown-keepopen, .slimScrollBar', function (e) {
+    // bootsrap dropdown keep open
+    $('body').on('click', '.js_dropdown-keepopen', function (e) {
         e.stopPropagation();
     });
 
@@ -393,21 +417,25 @@ $(function() {
     
 
     // run ajax-forms
-    $('body').on('submit', '.js_ajax-forms', function(e) {
-        e.preventDefault();
-        var url =  $(this).data('url');
-        var submit =  $(this).find('button[type="submit"]');
-        var error =  $(this).find('.alert.alert-danger');
-        var success =  $(this).find('.alert.alert-success');
+    function _submitAJAXform(element) {
+        var url =  element.data('url');
+        var submit =  element.find('button[type="submit"]');
+        var error =  element.find('.alert.alert-danger');
+        var success =  element.find('.alert.alert-success');
         /* show any collapsed section if any */
-        if( $(this).find('.js_hidden-section').length > 0 && ! $(this).find('.js_hidden-section').is(':visible')) {
-             $(this).find('.js_hidden-section').slideDown();
+        if(element.find('.js_hidden-section').length > 0 && ! element.find('.js_hidden-section').is(':visible')) {
+            element.find('.js_hidden-section').slideDown();
             return false;
         }
         /* button loading */
         button_status(submit, "loading");
+        /* tinyMCE triggerSave if any */
+        if(typeof tinyMCE !== "undefined") {
+            tinyMCE.triggerSave();
+        }
         /* get ajax response */
-        $.post(ajax_path+url, $(this).serialize(), function(response) {
+        var data = (element.hasClass('js_ajax-forms'))? element.serialize() : element.find('select, textarea, input').serialize();
+        $.post(ajax_path+url, data, function(response) {
             /* button reset */
             button_status(submit, "reset");
             /* handle response */
@@ -428,6 +456,13 @@ $(function() {
             if(success.is(":visible")) success.hide(); // hide previous alert
             error.html(__['There is something that went wrong!']).slideDown();
         });
+    }
+    $('body').on('submit', '.js_ajax-forms', function(e) {
+        e.preventDefault();
+        _submitAJAXform($(this));
+    });
+    $('body').on('click', '.js_ajax-forms-html button[type="submit"]', function() {
+        _submitAJAXform($(this).closest('.js_ajax-forms-html'));
     });
 
 
@@ -618,6 +653,28 @@ $(function() {
            handler.close();
         });
     });
+    $('body').on('click', '.js_payment-wallet-package', function () {
+        var _this = $(this);
+        /* button loading */
+        button_status(_this, "loading");
+        /* post the request */
+        $.post(api['ads/wallet'], {'do': 'wallet_package_payment', 'package_id': _this.data('id')} , function(response) {
+            /* button reset */
+            button_status(_this, "reset");
+            /* check the response */
+            if(!response) return;
+            /* check if there is a callback */
+            if(response.callback) {
+                eval(response.callback);
+            }
+        }, "json")
+        .fail(function() {
+            /* button reset */
+            button_status(_this, "reset");
+            /* handle error */
+            modal('#modal-message', {title: __['Error'], message: __['There is something that went wrong!']});
+        });
+    });
 
 
     // run ads campaigns
@@ -645,7 +702,7 @@ $(function() {
             $('body').addClass('night-mode');
             $('.table').addClass('table-dark');
             _this.data('mode', 'day');
-            $('.js_theme-mode-text').text(__["Day Mode"]);
+            $('.js_theme-mode-text').text(__['Day Mode']);
             $('.js_theme-mode-icon').removeClass("fa-moon").addClass("fa-sun");
             $.post(api['core/theme'], {'mode': mode});
             
@@ -653,7 +710,7 @@ $(function() {
             $('body').removeClass('night-mode');
             $('.table').removeClass('table-dark');
             _this.data('mode', 'night');
-            $('.js_theme-mode-text').text(__["Night Mode"]);
+            $('.js_theme-mode-text').text(__['Night Mode']);
             $('.js_theme-mode-icon').removeClass("fa-sun").addClass("fa-moon");
             $.post(api['core/theme'], {'mode': mode});
         }

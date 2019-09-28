@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:12:10
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/_footer.links.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0bea3f5a64_54480301',
+  'unifunc' => 'content_5d8edec78c0b49_21310755',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9b0cd8cdc7e3345567b72d9c4fe581ed3f6a3648' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/_footer.links.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d7a0bea3f5a64_54480301 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec78c0b49_21310755 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- footer links -->
 <div class="container">
 	<div class="row footer <?php if ($_smarty_tpl->tpl_vars['page']->value == 'index' && !$_smarty_tpl->tpl_vars['user']->value->_logged_in) {?>border-top-0<?php }?>">
@@ -40,7 +40,7 @@ if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['static_page']->value) {
 $_smarty_tpl->tpl_vars['static_page']->iteration++;
 $_smarty_tpl->tpl_vars['static_page']->last = $_smarty_tpl->tpl_vars['static_page']->iteration === $_smarty_tpl->tpl_vars['static_page']->total;
-$__foreach_static_page_11_saved = $_smarty_tpl->tpl_vars['static_page'];
+$__foreach_static_page_28_saved = $_smarty_tpl->tpl_vars['static_page'];
 ?>
 					<a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
 /static/<?php echo $_smarty_tpl->tpl_vars['static_page']->value['page_url'];?>
@@ -49,7 +49,7 @@ $__foreach_static_page_11_saved = $_smarty_tpl->tpl_vars['static_page'];
 
 					</a><?php if (!$_smarty_tpl->tpl_vars['static_page']->last) {?> · <?php }?>
 				<?php
-$_smarty_tpl->tpl_vars['static_page'] = $__foreach_static_page_11_saved;
+$_smarty_tpl->tpl_vars['static_page'] = $__foreach_static_page_28_saved;
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>

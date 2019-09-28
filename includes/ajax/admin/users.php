@@ -224,8 +224,20 @@ try {
             if(!in_array($_POST['privacy_wall'], $privacy) || !in_array($_POST['privacy_birthdate'], $privacy) || !in_array($_POST['privacy_relationship'], $privacy) || !in_array($_POST['privacy_basic'], $privacy) || !in_array($_POST['privacy_work'], $privacy) || !in_array($_POST['privacy_location'], $privacy) || !in_array($_POST['privacy_education'], $privacy) || !in_array($_POST['privacy_other'], $privacy) || !in_array($_POST['privacy_friends'], $privacy) || !in_array($_POST['privacy_photos'], $privacy) || !in_array($_POST['privacy_pages'], $privacy) || !in_array($_POST['privacy_groups'], $privacy) || !in_array($_POST['privacy_events'], $privacy)) {
                 _error(400);
             }
+            if($system['pokes_enabled']) {
+            	if(!in_array($_POST['privacy_poke'], $privacy)) {
+            		_error(400);
+            	}
+            	$poke_statement = sprintf("user_privacy_poke = %s, ", secure($_POST['privacy_poke']));
+            }
+            if($system['gifts_enabled']) {
+            	if(!in_array($_POST['privacy_gifts'], $privacy)) {
+            		_error(400);
+            	}
+            	$gifts_statement = sprintf("user_privacy_gifts = %s, ", secure($_POST['privacy_gifts']));
+            }
 			/* update */
-			$db->query(sprintf("UPDATE users SET user_chat_enabled = %s, user_privacy_newsletter = %s, user_privacy_wall = %s, user_privacy_birthdate = %s, user_privacy_relationship = %s, user_privacy_basic = %s, user_privacy_work = %s, user_privacy_location = %s, user_privacy_education = %s, user_privacy_other = %s, user_privacy_friends = %s, user_privacy_photos = %s, user_privacy_pages = %s, user_privacy_groups = %s, user_privacy_events = %s WHERE user_id = %s", secure($_POST['privacy_chat']), secure($_POST['privacy_newsletter']), secure($_POST['privacy_wall']), secure($_POST['privacy_birthdate']), secure($_POST['privacy_relationship']), secure($_POST['privacy_basic']), secure($_POST['privacy_work']), secure($_POST['privacy_location']), secure($_POST['privacy_education']), secure($_POST['privacy_other']), secure($_POST['privacy_friends']), secure($_POST['privacy_photos']), secure($_POST['privacy_pages']), secure($_POST['privacy_groups']), secure($_POST['privacy_events']), secure($_GET['id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+			$db->query(sprintf("UPDATE users SET user_chat_enabled = %s, user_privacy_newsletter = %s, ".$poke_statement.$gifts_statement." user_privacy_wall = %s, user_privacy_birthdate = %s, user_privacy_relationship = %s, user_privacy_basic = %s, user_privacy_work = %s, user_privacy_location = %s, user_privacy_education = %s, user_privacy_other = %s, user_privacy_friends = %s, user_privacy_photos = %s, user_privacy_pages = %s, user_privacy_groups = %s, user_privacy_events = %s WHERE user_id = %s", secure($_POST['privacy_chat']), secure($_POST['privacy_newsletter']), secure($_POST['privacy_wall']), secure($_POST['privacy_birthdate']), secure($_POST['privacy_relationship']), secure($_POST['privacy_basic']), secure($_POST['privacy_work']), secure($_POST['privacy_location']), secure($_POST['privacy_education']), secure($_POST['privacy_other']), secure($_POST['privacy_friends']), secure($_POST['privacy_photos']), secure($_POST['privacy_pages']), secure($_POST['privacy_groups']), secure($_POST['privacy_events']), secure($_GET['id'], 'int') )) or _error("SQL_ERROR_THROWEN");
 			/* return */
 			return_json( array('success' => true, 'message' => __("User info have been updated")) );
 			break;
@@ -244,8 +256,14 @@ try {
 			if(!isset($_POST['package']) || !is_numeric($_POST['package'])) {
 				_error(400);
 			}
+			/* get package info */
+			$package = $user->get_package($_POST['package']);
+			if(!$package) {
+				_error(400);
+			}
 			/* update user package */
-        	$db->query(sprintf("UPDATE users SET user_verified = '1', user_subscribed = '1', user_package = %s, user_subscription_date = %s, user_boosted_posts = '0', user_boosted_pages = '0' WHERE user_id = %s", secure($_POST['package'], 'int'), secure($date), secure($_GET['id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+			$verification_statement = ($package['verification_badge_enabled'])? "user_verified = '1',": ""; /* to not affect already verified users */
+        	$db->query(sprintf("UPDATE users SET ".$verification_statement." user_subscribed = '1', user_package = %s, user_subscription_date = %s, user_boosted_posts = '0', user_boosted_pages = '0' WHERE user_id = %s", secure($_POST['package'], 'int'), secure($date), secure($_GET['id'], 'int') )) or _error("SQL_ERROR_THROWEN");
 			/* return */
 			return_json( array('success' => true, 'message' => __("User info have been updated")) );
 			break;

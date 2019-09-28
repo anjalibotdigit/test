@@ -20,7 +20,7 @@ if(!$user->_logged_in) {
 // activation email resend
 try {
 	$user->activation_email_resend();
-	modal(SUCCESS, __("Another email has been sent"), __("Please click on the link in that email message to complete the verification process"));
+	modal("SUCCESS", __("Another email has been sent"), __("Please click on the link in that email message to complete the verification process"));
 } catch (Exception $e) {
 	modal("ERROR", __("Error"), $e->getMessage());
 }

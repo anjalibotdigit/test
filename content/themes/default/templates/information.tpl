@@ -268,22 +268,6 @@
                             </p>
                         {/if}
                     {/if}
-                    {if is_array($user_data['projects'])}
-                        <div class="section-title bg-gradient-warning mb20">
-                            <i class="fa fa-calendar mr10"></i>{__("Your projects")} <span class="badge badge-pill badge-lg badge-warning">{count($user_data['projects'])}</span>
-                        </div>
-                        {if $user_data['projects']}
-                            <ul class="row">
-                                {foreach $user_data['projects'] as $_project}
-                                    {include file='__feeds_project.tpl' _tpl="box"}
-                                {/foreach}
-                            </ul>
-                        {else}
-                            <p class="text-center text-muted mt10">
-                                {__("No data to show")}
-                            </p>
-                        {/if}
-                    {/if}
                     <!-- events -->
 
                     <!-- posts -->

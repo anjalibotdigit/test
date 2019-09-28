@@ -58,11 +58,31 @@ try {
 				break;
 
 			case 'popular':
+				// check if popular posts enabled
+				if(!$system['popular_posts_enabled']) {
+				    _error(404);
+				}
+
 				// page header
 				page_header(__("Popular Posts"));
 
 				// get posts (popular)
 				$posts = $user->get_posts( array('get' => 'popular') );
+				/* assign variables */
+				$smarty->assign('posts', $posts);
+				break;
+
+			case 'discover':
+				// check if discover posts enabled
+				if(!$system['discover_posts_enabled']) {
+				    _error(404);
+				}
+
+				// page header
+				page_header(__("Discover Posts"));
+
+				// get posts (discover)
+				$posts = $user->get_posts( array('get' => 'discover') );
 				/* assign variables */
 				$smarty->assign('posts', $posts);
 				break;
@@ -84,49 +104,35 @@ try {
 
 			case 'products':
 				// check if market enabled
-                if(!$system['market_enabled']) {
-                    _error(404);
-                }
-                // page header
-                page_header(__("My Products"));
+				if(!$system['market_enabled']) {
+				    _error(404);
+				}
+				// page header
+				page_header(__("My Products"));
 
-                // get posts (products)
-                $posts = $user->get_posts( array('get' => 'posts_profile', 'id' => $user->_data['user_id'], 'filter' => 'product' ) );
-                /* assign variables */
-                $smarty->assign('posts', $posts);
+				// get posts (products)
+				$posts = $user->get_posts( array('get' => 'posts_profile', 'id' => $user->_data['user_id'], 'filter' => 'product' ) );
+				/* assign variables */
+				$smarty->assign('posts', $posts);
 				break;
-            case 'projects':
-                // check if market enabled
 
-                // page header
-                page_header(__("Projects"));
-
-                // get posts (projects)
-                $posts = $user->get_posts( array('get' => 'posts_profile', 'id' =>$user->_data['user_id'], 'filter' => 'project' ) );
-
-                $smarty->assign('posts', $posts);
-
-                break;
-            case 'globals':
-
-
-                page_header(__("Global Projects"));
-
-                // get posts (projects)
-                $posts = $user->get_posts( array('get' => 'newsfeed', 'id' =>$user->_data['user_id'], 'filter' => 'global' ) );
-
-
-                $smarty->assign('posts', $posts);
-
-
-                break;
-           case 'saved':
+			case 'saved':
 				// page header
 				page_header(__("Saved Posts"));
 
 				// get posts (saved)
 				$posts = $user->get_posts( array('get' => 'saved') );
+				/* assign variables */
+				$smarty->assign('posts', $posts);
+				break;
 
+			case 'memories':
+				// page header
+				page_header(__("Memories"));
+
+				// get posts (memories)
+				$posts = $user->get_posts( array('get' => 'memories') );
+				/* assign variables */
 				$smarty->assign('posts', $posts);
 				break;
 

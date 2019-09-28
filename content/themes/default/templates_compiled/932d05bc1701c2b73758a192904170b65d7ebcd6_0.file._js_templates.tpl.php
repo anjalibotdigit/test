@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-23 03:25:34
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/_js_templates.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d883b2e611e17_32645536',
+  'unifunc' => 'content_5d8edec7d0f4f8_63873340',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '932d05bc1701c2b73758a192904170b65d7ebcd6' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/_js_templates.tpl',
-      1 => 1569209097,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:__custom_fields.tpl' => 3,
   ),
 ),false)) {
-function content_5d883b2e611e17_32645536 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec7d0f4f8_63873340 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- Modals --><div id="modal" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="loader pt10 pb10"></div></div></div></div></div><?php echo '<script'; ?>
  id="modal-login" type="text/template"><div class="modal-header"><h6 class="modal-title"><?php echo __("Not Logged In");?>
 </h6></div><div class="modal-body"><p><?php echo __("Please log in to continue");?>
@@ -38,6 +38,12 @@ function content_5d883b2e611e17_32645536 (Smarty_Internal_Template $_smarty_tpl)
  id="modal-confirm" type="text/template"><div class="modal-header"><h6 class="modal-title">{{title}}</h6></div><div class="modal-body"><p>{{message}}</p></div><div class="modal-footer"><button type="button" class="btn btn-light" data-dismiss="modal"><?php echo __("Cancel");?>
 </button><button type="button" class="btn btn-primary" id="modal-confirm-ok"><?php echo __("Confirm");?>
 </button></div><?php echo '</script'; ?>
+><?php echo '<script'; ?>
+ id="modal-loading" type="text/template">
+    <div class="modal-body text-center">
+        <div class="spinner-border text-primary"></div>
+    </div>
+<?php echo '</script'; ?>
 ><!-- Modals --><!-- Translator --><?php echo '<script'; ?>
  id="translator" type="text/template"><div class="modal-header"><h6 class="modal-title"><?php echo __("Select Your Language");?>
 </h6><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><ul><?php
@@ -56,7 +62,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?></ul></div><?php
 /search/{{#hashtag}}hashtag/{{/hashtag}}{{query}}"><i class="fa fa-search pr5"></i> <?php echo __("Search for");?>
  {{#hashtag}}#{{/hashtag}}{{query}}</a></div><?php echo '</script'; ?>
 ><!-- Search --><!-- Lightbox --><?php echo '<script'; ?>
- id="lightbox" type="text/template"><div class="lightbox"><div class="container lightbox-container"><div class="lightbox-preview"><div class="lightbox-next js_lightbox-slider"><i class="fa fa-chevron-right fa-3x"></i></div><div class="lightbox-prev js_lightbox-slider"><i class="fa fa-chevron-left fa-3x"></i></div><img alt="" class="img-fluid" src="{{image}}"></div><div class="lightbox-data"><div class="clearfix"><div class="pt5 pr5 float-right"><button type="button" class="close lightbox-close js_lightbox-close"><span aria-hidden="true">&times;</span></button></div></div><div class="lightbox-post"><div class="js_scroller js_scroller-lightbox" data-slimScroll-height="100%"><div class="loader mtb10"></div></div></div></div></div></div><?php echo '</script'; ?>
+ id="lightbox" type="text/template"><div class="lightbox"><div class="container lightbox-container"><div class="lightbox-preview"><div class="lightbox-next js_lightbox-slider"><i class="fa fa-chevron-right fa-3x"></i></div><div class="lightbox-prev js_lightbox-slider"><i class="fa fa-chevron-left fa-3x"></i></div><img alt="" class="img-fluid" src="{{image}}"></div><div class="lightbox-data"><div class="clearfix"><div class="pt5 pr5 float-right"><button type="button" class="close lightbox-close js_lightbox-close"><span aria-hidden="true">&times;</span></button></div></div><div class="lightbox-post"><div class="js_scroller" data-slimScroll-height="100%"><div class="loader mtb10"></div></div></div></div></div></div><?php echo '</script'; ?>
 ><?php echo '<script'; ?>
  id="lightbox-nodata" type="text/template"><div class="lightbox"><div class="container lightbox-container"><div class="lightbox-preview nodata"><img alt="" class="img-fluid" src="{{image}}"></div></div></div><?php echo '</script'; ?>
 ><!-- Lightbox --><!-- Payments --><?php echo '<script'; ?>
@@ -65,9 +71,32 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?></ul></div><?php
 </button><?php }
 if ($_smarty_tpl->tpl_vars['system']->value['creditcard_enabled']) {?><button class="js_payment-stripe btn btn-payment mr10 mb10" data-handle="{{handle}}"{{#id}} data-id="{{id}}" {{/id}}{{#price}} data-price="{{price}}" {{/price}}{{#name}} data-name="{{name}}" {{/name}}{{#img}} data-img="{{img}}" {{/img}}data-method="credit"><i class="fa fa-credit-card fa-lg fa-fw mr5" style="color: #8798CC;"></i><?php echo __("Credit Card");?>
 </button><?php }
-if ($_smarty_tpl->tpl_vars['system']->value['alipay_enabled']) {?><button class="js_payment-stripe btn btn-payment mb10" data-handle="{{handle}}"{{#id}} data-id="{{id}}" {{/id}}{{#price}} data-price="{{price}}" {{/price}}{{#name}} data-name="{{name}}" {{/name}}{{#img}} data-img="{{img}}" {{/img}}data-method="alipay"><i class="fab fa-alipay fa-lg fa-fw mr5" style="color: #5B9EDD;"></i><?php echo __("Alipay");?>
+if ($_smarty_tpl->tpl_vars['system']->value['alipay_enabled']) {?><button class="js_payment-stripe btn btn-payment mr10 mb10" data-handle="{{handle}}"{{#id}} data-id="{{id}}" {{/id}}{{#price}} data-price="{{price}}" {{/price}}{{#name}} data-name="{{name}}" {{/name}}{{#img}} data-img="{{img}}" {{/img}}data-method="alipay"><i class="fab fa-alipay fa-lg fa-fw mr5" style="color: #5B9EDD;"></i><?php echo __("Alipay");?>
+</button><?php }
+if ($_smarty_tpl->tpl_vars['system']->value['bank_transfers_enabled']) {?><button class="btn btn-payment mr10 mb10" data-toggle="modal" data-url="#bank-transfer" data-options='{ "handle": "{{handle}}", "price": "{{price}}", "id": "{{id}}" }' data-size="large"><i class="fa fa-university fa-lg fa-fw mr5" style="color: #4CAF50;"></i><?php echo __("Bank Transfer");?>
+</button><?php }
+if ($_smarty_tpl->tpl_vars['page']->value == "packages" && $_smarty_tpl->tpl_vars['system']->value['ads_enabled'] && $_smarty_tpl->tpl_vars['system']->value['packages_wallet_payment_enabled']) {?><button class="js_payment-wallet-package btn btn-payment mb10" data-id="{{id}}"><i class="fa fa-wallet fa-lg fa-fw mr5" style="color: #007bff;"></i><?php echo __("Wallet Credit");?>
 </button><?php }?></div><?php echo '</script'; ?>
-><!-- Payments --><?php if (!$_smarty_tpl->tpl_vars['user']->value->_logged_in) {?><!-- Forget Password --><?php echo '<script'; ?>
+><?php if ($_smarty_tpl->tpl_vars['system']->value['bank_transfers_enabled']) {
+echo '<script'; ?>
+ id="bank-transfer" type="text/template"><div class="modal-header"><h6 class="modal-title"><i class="fa fa-university mr5"></i><?php echo __("Bank Transfer");?>
+</h6><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><form class="js_ajax-forms " data-url="payments/bank.php"><div class="modal-body"><div class="page-header rounded bank-transfer mb30"><div class="circle-1"></div><div class="circle-2"></div><div class="inner text-left"><h2 class="mb20"><i class="fa fa-university mr5"></i><?php echo $_smarty_tpl->tpl_vars['system']->value['bank_name'];?>
+</h2><div class="mb10"><div class="bank-info-meta"><?php echo $_smarty_tpl->tpl_vars['system']->value['bank_account_number'];?>
+</div><span class="bank-info-help"><?php echo __("Account Number / IBAN");?>
+</span></div><div class="mb10"><div class="bank-info-meta"><?php echo $_smarty_tpl->tpl_vars['system']->value['bank_account_name'];?>
+</div><span class="bank-info-help"><?php echo __("Account Name");?>
+</span></div><div class="row mb10"><div class="col-md-6"><div class="bank-info-meta"><?php echo $_smarty_tpl->tpl_vars['system']->value['bank_account_routing'];?>
+</div><span class="bank-info-help"><?php echo __("Routing Code");?>
+</span></div><div class="col-md-6"><div class="bank-info-meta"><?php echo $_smarty_tpl->tpl_vars['system']->value['bank_account_country'];?>
+</div><span class="bank-info-help"><?php echo __("Country");?>
+</span></div></div></div></div><div class="alert alert-warning"><div class="icon"><i class="fa fa-exclamation-triangle fa-2x"></i></div><div class="text"><?php echo $_smarty_tpl->tpl_vars['system']->value['bank_transfer_note'];?>
+</div></div><div class="form-group form-row"><label class="col-md-3 form-control-label"><?php echo __("Bank Receipt");?>
+</label><div class="col-md-9"><div class="x-image"><button type="button" class="close x-hidden js_x-image-remover" title='<?php echo __("Remove");?>
+'><span>×</span></button><div class="x-image-loader"><div class="progress x-progress"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div></div><i class="fa fa-camera fa-lg js_x-uploader" data-handle="x-image"></i><input type="hidden" class="js_x-image-input" name="bank_receipt" value=""></div><span class="form-text"><?php echo __("Please attach your bank receipt");?>
+</span></div></div><!-- success --><div class="alert alert-success mb0 x-hidden"></div><!-- success --><!-- error --><div class="alert alert-danger mb0 x-hidden"></div><!-- error --></div><div class="modal-footer"><input type="hidden" name="handle" value="{{handle}}"><input type="hidden" name="package_id" value="{{id}}"><input type="hidden" name="price" value="{{price}}"><button type="button" class="btn btn-light" data-dismiss="modal"><?php echo __("Cancel");?>
+</button><button type="submit" class="btn btn-primary"><i class="fa fa-check-circle mr10"></i><?php echo __("Send");?>
+</button></div></form><?php echo '</script'; ?>
+><?php }?><!-- Payments --><?php if (!$_smarty_tpl->tpl_vars['user']->value->_logged_in) {?><!-- Forget Password --><?php echo '<script'; ?>
  id="forget-password-confirm" type="text/template"><div class="modal-header"><h6 class="modal-title"><?php echo __("Check Your Email");?>
 </h6><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><form class="js_ajax-forms" data-url="core/forget_password_confirm.php"><div class="modal-body"><div class="mb20"><?php echo __("Check your email");?>
  - <?php echo __("We sent you an email with a six-digit confirmation code. Enter it below to continue to reset your password");?>
@@ -115,21 +144,21 @@ echo __("We sent your code to");?>
 : +12344567890</span></div><!-- error --><div class="alert alert-danger mb0 mt10 x-hidden"></div><!-- error --></div><div class="modal-footer"><button type="button" class="btn btn-light" data-dismiss="modal"><?php echo __("Cancel");?>
 </button><button type="submit" class="btn btn-primary"><?php echo __("Continue");?>
 </button></div></form><?php echo '</script'; ?>
-><?php }?><!-- Phone Activation --><!-- x-uploader -->
-<?php echo '<script'; ?>
+><!-- Phone Activation --><!-- x-uploader -->
+    <?php echo '<script'; ?>
  id="x-uploader" type="text/template">
-    <form class="x-uploader" action="{{url}}" method="post" enctype="multipart/form-data">
-        {{#multiple}}
-        <input name="file[]" type="file" multiple="multiple">
-        {{/multiple}}
-        {{^multiple}}
-        <input name="file" type="file">
-        {{/multiple}}
-        <input type="hidden" name="secret" value="{{secret}}">
-    </form>
-<?php echo '</script'; ?>
+        <form class="x-uploader" action="{{url}}" method="post" enctype="multipart/form-data">
+            {{#multiple}}
+            <input name="file[]" type="file" multiple="multiple">
+            {{/multiple}}
+            {{^multiple}}
+            <input name="file" type="file">
+            {{/multiple}}
+            <input type="hidden" name="secret" value="{{secret}}">
+        </form>
+    <?php echo '</script'; ?>
 >
-<!-- x-uploader --><!-- Noty Notification --><?php if ($_smarty_tpl->tpl_vars['system']->value['noty_notifications_enabled']) {
+    <!-- x-uploader --><!-- Noty Notification --><?php if ($_smarty_tpl->tpl_vars['system']->value['noty_notifications_enabled']) {
 echo '<script'; ?>
  id="noty-notification" type="text/template"><div class="data-container small"><div class="data-avatar"><img src="{{image}}"></div><div class="data-content">{{message}}</div></div><?php echo '</script'; ?>
 ><?php }?><!-- Noty Notification --><!-- Adblock Detector --><?php if ($_smarty_tpl->tpl_vars['system']->value['adblock_detector_enabled']) {
@@ -198,19 +227,27 @@ echo '<script'; ?>
 :</div><ul class="tags"></ul><div class="typeahead"><input type="text" size="1" autofocus></div></div><div class="chat-attachments attachments clearfix x-hidden"><ul><li class="loading"><div class="progress x-progress"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div></li></ul></div><div class="x-form chat-form invisible"><div class="chat-form-message"><textarea class="js_autosize js_post-message" dir="auto" rows="1" placeholder='<?php echo __("Write a message");?>
 '></textarea></div><ul class="x-form-tools clearfix"><?php if ($_smarty_tpl->tpl_vars['system']->value['photos_enabled']) {?><li class="x-form-tools-attach"><i class="far fa-image fa-lg fa-fw js_x-uploader" data-handle="chat"></i></li><?php }?><li class="x-form-tools-emoji js_emoji-menu-toggle"><i class="far fa-smile-wink fa-lg fa-fw"></i></li></ul></div></div><!-- content --></div><?php echo '</script'; ?>
 ><?php echo '<script'; ?>
- id="chat-box" type="text/template"><div class="chat-widget chat-box opened" id="{{chat_key_value}}"{{#user_id}}data-uid="{{user_id}}"{{/user_id}}{{#conversation_id}}data-cid="{{conversation_id}}"{{/conversation_id}}><!-- head --><div class="chat-widget-head js_chat-color-me">{{^multiple}}<i class="fa fa-user-secret mr5 js_chat-box-status"></i><a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+ id="chat-box" type="text/template"><div class="chat-widget chat-box opened" id="{{chat_key_value}}"{{#conversation_id}}data-cid="{{conversation_id}}"{{/conversation_id}}{{#user_id}}data-uid="{{user_id}}"{{/user_id}}><!-- head --><div class="chat-widget-head js_chat-color-me">{{^multiple}}<i class="fa fa-user-secret mr5 js_chat-box-status"></i><a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
 /{{link}}" title="{{name_list}}">{{name}}</a>{{/multiple}}{{#multiple}}<a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/messages/{{link}}" title="{{name_list}}">{{name}}</a>{{/multiple}}<!-- label --><div class="chat-head-label"><span class="badge badge-pill badge-lg badge-danger js_chat-box-label"></span></div><!-- label --><!-- buttons--><div class="float-right"><i class="fa fa-times-circle js_chat-box-close"></i></div><!-- buttons--></div><!-- head --><!-- content --><div class="chat-widget-content"><div class="chat-conversations js_scroller"><ul></ul></div><div class="chat-attachments attachments clearfix x-hidden"><ul><li class="loading"><div class="progress x-progress"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div></li></ul></div><div class="x-form chat-form"><div class="chat-form-message"><textarea class="js_autosize js_post-message" dir="auto" rows="1" placeholder='<?php echo __("Write a message");?>
+/messages/{{link}}" title="{{name_list}}">{{name}}</a>{{/multiple}}<!-- label --><div class="chat-head-label"><span class="badge badge-pill badge-lg badge-danger js_chat-box-label"></span></div><!-- label --><!-- buttons--><div class="float-right"><!-- video/audio calls (not multiple) -->{{^multiple}}<?php if ($_smarty_tpl->tpl_vars['system']->value['video_call_enabled']) {?><i class="fa fa-video mr10 js_chat-call-start" data-type="video" data-uid="{{user_id}}" data-name="{{name}}"></i><?php }
+if ($_smarty_tpl->tpl_vars['system']->value['audio_call_enabled']) {?><i class="fa fa-phone-alt mr10 js_chat-call-start" data-type="audio" data-uid="{{user_id}}" data-name="{{name}}"></i><?php }?>{{/multiple}}<!-- video/audio calls (not multiple) --><i class="fa fa-times-circle js_chat-box-close"></i></div><!-- buttons--></div><!-- head --><!-- content --><div class="chat-widget-content"><div class="chat-conversations js_scroller"><ul></ul></div><div class="chat-typing"><i class="far fa-comment-dots mr5"></i><span class="loading-dots"><span class="js_chat-typing-users"></span> <?php echo __("Typing");?>
+</span></div><div class="chat-attachments attachments clearfix x-hidden"><ul><li class="loading"><div class="progress x-progress"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div></li></ul></div><div class="x-form chat-form"><div class="chat-form-message"><textarea class="js_autosize js_post-message" dir="auto" rows="1" placeholder='<?php echo __("Write a message");?>
 '></textarea></div><ul class="x-form-tools clearfix"><?php if ($_smarty_tpl->tpl_vars['system']->value['photos_enabled']) {?><li class="x-form-tools-attach"><i class="far fa-image fa-lg fa-fw js_x-uploader" data-handle="chat"></i></li><?php }?><li class="x-form-tools-emoji js_emoji-menu-toggle"><i class="far fa-smile-wink fa-lg fa-fw"></i></li><li class="x-form-tools-colors js_chat-colors-menu-toggle js_chat-color-me {{^conversation_id}}x-hidden{{/conversation_id}}"><i class="fa fa-circle fa-lg fa-fw"></i></li></ul></div></div><!-- content --></div><?php echo '</script'; ?>
 ><?php echo '<script'; ?>
  id="chat-message" type="text/template"><li><div class="conversation clearfix right" id="{{id}}"><div class="conversation-body"><div class="text js_chat-color-me" {{#color}}style="background-color: {{color}}"{{/color}}>{{{message}}}{{#image}}<span class="text-link js_lightbox-nodata {{#message}}mt5{{/message}}" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
 /{{image}}"><img alt="" class="img-fluid" src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
 /{{image}}"></span>{{/image}}</div><div class="time js_moment" data-time="{{time}}">{{time}}</div></div></div></li><?php echo '</script'; ?>
 ><?php echo '<script'; ?>
- id="chat-voice-calling" type="text/template"><div class="modal-header"><h6 class="modal-title"><i class="fa fa-phone-volume mr5"></i><?php echo __("Calling");?>
-</h6><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><form class="js_ajax-forms" data-url="ads/wallet.php?do=wallet_transfer"><div class="modal-body"><?php echo __("Please wait for answer");?>
-</div><div class="modal-footer"><button type="button" class="btn btn-light" data-dismiss="modal"><?php echo __("Cancel");?>
-</button></div></form><?php echo '</script'; ?>
+ id="chat-calling" type="text/template"><div class="modal-header border-0"><h6 class="modal-title  mx-auto">{{#is_video}}<i class="fa fa-video mr5"></i>{{/is_video}}{{#is_audio}}<i class="fa fa-phone-volume mr5"></i>{{/is_audio}}<?php echo __("Calling");?>
+</h6></div><div class="modal-body text-center"><h3>{{name}}</h3><p class="text-lg js_chat-calling-message"><?php echo __("Connecting");?>
+<span class="loading-dots"></span></p><div class="twilio-stream-wrapper"><div class="twilio-stream"></div><video class="twilio-stream-local" autoplay=""></video></div><div class="mt30"><button type="button" class="btn btn-light x-hidden js_chat-call-close" data-dismiss="modal"><?php echo __("Close");?>
+</button><button type="button" class="btn btn-icon btn-rounded btn-danger x-hidden js_chat-call-cancel" data-type="{{type}}" data-dismiss="modal"><i class="fas fa-phone-slash fa-lg fa-fw"></i></button><button type="button" class="btn btn-icon btn-rounded btn-danger x-hidden js_chat-call-end" data-type="{{type}}" data-dismiss="modal"><i class="fas fa-phone-slash fa-lg fa-fw"></i></button></div></div><div class="modal-footer border-0"></div><?php echo '</script'; ?>
+><?php echo '<script'; ?>
+ id="chat-ringing" type="text/template"><div class="modal-header border-0"><h6 class="modal-title mx-auto">{{#is_video}}<i class="fa fa-video mr5"></i><?php echo __("New Video Call");?>
+{{/is_video}}{{#is_audio}}<i class="fa fa-phone-volume mr5"></i><?php echo __("New Audio Call");?>
+{{/is_audio}}</h6></div><div class="modal-body text-center"><div class="position-relative mb10" style="height: 106px;"><div class="profile-avatar-wrapper static"><img src="{{image}}" alt="{{name}}" style="width: 98px; height: 98px;"></div></div><h3>{{name}}</h3>{{#is_video}}<p class="text-lg js_chat-ringing-message"><?php echo __("Wants to have video call with you");?>
+</p>{{/is_video}}{{#is_audio}}<p class="text-lg js_chat-ringing-message"><?php echo __("Wants to have audio call with you");?>
+</p>{{/is_audio}}<div class="twilio-stream-wrapper"><div class="twilio-stream"></div><video class="twilio-stream-local" autoplay=""></video></div><div class="mt30"><button type="submit" class="btn btn-icon btn-rounded btn-success mr10 js_chat-call-answer" data-type="{{type}}" data-id="{{id}}"><i class="fas fa-phone-alt fa-lg fa-fw"></i></button><button type="button" class="btn btn-icon btn-rounded btn-danger js_chat-call-decline" data-type="{{type}}" data-id="{{id}}" data-dismiss="modal"><i class="fas fa-phone-slash fa-lg fa-fw"></i></button><button type="button" class="btn btn-icon btn-rounded btn-danger x-hidden js_chat-call-end" data-type="{{type}}" data-id="{{id}}" data-dismiss="modal"><i class="fas fa-phone-slash fa-lg fa-fw"></i></button></div></div><div class="modal-footer border-0"></div><?php echo '</script'; ?>
 ><?php echo '<script'; ?>
  id="chat-colors-menu" type="text/template">
         <div class="chat-colors-menu">
@@ -296,7 +333,7 @@ echo '<script'; ?>
 ><?php echo '<script'; ?>
  id="chat-attachments-item" type="text/template"><li class="item deletable" data-src="{{src}}"><img alt="" src="{{image_path}}"><button type="button" class="close js_chat-attachment-remover" title='<?php echo __("Remove");?>
 '><span>&times;</span></button></li><?php echo '</script'; ?>
-><!-- Chat --><!-- DayTime Messages --><?php if ($_smarty_tpl->tpl_vars['page']->value == "index") {
+><!-- Chat --><!-- DayTime Messages --><?php if ($_smarty_tpl->tpl_vars['system']->value['daytime_msg_enabled'] && $_smarty_tpl->tpl_vars['page']->value == "index") {
 echo '<script'; ?>
  id="message-morning" type="text/template"><div class="card daytime_message"><button type="button" class="close float-right js_daytime-remover"><span>&times;</span></button><img src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
 /content/themes/<?php echo $_smarty_tpl->tpl_vars['system']->value['theme'];?>
@@ -315,9 +352,33 @@ echo '<script'; ?>
 /images/good_night.png"><strong><?php echo __("Good Evening");?>
 , <?php echo $_smarty_tpl->tpl_vars['user']->value->_data['user_firstname'];?>
 </strong></div><?php echo '</script'; ?>
-><?php }?><!-- DayTime Messages --><?php if ($_smarty_tpl->tpl_vars['page']->value == "index" || $_smarty_tpl->tpl_vars['page']->value == "profile" || $_smarty_tpl->tpl_vars['page']->value == "page" || $_smarty_tpl->tpl_vars['page']->value == "group" || $_smarty_tpl->tpl_vars['page']->value == "event" || $_smarty_tpl->tpl_vars['page']->value == "post" || $_smarty_tpl->tpl_vars['page']->value == "photo" || $_smarty_tpl->tpl_vars['page']->value == "market" || $_smarty_tpl->tpl_vars['page']->value == "blogs" || $_smarty_tpl->tpl_vars['page']->value == "directory") {?><!-- Publisher --><?php echo '<script'; ?>
+><?php }?><!-- DayTime Messages --><!-- Gifts --><?php if ($_smarty_tpl->tpl_vars['system']->value['gifts_enabled'] && $_smarty_tpl->tpl_vars['page']->value == "profile") {
+echo '<script'; ?>
+ id="gifts" type="text/template"><div class="modal-header"><h6 class="modal-title"><i class="fa fa-gift mr5"></i><?php echo __("Gifts");?>
+</h6><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><form class="js_ajax-forms" data-url="users/gifts.php?do=send&uid={{uid}}"><div class="modal-body"><div class="js_scroller" data-slimScroll-height="440"><div class="row no-gutters"><?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['gifts']->value, 'gift');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['gift']->value) {
+?><div class="col-12 col-sm-6 col-md-4 ptb5 plr5"><input class="x-hidden input-label" type="radio" name="gift" value="<?php echo $_smarty_tpl->tpl_vars['gift']->value['gift_id'];?>
+" id="gift_<?php echo $_smarty_tpl->tpl_vars['gift']->value['gift_id'];?>
+"/><label class="button-label-image" for="gift_<?php echo $_smarty_tpl->tpl_vars['gift']->value['gift_id'];?>
+"><img src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['gift']->value['image'];?>
+"></label></div><?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?></div></div><!-- error --><div class="alert alert-danger mb0 mt10 x-hidden"></div><!-- error --></div><div class="modal-footer"><button type="submit" class="btn btn-primary"><?php echo __("Send");?>
+</button></div></form><?php echo '</script'; ?>
+><?php echo '<script'; ?>
+ id="gift" type="text/template"><div class="modal-header"><h6 class="modal-title"><i class="fa fa-gift mr5"></i><?php echo $_smarty_tpl->tpl_vars['gift']->value['user_firstname'];?>
+ <?php echo $_smarty_tpl->tpl_vars['gift']->value['user_lastname'];?>
+ <?php echo __("sent you a gift");?>
+</h6><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body text-center"><img class="img-fluid" src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['gift']->value['image'];?>
+"></div><?php echo '</script'; ?>
+><?php }?><!-- Gifts --><?php if ($_smarty_tpl->tpl_vars['page']->value == "index" || $_smarty_tpl->tpl_vars['page']->value == "profile" || $_smarty_tpl->tpl_vars['page']->value == "page" || $_smarty_tpl->tpl_vars['page']->value == "group" || $_smarty_tpl->tpl_vars['page']->value == "event" || $_smarty_tpl->tpl_vars['page']->value == "post" || $_smarty_tpl->tpl_vars['page']->value == "photo" || $_smarty_tpl->tpl_vars['page']->value == "market" || $_smarty_tpl->tpl_vars['page']->value == "blogs" || $_smarty_tpl->tpl_vars['page']->value == "directory" || $_smarty_tpl->tpl_vars['page']->value == "search") {?><!-- Publisher --><?php echo '<script'; ?>
  id="publisher-attachments-image-item" type="text/template"><li class="item deletable" data-src="{{src}}"><img alt="" src="{{image_path}}"><button type="button" class="close {{#mini}}js_publisher-mini-attachment-image-remover{{/mini}}{{^mini}}js_publisher-attachment-image-remover{{/mini}}" title='<?php echo __("Remove");?>
-'><span>&times;</span></button><input type="hidden" class="js_x-image-input" name="photos[]" value="{{src}}"></li><?php echo '</script'; ?>
+'><span>&times;</span></button></li><?php echo '</script'; ?>
 ><?php echo '<script'; ?>
  id="publisher-attachments-video-item" type="text/template"><li class="item deletable" data-src="{{src}}"><div class="name">{{name}}</div><button type="button" class="close js_publisher-mini-attachment-video-remover" title='<?php echo __("Remove");?>
 '><span>&times;</span></button></li><?php echo '</script'; ?>
@@ -357,7 +418,8 @@ echo '<script'; ?>
 </h6><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><form class="js_ajax-forms" data-url="pages_groups_events/create.php?type=page&do=create"><div class="modal-body"><div class="form-group"><label class="form-control-label" for="title"><?php echo __("Name Your Page");?>
 </label><input type="text" class="form-control" name="title" id="title"></div><div class="form-group"><label class="form-control-label" for="username"><?php echo __("Web Address");?>
 </label><div class="input-group"><div class="input-group-prepend"><span class="input-group-text d-none d-sm-block"><?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/pages/</span></div><input type="text" class="form-control" name="username" id="username"></div></div><div class="form-group"><label class="form-control-label" for="category"><?php echo __("Category");?>
+/pages/</span></div><input type="text" class="form-control" name="username" id="username"></div><span class="form-text"><?php echo __("Can only contain alphanumeric characters (A–Z, 0–9) and periods ('.')");?>
+</span></div><div class="form-group"><label class="form-control-label" for="category"><?php echo __("Category");?>
 </label><select class="form-control" name="category" id="category"><option><?php echo __("Select Category");?>
 </option><?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['categories']->value, 'category');
@@ -381,7 +443,8 @@ echo '<script'; ?>
 </h6><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><form class="js_ajax-forms" data-url="pages_groups_events/create.php?type=group&do=create"><div class="modal-body"><div class="form-group"><label class="form-control-label" for="title"><?php echo __("Name Your Group");?>
 </label><input type="text" class="form-control" name="title" id="title"></div><div class="form-group"><label class="form-control-label" for="username"><?php echo __("Web Address");?>
 </label><div class="input-group"><div class="input-group-prepend"><span class="input-group-text d-none d-sm-block"><?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/groups/</span></div><input type="text" class="form-control" name="username" id="username"></div></div><div class="form-group"><label class="form-control-label" for="privacy"><?php echo __("Select Privacy");?>
+/groups/</span></div><input type="text" class="form-control" name="username" id="username"></div><span class="form-text"><?php echo __("Can only contain alphanumeric characters (A–Z, 0–9) and periods ('.')");?>
+</span></div><div class="form-group"><label class="form-control-label" for="privacy"><?php echo __("Select Privacy");?>
 </label><select class="form-control selectpicker" name="privacy"><option value="public" data-content="<div class='option'><div class='icon'><i class='fa fa-globe fa-2x'></i></div><div class='text'><b><?php echo __("Public Group");?>
 </b><br><?php echo __("Anyone can see the group, its members and their posts");?>
 .</div></div>"><?php echo __("Public Group");?>
@@ -508,4 +571,5 @@ echo '<script'; ?>
 </button><button class="btn btn-success js_admin-verify" data-handle="{{handle}}" data-id="{{node-id}}"><i class="fa fa-check mr5"></i><?php echo __("Verify");?>
 </button></div><?php echo '</script'; ?>
 ><?php }?><!-- Verification Documents --><?php }
+}
 }

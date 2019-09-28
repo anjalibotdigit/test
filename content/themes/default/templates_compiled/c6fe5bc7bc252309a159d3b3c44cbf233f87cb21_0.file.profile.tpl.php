@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-25 02:26:42
+/* Smarty version 3.1.33, created on 2019-09-28 04:18:04
   from '/home/cryptocodex/public_html/content/themes/default/templates/profile.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d8ad0626bbe42_38785031',
+  'unifunc' => 'content_5d8edefc65fb87_80989827',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c6fe5bc7bc252309a159d3b3c44cbf233f87cb21' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/profile.tpl',
-      1 => 1569378368,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -32,11 +32,10 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:__feeds_page.tpl' => 1,
     'file:__feeds_group.tpl' => 1,
     'file:__feeds_event.tpl' => 1,
-    'file:__feeds_project.tpl' => 1,
     'file:_footer.tpl' => 1,
   ),
 ),false)) {
-function content_5d8ad0626bbe42_38785031 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edefc65fb87_80989827 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_html/includes/libs/Smarty/plugins/modifier.date_format.php','function'=>'smarty_modifier_date_format',),));
 $_smarty_tpl->_subTemplateRender('file:_head.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 $_smarty_tpl->_subTemplateRender('file:_header.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
@@ -68,7 +67,7 @@ $_smarty_tpl->_subTemplateRender('file:_header.tpl', $_smarty_tpl->cache_id, $_s
                         <!-- full-cover -->
                         
                         <!-- cropped-cover -->
-                        <img class="js_position-cover-cropped js_lightbox" data-init-position="<?php echo $_smarty_tpl->tpl_vars['profile']->value['user_cover_position'];?>
+                        <img class="js_position-cover-cropped <?php if ($_smarty_tpl->tpl_vars['user']->value->_logged_in && $_smarty_tpl->tpl_vars['profile']->value['user_cover_lightbox']) {?>js_lightbox<?php }?>" data-init-position="<?php echo $_smarty_tpl->tpl_vars['profile']->value['user_cover_position'];?>
 " data-id="<?php echo $_smarty_tpl->tpl_vars['profile']->value['user_cover_id'];?>
 " data-image="<?php echo $_smarty_tpl->tpl_vars['profile']->value['user_cover_full'];?>
 " data-context="album" src="<?php echo $_smarty_tpl->tpl_vars['profile']->value['user_cover'];?>
@@ -118,7 +117,7 @@ $_smarty_tpl->_subTemplateRender('file:_header.tpl', $_smarty_tpl->cache_id, $_s
 
                 <!-- profile-avatar -->
                 <div class="profile-avatar-wrapper">
-                    <img <?php if ($_smarty_tpl->tpl_vars['profile']->value['user_picture_id']) {?> class="js_lightbox" data-id="<?php echo $_smarty_tpl->tpl_vars['profile']->value['user_picture_id'];?>
+                    <img <?php if ($_smarty_tpl->tpl_vars['profile']->value['user_picture_id']) {?> <?php if ($_smarty_tpl->tpl_vars['user']->value->_logged_in && $_smarty_tpl->tpl_vars['profile']->value['user_picture_lightbox']) {?>class="js_lightbox"<?php }?> data-id="<?php echo $_smarty_tpl->tpl_vars['profile']->value['user_picture_id'];?>
 " data-context="album" data-image="<?php echo $_smarty_tpl->tpl_vars['profile']->value['user_picture_full'];?>
 " <?php } elseif (!$_smarty_tpl->tpl_vars['profile']->value['user_picture_default']) {?> class="js_lightbox-nodata" data-image="<?php echo $_smarty_tpl->tpl_vars['profile']->value['user_picture'];?>
 " <?php }?>  src="<?php echo $_smarty_tpl->tpl_vars['profile']->value['user_picture'];?>
@@ -237,16 +236,33 @@ $_smarty_tpl->_subTemplateRender('file:_header.tpl', $_smarty_tpl->cache_id, $_s
                                     <i class="fa fa-ellipsis-v fa-fw"></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
+                                    <!-- poke -->
+                                    <?php if ($_smarty_tpl->tpl_vars['system']->value['pokes_enabled'] && !$_smarty_tpl->tpl_vars['profile']->value['i_poked']) {?>
+                                        <?php if ($_smarty_tpl->tpl_vars['profile']->value['user_privacy_poke'] == "public" || ($_smarty_tpl->tpl_vars['profile']->value['user_privacy_poke'] == "friends" && $_smarty_tpl->tpl_vars['profile']->value['we_friends'])) {?>
+                                            <div class="dropdown-item pointer js_poke" data-id="<?php echo $_smarty_tpl->tpl_vars['profile']->value['user_id'];?>
+" data-name="<?php echo $_smarty_tpl->tpl_vars['profile']->value['user_firstname'];?>
+ <?php echo $_smarty_tpl->tpl_vars['profile']->value['user_lastname'];?>
+">
+                                                <i class="fa fa-hand-point-right fa-fw mr10"></i><?php echo __("Poke");?>
+
+                                            </div>
+                                        <?php }?>
+                                    <?php }?>
+                                    <!-- poke -->
+                                    <!-- report -->
                                     <div class="dropdown-item pointer js_report" data-handle="user" data-id="<?php echo $_smarty_tpl->tpl_vars['profile']->value['user_id'];?>
 ">
                                         <i class="fa fa-flag fa-fw mr10"></i><?php echo __("Report");?>
 
                                     </div>
+                                    <!-- report -->
+                                    <!-- block -->
                                     <div class="dropdown-item pointer js_block-user" data-uid="<?php echo $_smarty_tpl->tpl_vars['profile']->value['user_id'];?>
 ">
                                         <i class="fa fa-minus-circle fa-fw mr10"></i><?php echo __("Block");?>
 
                                     </div>
+                                    <!-- block -->
                                 </div>
                             </div>
                             <!-- report & block -->
@@ -321,14 +337,6 @@ $_smarty_tpl->_subTemplateRender('file:_header.tpl', $_smarty_tpl->cache_id, $_s
 
                             </a>
                         </li>
-                        <li>
-                            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/<?php echo $_smarty_tpl->tpl_vars['profile']->value['user_name'];?>
-/projects" <?php if ($_smarty_tpl->tpl_vars['view']->value == "projects") {?>class="active"<?php }?>>
-                                <i class="fa fa-tag fa-fw mr5"></i><?php echo __("Projects");?>
-
-                            </a>
-                        </li>
                     </ul>
                 </div>
                 <!-- profile-tabs -->
@@ -338,7 +346,7 @@ $_smarty_tpl->_subTemplateRender('file:_header.tpl', $_smarty_tpl->cache_id, $_s
             <!-- profile-content -->
             <div class="row">
                 <!-- panel [mutual-friends] -->
-                <?php if ($_smarty_tpl->tpl_vars['user']->value->_logged_in && $_smarty_tpl->tpl_vars['user']->value->_data['user_id'] != $_smarty_tpl->tpl_vars['profile']->value['user_id'] && !$_smarty_tpl->tpl_vars['profile']->value['we_friends']) {?>
+                <?php if ($_smarty_tpl->tpl_vars['user']->value->_logged_in && $_smarty_tpl->tpl_vars['user']->value->_data['user_id'] != $_smarty_tpl->tpl_vars['profile']->value['user_id'] && !$_smarty_tpl->tpl_vars['profile']->value['we_friends'] && !$_smarty_tpl->tpl_vars['profile']->value['friendship_declined']) {?>
                     <div class="col-sm-12">
                         <div class="card panel-mutual-friends">
                             <div class="card-header text-uppercase">
@@ -960,6 +968,18 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     
                     <!-- right panel -->
                     <div class="order-2 col-lg-3 order-lg-3">
+                        <!-- gifts -->
+                        <?php if ($_smarty_tpl->tpl_vars['user']->value->_logged_in && $_smarty_tpl->tpl_vars['user']->value->_data['user_id'] != $_smarty_tpl->tpl_vars['profile']->value['user_id'] && $_smarty_tpl->tpl_vars['system']->value['gifts_enabled']) {?>
+                            <?php if ($_smarty_tpl->tpl_vars['profile']->value['user_privacy_gifts'] == "public" || ($_smarty_tpl->tpl_vars['profile']->value['user_privacy_gifts'] == "friends" && $_smarty_tpl->tpl_vars['profile']->value['we_friends'])) {?>
+                                <button type="button" class="btn btn-block btn-md bg-gradient-pink border-0 rounded-pill mb20" data-toggle="modal" data-url="#gifts" data-options='{"uid": <?php echo $_smarty_tpl->tpl_vars['profile']->value["user_id"];?>
+}'>
+                                    <i class="fas fa-gift fa-lg mr10"></i><?php echo __("Send a Gift");?>
+
+                                </button>
+                            <?php }?>
+                        <?php }?>
+                        <!-- gifts -->
+
                         <!-- photos -->
                         <?php if ($_smarty_tpl->tpl_vars['profile']->value['photos']) {?>
                             <div class="card panel-photos">
@@ -988,56 +1008,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             </div>
                         <?php }?>
                         <!-- photos -->
-                    <!-- recent projects -->
-                  <?php if (count($_smarty_tpl->tpl_vars['profile']->value['projects']) > 0) {?>
 
-                            <div class="card">
-                                <div class="card-header bg-transparent">
-                                    <i class="fa fa-tag mr5"></i>
-                                    <strong><a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/<?php echo $_smarty_tpl->tpl_vars['profile']->value['user_name'];?>
-/projects"><?php echo __("Projects");?>
-</a></strong>
-                                </div>
-                                <div class="card-body ptb10 plr10">
-                                    <div class="row no-gutters">
-                                        <?php
-$_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);$_smarty_tpl->tpl_vars['i']->step = 1;$_smarty_tpl->tpl_vars['i']->total = (int) ceil(($_smarty_tpl->tpl_vars['i']->step > 0 ? 5+1 - (0) : 0-(5)+1)/abs($_smarty_tpl->tpl_vars['i']->step));
-if ($_smarty_tpl->tpl_vars['i']->total > 0) {
-for ($_smarty_tpl->tpl_vars['i']->value = 0, $_smarty_tpl->tpl_vars['i']->iteration = 1;$_smarty_tpl->tpl_vars['i']->iteration <= $_smarty_tpl->tpl_vars['i']->total;$_smarty_tpl->tpl_vars['i']->value += $_smarty_tpl->tpl_vars['i']->step, $_smarty_tpl->tpl_vars['i']->iteration++) {
-$_smarty_tpl->tpl_vars['i']->first = $_smarty_tpl->tpl_vars['i']->iteration === 1;$_smarty_tpl->tpl_vars['i']->last = $_smarty_tpl->tpl_vars['i']->iteration === $_smarty_tpl->tpl_vars['i']->total;?>
-                                            <div class="col-3 col-lg-4">
-                                                <div class="circled-user-box">
-                                                    <a class="user-box" href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/posts/<?php echo $_smarty_tpl->tpl_vars['profile']->value['projects'][$_smarty_tpl->tpl_vars['i']->value]['project']['post_id'];?>
-">
-
-                                                        <img alt="<?php echo $_smarty_tpl->tpl_vars['profile']->value['projects'][$_smarty_tpl->tpl_vars['i']->value]['project']['name'];?>
-" src="<?php if ($_smarty_tpl->tpl_vars['profile']->value['projects'][$_smarty_tpl->tpl_vars['i']->value]['photos'][0]['source'] != '') {
-echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['profile']->value['projects'][$_smarty_tpl->tpl_vars['i']->value]['photos'][0]['source'];
-} else {
-echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/content/themes/<?php echo $_smarty_tpl->tpl_vars['system']->value['theme'];?>
-/images/blank_product.png<?php }?>" />
-                                                        <div class="name" title="<?php echo $_smarty_tpl->tpl_vars['profile']->value['projects'][$_smarty_tpl->tpl_vars['i']->value]['project']['name'];?>
-">
-                                                            <?php echo $_smarty_tpl->tpl_vars['profile']->value['projects'][$_smarty_tpl->tpl_vars['i']->value]['project']['name'];?>
-
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        <?php }
-}
-?>
-                                    </div>
-
-                                </div>
-                            </div>
-                        <?php }?>
-
-                    <!-- recent projects -->
                         <!-- friends -->
                         <?php if ($_smarty_tpl->tpl_vars['profile']->value['friends_count'] > 0) {?>
                             <div class="card">
@@ -1875,64 +1846,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     </div>
                     <!-- events -->
                 
-
-                <?php } elseif ($_smarty_tpl->tpl_vars['view']->value == "projects") {?>
-
-                    <!-- projects -->
-                   <div class="col-12">
-
-                        <div class="card">
-                            <div class="card-header with-icon">
-                                <!-- panel title -->
-                                <i class="fa fa-users mr10"></i><?php echo __("Projects");?>
-
-                                <!-- panel title -->
-                            </div>
-                            <div class="card-body">
-                                <?php if ($_smarty_tpl->tpl_vars['profile']->value['user_id'] == $_smarty_tpl->tpl_vars['user']->value->_data['user_id'] || $_smarty_tpl->tpl_vars['profile']->value['user_privacy_projects'] == "public" || ($_smarty_tpl->tpl_vars['profile']->value['user_privacy_projects'] == "friends" && $_smarty_tpl->tpl_vars['profile']->value['we_friends'])) {?>
-                                    <?php if (count($_smarty_tpl->tpl_vars['profile']->value['projects']) > 0) {?>
-                                        <ul class="row">
-                                            <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['profile']->value['projects'], '_project');
-if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['_project']->value) {
-?>
-                                                <?php $_smarty_tpl->_subTemplateRender('file:__feeds_project.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('_tpl'=>"box"), 0, true);
-?>
-                                            <?php
-}
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-                                        </ul>
-
-                                        <?php if (count($_smarty_tpl->tpl_vars['profile']->value['projects']) >= $_smarty_tpl->tpl_vars['system']->value['max_results_even']) {?>
-                                            <!-- see-more -->
-                                            <div class="alert alert-info see-more js_see-more" data-get="profile_projects" data-uid="<?php echo $_smarty_tpl->tpl_vars['profile']->value['user_id'];?>
-">
-                                                <span><?php echo __("See More");?>
-</span>
-                                                <div class="loader loader_small x-hidden"></div>
-                                            </div>
-                                            <!-- see-more -->
-                                        <?php }?>
-                                    <?php } else { ?>
-                                        <p class="text-center text-muted mt10">
-                                            <?php echo __("No projects to show");?>
-
-                                        </p>
-                                    <?php }?>
-
-                                <?php } else { ?>
-                                    <p class="text-center text-muted mt10">
-                                        <?php echo __("No projects to show");?>
-
-                                    </p>
-                                <?php }?>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- projects -->
-
                 <?php }?>
                 <!-- view content -->
             </div>
@@ -1945,5 +1858,16 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 <!-- page content -->
 
 <?php $_smarty_tpl->_subTemplateRender('file:_footer.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
+
+<?php if ($_smarty_tpl->tpl_vars['gift']->value) {?>
+    <?php echo '<script'; ?>
+>
+        $(function () {
+            modal('#gift');
+        });
+    <?php echo '</script'; ?>
+>
+<?php }
 }
 }

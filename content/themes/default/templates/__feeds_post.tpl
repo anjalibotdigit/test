@@ -1,23 +1,30 @@
-{if !$standalone}<ul><li>{/if}
+{if !$standalone}<li>{/if}
     <!-- post -->
     <div class="post {if $boosted}boosted{/if}" data-id="{$post['post_id']}">
-        {if $pinned}
+
+        {if $standalone && $pinned}
             <div class="pin-icon" data-toggle="tooltip" title="{__("Pinned Post")}">
                 <i class="fa fa-bookmark"></i>
             </div>
         {/if}
 
-        {if $boosted}
+        {if $standalone && $boosted}
             <div class="boosted-icon" data-toggle="tooltip" title="{__("Promoted")}">
                 <i class="fa fa-bullhorn"></i>
             </div>
         {/if}
 
-
+        <!-- memory post -->
+        {if $_get == "memories"}
+            <div class="post-memory-header">
+                <span class="js_moment" data-time="{$post['time']}">{$post['time']}</span>
+            </div>
+        {/if}
+        <!-- memory post -->
 
         <!-- post body -->
         <div class="post-body">
-            
+
             {include file='__feeds_post.body.tpl' _post=$post _shared=false}
 
             <!-- post stats -->
@@ -46,11 +53,19 @@
                 <!-- reactions stats -->
 
                 <!-- video views -->
-
+                {if $post['post_type'] == "video"}
+                    <span>
+                        <i class="fa fa-eye"></i> {$post['video']['views']}
+                    </span>
+                {/if}
                 <!-- video views -->
 
                 <!-- audio views -->
-
+                {if $post['post_type'] == "audio"}
+                    <span>
+                        <i class="fa fa-eye"></i> {$post['audio']['views']}
+                    </span>
+                {/if}
                 <!-- audio views -->
 
                 <!-- comments & shares -->
@@ -73,7 +88,6 @@
 
             <!-- post actions -->
             {if $user->_logged_in && $_get != "posts_information"}
-{*                <div class="post-actions clearfix" style="border: 2px solid #2b53a4">*}
                 <div class="post-actions clearfix">
                     <!-- reactions -->
                     <div class="action-btn unselectable reactions-wrapper {if $post['i_react']}js_unreact-post{/if}" data-reaction="{$post['i_reaction']}">
@@ -137,4 +151,4 @@
 
     </div>
     <!-- post -->
-        {if !$standalone}</li></ul>{/if}
+{if !$standalone}</li>{/if}

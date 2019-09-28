@@ -53,6 +53,9 @@ try {
 
 	/* post conversation message */
 	$conversation = $user->post_conversation_message($_POST['message'], $_POST['photo'], $_POST['conversation_id'], $_POST['recipients']);
+
+	/* remove typing status */
+	$user->update_conversation_typing_status($conversation['conversation_id'], false);
 	
 	/* add conversation to opened chat boxes session if not */
 	if(!in_array($conversation['conversation_id'], $_SESSION['chat_boxes_opened'])) {

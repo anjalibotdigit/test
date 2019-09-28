@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:13:50
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_user.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0c4e6ce917_06480626',
+  'unifunc' => 'content_5d8edec70a6ac9_64786272',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fd6f1d6028b857e83f98be4d612948ccb3ca2b75' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_user.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:__reaction_emojis.tpl' => 1,
   ),
 ),false)) {
-function content_5d7a0c4e6ce917_06480626 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec70a6ac9_64786272 (Smarty_Internal_Template $_smarty_tpl) {
 if ($_smarty_tpl->tpl_vars['_tpl']->value == "box") {?>
     <div class="col-md-6 col-lg-3">
         <div class="ui-box">

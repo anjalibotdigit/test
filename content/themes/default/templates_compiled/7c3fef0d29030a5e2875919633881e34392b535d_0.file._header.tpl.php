@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:12:10
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:10
   from '/home/cryptocodex/public_html/content/themes/default/templates/_header.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0bea39d7d7_28365073',
+  'unifunc' => 'content_5d8edec6e5ea35_05881361',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7c3fef0d29030a5e2875919633881e34392b535d' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/_header.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -25,11 +25,13 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:_ads.tpl' => 1,
   ),
 ),false)) {
-function content_5d7a0bea39d7d7_28365073 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec6e5ea35_05881361 (Smarty_Internal_Template $_smarty_tpl) {
 if (!$_smarty_tpl->tpl_vars['user']->value->_logged_in) {?>
     <body data-hash-tok="<?php echo $_smarty_tpl->tpl_vars['session_hash']->value['token'];?>
 " data-hash-pos="<?php echo $_smarty_tpl->tpl_vars['session_hash']->value['position'];?>
-" class="<?php if ($_smarty_tpl->tpl_vars['system']->value['theme_mode_night']) {?>night-mode<?php }?> visitor n_chat <?php if ($_smarty_tpl->tpl_vars['page']->value == 'index' || $_smarty_tpl->tpl_vars['page']->value == 'sign') {?>index-body<?php }?>">
+" class="<?php if ($_smarty_tpl->tpl_vars['system']->value['theme_mode_night']) {?>night-mode<?php }?> visitor n_chat <?php if ($_smarty_tpl->tpl_vars['page']->value == 'index' || $_smarty_tpl->tpl_vars['page']->value == 'sign') {?>index-body<?php }?>" <?php if (($_smarty_tpl->tpl_vars['page']->value == 'index' || $_smarty_tpl->tpl_vars['page']->value == 'sign') && !$_smarty_tpl->tpl_vars['system']->value['system_wallpaper_default'] && $_smarty_tpl->tpl_vars['system']->value['system_wallpaper']) {?> style="background-image: url('<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['system']->value['system_wallpaper'];?>
+'); background-size: cover;" <?php }?>>
 <?php } else { ?>
     <body data-hash-tok="<?php echo $_smarty_tpl->tpl_vars['session_hash']->value['token'];?>
 " data-hash-pos="<?php echo $_smarty_tpl->tpl_vars['session_hash']->value['position'];?>
@@ -289,8 +291,8 @@ echo number_format($_smarty_tpl->tpl_vars['user']->value->_data['user_wallet_bal
 /signup"><?php echo __("Register");?>
 </a>
                                                     <?php }?>
-                                                    <div class="dropdown-divider"></div>
                                                     <?php if ($_smarty_tpl->tpl_vars['system']->value['system_theme_mode_select']) {?>
+                                                        <div class="dropdown-divider"></div>
                                                         <?php if ($_smarty_tpl->tpl_vars['system']->value['theme_mode_night']) {?>
                                                             <div class="dropdown-item pointer js_theme-mode" data-mode="day">
                                                                 <span class="js_theme-mode-text"><?php echo __("Day Mode");?>

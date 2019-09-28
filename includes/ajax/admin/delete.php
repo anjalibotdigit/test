@@ -34,11 +34,20 @@ try {
 			break;
 
 		case 'theme':
+			/* check if this theme is the default one */
+			$check_themes = $db->query(sprintf("SELECT COUNT(*) as count FROM system_themes WHERE system_themes.default = '1' and theme_id = %s", secure($_POST['id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+			if($check_themes->fetch_assoc()['count'] > 0) {
+				throw new Exception(__("This is your only default theme you need to mark other theme as default before change/delete this one"));
+			}
 			$db->query(sprintf("DELETE FROM system_themes WHERE theme_id = %s", secure($_POST['id'], 'int') )) or _error("SQL_ERROR_THROWEN");
 			break;
 
 		case 'language':
 			$db->query(sprintf("DELETE FROM system_languages WHERE language_id = %s", secure($_POST['id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+			break;
+
+		case 'currency':
+			$db->query(sprintf("DELETE FROM system_currencies WHERE currency_id = %s", secure($_POST['id'], 'int') )) or _error("SQL_ERROR_THROWEN");
 			break;
 
 		case 'user':
@@ -204,6 +213,10 @@ try {
 
 		case 'sticker':
 			$db->query(sprintf("DELETE FROM stickers WHERE sticker_id = %s", secure($_POST['id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+			break;
+
+		case 'gift':
+			$db->query(sprintf("DELETE FROM gifts WHERE gift_id = %s", secure($_POST['id'], 'int') )) or _error("SQL_ERROR_THROWEN");
 			break;
 
 		case 'announcement':

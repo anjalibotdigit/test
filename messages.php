@@ -22,6 +22,7 @@ try {
 
 	// get view content
 	if($view == 'message') {
+
 		if (!isset($_GET['cid'])) {
 			if(count($user->_data['conversations']) > 0) {
 				$conversation = $user->_data['conversations'][0];
@@ -37,7 +38,9 @@ try {
 		}
 		// assign variables
 		$smarty->assign('conversation', $conversation);
+
 	} elseif ($view == 'new') {
+
 		/* get recipient */
 		if(isset($_GET['uid'])) {
 			$get_recipient = $db->query(sprintf("SELECT user_id, CONCAT(users.user_firstname,' ',users.user_lastname) as user_fullname FROM users WHERE user_id = %s", secure($_GET['uid'], 'int') )) or _error("SQL_ERROR_THROWEN");
@@ -47,6 +50,7 @@ try {
 				$smarty->assign('recipient', $recipient);
 			}
 		}
+		
 	}
 	/* assign variables */
 	$smarty->assign('view', $view);

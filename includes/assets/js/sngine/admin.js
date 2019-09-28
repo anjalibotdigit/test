@@ -9,6 +9,7 @@
 api['admin/delete']  = ajax_path+"admin/delete.php";
 api['admin/test']  = ajax_path+"admin/test.php";
 api['admin/verify']  = ajax_path+"admin/verify.php";
+api['admin/bank']  = ajax_path+"admin/bank.php";
 api['admin/withdraw']  = ajax_path+"admin/withdraw.php";
 api['admin/tagify']  = ajax_path+"admin/tagify.php";
 
@@ -136,6 +137,41 @@ $(function() {
         var id = $(this).data('id');
         confirm(__['Decline'], __['Are you sure you want to decline this request?'], function() {
             $.post(api['admin/verify'], {'handle': 'decline', 'id': id}, function(response) {
+                /* check the response */
+                if(response.callback) {
+                    eval(response.callback);
+                } else {
+                    window.location.reload();
+                }
+            }, 'json')
+            .fail(function() {
+                modal('#modal-message', {title: __['Error'], message: __['There is something that went wrong!']});
+            });
+        });
+    });
+
+
+    // run admin bank transfer
+    $('body').on('click', '.js_admin-bank-accept', function () {
+        var id = $(this).data('id');
+        confirm(__['Verify'], __['Are you sure you want to verify this request?'], function() {
+            $.post(api['admin/bank'], {'action': "accept", 'id': id}, function(response) {
+                /* check the response */
+                if(response.callback) {
+                    eval(response.callback);
+                } else {
+                    window.location.reload();
+                }
+            }, 'json')
+            .fail(function() {
+                modal('#modal-message', {title: __['Error'], message: __['There is something that went wrong!']});
+            });
+        });
+    });
+    $('body').on('click', '.js_admin-bank-decline', function () {
+        var id = $(this).data('id');
+        confirm(__['Decline'], __['Are you sure you want to decline this request?'], function() {
+            $.post(api['admin/bank'], {'action': 'decline', 'id': id}, function(response) {
                 /* check the response */
                 if(response.callback) {
                     eval(response.callback);

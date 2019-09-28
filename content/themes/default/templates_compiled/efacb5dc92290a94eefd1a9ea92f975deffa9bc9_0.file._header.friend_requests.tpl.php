@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:13:50
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/_header.friend_requests.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0c4e6da1f5_72143759',
+  'unifunc' => 'content_5d8edec70d3d71_19092825',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'efacb5dc92290a94eefd1a9ea92f975deffa9bc9' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/_header.friend_requests.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:__feeds_user.tpl' => 2,
   ),
 ),false)) {
-function content_5d7a0c4e6da1f5_72143759 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec70d3d71_19092825 (Smarty_Internal_Template $_smarty_tpl) {
 ?><li class="dropdown js_live-requests">
     <a href="#" data-toggle="dropdown" data-display="static">
         <i class="fa fa-users fa-lg"></i>

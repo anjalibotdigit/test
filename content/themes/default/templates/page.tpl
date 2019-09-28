@@ -659,6 +659,9 @@
                                                 </div>
                                                 <input type="text" class="form-control" name="username" id="username" value="{$spage['page_name']}">
                                             </div>
+                                            <span class="form-text">
+                                                {__("Can only contain alphanumeric characters (A–Z, 0–9) and periods ('.')")}
+                                            </span>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-control-label" for="category">{__("Category")}</label>
@@ -728,6 +731,9 @@
                                                     <div class="form-group col-md-6">
                                                         <label class="form-control-label" for="website">{__("Website")}</label>
                                                         <input type="text" class="form-control" name="website" id="website" value="{$spage['page_website']}">
+                                                        <span class="form-text">
+                                                            {__("Website link must start with http:// or https://")}
+                                                        </span>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label class="form-control-label" for="location">{__("Location")}</label>

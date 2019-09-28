@@ -33,65 +33,65 @@ try {
 
 			// get insights
 			/* total users */
-			$get_users = $db->query("SELECT count(*) as count FROM users") or _error("SQL_ERROR");
+			$get_users = $db->query("SELECT COUNT(*) as count FROM users") or _error("SQL_ERROR");
 	    	$insights['users'] = $get_users->fetch_assoc()['count'];
 	    	/* males|females|others */
-	    	$get_males = $db->query("SELECT count(*) as count FROM users WHERE user_gender = 'male'");
+	    	$get_males = $db->query("SELECT COUNT(*) as count FROM users WHERE user_gender = 'male'");
 		    $insights['users_males'] = $get_males->fetch_assoc()['count'];
-		    $get_females = $db->query("SELECT count(*) as count FROM users WHERE user_gender = 'female'");
+		    $get_females = $db->query("SELECT COUNT(*) as count FROM users WHERE user_gender = 'female'");
 		    $insights['users_females'] = $get_females->fetch_assoc()['count'];
-		    $get_others = $db->query("SELECT count(*) as count FROM users WHERE user_gender = 'other'");
+		    $get_others = $db->query("SELECT COUNT(*) as count FROM users WHERE user_gender = 'other'");
 		    $insights['users_others'] = $get_others->fetch_assoc()['count'];
 		    $insights['users_males_percent'] = round(($insights['users_males']/$insights['users'])*100, 2);
 		    $insights['users_females_percent'] = round(($insights['users_females']/$insights['users'])*100, 2);
 		    $insights['users_others_percent'] = round(($insights['users_others']/$insights['users'])*100, 2);
 		    /* banned */
-		    $get_banned = $db->query("SELECT count(*) as count FROM users WHERE user_banned = '1'") or _error("SQL_ERROR");
+		    $get_banned = $db->query("SELECT COUNT(*) as count FROM users WHERE user_banned = '1'") or _error("SQL_ERROR");
 	    	$insights['banned'] = $get_banned->fetch_assoc()['count'];
 		    /* not activated */
-		    $get_not_activated = $db->query("SELECT count(*) as count FROM users WHERE user_activated = '0'") or _error("SQL_ERROR");
+		    $get_not_activated = $db->query("SELECT COUNT(*) as count FROM users WHERE user_activated = '0'") or _error("SQL_ERROR");
 	    	$insights['not_activated'] = $get_not_activated->fetch_assoc()['count'];
 	    	/* online */
-		    $get_online = $db->query(sprintf("SELECT count(*) as count FROM users WHERE user_last_seen >= SUBTIME(NOW(), SEC_TO_TIME(%s))", secure($system['offline_time'], 'int', false) )) or _error("SQL_ERROR");
+		    $get_online = $db->query(sprintf("SELECT COUNT(*) as count FROM users WHERE user_last_seen >= SUBTIME(NOW(), SEC_TO_TIME(%s))", secure($system['offline_time'], 'int', false) )) or _error("SQL_ERROR");
 	    	$insights['online'] = $get_online->fetch_assoc()['count'];
 	    	/* posts */
-		    $get_posts = $db->query("SELECT count(*) as count FROM posts") or _error("SQL_ERROR");
+		    $get_posts = $db->query("SELECT COUNT(*) as count FROM posts") or _error("SQL_ERROR");
 	    	$insights['posts'] = $get_posts->fetch_assoc()['count'];
 	    	/* comments */
-		    $get_comments = $db->query("SELECT count(*) as count FROM posts_comments") or _error("SQL_ERROR");
+		    $get_comments = $db->query("SELECT COUNT(*) as count FROM posts_comments") or _error("SQL_ERROR");
 	    	$insights['comments'] = $get_comments->fetch_assoc()['count'];
 	    	/* pages */
-		    $get_pages = $db->query("SELECT count(*) as count FROM pages") or _error("SQL_ERROR");
+		    $get_pages = $db->query("SELECT COUNT(*) as count FROM pages") or _error("SQL_ERROR");
 	    	$insights['pages'] = $get_pages->fetch_assoc()['count'];
 	    	/* groups */
-		    $get_groups = $db->query("SELECT count(*) as count FROM groups") or _error("SQL_ERROR");
+		    $get_groups = $db->query("SELECT COUNT(*) as count FROM groups") or _error("SQL_ERROR");
 	    	$insights['groups'] = $get_groups->fetch_assoc()['count'];
 	    	/* events */
-		    $get_events = $db->query("SELECT count(*) as count FROM events") or _error("SQL_ERROR");
+		    $get_events = $db->query("SELECT COUNT(*) as count FROM events") or _error("SQL_ERROR");
 	    	$insights['events'] = $get_events->fetch_assoc()['count'];
 	    	/* messages */
-		    $get_messages = $db->query("SELECT count(*) as count FROM conversations_messages") or _error("SQL_ERROR");
+		    $get_messages = $db->query("SELECT COUNT(*) as count FROM conversations_messages") or _error("SQL_ERROR");
 	    	$insights['messages'] = $get_messages->fetch_assoc()['count'];
 	    	/* notifications */
-		    $get_notifications = $db->query("SELECT count(*) as count FROM notifications") or _error("SQL_ERROR");
+		    $get_notifications = $db->query("SELECT COUNT(*) as count FROM notifications") or _error("SQL_ERROR");
 	    	$insights['notifications'] = $get_notifications->fetch_assoc()['count'];
 
 	    	// get chart data
 			for($i=1; $i <= 12; $i++) {
 				/* get users */
-				$get_monthly_users = $db->query("SELECT count(*) as count FROM users WHERE YEAR(user_registered) = YEAR(CURRENT_DATE()) AND MONTH(user_registered) = $i");
+				$get_monthly_users = $db->query("SELECT COUNT(*) as count FROM users WHERE YEAR(user_registered) = YEAR(CURRENT_DATE()) AND MONTH(user_registered) = $i");
 				$chart['users'][$i] = $get_monthly_users->fetch_assoc()['count'];
 				/* get pages */
-				$get_monthly_pages = $db->query("SELECT count(*) as count FROM pages WHERE YEAR(page_date) = YEAR(CURRENT_DATE()) AND MONTH(page_date) = $i");
+				$get_monthly_pages = $db->query("SELECT COUNT(*) as count FROM pages WHERE YEAR(page_date) = YEAR(CURRENT_DATE()) AND MONTH(page_date) = $i");
 				$chart['pages'][$i] = $get_monthly_pages->fetch_assoc()['count'];
 				/* get groups */
-				$get_monthly_groups = $db->query("SELECT count(*) as count FROM groups WHERE YEAR(group_date) = YEAR(CURRENT_DATE()) AND MONTH(group_date) = $i");
+				$get_monthly_groups = $db->query("SELECT COUNT(*) as count FROM groups WHERE YEAR(group_date) = YEAR(CURRENT_DATE()) AND MONTH(group_date) = $i");
 				$chart['groups'][$i] = $get_monthly_groups->fetch_assoc()['count'];
 				/* get events */
-				$get_monthly_events = $db->query("SELECT count(*) as count FROM events WHERE YEAR(event_date) = YEAR(CURRENT_DATE()) AND MONTH(event_date) = $i");
+				$get_monthly_events = $db->query("SELECT COUNT(*) as count FROM events WHERE YEAR(event_date) = YEAR(CURRENT_DATE()) AND MONTH(event_date) = $i");
 				$chart['events'][$i] = $get_monthly_events->fetch_assoc()['count'];
 				/* get posts */
-				$get_monthly_posts = $db->query("SELECT count(*) as count FROM posts WHERE YEAR(time) = YEAR(CURRENT_DATE()) AND MONTH(time) = $i");
+				$get_monthly_posts = $db->query("SELECT COUNT(*) as count FROM posts WHERE YEAR(time) = YEAR(CURRENT_DATE()) AND MONTH(time) = $i");
 				$chart['posts'][$i] = $get_monthly_posts->fetch_assoc()['count'];
 			}
 
@@ -162,6 +162,12 @@ try {
 				case 'payments':
 					// page header
 					page_header(__("Admin")." &rsaquo; ".__("Payments Settings"));
+
+					// get currencies
+					$system_currencies = $user->get_currencies();
+					
+					// assign variables
+					$smarty->assign('system_currencies', $system_currencies);
 					break;
 
 				case 'limits':
@@ -278,6 +284,51 @@ try {
 				case 'add':
 					// page header
 					page_header(__("Admin")." &rsaquo; ".__("Languages")." &rsaquo; ".__("Add New"));
+					break;
+				
+				default:
+					_error(404);
+					break;
+			}
+			break;
+
+		case 'currencies':
+			// get content
+			switch ($_GET['sub_view']) {
+				case '':
+					// page header
+					page_header(__("Admin")." &rsaquo; ".__("Currencies"));
+
+					// get data
+					$rows = $user->get_currencies();
+					
+					// assign variables
+					$smarty->assign('rows', $rows);
+					break;
+
+				case 'edit':
+					// valid inputs
+					if(!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+						_error(404);
+					}
+					
+					// get data
+					$get_data = $db->query(sprintf("SELECT * FROM system_currencies WHERE currency_id = %s", secure($_GET['id'], 'int') )) or _error("SQL_ERROR");
+					if($get_data->num_rows == 0) {
+						_error(404);
+					}
+					$data = $get_data->fetch_assoc();
+					
+					// assign variables
+					$smarty->assign('data', $data);
+					
+					// page header
+					page_header(__("Admin")." &rsaquo; ".__("Currencies")." &rsaquo; ".$data['name']);
+					break;
+
+				case 'add':
+					// page header
+					page_header(__("Admin")." &rsaquo; ".__("Currencies")." &rsaquo; ".__("Add New"));
 					break;
 				
 				default:
@@ -1303,6 +1354,23 @@ try {
 			}
 			break;
 
+		case 'bank':
+			// page header
+			page_header(__("Admin")." &rsaquo; ".__("Bank Receipts"));
+			
+			// get data
+			$get_rows = $db->query("SELECT bank_transfers.*, users.user_name, users.user_firstname, users.user_lastname, users.user_gender, users.user_picture, packages.name as package_name, packages.price as package_price FROM bank_transfers INNER JOIN users ON bank_transfers.user_id = users.user_id LEFT JOIN packages ON bank_transfers.package_id = packages.package_id WHERE bank_transfers.status = '0'") or _error("SQL_ERROR");
+			if($get_rows->num_rows > 0) {
+				while($row = $get_rows->fetch_assoc()) {
+					$row['user_picture'] = get_picture($row['user_picture'], $row['user_gender']);
+					$rows[] = $row;
+				}
+			}
+			
+			// assign variables
+			$smarty->assign('rows', $rows);
+			break;
+
 		case 'affiliates':
 			// get content
 			switch ($_GET['sub_view']) {
@@ -1567,25 +1635,25 @@ try {
 
 					// prepare counts
 					/* not activated */
-				    $get_users_not_activated = $db->query("SELECT count(*) as count FROM users WHERE user_activated = '0'") or _error("SQL_ERROR");
+				    $get_users_not_activated = $db->query("SELECT COUNT(*) as count FROM users WHERE user_activated = '0'") or _error("SQL_ERROR");
 			    	$insights['users_not_activated'] = $get_users_not_activated->fetch_assoc()['count'];
 			    	/* not logged in 1 week */
-			    	$get_users_not_logged_week = $db->query("SELECT count(*) as count FROM users WHERE user_last_seen < NOW() - INTERVAL 1 WEEK") or _error("SQL_ERROR");
+			    	$get_users_not_logged_week = $db->query("SELECT COUNT(*) as count FROM users WHERE user_last_seen < NOW() - INTERVAL 1 WEEK") or _error("SQL_ERROR");
 			    	$insights['users_not_logged_week'] = $get_users_not_logged_week->fetch_assoc()['count'];
 			    	/* not logged in 1 month */
-			    	$get_users_not_logged_month = $db->query("SELECT count(*) as count FROM users WHERE user_last_seen < NOW() - INTERVAL 1 MONTH") or _error("SQL_ERROR");
+			    	$get_users_not_logged_month = $db->query("SELECT COUNT(*) as count FROM users WHERE user_last_seen < NOW() - INTERVAL 1 MONTH") or _error("SQL_ERROR");
 			    	$insights['users_not_logged_month'] = $get_users_not_logged_month->fetch_assoc()['count'];
 			    	/* not logged in 1 year */
-			    	$get_users_not_logged_year = $db->query("SELECT count(*) as count FROM users WHERE user_last_seen < NOW() - INTERVAL 1 YEAR") or _error("SQL_ERROR");
+			    	$get_users_not_logged_year = $db->query("SELECT COUNT(*) as count FROM users WHERE user_last_seen < NOW() - INTERVAL 1 YEAR") or _error("SQL_ERROR");
 			    	$insights['users_not_logged_year'] = $get_users_not_logged_year->fetch_assoc()['count'];
 			    	/* posts longer than 1 week */
-			    	$get_posts_longer_week = $db->query("SELECT count(*) as count FROM posts WHERE time < NOW() - INTERVAL 1 WEEK") or _error("SQL_ERROR");
+			    	$get_posts_longer_week = $db->query("SELECT COUNT(*) as count FROM posts WHERE time < NOW() - INTERVAL 1 WEEK") or _error("SQL_ERROR");
 			    	$insights['posts_longer_week'] = $get_posts_longer_week->fetch_assoc()['count'];
 			    	/* posts longer than 1 month */
-			    	$get_posts_longer_month = $db->query("SELECT count(*) as count FROM posts WHERE time < NOW() - INTERVAL 1 MONTH") or _error("SQL_ERROR");
+			    	$get_posts_longer_month = $db->query("SELECT COUNT(*) as count FROM posts WHERE posts.time < NOW() - INTERVAL 1 MONTH") or _error("SQL_ERROR");
 			    	$insights['posts_longer_month'] = $get_posts_longer_month->fetch_assoc()['count'];
 			    	/* posts longer than 1 year */
-			    	$get_posts_longer_year = $db->query("SELECT count(*) as count FROM posts WHERE time < NOW() - INTERVAL 1 YEAR") or _error("SQL_ERROR");
+			    	$get_posts_longer_year = $db->query("SELECT COUNT(*) as count FROM posts WHERE posts.time < NOW() - INTERVAL 1 YEAR") or _error("SQL_ERROR");
 			    	$insights['posts_longer_year'] = $get_posts_longer_year->fetch_assoc()['count'];
 
 			    	// assign variables
@@ -1843,6 +1911,51 @@ try {
 			}
 			break;
 
+		case 'gifts':
+			// get content
+			switch ($_GET['sub_view']) {
+				case '':
+					// page header
+					page_header(__("Admin")." &rsaquo; ".__("Gifts"));
+					
+					// get data
+					$rows = $user->get_gifts();
+					
+					// assign variables
+					$smarty->assign('rows', $rows);
+					break;
+
+				case 'edit':
+					// valid inputs
+					if(!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+						_error(404);
+					}
+					
+					// get data
+					$get_data = $db->query(sprintf("SELECT * FROM gifts WHERE gift_id = %s", secure($_GET['id'], 'int') )) or _error("SQL_ERROR");
+					if($get_data->num_rows == 0) {
+						_error(404);
+					}
+					$data = $get_data->fetch_assoc();
+					
+					// assign variables
+					$smarty->assign('data', $data);
+					
+					// page header
+					page_header(__("Admin")." &rsaquo; ".__("Gifts")." &rsaquo; ".__("Edit Gift"));
+					break;
+
+				case 'add':
+					// page header
+					page_header(__("Admin")." &rsaquo; ".__("Gifts")." &rsaquo; ".__("Add New Gift"));
+					break;
+
+				default:
+					_error(404);
+					break;
+			}
+			break;
+
 		case 'announcements':
 			// get content
 			switch ($_GET['sub_view']) {
@@ -1914,6 +2027,13 @@ try {
 	/* assign variables */
 	$smarty->assign('view', $_GET['view']);
 	$smarty->assign('sub_view', $_GET['sub_view']);
+
+	// get bank transfers insights
+	if($system['bank_transfers_enabled']) {
+		$get_bank_transfers = $db->query("SELECT COUNT(*) as count FROM bank_transfers WHERE status = '0'") or _error("SQL_ERROR");
+		$bank_transfers_insights = $get_bank_transfers->fetch_assoc()['count'];
+		$smarty->assign('bank_transfers_insights', $bank_transfers_insights);
+	}
 
 } catch (Exception $e) {
 	_error(__("Error"), $e->getMessage());

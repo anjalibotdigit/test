@@ -152,6 +152,13 @@
                                 </div>
                             </li>
                         {/if}
+                        {if $system['bank_transfers_enabled']}
+                            <li {if $view == "bank"}class="active"{/if}>
+                                <a href="{$system['system_url']}/settings/bank">
+                                    <i class="fa fa-university fa-fw mr10" style="color: #4caf50;"></i>{__("Bank Transfers")}
+                                </a>
+                            </li>
+                        {/if}
                         {if $system['verification_requests']}
                             <li {if $view == "verification"}class="active"{/if}>
                                 <a href="{$system['system_url']}/settings/verification">
@@ -285,6 +292,9 @@
                                             </div>
                                             <input type="text" class="form-control" name="username" value="{$user->_data['user_name']}">
                                         </div>
+                                        <span class="form-text">
+                                            {__("Can only contain alphanumeric characters (A–Z, 0–9) and periods ('.')")}
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -361,6 +371,9 @@
                                     <div class="form-group col-md-6">
                                         <label class="form-control-label">{__("Website")}</label>
                                         <input type="text" class="form-control" name="website" value="{$user->_data['user_website']}">
+                                        <span class="form-text">
+                                            {__("Website link must start with http:// or https://")}
+                                        </span>
                                     </div>
                                 </div>
 
@@ -446,6 +459,9 @@
                                     <div class="form-group col-md-6">
                                         <label class="form-control-label">{__("Work Website")}</label>
                                         <input type="text" class="form-control" name="work_url" value="{$user->_data['user_work_url']}">
+                                        <span class="form-text">
+                                            {__("Website link must start with http:// or https://")}
+                                        </span>
                                     </div>
                                 </div>
 
@@ -874,7 +890,51 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="form-group col-md-6">
+                                    {if $system['pokes_enabled']}
+                                        <div class="form-group col-md-6">
+                                            <label class="form-control-label">{__("Who can poke you")}</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-hand-point-right"></i></span>
+                                                </div>
+                                                <select class="form-control" name="privacy_poke">
+                                                    <option {if $user->_data['user_privacy_poke'] == "public"}selected{/if} value="public">
+                                                        {__("Everyone")}
+                                                    </option>
+                                                    <option {if $user->_data['user_privacy_poke'] == "friends"}selected{/if} value="friends">
+                                                        {__("Friends")}
+                                                    </option>
+                                                    <option {if $user->_data['user_privacy_poke'] == "me"}selected{/if} value="me">
+                                                        {__("No One")}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    {/if}
+
+                                    {if $system['gifts_enabled']}
+                                        <div class="form-group col-md-6">
+                                            <label class="form-control-label">{__("Who can send you gifts")}</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-gift"></i></span>
+                                                </div>
+                                                <select class="form-control" name="privacy_gifts">
+                                                    <option {if $user->_data['user_privacy_gifts'] == "public"}selected{/if} value="public">
+                                                        {__("Everyone")}
+                                                    </option>
+                                                    <option {if $user->_data['user_privacy_gifts'] == "friends"}selected{/if} value="friends">
+                                                        {__("Friends")}
+                                                    </option>
+                                                    <option {if $user->_data['user_privacy_gifts'] == "me"}selected{/if} value="me">
+                                                        {__("No One")}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    {/if}
+
+                                    <div class="form-group col-md-6 {if !$system['wall_posts_enabled']}x-hidden{/if}">
                                         <label class="form-control-label">{__("Who can post on your wall")}</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
@@ -893,6 +953,7 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="form-group col-md-6">
                                         <label class="form-control-label">{__("Who can see your")} {__("birthdate")}</label>
                                         <div class="input-group">
@@ -912,9 +973,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row">
                                     <div class="form-group col-md-6">
                                         <label class="form-control-label">{__("Who can see your")} {__("relationship")}</label>
                                         <div class="input-group">
@@ -934,6 +993,7 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="form-group col-md-6">
                                         <label class="form-control-label">{__("Who can see your")} {__("basic info")}</label>
                                         <div class="input-group">
@@ -953,9 +1013,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row">
                                     <div class="form-group col-md-6">
                                         <label class="form-control-label">{__("Who can see your")} {__("work info")}</label>
                                         <div class="input-group">
@@ -975,6 +1033,7 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="form-group col-md-6">
                                         <label class="form-control-label">{__("Who can see your")} {__("location info")}</label>
                                         <div class="input-group">
@@ -994,9 +1053,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row">
                                     <div class="form-group col-md-6">
                                         <label class="form-control-label">{__("Who can see your")} {__("education info")}</label>
                                         <div class="input-group">
@@ -1016,6 +1073,7 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="form-group col-md-6">
                                         <label class="form-control-label">{__("Who can see your")} {__("other info")}</label>
                                         <div class="input-group">
@@ -1035,9 +1093,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row">
                                     <div class="form-group col-md-6">
                                         <label class="form-control-label">{__("Who can see your")} {__("friends")}</label>
                                         <div class="input-group">
@@ -1057,6 +1113,7 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="form-group col-md-6">
                                         <label class="form-control-label">{__("Who can see your")} {__("photos")}</label>
                                         <div class="input-group">
@@ -1076,9 +1133,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row">
                                     <div class="form-group col-md-6">
                                         <label class="form-control-label">{__("Who can see your")} {__("liked pages")}</label>
                                         <div class="input-group">
@@ -1098,6 +1153,7 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <div class="form-group col-md-6">
                                         <label class="form-control-label">{__("Who can see your")} {__("joined groups")}</label>
                                         <div class="input-group">
@@ -1117,9 +1173,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="row">
+                                    
                                     <div class="form-group col-md-6">
                                         <label class="form-control-label">{__("Who can see your")} {__("joined events")}</label>
                                         <div class="input-group">
@@ -1510,11 +1564,11 @@
                                     <strong>{__("Affiliates System")}</strong><br>
                                     {__("Earn up to")} 
                                     {if $system['affiliate_type'] == "registration"}
-                                        {$system['system_currency_symbol']}{$system['affiliates_per_user']|number_format:2} {__("For each user your refer")}.<br>
+                                        {$system['system_currency_symbol']}{$system['affiliates_per_user']|number_format:2} {__("For each user you will refer")}.<br>
                                         {__("You will be paid when")} {__("new user registered")}
                                     {else}
                                         {if $system['affiliate_payment_type'] == "fixed"}
-                                            {$system['system_currency_symbol']}{$system['affiliates_per_user']|number_format:2} {__("For each user your refer")}.<br>
+                                            {$system['system_currency_symbol']}{$system['affiliates_per_user']|number_format:2} {__("For each user you will refer")}.<br>
                                         {else}
                                             {$system['affiliates_percentage']}% {__("From the package price of your refered user")}.<br>
                                         {/if}
@@ -1541,10 +1595,10 @@
                                 <a href="https://vk.com/share.php?url={$system['system_url']}/?ref={$user->_data['user_name']}" class="btn btn-sm btn-rounded btn-social-icon btn-vk" target="_blank">
                                     <i class="fab fa-vk"></i>
                                 </a>
-                                <a href="https://www.linkedin.com/shareArticle?mini=true&url={$system['system_url']}/?ref={$user->_data['user_name']}" class="btn btn-sm btn-rounded btn-social-icon btn-linkedin" target="_blank">
+                                <a href="https://www.linkedin.com/shareArticle?mini=true&url={$system['system_url']}/?ref%3D{$user->_data['user_name']}" class="btn btn-sm btn-rounded btn-social-icon btn-linkedin" target="_blank">
                                     <i class="fab fa-linkedin"></i>
                                 </a>
-                                <a href="https://api.whatsapp.com/send?text={$system['system_url']}/?ref={$user->_data['user_name']}" class="btn btn-sm btn-rounded btn-social-icon btn-whatsapp" target="_blank">
+                                <a href="https://api.whatsapp.com/send?text={$system['system_url']}/?ref%3D{$user->_data['user_name']}" class="btn btn-sm btn-rounded btn-social-icon btn-whatsapp" target="_blank">
                                     <i class="fab fa-whatsapp"></i>
                                 </a>
                                 <a href="https://reddit.com/submit?url={$system['system_url']}/?ref={$user->_data['user_name']}" class="btn btn-sm btn-rounded btn-social-icon btn-reddit" target="_blank">
@@ -1719,7 +1773,10 @@
                                 </div>
                                 <div class="text">
                                     <strong>{__("Points System")}</strong><br>
-                                    {__("Each")} <strong>{$system['points_per_currency']}</strong> {__("points equal")} <strong>{$system['system_currency_symbol']}1</strong>.<br>
+                                    {__("Each")} <strong>{$system['points_per_currency']}</strong> {__("points equal")} <strong>{$system['system_currency_symbol']}1</strong>.
+                                    <br>
+                                    {__("Your daily points limit is")} <strong>{if $system['packages_enabled'] && $user->_data['user_subscribed']}{$system['points_limit_pro']}{else}{$system['points_limit_user']}{/if}</strong> {__("Points")}, {__("You have")} <strong>{$remaining_points}</strong> {__("remaining points")}
+                                    <br>
                                     {if $system['points_money_withdraw_enabled']}
                                         {__("You can withdraw your money")}
                                     {/if}
@@ -1924,6 +1981,62 @@
                                 {/if}
                             </div>
                         {/if}
+                    </div>
+
+                {elseif $view == "bank"}
+                    <div class="card-header with-icon">
+                        <i class="fa fa-university mr10" style="color: #4caf50;"></i>{__("Bank Transfers")}
+                    </div>
+                    <div class="card-body">
+                        <div class="heading-small mb20">
+                            {__("Transfers History")}
+                        </div>
+                        <div class="pl-md-4">
+                            {if $transfers}
+                                <div class="table-responsive mt20">
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>{__("ID")}</th>
+                                                <th>{__("Type")}</th>
+                                                <th>{__("Time")}</th>
+                                                <th>{__("Status")}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {foreach $transfers as $transfer}
+                                                <tr>
+                                                    <td>{$transfer@iteration}</td>
+                                                    <td>
+                                                        {if $transfer['handle'] == "wallet"}
+                                                            {__("Add Wallet Balance")} = <strong>{$system['system_currency_symbol']}{$transfer['price']}</strong>
+                                                        {elseif $transfer['handle'] == "packages"}
+                                                            {$transfer['package_name']} {__("Package")} = <strong>{$system['system_currency_symbol']}{$transfer['package_price']}</strong>
+                                                        {/if}
+                                                    </td>
+                                                    <td>
+                                                        <span class="js_moment" data-time="{$transfer['time']}">{$transfer['time']}</span>
+                                                    </td>
+                                                    <td>
+                                                        {if $transfer['status'] == '0'}
+                                                            <span class="badge badge-pill badge-lg badge-warning">{__("Pending")}</span>
+                                                        {elseif $transfer['status'] == '1'}
+                                                            <span class="badge badge-pill badge-lg badge-success">{__("Approved")}</span>
+                                                        {else}
+                                                            <span class="badge badge-pill badge-lg badge-danger">{__("Declined")}</span>
+                                                        {/if}
+                                                    </td>
+                                                </tr>
+                                            {/foreach}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {else}
+                                <p class="text-center text-muted">
+                                    {__("No transfers history")}
+                                </p>
+                            {/if}
+                        </div>
                     </div>
                 
                 {elseif $view == "verification"}

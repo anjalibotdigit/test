@@ -16,7 +16,7 @@ is_ajax();
 user_access(true);
 
 // valid inputs
-if(!in_array($_POST['do'], array('block', 'unblock', 'friend-accept', 'friend-decline', 'friend-add', 'friend-cancel', 'friend-remove', 'follow', 'unfollow', 'page-like', 'page-unlike','project-like', 'project-unlike', 'page-boost', 'page-unboost', 'page-invite', 'page-admin-addation', 'page-admin-remove', 'page-member-remove', 'group-join', 'group-leave', 'group-invite', 'group-accept', 'group-decline', 'group-admin-addation', 'group-admin-remove', 'group-member-remove', 'event-go', 'event-ungo', 'event-interest', 'event-uninterest', 'event-invite'))) {
+if(!in_array($_POST['do'], array('block', 'unblock', 'friend-accept', 'friend-decline', 'friend-add', 'friend-cancel', 'friend-remove', 'follow', 'unfollow', 'poke', 'page-like', 'page-unlike', 'page-boost', 'page-unboost', 'page-invite', 'page-admin-addation', 'page-admin-remove', 'page-member-remove', 'group-join', 'group-leave', 'group-invite', 'group-accept', 'group-decline', 'group-admin-addation', 'group-admin-remove', 'group-member-remove', 'event-go', 'event-ungo', 'event-interest', 'event-uninterest', 'event-invite'))) {
 	_error(400);
 }
 /* check id */

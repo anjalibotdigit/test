@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:19:46
+/* Smarty version 3.1.33, created on 2019-09-28 04:18:54
   from '/home/cryptocodex/public_html/content/themes/default/templates/ajax.load_more.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0db2e39442_63250250',
+  'unifunc' => 'content_5d8edf2e846f81_75909855',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '09441c7e63995c7cd7f755de94167dec6e91c877' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/ajax.load_more.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -36,8 +36,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:__feeds_message.tpl' => 1,
   ),
 ),false)) {
-function content_5d7a0db2e39442_63250250 (Smarty_Internal_Template $_smarty_tpl) {
-if ($_smarty_tpl->tpl_vars['get']->value == 'newsfeed' || $_smarty_tpl->tpl_vars['get']->value == 'posts_profile' || $_smarty_tpl->tpl_vars['get']->value == 'posts_page' || $_smarty_tpl->tpl_vars['get']->value == 'posts_group' || $_smarty_tpl->tpl_vars['get']->value == 'posts_event' || $_smarty_tpl->tpl_vars['get']->value == 'saved' || $_smarty_tpl->tpl_vars['get']->value == 'boosted' || $_smarty_tpl->tpl_vars['get']->value == 'popular') {?>
+function content_5d8edf2e846f81_75909855 (Smarty_Internal_Template $_smarty_tpl) {
+if ($_smarty_tpl->tpl_vars['get']->value == 'newsfeed' || $_smarty_tpl->tpl_vars['get']->value == 'posts_profile' || $_smarty_tpl->tpl_vars['get']->value == 'posts_page' || $_smarty_tpl->tpl_vars['get']->value == 'posts_group' || $_smarty_tpl->tpl_vars['get']->value == 'posts_event' || $_smarty_tpl->tpl_vars['get']->value == 'saved' || $_smarty_tpl->tpl_vars['get']->value == 'memories' || $_smarty_tpl->tpl_vars['get']->value == 'boosted' || $_smarty_tpl->tpl_vars['get']->value == 'popular' || $_smarty_tpl->tpl_vars['get']->value == 'discover') {?>
 	<?php $_smarty_tpl->_subTemplateRender('file:_ads_campaigns.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 	<?php $_smarty_tpl->_subTemplateRender('file:_ads.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
@@ -48,7 +48,7 @@ $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->t
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['post']->value) {
 ?>
-		<?php $_smarty_tpl->_subTemplateRender('file:__feeds_post.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
+		<?php $_smarty_tpl->_subTemplateRender('file:__feeds_post.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('_get'=>$_smarty_tpl->tpl_vars['get']->value), 0, true);
 ?>
 	<?php
 }

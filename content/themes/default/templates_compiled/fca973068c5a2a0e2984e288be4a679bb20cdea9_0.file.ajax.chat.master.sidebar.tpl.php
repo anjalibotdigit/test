@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:13:52
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:15
   from '/home/cryptocodex/public_html/content/themes/default/templates/ajax.chat.master.sidebar.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0c50260199_66251650',
+  'unifunc' => 'content_5d8edecb73f4a1_79536858',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fca973068c5a2a0e2984e288be4a679bb20cdea9' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/ajax.chat.master.sidebar.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d7a0c50260199_66251650 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edecb73f4a1_79536858 (Smarty_Internal_Template $_smarty_tpl) {
 ?><ul>
     <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['sidebar_friends']->value, '_user');

@@ -1,9 +1,9 @@
-{if $get == 'newsfeed' || $get == 'posts_profile' || $get == 'posts_page' || $get == 'posts_group' || $get == 'posts_event' || $get == 'saved' || $get == 'boosted' || $get == 'popular' }
+{if $get == 'newsfeed' || $get == 'posts_profile' || $get == 'posts_page' || $get == 'posts_group' || $get == 'posts_event' || $get == 'saved' || $get == 'memories' || $get == 'boosted' || $get == 'popular' || $get == 'discover' }
 	{include file='_ads_campaigns.tpl'}
 	{include file='_ads.tpl'}
 
 	{foreach $data as $post}
-		{include file='__feeds_post.tpl'}
+		{include file='__feeds_post.tpl' _get=$get}
 	{/foreach}
 
 

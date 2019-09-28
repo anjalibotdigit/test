@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:12:10
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:10
   from '/home/cryptocodex/public_html/content/themes/default/templates/_header.search.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0bea3a7f06_17693947',
+  'unifunc' => 'content_5d8edec6e7b202_33672683',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '7d1978c64745477226e82a896ccd3be10d29a9da' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/_header.search.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:ajax.search.tpl' => 1,
   ),
 ),false)) {
-function content_5d7a0bea3a7f06_17693947 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec6e7b202_33672683 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="search-wrapper d-none d-md-block">
     <form>
         <input id="search-input" type="text" class="form-control" placeholder='<?php echo __("Search");?>

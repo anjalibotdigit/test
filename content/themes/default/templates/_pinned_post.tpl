@@ -4,4 +4,4 @@
 </div>
 <!-- posts-filter -->
 
-{include file='__feeds_post.tpl' standalone=false pinned=true}
+{include file='__feeds_post.tpl' standalone=true pinned=true}

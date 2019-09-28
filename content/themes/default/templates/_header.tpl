@@ -1,5 +1,5 @@
 {if !$user->_logged_in}
-    <body data-hash-tok="{$session_hash['token']}" data-hash-pos="{$session_hash['position']}" class="{if $system['theme_mode_night']}night-mode{/if} visitor n_chat {if $page == 'index' || $page == 'sign'}index-body{/if}">
+    <body data-hash-tok="{$session_hash['token']}" data-hash-pos="{$session_hash['position']}" class="{if $system['theme_mode_night']}night-mode{/if} visitor n_chat {if $page == 'index' || $page == 'sign'}index-body{/if}" {if ($page == 'index' || $page == 'sign') && !$system['system_wallpaper_default'] && $system['system_wallpaper']} style="background-image: url('{$system['system_uploads']}/{$system['system_wallpaper']}'); background-size: cover;" {/if}>
 {else}
     <body data-hash-tok="{$session_hash['token']}" data-hash-pos="{$session_hash['position']}" data-chat-enabled="{$user->_data['user_chat_enabled']}" class="{if $system['theme_mode_night']}night-mode{/if} {if !$system['chat_enabled']}n_chat{/if}{if $system['activation_enabled'] && !$user->_data['user_activated']} n_activated{/if}{if !$system['system_live']} n_live{/if}">
 {/if}
@@ -197,8 +197,8 @@
                                                     {if $system['registration_enabled'] || (!$system['registration_enabled'] && $system['invitation_enabled'])}
                                                         <a class="dropdown-item" href="{$system['system_url']}/signup">{__("Register")}</a>
                                                     {/if}
-                                                    <div class="dropdown-divider"></div>
                                                     {if $system['system_theme_mode_select']}
+                                                        <div class="dropdown-divider"></div>
                                                         {if $system['theme_mode_night']}
                                                             <div class="dropdown-item pointer js_theme-mode" data-mode="day">
                                                                 <span class="js_theme-mode-text">{__("Day Mode")}</span>

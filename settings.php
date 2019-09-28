@@ -252,6 +252,9 @@ try {
 				case '':
 					// page header
 					page_header(__("Settings")." &rsaquo; ".__("points"));
+
+					// get remaining balance
+	                $smarty->assign('remaining_points', $user->get_remaining_points($user->_data['user_id']));
 					break;
 
 				case 'payments':
@@ -270,6 +273,26 @@ try {
 					$smarty->assign('payments', $payments);
 					break;
 			}
+			break;
+
+		case 'bank':
+			if(!$system['bank_transfers_enabled']) {
+				_error(404);
+			}
+
+			// page header
+			page_header(__("Settings")." &rsaquo; ".__("Bank Transfers"));
+
+			// get bank transfers
+			$transfers = array();
+			$get_transfers = $db->query(sprintf('SELECT bank_transfers.*, packages.name as package_name, packages.price as package_price FROM bank_transfers LEFT JOIN packages ON bank_transfers.package_id = packages.package_id WHERE bank_transfers.user_id = %s', secure($user->_data['user_id'], 'int'))) or _error("SQL_ERROR");
+	        if($get_transfers->num_rows > 0) {
+	            while($transfer = $get_transfers->fetch_assoc()) {
+	                $transfers[] = $transfer;
+	            }
+	        }
+	        /* assign variables */
+			$smarty->assign('transfers', $transfers);
 			break;
 
 		case 'verification':

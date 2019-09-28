@@ -75,6 +75,58 @@
 
             <div class="form-table-row">
                 <div>
+                    <div class="form-control-label h6">{__("Default Home Wallpaper")}</div>
+                    <div class="form-text d-none d-sm-block">
+                        {__("Use the default")}
+                    </div>
+                </div>
+                <div class="text-right">
+                    <label class="switch" for="system_wallpaper_default">
+                        <input type="checkbox" name="system_wallpaper_default" id="system_wallpaper_default" {if $system['system_wallpaper_default']}checked{/if}>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group form-row">
+                <label class="col-md-3 form-control-label">
+                    {__("Custom Home Wallpaper")}
+                </label>
+                <div class="col-md-9">
+                    {if $system['system_wallpaper'] == ''}
+                        <div class="x-image">
+                            <button type="button" class="close x-hidden js_x-image-remover" title='{__("Remove")}'>
+                                <span>×</span>
+                            </button>
+                            <div class="x-image-loader">
+                                <div class="progress x-progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <i class="fa fa-camera fa-lg js_x-uploader" data-handle="x-image"></i>
+                            <input type="hidden" class="js_x-image-input" name="system_wallpaper" value="">
+                        </div>
+                    {else}
+                        <div class="x-image" style="background-image: url('{$system['system_uploads']}/{$system['system_wallpaper']}')">
+                            <button type="button" class="close js_x-image-remover" title='{__("Remove")}'>
+                                <span>×</span>
+                            </button>
+                            <div class="x-image-loader">
+                                <div class="progress x-progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <i class="fa fa-camera fa-lg js_x-uploader" data-handle="x-image"></i>
+                            <input type="hidden" class="js_x-image-input" name="system_wallpaper" value="{$system['system_wallpaper']}">
+                        </div>
+                    {/if}
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="form-table-row">
+                <div>
                     <div class="form-control-label h6">{__("Default Favicon")}</div>
                     <div class="form-text d-none d-sm-block">
                         {__("Use the default")} (<a target="_blank" href="{$system['system_url']}/content/themes/{$system['theme']}/images/favicon.png">{__("preview")}</a>)

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:12:10
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:10
   from '/home/cryptocodex/public_html/content/themes/default/templates/_head.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0bea364962_48639111',
+  'unifunc' => 'content_5d8edec6d7cdc3_73933992',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'cd1ad0696c40efefdd0f41c881851d8263c4eb90' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/_head.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:_head.css.tpl' => 1,
   ),
 ),false)) {
-function content_5d7a0bea364962_48639111 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec6d7cdc3_73933992 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_html/includes/libs/Smarty/plugins/modifier.truncate.php','function'=>'smarty_modifier_truncate',),));
 ?>
 <!doctype html>
@@ -84,7 +84,7 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
 
     <!-- Fonts [Roboto|Font-Awesome] -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.9.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css">
     <!-- Fonts [Roboto|Font-Awesome] -->
     
     <!-- CSS -->

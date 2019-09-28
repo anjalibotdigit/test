@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:12:10
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:10
   from '/home/cryptocodex/public_html/content/themes/default/templates/index.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0bea3504b4_18698351',
+  'unifunc' => 'content_5d8edec6d42193_51827644',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '16cf89c43ce0f8ec0046e66a49b2042115f53577' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/index.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -37,7 +37,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:_footer.tpl' => 1,
   ),
 ),false)) {
-function content_5d7a0bea3504b4_18698351 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec6d42193_51827644 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender('file:_head.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 $_smarty_tpl->_subTemplateRender('file:_header.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
@@ -80,14 +80,14 @@ $_smarty_tpl->_subTemplateRender('file:_header.tpl', $_smarty_tpl->cache_id, $_s
         <div class="row">
 
             <!-- side panel -->
-            <div class="col-lg-3 offcanvas-sidebar js_sticky-sidebar">
+            <div class="col-md-4 col-lg-3 offcanvas-sidebar js_sticky-sidebar">
                 <?php $_smarty_tpl->_subTemplateRender('file:_sidebar.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
             </div>
             <!-- side panel -->
 
             <!-- content panel -->
-            <div class="col-lg-9 offcanvas-mainbar">
+            <div class="col-md-8 col-lg-9 offcanvas-mainbar">
                 <div class="row">
                     <!-- center panel -->
                     <div class="col-lg-8">
@@ -140,22 +140,47 @@ $_smarty_tpl->_subTemplateRender('file:_header.tpl', $_smarty_tpl->cache_id, $_s
                             <!-- boosted post -->
 
                             <!-- posts -->
-
                             <?php $_smarty_tpl->_subTemplateRender('file:_posts.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('_get'=>"newsfeed"), 0, false);
 ?>
                             <!-- posts -->
 
                         <?php } elseif ($_smarty_tpl->tpl_vars['view']->value == "popular") {?>
-                            <!-- saved posts -->
+                            <!-- popular posts -->
                             <?php $_smarty_tpl->_subTemplateRender('file:_posts.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('_get'=>"popular",'_title'=>__("Popular Posts")), 0, true);
 ?>
-                            <!-- saved posts -->
+                            <!-- popular posts -->
+
+                        <?php } elseif ($_smarty_tpl->tpl_vars['view']->value == "discover") {?>
+                            <!-- discover posts -->
+                            <?php $_smarty_tpl->_subTemplateRender('file:_posts.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('_get'=>"discover",'_title'=>__("Discover Posts")), 0, true);
+?>
+                            <!-- discover posts -->
 
                         <?php } elseif ($_smarty_tpl->tpl_vars['view']->value == "saved") {?>
                             <!-- saved posts -->
                             <?php $_smarty_tpl->_subTemplateRender('file:_posts.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('_get'=>"saved",'_title'=>__("Saved Posts")), 0, true);
 ?>
                             <!-- saved posts -->
+
+                        <?php } elseif ($_smarty_tpl->tpl_vars['view']->value == "memories") {?>
+                            <!-- page header -->
+                            <div class="page-header mini rounded-top mb10">
+                                <div class="crystal c03"></div>
+                                <div class="circle-1"></div>
+                                <div class="circle-2"></div>
+                                <div class="inner">
+                                    <h2><?php echo __("Memories");?>
+</h2>
+                                    <p><?php echo __("Enjoy looking back on your memories");?>
+</p>
+                                </div>
+                            </div>
+                            <!-- page header -->
+
+                            <!-- memories posts -->
+                            <?php $_smarty_tpl->_subTemplateRender('file:_posts.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('_get'=>"memories",'_title'=>__("ON THIS DAY"),'_filter'=>"all"), 0, true);
+?>
+                            <!-- memories posts -->
 
                         <?php } elseif ($_smarty_tpl->tpl_vars['view']->value == "articles") {?>
                             <!-- articles posts -->
@@ -169,15 +194,6 @@ $_smarty_tpl->_subTemplateRender('file:_header.tpl', $_smarty_tpl->cache_id, $_s
 ?>
                             <!-- products posts -->
 
-                        <?php } elseif ($_smarty_tpl->tpl_vars['view']->value == "projects") {?>
-                            <!-- projects posts -->
-                            <?php $_smarty_tpl->_subTemplateRender('file:_posts.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('_get'=>"posts_profile",'_id'=>$_smarty_tpl->tpl_vars['user']->value->_data['user_id'],'_filter'=>"project",'_title'=>__("  ")), 0, true);
-?>
-                        <?php } elseif ($_smarty_tpl->tpl_vars['view']->value == "globals") {?>
-                            <!-- projects posts -->
-                            <?php $_smarty_tpl->_subTemplateRender('file:_posts.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('_get'=>"newsfeed",'_id'=>$_smarty_tpl->tpl_vars['user']->value->_data['user_id'],'_filter'=>"project",'_title'=>__("  ")), 0, true);
-?>
-                            <!-- projects posts -->
                         <?php } elseif ($_smarty_tpl->tpl_vars['view']->value == "boosted_posts") {?>
                             <?php if ($_smarty_tpl->tpl_vars['user']->value->_is_admin || $_smarty_tpl->tpl_vars['user']->value->_data['user_subscribed']) {?>
                                 <!-- boosted posts -->
@@ -273,15 +289,12 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             <?php }?>
 
                         <?php }?>
-
                     </div>
-
-
-
                     <!-- center panel -->
 
                     <!-- right panel -->
                     <div class="col-lg-4 js_sticky-sidebar">
+                        
                         <!-- pro users -->
                         <?php if ($_smarty_tpl->tpl_vars['pro_members']->value) {?>
                             <div class="card bg-gradient-indigo border-0">
@@ -537,6 +550,38 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         <?php }?>
                         <!-- suggested events -->
 
+                        <!-- invitation widget -->
+                        <?php if ($_smarty_tpl->tpl_vars['system']->value['invitation_widget_enabled']) {?>
+                            <div class="card">
+                                <div class="card-header bg-transparent">
+                                    <i class="fa fa-envelope-open-text mr5"></i> <?php echo __("Invite Your Friends");?>
+
+                                </div>
+                                <div class="card-body with-form">
+                                    <form class="js_ajax-forms" data-url="users/invitation.php">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="email" placeholder='<?php echo __("Email");?>
+'>
+                                                <div class="input-group-append">
+                                                    <button type="submit" name="submit" class="btn btn-primary plr20"><i class="fas fa-paper-plane"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- success -->
+                                        <div class="alert alert-success mb0 x-hidden"></div>
+                                        <!-- success -->
+
+                                        <!-- error -->
+                                        <div class="alert alert-danger mb0 x-hidden"></div>
+                                        <!-- error -->
+                                    </form>
+                                </div>
+                            </div>
+                        <?php }?>
+                        <!-- invitation widget -->
+
                         <!-- mini footer -->
                         <?php if (count($_smarty_tpl->tpl_vars['user']->value->_data['new_people']) > 0 || count($_smarty_tpl->tpl_vars['new_pages']->value) > 0 || count($_smarty_tpl->tpl_vars['new_groups']->value) > 0 || count($_smarty_tpl->tpl_vars['new_events']->value) > 0) {?>
                             <div class="mtb20 plr10 d-none d-sm-block">
@@ -608,13 +653,13 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         
                     </div>
                     <!-- right panel -->
-
-                 </div>
-
-            <!-- content panel -->
+                </div>
             </div>
+            <!-- content panel -->
+
         </div>
     </div>
+
 <?php }?>
 <!-- page content -->
 

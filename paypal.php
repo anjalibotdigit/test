@@ -35,7 +35,7 @@ try {
 				$payment  = paypal_check($_GET['paymentId'], $_GET['PayerID']);
 				if($payment) {
 					// update user package
-					$user->update_user_package($package['package_id'], $package['name'], $package['price']);
+					$user->update_user_package($package['package_id'], $package['name'], $package['price'], $package['verification_badge_enabled']);
 				}
 				break;
 

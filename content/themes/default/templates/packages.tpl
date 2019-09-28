@@ -41,10 +41,17 @@
                             </div>
                             <ul class="list-group list-group-flush text-center">
                                 <li class="list-group-item"><i class="fa fa-check green mr10"></i>{__("Featured member")}</li>
-                                <li class="list-group-item"><i class="fa fa-check green mr10"></i>{__("Verified badge")}</li>
+                                <li class="list-group-item">
+                                    {if $package['verification_badge_enabled']}
+                                        <i class="fa fa-check green mr10"></i>
+                                    {else}
+                                        <i class="fa fa-times red mr10"></i>
+                                    {/if}
+                                    {__("Verified badge")}
+                                </li>
                                 <li class="list-group-item">
                                     {if !$package['boost_posts_enabled']}
-                                        <i class="fa fa-times red"></i> {__("Posts promotion")}
+                                        <i class="fa fa-times red mr10"></i>{__("Posts promotion")}
                                     {else}
                                         <i class="fa fa-check green mr10"></i>{__("Boost up to")} {$package['boost_posts']} {__("Posts")}
                                     {/if}

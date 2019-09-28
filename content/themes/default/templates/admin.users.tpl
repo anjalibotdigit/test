@@ -695,6 +695,50 @@
                         </div>
 
                         <div class="row">
+                            {if $system['pokes_enabled']}
+                                <div class="form-group col-md-6">
+                                    <label class="form-control-label">{__("Who can poke you")}</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-hand-point-right"></i></span>
+                                        </div>
+                                        <select class="form-control" name="privacy_poke">
+                                            <option {if $data['user_privacy_poke'] == "public"}selected{/if} value="public">
+                                                {__("Everyone")}
+                                            </option>
+                                            <option {if $data['user_privacy_poke'] == "friends"}selected{/if} value="friends">
+                                                {__("Friends")}
+                                            </option>
+                                            <option {if $data['user_privacy_poke'] == "me"}selected{/if} value="me">
+                                                {__("No One")}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            {/if}
+
+                            {if $system['gifts_enabled']}
+                                <div class="form-group col-md-6">
+                                    <label class="form-control-label">{__("Who can send you gifts")}</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-gift"></i></span>
+                                        </div>
+                                        <select class="form-control" name="privacy_gifts">
+                                            <option {if $data['user_privacy_gifts'] == "public"}selected{/if} value="public">
+                                                {__("Everyone")}
+                                            </option>
+                                            <option {if $data['user_privacy_gifts'] == "friends"}selected{/if} value="friends">
+                                                {__("Friends")}
+                                            </option>
+                                            <option {if $data['user_privacy_gifts'] == "me"}selected{/if} value="me">
+                                                {__("No One")}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            {/if}
+                            
                             <div class="form-group col-md-6">
                                 <label class="form-control-label">{__("Who can post on your wall")}</label>
                                 <div class="input-group">
@@ -714,6 +758,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="form-group col-md-6">
                                 <label class="form-control-label">{__("Who can see your")} {__("birthdate")}</label>
                                 <div class="input-group">
@@ -733,9 +778,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="form-control-label">{__("Who can see your")} {__("relationship")}</label>
                                 <div class="input-group">
@@ -755,6 +798,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="form-group col-md-6">
                                 <label class="form-control-label">{__("Who can see your")} {__("basic info")}</label>
                                 <div class="input-group">
@@ -774,9 +818,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="form-control-label">{__("Who can see your")} {__("work info")}</label>
                                 <div class="input-group">
@@ -796,6 +838,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="form-group col-md-6">
                                 <label class="form-control-label">{__("Who can see your")} {__("location info")}</label>
                                 <div class="input-group">
@@ -815,9 +858,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="form-control-label">{__("Who can see your")} {__("education info")}</label>
                                 <div class="input-group">
@@ -837,6 +878,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="form-group col-md-6">
                                 <label class="form-control-label">{__("Who can see your")} {__("other info")}</label>
                                 <div class="input-group">
@@ -856,9 +898,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="form-control-label">{__("Who can see your")} {__("friends")}</label>
                                 <div class="input-group">
@@ -878,6 +918,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="form-group col-md-6">
                                 <label class="form-control-label">{__("Who can see your")} {__("photos")}</label>
                                 <div class="input-group">
@@ -897,9 +938,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row">
                             <div class="form-group col-md-6">
                                 <label class="form-control-label">{__("Who can see your")} {__("liked pages")}</label>
                                 <div class="input-group">
@@ -919,6 +958,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="form-group col-md-6">
                                 <label class="form-control-label">{__("Who can see your")} {__("joined groups")}</label>
                                 <div class="input-group">
@@ -938,9 +978,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div class="row">
+
                             <div class="form-group col-md-6">
                                 <label class="form-control-label">{__("Who can see your")} {__("joined events")}</label>
                                 <div class="input-group">

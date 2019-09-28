@@ -1,5 +1,4 @@
 <!-- posts-filter -->
-
 <div class="posts-filter">
     <span>{if $_title}{$_title}{else}{__("Recent Updates")}{/if}</span>
     {if !$_filter}
@@ -47,60 +46,12 @@
 	    	</div>
     	{/if}
     {elseif $_filter == "product"}
-
-		<div class="float-right">
-			<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-url="posts/product.php?do=create">
-				<i class="fa fa-plus-circle mr5"></i>{__("Add New Product")}
-			</button>
-		</div>
-
-	{elseif $_filter == "project"}
-
-		<div class="content-tabs rounded-sm shadow-sm clearfix">
-			<ul>
-				<li {if $view == "projects"} class="active"{/if}>
-					<a href="{$system['system_url']}/projects">{__("My Projects")}</a>
-				</li>
-				<li {if $view == "projects/globals"} class="active"{/if}>
-{*					<a href="{$system['system_url']}/projects/globals" class="active">{__("Global Projects")}</a>*}
-					<a href="{$system['system_url']}/projects/globals" class="active">{__("Projects")}</a>
-				</li>
-
-			</ul>
-
-			<div class="mt10 float-right">
-				<button class="btn btn-sm btn-success d-none d-lg-block" data-toggle="modal" data-url="posts/project.php?do=create">
-					<i class="fa fa-plus-circle mr5"></i>{__("Create Project")}
-				</button>
-				<button class="btn btn-sm btn-icon btn-success d-block d-lg-none" data-toggle="modal" data-url="posts/project.php?do=create">
-					<i class="fa fa-plus-circle"></i>
-				</button>
-			</div>
-		</div>
-	{elseif $_filter == "global"}
-
-
-		<div class="content-tabs rounded-sm shadow-sm clearfix">
-			<ul>
-				<li {if $view == "projects"} class="active"{/if}>
-					<a href="{$system['system_url']}/projects">{__("My Projects")}</a>
-				</li>
-				<li {if $view == "projects/globals"} class="active"{/if}>
-					<a href="{$system['system_url']}/projects/globals" class="active">{__("Global Projects")}</a>
-				</li>
-
-			</ul>
-
-			<div class="mt10 float-right">
-				<button class="btn btn-sm btn-success d-none d-lg-block" data-toggle="modal" data-url="posts/project.php?do=create">
-					<i class="fa fa-plus-circle mr5"></i>{__("Create Project")}
-				</button>
-				<button class="btn btn-sm btn-icon btn-success d-block d-lg-none" data-toggle="modal" data-url="posts/project.php?do=create">
-					<i class="fa fa-plus-circle"></i>
-				</button>
-			</div>
-		</div>
-	{/if}
+        <div class="float-right">
+            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-url="posts/product.php?do=create">
+                <i class="fa fa-plus-circle mr5"></i>{__("Add New Product")}
+            </button>
+    	</div>
+    {/if}
 </div>
 <!-- posts-filter -->
 
@@ -108,7 +59,18 @@
 <div class="post x-hidden js_posts_loader">
 	<div class="post-body">
 		<div class="panel-effect">
-
+			<div class="fake-effect fe-0"></div>
+			<div class="fake-effect fe-1"></div>
+			<div class="fake-effect fe-2"></div>
+			<div class="fake-effect fe-3"></div>
+			<div class="fake-effect fe-4"></div>
+			<div class="fake-effect fe-5"></div>
+			<div class="fake-effect fe-6"></div>
+			<div class="fake-effect fe-7"></div>
+			<div class="fake-effect fe-8"></div>
+			<div class="fake-effect fe-9"></div>
+			<div class="fake-effect fe-10"></div>
+			<div class="fake-effect fe-11"></div>
 		</div>
 	</div>
 </div>

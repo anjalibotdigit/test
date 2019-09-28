@@ -32,10 +32,6 @@ function check_system_requirements() {
     if(!extension_loaded('curl')) {
         _error("Installation Error", '<p class="text-center">Your PHP installation appears to be missing the "cURL" extension which is required by Sngine.</p><small>Back to your server admin or hosting provider to enable it for you</small>');
     }
-    /* check if intl enabled */
-    if(!extension_loaded('intl')) {
-        _error("Installation Error", '<p class="text-center">Your PHP installation appears to be missing the "intl" extension which is required by Sngine.</p><small>Back to your server admin or hosting provider to enable it for you</small>');
-    }
     /* check if json_decode enabled */
     if(!function_exists('json_decode')) {
         _error("Installation Error", '<p class="text-center">Your PHP installation appears to be missing the "json_decode()" function which is required by Sngine.</p><small>Back to your server admin or hosting provider to enable it for you</small>');
@@ -96,7 +92,7 @@ function get_licence_key($code) {
  */
 function get_system_protocol() {
     $is_secure = false;
-    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+    if (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on') {
         $is_secure = true;
     } elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
         $is_secure = true;
@@ -315,7 +311,7 @@ function valid_email($email) {
  * @return boolean
  */
 function valid_url($url) {
-    if(filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_HOST_REQUIRED) !== false) {
+    if(filter_var($url, FILTER_VALIDATE_URL) !== false) {
         return true;
     } else {
         return false;
@@ -345,7 +341,7 @@ function valid_username($username) {
  * @return boolean
  */
 function reserved_username($username) {
-    $reserved_usernames = array('install', 'static', 'contact', 'contacts', 'sign', 'signin', 'login', 'signup', 'register', 'signout', 'logout', 'reset', 'activation', 'connect', 'revoke', 'packages', 'started', 'search', 'friends', 'messages', 'message', 'notifications', 'notification', 'settings', 'setting', 'posts', 'post', 'photos', 'photo', 'create', 'pages', 'page', 'groups', 'group', 'events', 'event', 'games', 'game', 'saved', 'forums', 'forum', 'blogs', 'blog', 'articles', 'article', 'directory', 'products', 'product', 'projects', 'project', 'market', 'admincp', 'admin', 'admins', 'chat', 'ads', 'wallet', 'boosted', 'people', 'popular', 'movies', 'movie');
+    $reserved_usernames = array('install', 'static', 'contact', 'contacts', 'sign', 'signin', 'login', 'signup', 'register', 'signout', 'logout', 'reset', 'activation', 'connect', 'revoke', 'packages', 'started', 'search', 'friends', 'messages', 'message', 'notifications', 'notification', 'settings', 'setting', 'posts', 'post', 'photos', 'photo', 'create', 'pages', 'page', 'groups', 'group', 'events', 'event', 'games', 'game', 'saved', 'forums', 'forum', 'blogs', 'blog', 'articles', 'article', 'directory', 'products', 'product', 'market', 'admincp', 'admin', 'admins', 'chat', 'ads', 'wallet', 'boosted', 'people', 'popular', 'movies', 'movie');
     if(in_array(strtolower($username), $reserved_usernames)) {
         return true;
     } else {
@@ -1375,9 +1371,6 @@ function get_picture($picture, $type) {
 
             case 'group':
                 $picture = $system['system_url'].'/content/themes/'.$system['theme'].'/images/blank_group.jpg';
-                break;
-            case 'project':
-                $picture = $system['system_url'].'/content/themes/'.$system['theme'].'/images/blank_project.png';
                 break;
 
             case 'event':

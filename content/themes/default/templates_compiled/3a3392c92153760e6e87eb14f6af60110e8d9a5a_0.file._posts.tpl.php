@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-25 02:22:07
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/_posts.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d8acf4f5b20e6_01315572',
+  'unifunc' => 'content_5d8edec73b9755_28416716',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3a3392c92153760e6e87eb14f6af60110e8d9a5a' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/_posts.tpl',
-      1 => 1569378123,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -21,9 +21,8 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:__feeds_post.tpl' => 1,
   ),
 ),false)) {
-function content_5d8acf4f5b20e6_01315572 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec73b9755_28416716 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!-- posts-filter -->
-
 <div class="posts-filter">
     <span><?php if ($_smarty_tpl->tpl_vars['_title']->value) {
 echo $_smarty_tpl->tpl_vars['_title']->value;
@@ -103,70 +102,13 @@ echo __("Recent Updates");
 	    	</div>
     	<?php }?>
     <?php } elseif ($_smarty_tpl->tpl_vars['_filter']->value == "product") {?>
+        <div class="float-right">
+            <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-url="posts/product.php?do=create">
+                <i class="fa fa-plus-circle mr5"></i><?php echo __("Add New Product");?>
 
-		<div class="float-right">
-			<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-url="posts/product.php?do=create">
-				<i class="fa fa-plus-circle mr5"></i><?php echo __("Add New Product");?>
-
-			</button>
-		</div>
-
-	<?php } elseif ($_smarty_tpl->tpl_vars['_filter']->value == "project") {?>
-
-		<div class="content-tabs rounded-sm shadow-sm clearfix">
-			<ul>
-				<li <?php if ($_smarty_tpl->tpl_vars['view']->value == "projects") {?> class="active"<?php }?>>
-					<a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/projects"><?php echo __("My Projects");?>
-</a>
-				</li>
-				<li <?php if ($_smarty_tpl->tpl_vars['view']->value == "projects/globals") {?> class="active"<?php }?>>
-					<a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/projects/globals" class="active"><?php echo __("Projects");?>
-</a>
-				</li>
-
-			</ul>
-
-			<div class="mt10 float-right">
-				<button class="btn btn-sm btn-success d-none d-lg-block" data-toggle="modal" data-url="posts/project.php?do=create">
-					<i class="fa fa-plus-circle mr5"></i><?php echo __("Create Project");?>
-
-				</button>
-				<button class="btn btn-sm btn-icon btn-success d-block d-lg-none" data-toggle="modal" data-url="posts/project.php?do=create">
-					<i class="fa fa-plus-circle"></i>
-				</button>
-			</div>
-		</div>
-	<?php } elseif ($_smarty_tpl->tpl_vars['_filter']->value == "global") {?>
-
-
-		<div class="content-tabs rounded-sm shadow-sm clearfix">
-			<ul>
-				<li <?php if ($_smarty_tpl->tpl_vars['view']->value == "projects") {?> class="active"<?php }?>>
-					<a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/projects"><?php echo __("My Projects");?>
-</a>
-				</li>
-				<li <?php if ($_smarty_tpl->tpl_vars['view']->value == "projects/globals") {?> class="active"<?php }?>>
-					<a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/projects/globals" class="active"><?php echo __("Global Projects");?>
-</a>
-				</li>
-
-			</ul>
-
-			<div class="mt10 float-right">
-				<button class="btn btn-sm btn-success d-none d-lg-block" data-toggle="modal" data-url="posts/project.php?do=create">
-					<i class="fa fa-plus-circle mr5"></i><?php echo __("Create Project");?>
-
-				</button>
-				<button class="btn btn-sm btn-icon btn-success d-block d-lg-none" data-toggle="modal" data-url="posts/project.php?do=create">
-					<i class="fa fa-plus-circle"></i>
-				</button>
-			</div>
-		</div>
-	<?php }?>
+            </button>
+    	</div>
+    <?php }?>
 </div>
 <!-- posts-filter -->
 
@@ -174,7 +116,18 @@ echo __("Recent Updates");
 <div class="post x-hidden js_posts_loader">
 	<div class="post-body">
 		<div class="panel-effect">
-
+			<div class="fake-effect fe-0"></div>
+			<div class="fake-effect fe-1"></div>
+			<div class="fake-effect fe-2"></div>
+			<div class="fake-effect fe-3"></div>
+			<div class="fake-effect fe-4"></div>
+			<div class="fake-effect fe-5"></div>
+			<div class="fake-effect fe-6"></div>
+			<div class="fake-effect fe-7"></div>
+			<div class="fake-effect fe-8"></div>
+			<div class="fake-effect fe-9"></div>
+			<div class="fake-effect fe-10"></div>
+			<div class="fake-effect fe-11"></div>
 		</div>
 	</div>
 </div>

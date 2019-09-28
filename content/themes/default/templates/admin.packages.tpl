@@ -184,6 +184,21 @@
 
                 <div class="form-group form-row">
                     <label class="col-md-3 form-control-label">
+                        {__("Verification Badge Enabled")}
+                    </label>
+                    <div class="col-md-9">
+                        <label class="switch" for="verification_badge_enabled">
+                            <input type="checkbox" name="verification_badge_enabled" id="verification_badge_enabled" {if $data['verification_badge_enabled']}checked{/if}>
+                            <span class="slider round"></span>
+                        </label>
+                        <span class="form-text">
+                            {__("Enable verification badge with this package")}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
                         {__("Boost Posts Enabled")}
                     </label>
                     <div class="col-md-9">
@@ -332,6 +347,21 @@
                         </div>
                         <span class="form-text">
                             {__("The perfect size for icon should be (wdith: 60px & height: 60px)")}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        {__("Verification Badge Enabled")}
+                    </label>
+                    <div class="col-md-9">
+                        <label class="switch" for="verification_badge_enabled">
+                            <input type="checkbox" name="verification_badge_enabled" id="verification_badge_enabled">
+                            <span class="slider round"></span>
+                        </label>
+                        <span class="form-text">
+                            {__("Enable verification badge with this package")}
                         </span>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 <?php
 /**
  * class -> user
- *
+ * 
  * @package Sngine
  * @author Zamblek
  */
@@ -23,7 +23,7 @@ class User {
 
     /**
      * __construct
-     *
+     * 
      * @return void
      */
     public function __construct() {
@@ -88,12 +88,12 @@ class User {
 
 
     /* ------------------------------- */
-    /* Get Countries */
+    /* System Countries */
     /* ------------------------------- */
 
     /**
      * get_countries
-     *
+     * 
      * @return array
      */
     public function get_countries() {
@@ -111,12 +111,35 @@ class User {
 
 
     /* ------------------------------- */
+    /* System Currencies */
+    /* ------------------------------- */
+
+    /**
+     * get_currencies
+     * 
+     * @return array
+     */
+    public function get_currencies() {
+        global $db, $system;
+        $currencies = [];
+        $get_currencies = $db->query("SELECT * FROM system_currencies") or _error("SQL_ERROR_THROWEN");
+        if($get_currencies->num_rows > 0) {
+            while($currency = $get_currencies->fetch_assoc()) {
+                $currencies[] = $currency;
+            }
+        }
+        return $currencies;
+    }
+
+
+
+    /* ------------------------------- */
     /* Get Ids */
     /* ------------------------------- */
 
     /**
      * get_friends_ids
-     *
+     * 
      * @param integer $user_id
      * @return array
      */
@@ -135,7 +158,7 @@ class User {
 
     /**
      * get_followings_ids
-     *
+     * 
      * @param integer $user_id
      * @return array
      */
@@ -154,7 +177,7 @@ class User {
 
     /**
      * get_followers_ids
-     *
+     * 
      * @param integer $user_id
      * @return array
      */
@@ -173,7 +196,7 @@ class User {
 
     /**
      * get_blocked_ids
-     *
+     * 
      * @param integer $user_id
      * @return array
      */
@@ -192,7 +215,7 @@ class User {
 
     /**
      * get_friend_requests_ids
-     *
+     * 
      * @return array
      */
     public function get_friend_requests_ids() {
@@ -210,7 +233,7 @@ class User {
 
     /**
      * get_friend_requests_sent_ids
-     *
+     * 
      * @return array
      */
     public function get_friend_requests_sent_ids() {
@@ -228,7 +251,7 @@ class User {
 
     /**
      * get_pages_ids
-     *
+     * 
      * @return array
      */
     public function get_pages_ids() {
@@ -248,7 +271,7 @@ class User {
 
     /**
      * get_groups_ids
-     *
+     * 
      * @param boolean $only_approved
      * @return array
      */
@@ -268,7 +291,7 @@ class User {
 
     /**
      * get_events_ids
-     *
+     * 
      * @return array
      */
     public function get_events_ids() {
@@ -291,7 +314,7 @@ class User {
 
     /**
      * get_friends
-     *
+     * 
      * @param integer $user_id
      * @param integer $offset
      * @param boolean $get_all
@@ -305,7 +328,7 @@ class User {
         $get_privacy = $db->query(sprintf("SELECT user_privacy_friends FROM users WHERE user_id = %s", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         $privacy = $get_privacy->fetch_assoc();
         /* check the target user's privacy  */
-        if(!$this->_check_privacy($privacy['user_privacy_friends'], $user_id)) {
+        if(!$this->check_privacy($privacy['user_privacy_friends'], $user_id)) {
             return $friends;
         }
         $limit_statement = ($get_all)? "" : sprintf("LIMIT %s, %s", secure($offset, 'int', false), secure($system['min_results_even'], 'int', false) );
@@ -324,7 +347,7 @@ class User {
 
     /**
      * get_followings
-     *
+     * 
      * @param integer $user_id
      * @param integer $offset
      * @param boolean $get_all
@@ -350,7 +373,7 @@ class User {
 
     /**
      * get_followers
-     *
+     * 
      * @param integer $user_id
      * @param integer $offset
      * @param boolean $get_all
@@ -376,7 +399,7 @@ class User {
 
     /**
      * get_blocked
-     *
+     * 
      * @param integer $offset
      * @return array
      */
@@ -398,7 +421,7 @@ class User {
 
     /**
      * get_friend_requests
-     *
+     * 
      * @param integer $offset
      * @param integer $last_request_id
      * @return array
@@ -425,7 +448,7 @@ class User {
 
     /**
      * get_friend_requests_sent
-     *
+     * 
      * @param integer $offset
      * @return array
      */
@@ -447,7 +470,7 @@ class User {
 
     /**
      * get_mutual_friends
-     *
+     * 
      * @param integer $user_two_id
      * @param integer $offset
      * @return array
@@ -485,7 +508,7 @@ class User {
 
     /**
      * get_mutual_friends_count
-     *
+     * 
      * @param integer $user_two_id
      * @return integer
      */
@@ -496,7 +519,7 @@ class User {
 
     /**
      * get_new_people
-     *
+     * 
      * @param integer $offset
      * @param boolean $random
      * @return array
@@ -542,7 +565,7 @@ class User {
 
     /**
      * get_pro_members
-     *
+     * 
      * @return array
      */
     public function get_pro_members() {
@@ -562,7 +585,7 @@ class User {
 
     /**
      * get_users
-     *
+     * 
      * @param string $query
      * @param array $skipped_array
      * @param boolean $mentioned
@@ -596,7 +619,7 @@ class User {
                 } else {
                     $users[] = $user;
                 }
-
+                
             }
         }
         return $users;
@@ -605,7 +628,7 @@ class User {
 
     /**
      * get_user
-     *
+     * 
      * @param integer $user_id
      * @return array
      */
@@ -619,23 +642,20 @@ class User {
     }
 
 
-
+    
     /* ------------------------------- */
     /* Search */
     /* ------------------------------- */
 
     /**
      * search_quick
-     *
+     * 
      * @param string $query
      * @return array
      */
     public function search_quick($query) {
         global $db, $system;
         $results = [];
-        $offset *= $system['max_results'];
-
-
         /* search users */
         $get_users = $db->query(sprintf('SELECT user_id, user_name, user_firstname, user_lastname, user_gender, user_picture, user_subscribed, user_verified FROM users WHERE user_name LIKE %1$s OR user_firstname LIKE %1$s OR user_lastname LIKE %1$s OR CONCAT(user_firstname,  " ", user_lastname) LIKE %1$s LIMIT %2$s', secure($query, 'search'), secure($system['min_results'], 'int', false) )) or _error("SQL_ERROR_THROWEN");
         if($get_users->num_rows > 0) {
@@ -695,7 +715,7 @@ class User {
 
     /**
      * search
-     *
+     * 
      * @param string $query
      * @return array
      */
@@ -708,17 +728,8 @@ class User {
         if(count($posts) > 0) {
             $results['posts'] = $posts;
         }
-        $get_projects = $db->query(sprintf('SELECT post_id FROM posts_projects WHERE name LIKE %1$s OR pattern LIKE %1$s ORDER BY name ASC LIMIT %2$s, %3$s', secure($query, 'search'), secure($offset, 'int', false), secure($system['max_results'], 'int', false) )) or _error("SQL_ERROR_THROWEN");
-        if($get_projects->num_rows > 0) {
-            while($project = $get_projects->fetch_assoc()) {
-                $project = $this->get_post($project['post_id']);
-                if($project) {
-                    $results['projects'][] = $project;
-                }
-            }
-        }
         /* search articles */
-        $get_articles = $db->query(sprintf('SELECT post_id FROM posts_articles WHERE title LIKE %1$s OR text LIKE %1$s ORDER BY title ASC LIMIT %2$s, %3$s', secure($query, 'search'), secure($offset, 'int', false), secure($system['max_results'], 'int', false) )) or _error("SQL_ERROR_THROWEN");
+        $get_articles = $db->query(sprintf('SELECT post_id FROM posts_articles WHERE title LIKE %1$s OR text LIKE %1$s OR tags LIKE %1$s ORDER BY title ASC LIMIT %2$s, %3$s', secure($query, 'search'), secure($offset, 'int', false), secure($system['max_results'], 'int', false) )) or _error("SQL_ERROR_THROWEN");
         if($get_articles->num_rows > 0) {
             while($article = $get_articles->fetch_assoc()) {
                 $article = $this->get_post($article['post_id']);
@@ -773,7 +784,7 @@ class User {
 
     /**
      * search_users
-     *
+     * 
      * @param string $distance
      * @param string $keyword
      * @param string $gender
@@ -852,7 +863,7 @@ class User {
 
     /**
      * get_search_log
-     *
+     * 
      * @return array
      */
     public function get_search_log() {
@@ -867,7 +878,7 @@ class User {
                         /* get the connection between the viewer & the target */
                         $result['connection'] = $this->connection($result['user_id']);
                         break;
-
+                    
                     case 'page':
                         $result['page_picture'] = get_picture($result['page_picture'], 'page');
                         /* check if the viewer liked the page */
@@ -896,7 +907,7 @@ class User {
 
     /**
      * set_search_log
-     *
+     * 
      * @param integer $node_id
      * @param string $node_type
      * @return void
@@ -909,14 +920,14 @@ class User {
 
     /**
      * clear_search_log
-     *
+     * 
      * @return void
      */
     public function clear_search_log() {
         global $db, $system;
         $db->query(sprintf("DELETE FROM users_searches WHERE user_id = %s", secure($this->_data['user_id'], 'int'))) or _error("SQL_ERROR_THROWEN");
     }
-
+    
 
 
     /* ------------------------------- */
@@ -925,14 +936,14 @@ class User {
 
     /**
      * connect
-     *
+     * 
      * @param string $do
      * @param integer $id
      * @param integer $uid
      * @return void
      */
     public function connect($do, $id, $uid = null) {
-        global $db;
+        global $db, $system;
         switch ($do) {
             case 'block':
                 /* check blocking */
@@ -950,17 +961,15 @@ class User {
                 break;
 
             case 'unblock':
-                /* check blocking */
-                if(!$this->blocked($id)) return;
                 /* unblock the user */
                 $db->query(sprintf("DELETE FROM users_blocks WHERE user_id = %s AND blocked_id = %s", secure($this->_data['user_id'], 'int'), secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 break;
 
             case 'friend-accept':
                 /* check if there is a friend request from the target to the viewer */
-                $check = $db->query(sprintf("SELECT * FROM friends WHERE user_one_id = %s AND user_two_id = %s AND status = 0", secure($id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check = $db->query(sprintf("SELECT COUNT(*) as count FROM friends WHERE user_one_id = %s AND user_two_id = %s AND status = 0", secure($id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                 /* if no -> return */
-                if($check->num_rows == 0) return;
+                if($check->fetch_assoc()['count'] == 0) return;
                 /* add the target as a friend */
                 $db->query(sprintf("UPDATE friends SET status = 1 WHERE user_one_id = %s AND user_two_id = %s", secure($id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                 /* post new notification */
@@ -971,9 +980,9 @@ class User {
 
             case 'friend-decline':
                 /* check if there is a friend request from the target to the viewer */
-                $check = $db->query(sprintf("SELECT * FROM friends WHERE user_one_id = %s AND user_two_id = %s AND status = 0", secure($id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check = $db->query(sprintf("SELECT COUNT(*) as count FROM friends WHERE user_one_id = %s AND user_two_id = %s AND status = 0", secure($id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                 /* if no -> return */
-                if($check->num_rows == 0) return;
+                if($check->fetch_assoc()['count'] == 0) return;
                 /* decline this friend request */
                 $db->query(sprintf("UPDATE friends SET status = -1 WHERE user_one_id = %s AND user_two_id = %s", secure($id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                 /* unfollow */
@@ -986,9 +995,27 @@ class User {
                     _error(403);
                 }
                 /* check if there is any relation between the viewer & the target */
-                $check = $db->query(sprintf('SELECT * FROM friends WHERE (user_one_id = %1$s AND user_two_id = %2$s) OR (user_one_id = %2$s AND user_two_id = %1$s)', secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check_relation = $db->query(sprintf('SELECT COUNT(*) as count FROM friends WHERE (user_one_id = %1$s AND user_two_id = %2$s) OR (user_one_id = %2$s AND user_two_id = %1$s)', secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 /* if yes -> return */
-                if($check->num_rows > 0) return;
+                if($check_relation->fetch_assoc()['count'] > 0) return;
+                /* check max friends/user limit for both the viewer & the target */
+                if($system['max_friends'] > 0) {
+                    /* get target user group */
+                    $get_target_user = $db->query(sprintf("SELECT user_group FROM users WHERE user_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
+                    if($get_target_user->num_rows == 0) return;
+                    $target_user = $get_target_user->fetch_assoc();
+                    /* viewer check */
+                    $check_viewer_limit = $db->query(sprintf('SELECT COUNT(*) as count FROM friends WHERE (user_one_id = %1$s OR user_two_id = %1$s) AND status = 1', secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                    if($check_viewer_limit->fetch_assoc()['count'] >= $system['max_friends'] && $this->_data['user_group'] >= 3) {
+                        modal("MESSAGE", __("Maximum Limit Reached"), __("Your have reached the maximum limit of Friends"." (".$system['max_friends']." ".__("Friends").")"));
+                    }
+                    /* target check */
+                    $check_target_limit = $db->query(sprintf('SELECT COUNT(*) as count FROM friends WHERE (user_one_id = %1$s OR user_two_id = %1$s) AND status = 1', secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
+                    if($check_target_limit->fetch_assoc()['count'] >= $system['max_friends'] && $target_user['user_group'] >= 3) {
+                        modal("MESSAGE", __("Maximum Limit Reached"), __("This user has reached the maximum limit of Friends"." (".$system['max_friends']." ".__("Friends").")"));
+                    }
+
+                }
                 /* add the friend request */
                 $db->query(sprintf("INSERT INTO friends (user_one_id, user_two_id, status) VALUES (%s, %s, '0')", secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 /* update requests counter +1 */
@@ -1001,9 +1028,9 @@ class User {
 
             case 'friend-cancel':
                 /* check if there is a request from the viewer to the target */
-                $check = $db->query(sprintf("SELECT * FROM friends WHERE user_one_id = %s AND user_two_id = %s AND status = 0", secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check = $db->query(sprintf("SELECT COUNT(*) as count FROM friends WHERE user_one_id = %s AND user_two_id = %s AND status = 0", secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 /* if no -> return */
-                if($check->num_rows == 0) return;
+                if($check->fetch_assoc()['count'] == 0) return;
                 /* delete the friend request */
                 $db->query(sprintf("DELETE FROM friends WHERE user_one_id = %s AND user_two_id = %s", secure($this->_data['user_id'], 'int'), secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 /* update requests counter -1 */
@@ -1014,9 +1041,9 @@ class User {
 
             case 'friend-remove':
                 /* check if there is any relation between me & him */
-                $check = $db->query(sprintf('SELECT * FROM friends WHERE (user_one_id = %1$s AND user_two_id = %2$s AND status = 1) OR (user_one_id = %2$s AND user_two_id = %1$s AND status = 1)', secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check = $db->query(sprintf('SELECT COUNT(*) as count FROM friends WHERE (user_one_id = %1$s AND user_two_id = %2$s AND status = 1) OR (user_one_id = %2$s AND user_two_id = %1$s AND status = 1)', secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 /* if no -> return */
-                if($check->num_rows == 0) return;
+                if($check->fetch_assoc()['count'] == 0) return;
                 /* delete this friend */
                 $db->query(sprintf('DELETE FROM friends WHERE (user_one_id = %1$s AND user_two_id = %2$s AND status = 1) OR (user_one_id = %2$s AND user_two_id = %1$s AND status = 1)', secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 break;
@@ -1029,11 +1056,29 @@ class User {
                 $this->_unfollow($id);
                 break;
 
+            case 'poke':
+                /* check if the viewer allowed to poke the target */
+                $get_target_user = $db->query(sprintf("SELECT user_privacy_poke FROM users WHERE user_id = %s", secure($id, 'int'))) or _error("SQL_ERROR_THROWEN");
+                if($get_target_user->num_rows == 0) return;
+                $target_user = $get_target_user->fetch_assoc();
+                if($target_user['user_privacy_poke'] == "me" || ($target_user['user_privacy_poke'] == "friends" && !in_array($id, $this->_data['friends_ids']) )) {
+                    throw new Exception(__("You can't poke this user"));
+                }
+                /* check if the viewer poked the target before */
+                if($this->poked($id)) {
+                    throw new Exception(__("You have already poked this user before!"));
+                }
+                /* poke the target user */
+                $db->query(sprintf("INSERT INTO users_pokes (user_id, poked_id) VALUES (%s, %s)", secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
+                /* post new notification */
+                $this->post_notification( array('to_user_id'=>$id, 'action'=>'poke', 'node_url'=>$this->_data['user_name']) );
+                break;
+
             case 'page-like':
                 /* check if the viewer already liked this page */
-                $check = $db->query(sprintf("SELECT * FROM pages_likes WHERE user_id = %s AND page_id = %s", secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check = $db->query(sprintf("SELECT COUNT(*) as count FROM pages_likes WHERE user_id = %s AND page_id = %s", secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 /* if yes -> return */
-                if($check->num_rows > 0) return;
+                if($check->fetch_assoc()['count'] > 0) return;
                 /* if no -> like this page */
                 $db->query(sprintf("INSERT INTO pages_likes (user_id, page_id) VALUES (%s, %s)", secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 /* update likes counter +1 */
@@ -1042,36 +1087,13 @@ class User {
 
             case 'page-unlike':
                 /* check if the viewer already liked this page */
-                $check = $db->query(sprintf("SELECT * FROM pages_likes WHERE user_id = %s AND page_id = %s", secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check = $db->query(sprintf("SELECT COUNT(*) as count FROM pages_likes WHERE user_id = %s AND page_id = %s", secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 /* if no -> return */
-                if($check->num_rows == 0) return;
+                if($check->fetch_assoc()['count'] == 0) return;
                 /* if yes -> unlike this page */
                 $db->query(sprintf("DELETE FROM pages_likes WHERE user_id = %s AND page_id = %s", secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 /* update likes counter -1 */
                 $db->query(sprintf("UPDATE pages SET page_likes = IF(page_likes=0,0,page_likes-1) WHERE page_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
-                break;
-            case 'project-like':
-                /* check if the viewer already liked this project */
-                $check = $db->query(sprintf("SELECT * FROM posts_projects_likes WHERE user_id = %s AND post_id = %s", secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
-                /* if yes -> return */
-                if($check->num_rows > 0) return;
-                /* if no -> like this project */
-                $db->query(sprintf("INSERT INTO posts_projects_likes (user_id, post_id) VALUES (%s, %s)", secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
-                /* update likes counter +1 */
-                $db->query(sprintf("UPDATE posts_projects SET project_likes = project_likes + 1  WHERE post_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
-                $db->query(sprintf("UPDATE posts SET reaction_like_count = reaction_like_count + 1  WHERE post_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
-                break;
-
-            case 'project-unlike':
-                /* check if the viewer already liked this project */
-                $check = $db->query(sprintf("SELECT * FROM posts_projects_likes WHERE user_id = %s AND post_id = %s", secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
-                /* if no -> return */
-                if($check->num_rows == 0) return;
-                /* if yes -> unlike this project */
-                $db->query(sprintf("DELETE FROM posts_projects_likes WHERE user_id = %s AND post_id = %s", secure($this->_data['user_id'], 'int'),  secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
-                /* update likes counter -1 */
-                $db->query(sprintf("UPDATE posts_projects SET project_likes = IF(project_likes=0,0,project_likes-1) WHERE post_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
-                $db->query(sprintf("UPDATE posts SET reaction_like_count = IF(reaction_like_count=0,0,reaction_like_count-1) WHERE post_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 break;
 
             case 'page-boost':
@@ -1549,7 +1571,7 @@ class User {
 
     /**
      * connection
-     *
+     * 
      * @param integer $user_id
      * @param boolean $friendship
      * @return string
@@ -1578,6 +1600,10 @@ class User {
             if(in_array($user_id, $this->_data['friend_requests_sent_ids'])) {
                 return "cancel";
             }
+            /* check if the viewer declined the friend request to the target */
+            if($this->friendship_declined($user_id)) {
+                return "declined";
+            }
             /* there is no relation between the viewer & the target */
             return "add";
         } else {
@@ -1597,7 +1623,7 @@ class User {
                 /* the viewer not follow the target */
                 return "follow";
             }
-        }
+        }   
     }
 
 
@@ -1609,7 +1635,7 @@ class User {
      */
     public function banned($user_id) {
         global $db;
-        $check = $db->query(sprintf("SELECT count(*) as count FROM users WHERE user_banned = '1' AND user_id = %s", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        $check = $db->query(sprintf("SELECT COUNT(*) as count FROM users WHERE user_banned = '1' AND user_id = %s", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         if($check->fetch_assoc()['count'] > 0) {
             return true;
         }
@@ -1619,7 +1645,7 @@ class User {
 
     /**
      * blocked
-     *
+     * 
      * @param integer $user_id
      * @return boolean
      */
@@ -1631,7 +1657,26 @@ class User {
         }
         /* check if there is any blocking between the viewer & the target */
         if($this->_logged_in) {
-            $check = $db->query(sprintf('SELECT count(*) as count FROM users_blocks WHERE (user_id = %1$s AND blocked_id = %2$s) OR (user_id = %2$s AND blocked_id = %1$s)', secure($this->_data['user_id'], 'int'),  secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+            $check = $db->query(sprintf('SELECT COUNT(*) as count FROM users_blocks WHERE (user_id = %1$s AND blocked_id = %2$s) OR (user_id = %2$s AND blocked_id = %1$s)', secure($this->_data['user_id'], 'int'),  secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+            if($check->fetch_assoc()['count'] > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * poked
+     * 
+     * @param integer $user_id
+     * @return boolean
+     */
+    public function poked($user_id) {
+        global $db;
+        /* check if the viewer poked the target before */
+        if($this->_logged_in) {
+            $check = $db->query(sprintf("SELECT COUNT(*) as count FROM users_pokes WHERE user_id = %s AND poked_id = %s ", secure($this->_data['user_id'], 'int'),  secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
             if($check->fetch_assoc()['count'] > 0) {
                 return true;
             }
@@ -1642,7 +1687,7 @@ class User {
 
     /**
      * friendship_declined
-     *
+     * 
      * @param integer $user_id
      * @return boolean
      */
@@ -1650,7 +1695,7 @@ class User {
         global $db;
         /* check if there is any declined friendship request between the viewer & the target */
         if($this->_logged_in) {
-            $check = $db->query(sprintf('SELECT count(*) as count FROM friends WHERE status = -1 AND (user_one_id = %1$s AND user_two_id = %2$s) OR (user_one_id = %2$s AND user_two_id = %1$s)', secure($this->_data['user_id'], 'int'),  secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+            $check = $db->query(sprintf('SELECT COUNT(*) as count FROM friends WHERE status = -1 AND (user_one_id = %1$s AND user_two_id = %2$s) OR (user_one_id = %2$s AND user_two_id = %1$s)', secure($this->_data['user_id'], 'int'),  secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
             if($check->fetch_assoc()['count'] > 0) {
                 return true;
             }
@@ -1661,7 +1706,7 @@ class User {
 
     /**
      * delete_user
-     *
+     * 
      * @param integer $user_id
      * @return void
      */
@@ -1691,13 +1736,19 @@ class User {
         if($can_delete) {
             /* delete the user */
             $db->query(sprintf("DELETE FROM users WHERE user_id = %s", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+            /* delete all user pages */
+            $db->query(sprintf("DELETE FROM pages WHERE page_admin = %s", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+            /* delete all user groups */
+            $db->query(sprintf("DELETE FROM groups WHERE group_admin = %s", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+            /* delete all user events */
+            $db->query(sprintf("DELETE FROM events WHERE event_admin = %s", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         }
     }
 
 
     /**
      * _follow
-     *
+     * 
      * @param integer $user_id
      * @return void
      */
@@ -1708,7 +1759,7 @@ class User {
             _error(403);
         }
         /* check if the viewer already follow the target */
-        $check = $db->query(sprintf("SELECT count(*) as count FROM followings WHERE user_id = %s AND following_id = %s", secure($this->_data['user_id'], 'int'),  secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        $check = $db->query(sprintf("SELECT COUNT(*) as count FROM followings WHERE user_id = %s AND following_id = %s", secure($this->_data['user_id'], 'int'),  secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         /* if yes -> return */
         if($check->fetch_assoc()['count'] > 0) return;
         /* add as following */
@@ -1720,14 +1771,14 @@ class User {
 
     /**
      * _unfollow
-     *
+     * 
      * @param integer $user_id
      * @return void
      */
     private function _unfollow($user_id) {
         global $db;
         /* check if the viewer already follow the target */
-        $check = $db->query(sprintf("SELECT count(*) as count FROM followings WHERE user_id = %s AND following_id = %s", secure($this->_data['user_id'], 'int'),  secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        $check = $db->query(sprintf("SELECT COUNT(*) as count FROM followings WHERE user_id = %s AND following_id = %s", secure($this->_data['user_id'], 'int'),  secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         /* if no -> return */
         if($check->fetch_assoc()['count'] == 0) return;
         /* delete from viewer's followings */
@@ -1741,10 +1792,10 @@ class User {
     /* ------------------------------- */
     /* Live */
     /* ------------------------------- */
-
+    
     /**
      * live_counters_reset
-     *
+     * 
      * @param string $counter
      * @return void
      */
@@ -1755,8 +1806,8 @@ class User {
         } elseif($counter == "messages") {
             $db->query(sprintf("UPDATE users SET user_live_messages_counter = 0 WHERE user_id = %s", secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
         } elseif($counter == "notifications") {
-            $db->query(sprintf("UPDATE users SET user_live_notifications_counter = 0 WHERE user_id = %s", secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
-            $db->query(sprintf("UPDATE notifications SET seen = '1' WHERE to_user_id = %s", secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+            $db->query(sprintf("UPDATE users SET user_live_notifications_counter = 0 WHERE user_id = %s", secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN"); 
+            $db->query(sprintf("UPDATE notifications SET seen = '1' WHERE to_user_id = %s", secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN"); 
         }
     }
 
@@ -1768,7 +1819,7 @@ class User {
 
     /**
      * get_notifications
-     *
+     * 
      * @param integer $offset
      * @param integer $last_notification_id
      * @return array
@@ -1812,6 +1863,18 @@ class User {
                         $notification['message'] = __("now following you");
                         break;
 
+                    case 'poke':
+                        $notification['icon'] = "fa-hand-point-right";
+                        $notification['url'] = $system['system_url'].'/'.$notification['user_name'];
+                        $notification['message'] = __("poked you");
+                        break;
+
+                    case 'gift':
+                        $notification['icon'] = "fa-gift";
+                        $notification['url'] = $system['system_url'].'/'.$this->_data['user_name'].'?gift='.$notification['node_url'];
+                        $notification['message'] = __("Sent you a gift");
+                        break;
+
                     case 'react_like':
                     case 'react_love':
                     case 'react_haha':
@@ -1835,7 +1898,7 @@ class User {
                         } elseif ($notification['node_type'] == "photo_comment") {
                             $notification['url'] = $system['system_url'].'/photos/'.$notification['node_url'].$notification['notify_id'];
                             $notification['message'] = __("reacted to your comment");
-
+                        
                         } elseif ($notification['node_type'] == "post_reply") {
                             $notification['url'] = $system['system_url'].'/posts/'.$notification['node_url'].$notification['notify_id'];
                             $notification['message'] = __("reacted to your reply");
@@ -1888,7 +1951,7 @@ class User {
                                 $notification['url'] = $system['system_url'].'/posts/'.$notification['node_url'];
                                 $notification['message'] = __("mentioned you in a post");
                                 break;
-
+                            
                             case 'comment_post':
                                 $notification['url'] = $system['system_url'].'/posts/'.$notification['node_url'].$notification['notify_id'];
                                 $notification['message'] = __("mentioned you in a comment");
@@ -1988,7 +2051,7 @@ class User {
 
     /**
      * post_notification
-     *
+     * 
      * @param integer $to_user_id
      * @param string $action
      * @param string $node_type
@@ -2115,7 +2178,7 @@ class User {
                                 $notification['url'] = $system['system_url'].'/posts/'.$node_url;
                                 $notification['message'] = __("mentioned you in a post");
                                 break;
-
+                            
                             case 'comment_post':
                                 $notification['url'] = $system['system_url'].'/posts/'.$node_url.$notify_id;
                                 $notification['message'] = __("mentioned you in a comment");
@@ -2173,7 +2236,7 @@ class User {
 
     /**
      * post_mass_notification
-     *
+     * 
      * @param string $url
      * @param string $message
      * @return void
@@ -2189,7 +2252,7 @@ class User {
 
     /**
      * delete_notification
-     *
+     * 
      * @param integer $to_user_id
      * @param string $action
      * @param string $node_type
@@ -2212,7 +2275,7 @@ class User {
 
     /**
      * user_online
-     *
+     * 
      * @param integer $user_id
      * @return boolean
      */
@@ -2224,7 +2287,7 @@ class User {
             return false;
         }
         /* check if the target user is online & enable the chat */
-        $get_user_status = $db->query(sprintf("SELECT count(*) as count FROM users WHERE user_id = %s AND user_chat_enabled = '1' AND user_last_seen >= SUBTIME(NOW(), SEC_TO_TIME(%s))", secure($user_id, 'int'), secure($system['offline_time'], 'int', false) )) or _error("SQL_ERROR_THROWEN");
+        $get_user_status = $db->query(sprintf("SELECT COUNT(*) as count FROM users WHERE user_id = %s AND user_chat_enabled = '1' AND user_last_seen >= SUBTIME(NOW(), SEC_TO_TIME(%s))", secure($user_id, 'int'), secure($system['offline_time'], 'int', false) )) or _error("SQL_ERROR_THROWEN");
         if($get_user_status->fetch_assoc()['count'] == 0) {
             /* if no > return false */
             return false;
@@ -2235,7 +2298,7 @@ class User {
 
     /**
      * get_online_friends
-     *
+     * 
      * @return array
      */
     public function get_online_friends() {
@@ -2248,7 +2311,7 @@ class User {
         }
         /* make a list from viewer's friends */
         $friends_list = implode(',', $this->_data['friends_ids']);
-        $get_online_friends = $db->query(sprintf("SELECT user_id, user_name, user_firstname, user_lastname, user_gender, user_picture, user_subscribed, user_verified FROM users WHERE user_last_seen >= SUBTIME(NOW(), SEC_TO_TIME(%s)) AND user_chat_enabled = '1' AND user_id IN (%s)", secure($system['offline_time'], 'int', false), $friends_list )) or _error("SQL_ERROR_THROWEN");
+        $get_online_friends = $db->query(sprintf("SELECT user_id, user_name, user_firstname, user_lastname, user_gender, user_picture FROM users WHERE user_last_seen >= SUBTIME(NOW(), SEC_TO_TIME(%s)) AND user_chat_enabled = '1' AND user_id IN (%s)", secure($system['offline_time'], 'int', false), $friends_list )) or _error("SQL_ERROR_THROWEN");
         if($get_online_friends->num_rows > 0) {
             while($online_friend = $get_online_friends->fetch_assoc()) {
                 $online_friend['user_picture'] = get_picture($online_friend['user_picture'], $online_friend['user_gender']);
@@ -2262,7 +2325,7 @@ class User {
 
     /**
      * get_offline_friends
-     *
+     * 
      * @return array
      */
     public function get_offline_friends() {
@@ -2275,7 +2338,7 @@ class User {
         }
         /* make a list from viewer's friends */
         $friends_list = implode(',', $this->_data['friends_ids']);
-        $get_offline_friends = $db->query(sprintf("SELECT user_id, user_name, user_firstname, user_lastname, user_gender, user_picture, user_subscribed, user_verified, user_last_seen FROM users WHERE user_last_seen < SUBTIME(NOW(), SEC_TO_TIME(%s)) AND user_id IN (%s)", secure($system['offline_time'], 'int', false), $friends_list )) or _error("SQL_ERROR_THROWEN");
+        $get_offline_friends = $db->query(sprintf("SELECT user_id, user_name, user_firstname, user_lastname, user_gender, user_picture, user_subscribed, user_verified, user_last_seen FROM users WHERE user_last_seen < SUBTIME(NOW(), SEC_TO_TIME(%s)) AND user_id IN (%s) LIMIT 50", secure($system['offline_time'], 'int', false), $friends_list )) or _error("SQL_ERROR_THROWEN");
         if($get_offline_friends->num_rows > 0) {
             while($offline_friend = $get_offline_friends->fetch_assoc()) {
                 $offline_friend['user_picture'] = get_picture($offline_friend['user_picture'], $offline_friend['user_gender']);
@@ -2285,11 +2348,11 @@ class User {
         }
         return $offline_friends;
     }
-
+    
 
     /**
      * get_conversations_new
-     *
+     * 
      * @return array
      */
     public function get_conversations_new() {
@@ -2311,10 +2374,10 @@ class User {
         return $conversations;
     }
 
-
+    
     /**
      * get_conversations
-     *
+     * 
      * @param integer $offset
      * @return array
      */
@@ -2337,12 +2400,12 @@ class User {
 
     /**
      * get_conversation
-     *
+     * 
      * @param integer $conversation_id
      * @return array
      */
     public function get_conversation($conversation_id) {
-        global $db;
+        global $db, $system;
         $conversation = [];
         $get_conversation = $db->query(sprintf("SELECT conversations.*, conversations_messages.message, conversations_messages.image, conversations_messages.time, conversations_users.seen FROM conversations INNER JOIN conversations_messages ON conversations.last_message_id = conversations_messages.message_id INNER JOIN conversations_users ON conversations.conversation_id = conversations_users.conversation_id WHERE conversations_users.user_id = %s AND conversations.conversation_id = %s", secure($this->_data['user_id'], 'int'), secure($conversation_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         if($get_conversation->num_rows == 0) {
@@ -2350,16 +2413,41 @@ class User {
         }
         $conversation = $get_conversation->fetch_assoc();
         /* get recipients */
-        $get_recipients = $db->query(sprintf("SELECT users.user_id, users.user_name, users.user_firstname, users.user_lastname, users.user_gender, users.user_picture, users.user_subscribed, users.user_verified FROM conversations_users INNER JOIN users ON conversations_users.user_id = users.user_id WHERE conversations_users.conversation_id = %s AND conversations_users.user_id != %s", secure($conversation['conversation_id'], 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        $get_recipients = $db->query(sprintf("SELECT conversations_users.seen, conversations_users.typing, users.user_id, users.user_name, users.user_firstname, users.user_lastname, users.user_gender, users.user_picture, users.user_subscribed, users.user_verified FROM conversations_users INNER JOIN users ON conversations_users.user_id = users.user_id WHERE conversations_users.conversation_id = %s AND conversations_users.user_id != %s", secure($conversation['conversation_id'], 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
         $recipients_num = $get_recipients->num_rows;
         if($recipients_num == 0) {
             return false;
         }
         $i = 1;
         while($recipient = $get_recipients->fetch_assoc()) {
+            /* get recipient picture */
             $recipient['user_picture'] = get_picture($recipient['user_picture'], $recipient['user_gender']);
+            /* add to conversation recipients */
             $conversation['recipients'][] = $recipient;
-            $conversation['name_list'] .= $recipient['user_firstname'];
+            /* prepare typing recipients */
+            if($system['chat_typing_enabled'] && $recipient['typing']) {
+                /* check if recipient typing but offline */
+                $get_recipient_status = $db->query(sprintf("SELECT COUNT(*) as count FROM users WHERE user_id = %s AND user_last_seen >= SUBTIME(NOW(), SEC_TO_TIME(%s))", secure($recipient['user_id'], 'int'), secure($system['offline_time'], 'int', false) )) or _error("SQL_ERROR_THROWEN");
+                if($get_recipient_status->fetch_assoc()['count'] == 0) {
+                    /* recipient offline -> remove his typing status */
+                    $db->query(sprintf("UPDATE conversations_users SET typing = '0' WHERE conversation_id = %s AND user_id = %s", secure($conversation_id, 'int'), secure($recipient['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                } else {
+                    /* recipient online -> return his typing status */
+                    if($conversation['typing_name_list']) {
+                        $conversation['typing_name_list'] .=", ";
+                    }
+                    $conversation['typing_name_list'] .= html_entity_decode($recipient['user_firstname'], ENT_QUOTES);
+                }
+            }
+            /* prepare seen recipients */
+            if($system['chat_seen_enabled'] && $recipient['seen']) {
+                if($conversation['seen_name_list']) {
+                    $conversation['seen_name_list'] .=", ";
+                }
+                $conversation['seen_name_list'] .= html_entity_decode($recipient['user_firstname'], ENT_QUOTES);
+            }
+            /* prepare conversation name_list */
+            $conversation['name_list'] .= html_entity_decode($recipient['user_firstname'], ENT_QUOTES);
             if($i < $recipients_num) {
                 $conversation['name_list'] .= ", ";
             }
@@ -2373,9 +2461,9 @@ class User {
             $conversation['picture_left'] = $conversation['recipients'][0]['user_picture'];
             $conversation['picture_right'] = $conversation['recipients'][1]['user_picture'];
             if($recipients_num > 2) {
-                $conversation['name'] = $conversation['recipients'][0]['user_firstname'].", ".$conversation['recipients'][1]['user_firstname']." & ".($recipients_num - 2)." ".__("more");
+                $conversation['name'] = html_entity_decode($conversation['recipients'][0]['user_firstname'], ENT_QUOTES).", ".html_entity_decode($conversation['recipients'][1]['user_firstname'], ENT_QUOTES)." & ".($recipients_num - 2)." ".__("more");
             } else {
-                $conversation['name'] = $conversation['recipients'][0]['user_firstname']." & ".$conversation['recipients'][1]['user_firstname'];
+                $conversation['name'] = html_entity_decode($conversation['recipients'][0]['user_firstname'], ENT_QUOTES)." & ".html_entity_decode($conversation['recipients'][1]['user_firstname'], ENT_QUOTES);
             }
         } else {
             /* one recipient */
@@ -2383,7 +2471,7 @@ class User {
             $conversation['user_id'] = $conversation['recipients'][0]['user_id'];
             $conversation['link'] = $conversation['recipients'][0]['user_name'];
             $conversation['picture'] = $conversation['recipients'][0]['user_picture'];
-            $conversation['name'] = html_entity_decode($conversation['recipients'][0]['user_firstname']." ".$conversation['recipients'][0]['user_lastname']);
+            $conversation['name'] = html_entity_decode($conversation['recipients'][0]['user_firstname'], ENT_QUOTES)." ".html_entity_decode($conversation['recipients'][0]['user_lastname'], ENT_QUOTES);
             $conversation['name_html'] = popover($conversation['recipients'][0]['user_id'], $conversation['recipients'][0]['user_name'], $conversation['recipients'][0]['user_firstname']." ".$conversation['recipients'][0]['user_lastname']);
         }
         /* get total number of messages */
@@ -2398,7 +2486,7 @@ class User {
 
     /**
      * get_mutual_conversation
-     *
+     * 
      * @param array $recipients
      * @param boolean $check_deleted
      * @return integer
@@ -2415,7 +2503,7 @@ class User {
         while($mutual_conversation = $get_mutual_conversations->fetch_assoc()) {
             /* get recipients */
             $where_statement = ($check_deleted)? " AND deleted != '1' ": "";
-            $get_recipients = $db->query(sprintf("SELECT count(*) as count FROM conversations_users WHERE conversation_id = %s".$where_statement, secure($mutual_conversation['conversation_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+            $get_recipients = $db->query(sprintf("SELECT COUNT(*) as count FROM conversations_users WHERE conversation_id = %s".$where_statement, secure($mutual_conversation['conversation_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
             if($get_recipients->fetch_assoc()['count'] == count($recipients_array)) {
                 return $mutual_conversation['conversation_id'];
             }
@@ -2425,20 +2513,20 @@ class User {
 
     /**
      * get_conversation_total_messages
-     *
+     * 
      * @param integer $conversation_id
      * @return integer
      */
     public function get_conversation_total_messages($conversation_id) {
         global $db;
-        $get_total_messages = $db->query(sprintf("SELECT count(*) as count FROM conversations_messages WHERE conversation_id = %s", secure($conversation_id, 'int'))) or _error("SQL_ERROR_THROWEN");
+        $get_total_messages = $db->query(sprintf("SELECT COUNT(*) as count FROM conversations_messages WHERE conversation_id = %s", secure($conversation_id, 'int'))) or _error("SQL_ERROR_THROWEN");
         return $get_total_messages->fetch_assoc()['count'];
     }
 
 
     /**
      * get_conversation_messages
-     *
+     * 
      * @param integer $conversation_id
      * @param integer $offset
      * @param integer $last_message_id
@@ -2446,8 +2534,8 @@ class User {
      */
     public function get_conversation_messages($conversation_id, $offset = 0, $last_message_id = null) {
         global $db, $system;
-        /* check if user authorized */
-        $check_conversation = $db->query(sprintf("SELECT count(*) as count FROM conversations_users WHERE conversation_id = %s AND user_id = %s", secure($conversation_id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        /* check if user authorized to see this conversation */
+        $check_conversation = $db->query(sprintf("SELECT COUNT(*) as count FROM conversations_users WHERE conversation_id = %s AND user_id = %s", secure($conversation_id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
         if($check_conversation->fetch_assoc()['count'] == 0) {
             throw new Exception(__("You are not authorized to view this"));
         }
@@ -2471,7 +2559,7 @@ class User {
 
     /**
      * post_conversation_message
-     *
+     * 
      * @param string $message
      * @param string $image
      * @param integer $conversation_id
@@ -2531,24 +2619,30 @@ class User {
         foreach($conversation['recipients'] as $recipient) {
             $db->query(sprintf("UPDATE users SET user_live_messages_lastid = %s, user_live_messages_counter = user_live_messages_counter + 1 WHERE user_id = %s", secure($message_id, 'int'), secure($recipient['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
         }
+        /* update typing status of the viewer for this conversation */
+        $is_typing = '0';
+        $db->query(sprintf("UPDATE conversations_users SET typing = %s WHERE conversation_id = %s AND user_id = %s", secure($is_typing), secure($conversation_id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
         /* return with conversation */
-        return $conversation;
+        return $conversation;       
     }
 
 
     /**
      * delete_conversation
-     *
+     * 
      * @param integer $conversation_id
      * @return void
      */
     public function delete_conversation($conversation_id) {
         global $db;
         /* check if user authorized */
-        $check_conversation = $db->query(sprintf("SELECT count(*) as count FROM conversations_users WHERE conversation_id = %s AND user_id = %s", secure($conversation_id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        $check_conversation = $db->query(sprintf("SELECT COUNT(*) as count FROM conversations_users WHERE conversation_id = %s AND user_id = %s", secure($conversation_id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
         if($check_conversation->fetch_assoc()['count'] == 0) {
             throw new Exception(__("You are not authorized to do this"));
         }
+        /* update typing status of the viewer for this conversation */
+        $is_typing = '0';
+        $db->query(sprintf("UPDATE conversations_users SET typing = %s WHERE conversation_id = %s AND user_id = %s", secure($is_typing), secure($conversation_id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
         /* update conversation as deleted */
         $db->query(sprintf("UPDATE conversations_users SET deleted = '1' WHERE conversation_id = %s AND user_id = %s", secure($conversation_id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
     }
@@ -2556,7 +2650,7 @@ class User {
 
     /**
      * get_conversation_color
-     *
+     * 
      * @param integer $conversation_id
      * @return string
      */
@@ -2569,7 +2663,7 @@ class User {
 
     /**
      * set_conversation_color
-     *
+     * 
      * @param integer $conversation_id
      * @param string $color
      * @return void
@@ -2577,7 +2671,7 @@ class User {
     public function set_conversation_color($conversation_id, $color) {
         global $db;
         /* check if user authorized */
-        $check_conversation = $db->query(sprintf("SELECT count(*) as count FROM conversations_users WHERE conversation_id = %s AND user_id = %s", secure($conversation_id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        $check_conversation = $db->query(sprintf("SELECT COUNT(*) as count FROM conversations_users WHERE conversation_id = %s AND user_id = %s", secure($conversation_id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
         if($check_conversation->fetch_assoc()['count'] == 0) {
             _error(403);
         }
@@ -2585,14 +2679,329 @@ class User {
     }
 
 
+    /**
+     * update_conversation_typing_status
+     * 
+     * @param integer $conversation_id
+     * @param boolean $is_typing
+     * @return void
+     */
+    public function update_conversation_typing_status($conversation_id, $is_typing) {
+        global $db;
+        /* check if user authorized */
+        $check_conversation = $db->query(sprintf("SELECT COUNT(*) as count FROM conversations_users WHERE conversation_id = %s AND user_id = %s", secure($conversation_id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        if($check_conversation->fetch_assoc()['count'] == 0) {
+            return;
+        }
+        /* update typing status of the viewer for this conversation */
+        $is_typing = ($is_typing)? '1' : '0';
+        $db->query(sprintf("UPDATE conversations_users SET typing = %s WHERE conversation_id = %s AND user_id = %s", secure($is_typing), secure($conversation_id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+    }
 
+
+    /**
+     * update_conversation_seen_status
+     * 
+     * @param array $conversation_ids
+     * @return void
+     */
+    public function update_conversation_seen_status($conversation_ids) {
+        global $db;
+        $conversations_array = [];
+        /* check if user authorized */
+        foreach((array)$conversation_ids as $conversation_id) {
+            $check_conversation = $db->query(sprintf("SELECT COUNT(*) as count FROM conversations_users WHERE conversation_id = %s AND user_id = %s", secure($conversation_id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+            if($check_conversation->fetch_assoc()['count'] > 0) {
+                $conversations_array[] = $conversation_id;
+            }
+        }
+        if(!$conversations_array) return;
+        $conversations_list = implode(',', $conversations_array);
+        /* update seen status of the viewer to these conversation(s) */
+        $db->query(sprintf("UPDATE conversations_users SET seen = '1' WHERE conversation_id IN (%s) AND user_id = %s", $conversations_list, secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+    }
+
+
+
+    /* ------------------------------- */
+    /* Video/Audio Chat */
+    /* ------------------------------- */
+
+    /**
+     * create_call
+     * 
+     * @param string $type
+     * @param integer $to_user_id
+     * @return integer|false
+     */
+    public function create_call($type, $to_user_id) {
+        global $db, $system, $date;
+        /* check call type */
+        switch ($type) {
+            case 'video':
+                $table = "conversations_calls_video";
+                /* check if video calls enabled */
+                if(!$system['video_call_enabled']) {
+                    throw new Exception(__("This feature has been disabled by the admin"));
+                }
+                break;
+
+            case 'audio':
+                $table = "conversations_calls_audio";
+                /* check if audio calls enabled */
+                if(!$system['audio_call_enabled']) {
+                    throw new Exception(__("This feature has been disabled by the admin"));
+                }
+                break;
+            
+            default:
+                _error(400);
+                break;
+        }
+        /* check if target user exist */
+        $check_target_user = $db->query(sprintf("SELECT COUNT(*) as count FROM users WHERE user_id = %s", secure($to_user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        if($check_target_user->fetch_assoc()['count'] == 0) {
+            return false;
+        }
+        /* check blocking */
+        if($this->blocked($to_user_id)) {
+            return false;
+        }
+        /* check if target user offline */
+        $check_target_busy_offline = $db->query(sprintf("SELECT COUNT(*) as count FROM users WHERE user_id = %s AND user_last_seen >= SUBTIME(NOW(), SEC_TO_TIME(%s))", secure($to_user_id, 'int'), secure($system['offline_time'], 'int', false) )) or _error("SQL_ERROR_THROWEN");
+        if($check_target_busy_offline->fetch_assoc()['count'] == 0) {
+            return "recipient_offline";
+        }
+        /* check if target user busy (someone calling him || he calling someone || in a call) (audio|video) */
+        $check_target_busy_audio = $db->query(sprintf('SELECT COUNT(*) as count FROM conversations_calls_audio WHERE (from_user_id = %1$s OR to_user_id = %1$s) AND declined = "0" AND updated_time >= SUBTIME(NOW(), SEC_TO_TIME(40))', secure($to_user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        if($check_target_busy_audio->fetch_assoc()['count'] > 0) {
+            return "recipient_busy";
+        }
+        $check_target_busy_video = $db->query(sprintf('SELECT COUNT(*) as count FROM conversations_calls_video WHERE (from_user_id = %1$s OR to_user_id = %1$s) AND declined = "0" AND updated_time >= SUBTIME(NOW(), SEC_TO_TIME(40))', secure($to_user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        if($check_target_busy_video->fetch_assoc()['count'] > 0) {
+            return "recipient_busy";
+        }
+        /* check if the viewer busy (someone calling him || he calling someone || in a call) (audio|video) */
+        $check_viewer_busy_audio = $db->query(sprintf('SELECT COUNT(*) as count FROM conversations_calls_audio WHERE (from_user_id = %1$s OR to_user_id = %1$s) AND declined = "0" AND updated_time >= SUBTIME(NOW(), SEC_TO_TIME(40))', secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        if($check_viewer_busy_audio->fetch_assoc()['count'] > 0) {
+            return "caller_busy";
+        }
+        $check_viewer_busy_video = $db->query(sprintf('SELECT COUNT(*) as count FROM conversations_calls_audio WHERE (from_user_id = %1$s OR to_user_id = %1$s) AND declined = "0" AND updated_time >= SUBTIME(NOW(), SEC_TO_TIME(40))', secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        if($check_viewer_busy_video->fetch_assoc()['count'] > 0) {
+            return "caller_busy";
+        }
+        /* create new call */
+        require_once(ABSPATH.'includes/libs/Twilio/autoload.php');
+        /* create a new room */
+        $room = get_hash_token();
+        // caller
+        $caller_id = substr(get_hash_token(), 0, 15);
+        $caller_token = new Twilio\Jwt\AccessToken($system['twilio_sid'], $system['twilio_apisid'], $system['twilio_apisecret'], 3600, $caller_id);
+        $caller_grant = new Twilio\Jwt\Grants\VideoGrant();
+        $caller_grant->setRoom($room);
+        $caller_token->addGrant($caller_grant);
+        $caller_token_serialized = $caller_token->toJWT();
+        /* -- */
+        // receiver
+        $receiver_id = substr(get_hash_token(), 0, 15);
+        $receiver_token = new Twilio\Jwt\AccessToken($system['twilio_sid'], $system['twilio_apisid'], $system['twilio_apisecret'], 3600, $receiver_id);
+        $receiver_grant = new Twilio\Jwt\Grants\VideoGrant();
+        $receiver_grant->setRoom($room);
+        $receiver_token->addGrant($receiver_grant);
+        $receiver_token_serialized = $receiver_token->toJWT();
+        /* -- */
+        /* insert the new call */
+        $db->query(sprintf("INSERT INTO %s (from_user_id, from_user_token, to_user_id, to_user_token, room, created_time, updated_time) VALUES (%s, %s, %s, %s, %s, %s, %s)", $table, secure($this->_data['user_id'], 'int'), secure($caller_token_serialized), secure($to_user_id, 'int'), secure($receiver_token_serialized), secure($room), secure($date), secure($date) )) or _error("SQL_ERROR_THROWEN");
+        return $db->insert_id;
+    }
+
+
+    /**
+     * check_new_calls
+     * 
+     * @param string $type
+     * @return array
+     */
+    public function check_new_calls($type) {
+        global $db;
+        /* check call type */
+        switch ($type) {
+            case 'video':
+                $table = "conversations_calls_video";
+                break;
+
+            case 'audio':
+                $table = "conversations_calls_audio";
+                break;
+            
+            default:
+                _error(400);
+                break;
+        }
+        /* new call -> [call created from less than 40 seconds and not answered nor declined] */
+        $get_new_calls = $db->query(sprintf('SELECT %1$s.*, users.user_name, users.user_firstname, users.user_lastname, users.user_gender, users.user_picture FROM %1$s INNER JOIN users ON %1$s.from_user_id = users.user_id WHERE to_user_id = %2$s AND created_time >= SUBTIME(NOW(), SEC_TO_TIME(40)) AND answered = "0" AND declined = "0"', $table, secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        if($get_new_calls->num_rows == 0) {
+            return false;
+        }
+        $call = $get_new_calls->fetch_assoc();
+        $call['caller_name'] = $call['user_firstname']." ".$call['user_lastname'];
+        $call['caller_picture'] = get_picture($call['user_picture'], $call['user_gender']);
+        return $call;
+    }
+
+
+    /**
+     * check_calling_response
+     * 
+     * @param string $type
+     * @param integer $call_id
+     * @return void
+     */
+    public function check_calling_response($type, $call_id) {
+        global $db, $date;
+        /* check call type */
+        switch ($type) {
+            case 'video':
+                $table = "conversations_calls_video";
+                break;
+
+            case 'audio':
+                $table = "conversations_calls_audio";
+                break;
+            
+            default:
+                _error(400);
+                break;
+        }
+        /* check if user authorized */
+        $check_call = $db->query(sprintf("SELECT * FROM %s WHERE call_id = %s AND from_user_id = %s", $table, secure($call_id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        if($check_call->num_rows == 0) {
+            _error(403);
+        }
+        $call = $check_call->fetch_assoc();
+        /* update the call */
+        $db->query(sprintf("UPDATE %s SET updated_time = %s WHERE call_id = %s", $table, secure($date), secure($call_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        /* return */
+        if($call['declined']) {
+            return "declined";
+        } else if ($call['answered']) {
+            return $call;
+        } else {
+            return "no_answer";
+        }
+    }
+
+
+    /**
+     * answer_call
+     * 
+     * @param string $type
+     * @param integer $call_id
+     * @return void
+     */
+    public function answer_call($type, $call_id) {
+        global $db, $date;
+        /* check call type */
+        switch ($type) {
+            case 'video':
+                $table = "conversations_calls_video";
+                break;
+
+            case 'audio':
+                $table = "conversations_calls_audio";
+                break;
+            
+            default:
+                _error(400);
+                break;
+        }
+        /* check if user authorized */
+        $check_call = $db->query(sprintf("SELECT * FROM %s WHERE call_id = %s AND to_user_id = %s", $table, secure($call_id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        if($check_call->num_rows == 0) {
+            _error(403);
+        }
+        $call = $check_call->fetch_assoc();
+        /* update the call */
+        $db->query(sprintf("UPDATE %s SET answered = '1', updated_time = %s WHERE call_id = %s", $table, secure($date), secure($call_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        /* return */
+        return $call;
+    }
+
+
+    /**
+     * decline_call
+     * 
+     * @param string $type
+     * @param integer $call_id
+     * @return void
+     */
+    public function decline_call($type, $call_id) {
+        global $db, $date;
+        /* check call type */
+        switch ($type) {
+            case 'video':
+                $table = "conversations_calls_video";
+                break;
+
+            case 'audio':
+                $table = "conversations_calls_audio";
+                break;
+            
+            default:
+                _error(400);
+                break;
+        }
+        /* check if user authorized */
+        $check_call = $db->query(sprintf('SELECT COUNT(*) as count FROM  %1$s WHERE call_id =  %2$s AND (from_user_id = %3$s OR to_user_id = %3$s)', $table, secure($call_id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        if($check_call->fetch_assoc()['count'] == 0) {
+            _error(403);
+        }
+        /* update the call */
+        $db->query(sprintf("UPDATE %s SET declined = '1', updated_time = %s WHERE call_id = %s", $table, secure($date), secure($call_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+    }
+
+
+    /**
+     * update_call
+     * 
+     * @param string $type
+     * @param integer $call_id
+     * @return void
+     */
+    public function update_call($type, $call_id) {
+        global $db, $date;
+        /* check call type */
+        switch ($type) {
+            case 'video':
+                $table = "conversations_calls_video";
+                break;
+
+            case 'audio':
+                $table = "conversations_calls_audio";
+                break;
+            
+            default:
+                _error(400);
+                break;
+        }
+        /* check if user authorized */
+        $check_call = $db->query(sprintf('SELECT COUNT(*) as count FROM  %1$s WHERE call_id =  %2$s AND (from_user_id = %3$s OR to_user_id = %3$s)', $table, secure($call_id, 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        if($check_call->fetch_assoc()['count'] == 0) {
+            return; /* not 403 error returned as error will not be handled */
+        }
+        /* update the call */
+        $db->query(sprintf("UPDATE %s SET updated_time = %s WHERE call_id = %s", $table, secure($date), secure($call_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+    }
+
+
+    
     /* ------------------------------- */
     /* Emoji & Stickers */
     /* ------------------------------- */
 
     /**
      * get_emojis
-     *
+     * 
      * @return array
      */
     public function get_emojis() {
@@ -2610,7 +3019,7 @@ class User {
 
     /**
      * decode_emoji
-     *
+     * 
      * @param string $text
      * @return string
      */
@@ -2630,7 +3039,7 @@ class User {
 
     /**
      * get_stickers
-     *
+     * 
      * @return array
      */
     public function get_stickers() {
@@ -2648,7 +3057,7 @@ class User {
 
     /**
      * decode_stickers
-     *
+     * 
      * @param string $text
      * @return string
      */
@@ -2667,12 +3076,76 @@ class User {
 
 
     /* ------------------------------- */
+    /* Gifts */
+    /* ------------------------------- */
+
+    /**
+     * get_gifts
+     * 
+     * @return array
+     */
+    public function get_gifts() {
+        global $db;
+        $gifts = [];
+        $get_gifts = $db->query("SELECT * FROM gifts") or _error("SQL_ERROR_THROWEN");
+        if($get_gifts->num_rows > 0) {
+            while($gift = $get_gifts->fetch_assoc()) {
+                $gifts[] = $gift;
+            }
+        }
+        return $gifts;
+    }
+
+
+    /**
+     * get_gift
+     * 
+     * @return array
+     */
+    public function get_gift($gift_id) {
+        global $db;
+        $get_gift = $db->query(sprintf("SELECT gifts.image, users.user_firstname, users.user_lastname FROM users_gifts INNER JOIN gifts ON users_gifts.gift_id = gifts.gift_id INNER JOIN users ON users_gifts.from_user_id = users.user_id WHERE users_gifts.id = %s AND users_gifts.to_user_id = %s", secure($gift_id, 'id'), secure($this->_data['user_id'], 'id') )) or _error("SQL_ERROR_THROWEN");
+        if($get_gift->num_rows == 0) {
+            return $false;
+        }
+        return $get_gift->fetch_assoc();
+    }
+
+
+    /**
+     * send_gift
+     *
+     * @param integer $user_id
+     * @param integer $gift_id
+     * 
+     * @return void
+     */
+    public function send_gift($user_id, $gift_id) {
+        global $db, $system;
+        /* check if the viewer allowed to send a gift to the target */
+        $get_target_user = $db->query(sprintf("SELECT user_privacy_gifts FROM users WHERE user_id = %s", secure($user_id, 'int'))) or _error("SQL_ERROR_THROWEN");
+        if($get_target_user->num_rows == 0) {
+            _error(400);
+        }
+        $target_user = $get_target_user->fetch_assoc();
+        if($target_user['user_privacy_gifts'] == "me" || ($target_user['user_privacy_gifts'] == "friends" && !in_array($user_id, $this->_data['friends_ids']) )) {
+            throw new Exception(__("You can't send a gift to this user"));
+        }
+        /* send the gift to the target user */
+        $db->query(sprintf("INSERT INTO users_gifts (from_user_id, to_user_id, gift_id) VALUES (%s, %s, %s)", secure($this->_data['user_id'], 'int'),  secure($user_id, 'int'), secure($gift_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        /* post new notification */
+        $this->post_notification( array('to_user_id'=>$user_id, 'action'=>'gift', 'node_url'=>$db->insert_id) );
+    }
+
+
+
+    /* ------------------------------- */
     /* @Mentions */
     /* ------------------------------- */
 
     /**
      * decode_mention
-     *
+     * 
      * @param string $text
      * @return string
      */
@@ -2685,7 +3158,7 @@ class User {
 
     /**
      * get_mentions
-     *
+     * 
      * @param array $matches
      * @return string
      */
@@ -2704,7 +3177,7 @@ class User {
 
     /**
      * post_mentions
-     *
+     * 
      * @param string $text
      * @param integer $node_url
      * @param string $node_type
@@ -2742,7 +3215,7 @@ class User {
 
     /**
      * get_trending_hashtags
-     *
+     * 
      * @return array
      */
     public function get_trending_hashtags() {
@@ -2751,6 +3224,7 @@ class User {
         $get_trending_hashtags = $db->query(sprintf("SELECT hashtags.hashtag, COUNT(hashtags_posts.id) AS frequency FROM hashtags INNER JOIN hashtags_posts ON hashtags.hashtag_id = hashtags_posts.hashtag_id WHERE hashtags_posts.created_at > DATE_SUB(CURDATE(), INTERVAL 1 WEEK) GROUP BY hashtags_posts.hashtag_id ORDER BY frequency DESC LIMIT %s", secure($system['trending_hashtags_limit'], 'int', false) )) or _error("SQL_ERROR_THROWEN");
         if($get_trending_hashtags->num_rows > 0) {
             while($hashtag = $get_trending_hashtags->fetch_assoc()) {
+                $hashtag['hashtag'] = html_entity_decode($hashtag['hashtag'], ENT_QUOTES);
                 $hashtags[] = $hashtag;
             }
         }
@@ -2760,7 +3234,7 @@ class User {
 
     /**
      * decode_hashtags
-     *
+     * 
      * @param string $text
      * @param boolean $trending_hashtags
      * @param integer $post_id
@@ -2782,7 +3256,7 @@ class User {
                 /* connect hashtag with the post */
                 $db->query(sprintf("INSERT INTO hashtags_posts (post_id, hashtag_id, created_at) VALUES (%s, %s, %s)", secure($post_id, 'int'), secure($hashtag_id, 'int'), secure($date) ));
             }
-            return $matches[1].'<a href="'.$system['system_url'].'/search/hashtag/'.$matches[4].'">'.$matches[2].'</a>';
+            return $matches[1].'<a href="'.$system['system_url'].'/search/hashtag/'.$matches[4].'">'.$matches[2].'</a>';                
         }, $text);
         return $text;
     }
@@ -2790,7 +3264,7 @@ class User {
 
     /**
      * delete_hashtags
-     *
+     * 
      * @param integer $post_id
      * @return void
      */
@@ -2808,7 +3282,7 @@ class User {
 
     /**
      * popover
-     *
+     * 
      * @param integer $id
      * @param string $type
      * @return array
@@ -2847,14 +3321,6 @@ class User {
                 /* check if the viewer liked the page */
                 $profile['i_like'] = $this->check_page_membership($this->_data['user_id'], $id);
             }
-            /*get project info*/
-            $get_profile = $db->query(sprintf("SELECT * FROM posts_projects WHERE project_id = %s", secure($id, 'int')));
-            if($get_profile->num_rows > 0) {
-                $profile = $get_profile->fetch_assoc();
-                $profile['project'][''] = get_picture($profile['project_picture'], "project");
-                /* check if the viewer liked the page */
-                $profile['i_like'] = $this->check_page_membership($this->_data['user_id'], $id);
-            }
         }
         return $profile;
     }
@@ -2867,7 +3333,7 @@ class User {
 
     /**
      * get_stories
-     *
+     * 
      * @return array
      */
     public function get_stories() {
@@ -2906,7 +3372,7 @@ class User {
 
     /**
      * post_story
-     *
+     * 
      * @param string $message
      * @param array $photos
      * @param array $videos
@@ -2944,15 +3410,30 @@ class User {
 
     /**
      * publisher
-     *
+     * 
      * @param array $args
      * @return array
      */
     public function publisher($args = []) {
         global $db, $system, $date;
-        $post = [];
+        
+        /* check max posts/hour limit */
+        if($system['max_posts_hour'] > 0 && $this->_data['user_group'] >= 3) {
+            $check_limit = $db->query(sprintf("SELECT COUNT(*) as count FROM posts WHERE posts.time >= DATE_SUB(NOW(),INTERVAL 1 HOUR) AND user_id = %s AND user_type = 'user'", secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+            if($check_limit->fetch_assoc()['count'] >= $system['max_posts_hour']) {
+                modal("MESSAGE", __("Maximum Limit Reached"), __("You have reached the maximum limit of posts/hour, please try again later"));
+            }
+        }
+
+        /* check post max length */
+        if($system['max_post_length'] > 0 && $this->_data['user_group'] >= 3) {
+            if(strlen($args['message']) >= $system['max_post_length']) {
+                modal("MESSAGE", __("Text Length Limit Reached"), __("Your message characters length is over the allowed limit"." (".$system['max_post_length']." ".__("Characters").")"));
+            }
+        }
 
         /* default */
+        $post = [];
         $post['user_id'] = $this->_data['user_id'];
         $post['user_type'] = "user";
         $post['in_wall'] = 0;
@@ -2961,6 +3442,7 @@ class User {
         $post['group_id'] = null;
         $post['in_event'] = 0;
         $post['event_id'] = null;
+
         $post['author_id'] = $this->_data['user_id'];
         $post['post_author_picture'] = $this->_data['user_picture'];
         $post['post_author_url'] = $system['system_url'].'/'.$this->_data['user_name'];
@@ -3021,26 +3503,7 @@ class User {
 
             $post['in_event'] = 1;
             $post['event_id'] = $args['id'];
-
-
-        }
-        elseif ($args['handle'] == "project") {
-            /* check if the project is valid */
-            $check_project = $db->query(sprintf("SELECT posts_projects.user_id, posts_projects.name, posts_photos.source FROM posts_projects INNER JOIN posts_photos ON posts_projects.post_id = posts_photos.post_id WHERE posts_projects.user_id = %s AND posts_projects.post_id = %s", secure($this->_data['user_id'], int), secure($args['id'], 'int') )) or _error("SQL_ERROR_THROWEN");
-            if($check_project->num_rows == 0) {
-                _error(400);
-            }
-            $_project = $check_project->fetch_assoc();
-            print_r($_project);exit;
-
-            $post['user_id'] = $_project['user_id'];
-            $post['post_id'] = $args['id'];
-            $post['user_type'] = "project";
-
-            /*$post['post_author_picture'] = get_picture($_project['source'], "project");
-            $post['post_author_url'] = $system['system_url'].'/projects/'.$_project['name'];
-            $post['post_author_name'] = $_project['name'];*/
-
+            
         }
 
         /* prepare post data */
@@ -3087,9 +3550,6 @@ class User {
             $post['post_type'] = 'poll';
         } elseif ($args['product']) {
             $post['post_type'] = 'product';
-            $post['privacy'] = "public";
-        } elseif ($args['project']) {
-            $post['post_type'] = 'project';
             $post['privacy'] = "public";
         } elseif ($args['video']) {
             $post['post_type'] = 'video';
@@ -3173,66 +3633,7 @@ class User {
                     $post['photos_num'] = count($post['photos']);
                 }
                 break;
-            case 'project':
 
-                $args['project']->location = (!is_empty($args['project']->location) && valid_location($args['project']->location))? $args['project']->location: '';
-                $db->query(sprintf("INSERT INTO posts_projects (post_id, user_id, name, pattern, status, size, craft, needle, yarn, made, how_much, dye_lot, sta_date, fini_date, colorway) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", secure($post['post_id'], 'int'), secure($post['user_id'], 'int'), secure($args['project']->name), secure($args['project']->pattern), secure($args['project']->status), secure($args['project']->size), secure($args['project']->craft), secure($args['project']->needle), secure($args['project']->yarn), secure($args['project']->made), secure($args['project']->how_much), secure($args['project']->dye_lot), secure($args['project']->sta_date), secure($args['project']->fini_date), secure($args['project']->colorway))) or _error("SQL_ERROR_THROWEN");
-
-                $post['project']['project_id'] = $db->insert_id;
-                $post['project']['post_id'] = $post['post_id'];
-                $post['project']['user_id']= $post['user_id'];
-                $post['project']['name'] = $args['project']->name;
-                $post['project']['pattern'] = $args['project']->pattern;
-                $post['project']['status'] = $args['project']->status;
-                $post['project']['size'] = $args['project']->size;
-                $post['project']['craft'] = $args['project']->craft;
-                $post['project']['needle'] = $args['project']->needle;
-                $post['project']['yarn'] = $args['project']->yarn;
-                $post['project']['made'] = $args['project']->made;
-                $post['project']['how_much'] = $args['project']->how_much;
-                $post['project']['dye_lot'] = $args['project']->dye_lot;
-                $post['project']['sta_date'] = $args['project']->sta_date;
-                $post['project']['fini_date'] = $args['project']->fini_date;
-                $post['project']['colorway'] = $args['project']->colorway;
-                $post['project']['available'] = true;
-                /* photos */
-                if(count($args['photos']) > 0) {
-                    foreach ($args['photos'] as $photo) {
-                        $db->query(sprintf("INSERT INTO posts_photos (post_id, source) VALUES (%s, %s)", secure($post['post_id'], 'int'), secure($photo))) or _error("SQL_ERROR_THROWEN");
-                        $post_photo['photo_id'] = $db->insert_id;
-                        $post_photo['post_id'] = $post['post_id'];
-                        $post_photo['source'] = $photo;
-                        $post_photo['reaction_like_count'] = 0;
-                        $post_photo['reaction_love_count'] = 0;
-                        $post_photo['reaction_haha_count'] = 0;
-                        $post_photo['reaction_yay_count'] = 0;
-                        $post_photo['reaction_wow_count'] = 0;
-                        $post_photo['reaction_sad_count'] = 0;
-                        $post_photo['reaction_angry_count'] = 0;
-                        $post_photo['reactions_total_count'] = 0;
-                        $post_photo['comments'] = 0;
-                        $post['photos'][] = $post_photo;
-                    }
-                    $post['photos_num'] = count($post['photos']);
-                }
-                else{
-                       $db->query(sprintf("INSERT INTO posts_photos (post_id, source) VALUES (%s, %s)", secure($post['post_id'], 'int'), secure(''))) or _error("SQL_ERROR_THROWEN");
-                        $post_photo['photo_id'] = $db->insert_id;
-                        $post_photo['post_id'] = $post['post_id'];
-                        $post_photo['source'] = '';
-                        $post_photo['reaction_like_count'] = 0;
-                        $post_photo['reaction_love_count'] = 0;
-                        $post_photo['reaction_haha_count'] = 0;
-                        $post_photo['reaction_yay_count'] = 0;
-                        $post_photo['reaction_wow_count'] = 0;
-                        $post_photo['reaction_sad_count'] = 0;
-                        $post_photo['reaction_angry_count'] = 0;
-                        $post_photo['reactions_total_count'] = 0;
-                        $post_photo['comments'] = 0;
-                        $post['photos'][] = $post_photo;
-                        $post['photos_num'] = count($post['photos']);
-                    }
-                break;
             case 'video':
                 $db->query(sprintf("INSERT INTO posts_videos (post_id, source, thumbnail) VALUES (%s, %s, %s)", secure($post['post_id'], 'int'), secure($args['video']->source), secure($args['video_thumbnail']) )) or _error("SQL_ERROR_THROWEN");
                 $post['video']['source'] = $args['video']->source;
@@ -3248,7 +3649,7 @@ class User {
                 $db->query(sprintf("INSERT INTO posts_files (post_id, source) VALUES (%s, %s)", secure($post['post_id'], 'int'), secure($args['file']->source) )) or _error("SQL_ERROR_THROWEN");
                 $post['file']['source'] = $args['file']->source;
                 break;
-
+            
             case 'media':
                 $db->query(sprintf("INSERT INTO posts_media (post_id, source_url, source_provider, source_type, source_title, source_text, source_html) VALUES (%s, %s, %s, %s, %s, %s, %s)", secure($post['post_id'], 'int'), secure($args['link']->source_url), secure($args['link']->source_provider), secure($args['link']->source_type), secure($args['link']->source_title), secure($args['link']->source_text), secure($args['link']->source_html) )) or _error("SQL_ERROR_THROWEN");
                 $post['media']['media_id'] = $db->insert_id;
@@ -3375,7 +3776,7 @@ class User {
 
         /* points balance */
         $this->points_balance("add", "post", $this->_data['user_id']);
-
+        
         // return
         return $post;
     }
@@ -3383,7 +3784,7 @@ class User {
 
     /**
      * scraper
-     *
+     * 
      * @param string $url
      * @return array
      */
@@ -3409,7 +3810,7 @@ class User {
                 $return['source_thumbnail'] = $embed->image;
             } else {
                 $return['source_html'] = $embed->code;
-                $return['source_provider'] = $embed->providerName;
+                $return['source_provider'] = $embed->providerName;                
             }
             return $return;
         } else {
@@ -3420,7 +3821,7 @@ class User {
 
     /**
      * parse
-     *
+     * 
      * @param array $args
      * @return string
      */
@@ -3453,7 +3854,7 @@ class User {
         }
         /* decode #hashtag */
         if($decode_hashtags) {
-            $text = $this->decode_hashtags($text, p, $post_id);
+            $text = $this->decode_hashtags($text, $trending_hashtags, $post_id);
         }
         /* censored words */
         $text = censored_words($text);
@@ -3465,18 +3866,17 @@ class User {
     }
 
 
-
+    
     /* ------------------------------- */
     /* Posts */
     /* ------------------------------- */
 
     /**
      * get_posts
-     *
+     * 
      * @param array $args
      * @return array
      */
-
     public function get_posts($args = []) {
         global $db, $system;
         /* initialize vars */
@@ -3484,11 +3884,11 @@ class User {
         /* validate arguments */
         $get = !isset($args['get'])? 'newsfeed' : $args['get'];
         $filter = !isset($args['filter'])? 'all' : $args['filter'];
-        if(!in_array($filter, array('all', '', 'link', 'media', 'photos', 'map', 'product', 'project', 'global', 'article', 'poll', 'video', 'audio', 'file'))) {
+        if(!in_array($filter, array('all', '', 'link', 'media', 'photos', 'map', 'product', 'article', 'poll', 'video', 'audio', 'file'))) {
             _error(400);
         }
         $last_post_id = !isset($args['last_post_id'])? null : $args['last_post_id'];
-        if(isset($args['last_post']) && !is_numeric($args['last_post'])) {
+        if(isset($last_post_id) && !is_numeric($last_post_id)) {
             _error(400);
         }
         $offset = !isset($args['offset'])? 0 : $args['offset'];
@@ -3518,12 +3918,12 @@ class User {
                     /* [Case: 2] user logged in whatever searching or not */
                     /* get viewer user's newsfeed */
                     $where_query .= "WHERE ("; /* [02] start of newsfeed without query clause */
-                    if($query){
+                    if($query) {
                         $where_query .= "("; /* [03] start of newsfeed with query clause */
                     }
                     /* get viewer posts */
                     $me = $this->_data['user_id'];
-                    $where_query .= "(posts.user_id != $me OR posts.user_id =$me AND posts.user_type = 'user')";
+                    $where_query .= "(posts.user_id = $me AND posts.user_type = 'user')";
                     /* get posts from friends still followed */
                     $friends_ids = array_intersect($this->_data['friends_ids'], $this->_data['followings_ids']);
                     if($friends_ids) {
@@ -3609,15 +4009,13 @@ class User {
                 }
                 break;
 
-                case'posts_page':
-
+            case 'posts_page':
                 if(isset($args['id']) && !is_numeric($args['id'])) {
                     _error(400);
                 }
                 $id = $args['id'];
                 $where_query .= "WHERE (posts.user_id = $id AND posts.user_type = 'page')";
                 break;
-
 
             case 'posts_group':
                 if(isset($args['id']) && !is_numeric($args['id'])) {
@@ -3640,17 +4038,56 @@ class User {
                 $order_query = "ORDER BY posts.comments DESC, posts.reaction_like_count DESC, posts.reaction_love_count DESC, posts.reaction_haha_count DESC, posts.reaction_yay_count DESC, posts.reaction_wow_count DESC, posts.reaction_sad_count DESC, posts.reaction_angry_count DESC, posts.shares DESC"; /* order by comments, reactions & shares */
                 break;
 
+            case 'discover':
+                $where_query .= sprintf("WHERE posts.privacy = 'public' AND !(posts.user_id = %s AND posts.user_type = 'user')", secure($this->_data['user_id'], 'int'));
+                /* exclude posts from viewer friends */
+                $friends_ids = array_intersect($this->_data['friends_ids'], $this->_data['followings_ids']);
+                if($friends_ids) {
+                    $friends_list = implode(',',$friends_ids);
+                    /* viewer friends posts -> authors */
+                    $where_query .= " AND !(posts.user_id IN ($friends_list) AND posts.user_type = 'user')";
+                }
+                /* exclude posts from viewer followings */
+                if($this->_data['followings_ids']) {
+                    $followings_list = implode(',',$this->_data['followings_ids']);
+                    /* viewer followings posts -> authors */
+                    $where_query .= " AND !(posts.user_id IN ($followings_list) AND posts.user_type = 'user')";
+                }
+                /* exclude posts from viewer liked pages */
+                $pages_ids = $this->get_pages_ids();
+                if($pages_ids) {
+                    $pages_list = implode(',',$pages_ids);
+                    $where_query .= " AND !(posts.user_id IN ($pages_list) AND posts.user_type = 'page')";
+                }
+                /* exclude posts from viewer joined groups*/
+                $groups_ids = $this->get_groups_ids(true);
+                if($groups_ids) {
+                    $groups_list = implode(',',$groups_ids);
+                    $where_query .= " AND !(posts.group_id IN ($groups_list) AND posts.in_group = '1')";
+                }
+                /* exclude posts from viewer joined events */
+                $events_ids = $this->get_events_ids();
+                if($events_ids) {
+                    $events_list = implode(',',$events_ids);
+                    $where_query .= " AND !(posts.event_id IN ($events_list) AND posts.in_event = '1')";
+                }
+                break;
+
             case 'saved':
                 $id = $this->_data['user_id'];
                 $where_query .= "INNER JOIN posts_saved ON posts.post_id = posts_saved.post_id WHERE (posts_saved.user_id = $id)";
                 $order_query = "ORDER BY posts_saved.time DESC"; /* order by saved time not by post_id */
                 break;
 
+            case 'memories':
+                $id = $this->_data['user_id'];
+                $where_query .= "WHERE DATE_FORMAT(date(posts.time),'%m-%d') = DATE_FORMAT(CURDATE(),'%m-%d') AND posts.time < (NOW() - INTERVAL 1 DAY) AND posts.user_id = $id AND posts.user_type = 'user'";
+                break;
+            
             case 'boosted':
                 $id = $this->_data['user_id'];
                 $where_query .= "WHERE (posts.boosted = '1' AND posts.boosted_by = $id)";
                 break;
-
 
             default:
                 _error(400);
@@ -3664,14 +4101,14 @@ class User {
         }
         /* filter posts */
         if($filter != "all") {
-            $where_query .= " AND (posts.post_type = '$filter')";
+           $where_query .= " AND (posts.post_type = '$filter')";
         }
         /* get posts */
-        if($last_post_id != null && $get != 'saved' && $get != 'popular') { /* saved excluded as ordered by time not post_id */
+        if($last_post_id != null && $get != 'popular' && $get != 'saved' && $get != 'memories') { /* excluded as not ordered by post_id */
             $get_posts = $db->query(sprintf("SELECT * FROM (SELECT posts.post_id FROM posts ".$where_query.") posts WHERE posts.post_id > %s ORDER BY posts.post_id DESC", secure($last_post_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         } else {
             $limit_statement = ($get_all)? "" : sprintf("LIMIT %s, %s", secure($offset, 'int', false), secure($system['max_results'], 'int', false) ); /* get_all for cases like download user's posts */
-            $get_posts = $db->query("SELECT posts.post_id FROM posts ".$where_query." ".$order_query." ".$limit_statement ) or _error("SQL_ERROR_THROWEN");
+            $get_posts = $db->query("SELECT posts.post_id FROM posts ".$where_query." ".$order_query." ".$limit_statement) or _error("SQL_ERROR_THROWEN");
         }
         if($get_posts->num_rows > 0) {
             while($post = $get_posts->fetch_assoc()) {
@@ -3687,7 +4124,7 @@ class User {
 
     /**
      * get_post
-     *
+     * 
      * @param integer $post_id
      * @param boolean $get_comments
      * @param boolean $pass_privacy_check
@@ -3713,7 +4150,7 @@ class User {
         /* post type */
         if($post['post_type'] == 'album' || $post['post_type'] == 'photos' || $post['post_type'] == 'profile_picture' || $post['post_type'] == 'profile_cover' || $post['post_type'] == 'page_picture' || $post['post_type'] == 'page_cover' || $post['post_type'] == 'group_picture' || $post['post_type'] == 'group_cover' || $post['post_type'] == 'event_cover') {
             /* get photos */
-            $get_photos = $db->query(sprintf("SELECT * FROM posts_photos WHERE post_id = %s ORDER BY photo_id DESC", secure($post['post_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+            $get_photos = $db->query(sprintf("SELECT * FROM posts_photos WHERE post_id = %s ORDER BY photo_id ASC", secure($post['post_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
             $post['photos_num'] = $get_photos->num_rows;
             /* check if photos has been deleted */
             if($post['photos_num'] == 0) {
@@ -3768,12 +4205,12 @@ class User {
             }
             while($poll_option = $get_poll_options->fetch_assoc()) {
                 /* get option votes */
-                $get_option_votes = $db->query(sprintf("SELECT count(*) as count FROM posts_polls_options_users WHERE option_id = %s", secure($poll_option['option_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                $get_option_votes = $db->query(sprintf("SELECT COUNT(*) as count FROM posts_polls_options_users WHERE option_id = %s", secure($poll_option['option_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                 $poll_option['votes'] = $get_option_votes->fetch_assoc()['count'];
                 /* check if viewer voted */
                 $poll_option['checked'] = false;
                 if($this->_logged_in) {
-                    $check = $db->query(sprintf("SELECT count(*) as count FROM posts_polls_options_users WHERE user_id = %s AND option_id = %s", secure($this->_data['user_id'], 'int'), secure($poll_option['option_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                    $check = $db->query(sprintf("SELECT COUNT(*) as count FROM posts_polls_options_users WHERE user_id = %s AND option_id = %s", secure($this->_data['user_id'], 'int'), secure($poll_option['option_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                     if($check->fetch_assoc()['count'] > 0) {
                         $poll_option['checked'] = true;
                     }
@@ -3783,33 +4220,12 @@ class User {
 
         } elseif ($post['post_type'] == 'product') {
             /* get product */
-            $get_product = $db->query(sprintf("SELECT * FROM posts_products WHERE post_id = %s", secure($post['post_id'], 'int'))) or _error("SQL_ERROR_THROWEN");
+            $get_product = $db->query(sprintf("SELECT * FROM posts_products WHERE post_id = %s", secure($post['post_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
             /* check if link has been deleted */
-            if ($get_product->num_rows == 0) {
+            if($get_product->num_rows == 0) {
                 return false;
             }
             $post['product'] = $get_product->fetch_assoc();
-            /* get photos */
-            $get_photos = $db->query(sprintf("SELECT * FROM posts_photos WHERE post_id = %s ORDER BY photo_id DESC", secure($post['post_id'], 'int'))) or _error("SQL_ERROR_THROWEN");
-            $post['photos_num'] = $get_photos->num_rows;
-            /* check if photos has been deleted */
-            if ($post['photos_num'] > 0) {
-                while ($post_photo = $get_photos->fetch_assoc()) {
-                    $post['photos'][] = $post_photo;
-                }
-                /* og-meta tags */
-                $post['og_image'] = $system['system_uploads'] . '/' . $post['photos'][0]['source'];
-            }
-            /* og-meta tags */
-            $post['og_title'] = $post['product']['name'];
-        }elseif ($post['post_type'] == 'project') {
-            /* get project */
-            $get_project = $db->query(sprintf("SELECT * FROM posts_projects WHERE post_id = %s", secure($post['post_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
-            /* check if link has been deleted */
-            if($get_project->num_rows == 0) {
-                return false;
-            }
-            $post['project'] = $get_project->fetch_assoc();
             /* get photos */
             $get_photos = $db->query(sprintf("SELECT * FROM posts_photos WHERE post_id = %s ORDER BY photo_id DESC", secure($post['post_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
             $post['photos_num'] = $get_photos->num_rows;
@@ -3822,8 +4238,7 @@ class User {
                 $post['og_image'] = $system['system_uploads'].'/'.$post['photos'][0]['source'];
             }
             /* og-meta tags */
-            $post['og_title'] = $post['project']['name'];
-
+            $post['og_title'] = $post['product']['name'];
 
         } elseif ($post['post_type'] == 'article') {
             /* get article */
@@ -3913,7 +4328,7 @@ class User {
 
     /**
      * get_boosted_post
-     *
+     * 
      * @return array
      */
     public function get_boosted_post() {
@@ -3936,7 +4351,7 @@ class User {
 
     /**
      * who_reacts
-     *
+     * 
      * @param array $args
      * @return array
      */
@@ -3987,7 +4402,7 @@ class User {
 
     /**
      * who_shares
-     *
+     * 
      * @param integer $post_id
      * @param integer $offset
      * @return array
@@ -4011,7 +4426,7 @@ class User {
 
     /**
      * who_votes
-     *
+     * 
      * @param integer $post_id
      * @param integer $offset
      * @return array
@@ -4033,7 +4448,7 @@ class User {
 
     /**
      * _get_hidden_posts
-     *
+     * 
      * @param integer $user_id
      * @return array
      */
@@ -4052,7 +4467,7 @@ class User {
 
     /**
      * _check_post
-     *
+     * 
      * @param integer $id
      * @param boolean $pass_privacy_check
      * @param boolean $full_details
@@ -4088,7 +4503,7 @@ class User {
 
         /* get total reactions */
         $post['reactions_total_count'] = $post['reaction_like_count'] + $post['reaction_love_count'] + $post['reaction_haha_count'] + $post['reaction_yay_count'] + $post['reaction_wow_count'] + $post['reaction_sad_count'] + $post['reaction_angry_count'];
-
+        
         /* get the author */
         $post['author_id'] = ($post['user_type'] == "page")? $post['page_admin'] : $post['user_id'];
         $post['is_page_admin'] = $this->check_page_adminship($this->_data['user_id'], $post['page_id']);
@@ -4148,13 +4563,13 @@ class User {
                 $post['wall_username'] = $wall_user['user_name'];
                 $post['wall_fullname'] = $wall_user['user_firstname']." ".$wall_user['user_lastname'];
             }
-
+            
             /* check if viewer [reacted|saved] this post */
             $post['i_save'] = false;
             $post['i_react'] = false;
             if($this->_logged_in) {
                 /* save */
-                $check_save = $db->query(sprintf("SELECT count(*) as count FROM posts_saved WHERE user_id = %s AND post_id = %s", secure($this->_data['user_id'], 'int'), secure($post['post_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check_save = $db->query(sprintf("SELECT COUNT(*) as count FROM posts_saved WHERE user_id = %s AND post_id = %s", secure($this->_data['user_id'], 'int'), secure($post['post_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                 if($check_save->fetch_assoc()['count'] > 0) {
                     $post['i_save'] = true;
                 }
@@ -4179,7 +4594,7 @@ class User {
         if( $post['in_event'] && ($post['event_privacy'] == 'public' || $this->check_event_membership($this->_data['user_id'], $post['event_id']))) {
             $pass_privacy_check = true;
         }
-        if($pass_privacy_check || $this->_check_privacy($post['privacy'], $post['author_id'])) {
+        if($pass_privacy_check || $this->check_privacy($post['privacy'], $post['author_id'])) {
             return $post;
         }
         return false;
@@ -4187,13 +4602,13 @@ class User {
 
 
     /**
-     * _check_privacy
-     *
+     * check_privacy
+     * 
      * @param string $privacy
      * @param integer $author_id
      * @return boolean
      */
-    private function _check_privacy($privacy, $author_id) {
+    public function check_privacy($privacy, $author_id) {
         if($privacy == 'public') {
             return true;
         }
@@ -4222,7 +4637,7 @@ class User {
 
     /**
      * get_comments
-     *
+     * 
      * @param integer $node_id
      * @param integer $offset
      * @param boolean $is_post
@@ -4264,7 +4679,7 @@ class User {
             return $comments;
         }
         while($comment = $get_comments->fetch_assoc()) {
-
+            
             /* check if the page has been deleted */
             if($comment['user_type'] == "page" && !$comment['page_admin']) {
                 continue;
@@ -4363,7 +4778,7 @@ class User {
 
     /**
      * get_replies
-     *
+     * 
      * @param integer $comment_id
      * @param integer $offset
      * @param boolean $offset
@@ -4390,7 +4805,7 @@ class User {
         }
         while($reply = $get_replies->fetch_assoc()) {
 
-            /* check if the page has been deleted */
+        	/* check if the page has been deleted */
             if($reply['user_type'] == "page" && !$reply['page_admin']) {
                 continue;
             }
@@ -4415,7 +4830,7 @@ class User {
             /* parse text */
             $reply['text_plain'] = $reply['text'];
             $reply['text'] = $this->_parse(["text" => $reply['text']]);
-
+            
             /* get the reply author */
             if($reply['user_type'] == "user") {
                 /* user type */
@@ -4447,7 +4862,7 @@ class User {
                     }
                 }
             }
-
+            
             /* check if viewer can manage reply [Edit|Delete] */
             $reply['edit_comment'] = false;
             $reply['delete_comment'] = false;
@@ -4476,7 +4891,7 @@ class User {
 
     /**
      * comment
-     *
+     * 
      * @param string $handle
      * @param integer $node_id
      * @param string $message
@@ -4485,9 +4900,24 @@ class User {
      */
     public function comment($handle, $node_id, $message, $photo) {
         global $db, $system, $date;
-        $comment = [];
+
+        /* check max comments/hour limit */
+        if($system['max_comments_hour'] > 0 && $this->_data['user_group'] >= 3) {
+            $check_limit = $db->query(sprintf("SELECT COUNT(*) as count FROM posts_comments WHERE posts_comments.time >= DATE_SUB(NOW(),INTERVAL 1 HOUR) AND user_id = %s AND user_type = 'user'", secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+            if($check_limit->fetch_assoc()['count'] >= $system['max_comments_hour']) {
+                modal("MESSAGE", __("Maximum Limit Reached"), __("You have reached the maximum limit of comments/hour, please try again later"));
+            }
+        }
+
+        /* check comment max length */
+        if($system['max_comment_length'] > 0 && $this->_data['user_group'] >= 3) {
+            if(strlen($message) >= $system['max_comment_length']) {
+                modal("MESSAGE", __("Text Length Limit Reached"), __("Your message characters length is over the allowed limit"." (".$system['max_comment_length']." ".__("Characters").")"));
+            }
+        }
 
         /* default */
+        $comment = [];
         $comment['node_id'] = $node_id;
         $comment['node_type'] = $handle;
         $comment['text'] = $message;
@@ -4512,7 +4942,7 @@ class User {
                     _error(403);
                 }
                 break;
-
+            
             case 'photo':
                 /* (check|get) photo */
                 $photo = $this->get_photo($node_id);
@@ -4559,7 +4989,7 @@ class User {
             $comment['author_name'] = $post['page_title'];
             $comment['author_verified'] = $post['page_verified'];
         }
-
+        
         /* insert the comment */
         $db->query(sprintf("INSERT INTO posts_comments (node_id, node_type, user_id, user_type, text, image, time) VALUES (%s, %s, %s, %s, %s, %s, %s)", secure($comment['node_id'], 'int'), secure($comment['node_type']), secure($comment['user_id'], 'int'), secure($comment['user_type']), secure($comment['text']), secure($comment['image']), secure($comment['time']) )) or _error("SQL_ERROR_THROWEN");
         $comment['comment_id'] = $db->insert_id;
@@ -4568,7 +4998,7 @@ class User {
             case 'post':
                 $db->query(sprintf("UPDATE posts SET comments = comments + 1 WHERE post_id = %s", secure($node_id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 break;
-
+            
             case 'photo':
                 $db->query(sprintf("UPDATE posts_photos SET comments = comments + 1 WHERE photo_id = %s", secure($node_id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 break;
@@ -4599,7 +5029,7 @@ class User {
         } else {
             $this->post_mentions($comment['text'], $node_id, "comment_".$handle, 'comment_'.$comment['comment_id'], array($post['author_id']));
         }
-
+        
         /* parse text */
         $comment['text_plain'] = htmlentities($comment['text'], ENT_QUOTES, 'utf-8');
         $comment['text'] = $this->_parse(["text" => $comment['text_plain']]);
@@ -4618,7 +5048,7 @@ class User {
 
     /**
      * get_comment
-     *
+     * 
      * @param integer $comment_id
      * @return array|false
      */
@@ -4630,7 +5060,7 @@ class User {
             return false;
         }
         $comment = $get_comment->fetch_assoc();
-
+        
         /* check if the page has been deleted */
         if($comment['user_type'] == "page" && !$comment['page_admin']) {
             return false;
@@ -4652,10 +5082,10 @@ class User {
 
         /* get total reactions */
         $comment['reactions_total_count'] = $comment['reaction_like_count'] + $comment['reaction_love_count'] + $comment['reaction_haha_count'] + $comment['reaction_yay_count'] + $comment['reaction_wow_count'] + $comment['reaction_sad_count'] + $comment['reaction_angry_count'];
-
+        
         /* get the author */
         $comment['author_id'] = ($comment['user_type'] == "page")? $comment['page_admin'] : $comment['user_id'];
-
+        
         /* get post */
         switch ($comment['node_type']) {
             case 'post':
@@ -4711,7 +5141,7 @@ class User {
 
     /**
      * delete_comment
-     *
+     * 
      * @param integer $comment_id
      * @return void
      */
@@ -4788,7 +5218,7 @@ class User {
 
     /**
      * edit_comment
-     *
+     * 
      * @param integer $comment_id
      * @param string $message
      * @param string $photo
@@ -4816,6 +5246,12 @@ class User {
         if(!$comment['edit_comment']) {
             _error(400);
         }
+        /* check post max length */
+        if($system['max_comment_length'] > 0 && $this->_data['user_group'] >= 3) {
+            if(strlen($message) >= $system['max_comment_length']) {
+                modal("MESSAGE", __("Text Length Limit Reached"), __("Your message characters length is over the allowed limit"." (".$system['max_comment_length']." ".__("Characters").")"));
+            }
+        }
         /* update comment */
         $comment['text'] = $message;
         $comment['image'] = (!is_empty($comment['image']))? $comment['image'] : $photo;
@@ -4836,17 +5272,17 @@ class User {
 
     /**
      * react_comment
-     *
+     * 
      * @param integer $comment_id
      * @param string $reaction
      * @return void
      */
     public function react_comment($comment_id, $reaction) {
-        global $db;
+        global $db, $date;
         /* check reation */
-        if(!in_array($reaction, ['like', 'love', 'haha', 'yay', 'wow', 'sad', 'angry'])) {
-            _error(403);
-        }
+		if(!in_array($reaction, ['like', 'love', 'haha', 'yay', 'wow', 'sad', 'angry'])) {
+			_error(403);
+		}
         /* (check|get) comment */
         $comment = $this->get_comment($comment_id);
         if(!$comment) {
@@ -4867,7 +5303,7 @@ class User {
                 case 'post':
                     $this->delete_notification($comment['author_id'], 'react_'.$comment['i_reaction'], 'post_comment', $comment['node_id']);
                     break;
-
+                
                 case 'photo':
                     $this->delete_notification($comment['author_id'], 'react_'.$comment['i_reaction'], 'photo_comment', $comment['node_id']);
                     break;
@@ -4879,7 +5315,7 @@ class User {
                     break;
             }
         }
-        $db->query(sprintf("INSERT INTO posts_comments_reactions (user_id, comment_id, reaction) VALUES (%s, %s, %s)", secure($this->_data['user_id'], 'int'), secure($comment_id, 'int'), secure($reaction) )) or _error("SQL_ERROR_THROWEN");
+        $db->query(sprintf("INSERT INTO posts_comments_reactions (user_id, comment_id, reaction, reaction_time) VALUES (%s, %s, %s, %s)", secure($this->_data['user_id'], 'int'), secure($comment_id, 'int'), secure($reaction), secure($date) )) or _error("SQL_ERROR_THROWEN");
         /* update comment reaction counter */
         $reaction_field = "reaction_".$reaction."_count";
         $db->query(sprintf("UPDATE posts_comments SET $reaction_field = $reaction_field + 1 WHERE comment_id = %s", secure($comment_id, 'int') )) or _error("SQL_ERROR_THROWEN");
@@ -4888,7 +5324,7 @@ class User {
             case 'post':
                 $this->post_notification( array('to_user_id'=>$comment['author_id'], 'action'=>'react_'.$reaction, 'node_type'=>'post_comment', 'node_url'=>$comment['node_id'], 'notify_id'=>'comment_'.$comment_id) );
                 break;
-
+            
             case 'photo':
                 $this->post_notification( array('to_user_id'=>$comment['author_id'], 'action'=>'react_'.$reaction, 'node_type'=>'photo_comment', 'node_url'=>$comment['node_id'], 'notify_id'=>'comment_'.$comment_id) );
                 break;
@@ -4904,7 +5340,7 @@ class User {
 
     /**
      * unreact_comment
-     *
+     * 
      * @param integer $comment_id
      * @param string $reaction
      * @return void
@@ -4912,9 +5348,9 @@ class User {
     public function unreact_comment($comment_id, $reaction) {
         global $db;
         /* check reation */
-        if(!in_array($reaction, ['like', 'love', 'haha', 'yay', 'wow', 'sad', 'angry'])) {
-            _error(403);
-        }
+		if(!in_array($reaction, ['like', 'love', 'haha', 'yay', 'wow', 'sad', 'angry'])) {
+			_error(403);
+		}
         /* (check|get) comment */
         $comment = $this->get_comment($comment_id);
         if(!$comment) {
@@ -4935,7 +5371,7 @@ class User {
                 case 'post':
                     $this->delete_notification($comment['author_id'], 'react_'.$reaction, 'post_comment', $comment['node_id']);
                     break;
-
+                
                 case 'photo':
                     $this->delete_notification($comment['author_id'], 'react_'.$reaction, 'photo_comment', $comment['node_id']);
                     break;
@@ -4956,7 +5392,7 @@ class User {
 
     /**
      * get_photos
-     *
+     * 
      * @param integer $id
      * @param string $type
      * @param integer $offset
@@ -4984,20 +5420,20 @@ class User {
                             $photos[] = $photo;
                         } else {
                             /* check the photo privacy */
-                            if($this->_check_privacy($photo['privacy'], $photo['user_id'])) {
+                            if($this->check_privacy($photo['privacy'], $photo['user_id'])) {
                                 $photos[] = $photo;
                             }
                         }
                     }
                 }
                 break;
-
+            
             case 'user':
                 /* get the target user's privacy */
                 $get_privacy = $db->query(sprintf("SELECT user_privacy_photos FROM users WHERE user_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 $privacy = $get_privacy->fetch_assoc();
                 /* check the target user's privacy  */
-                if(!$this->_check_privacy($privacy['user_privacy_photos'], $id)) {
+                if(!$this->check_privacy($privacy['user_privacy_photos'], $id)) {
                     return $photos;
                 }
                 /* check manage photos */
@@ -5017,14 +5453,14 @@ class User {
                 $get_photos = $db->query(sprintf("SELECT posts_photos.photo_id, posts_photos.source, posts.privacy FROM posts_photos INNER JOIN posts ON posts_photos.post_id = posts.post_id WHERE posts.user_id = %s AND posts.user_type = 'user' AND posts.in_group = '0' AND posts.in_event = '0' ORDER BY posts_photos.photo_id DESC LIMIT %s, %s", secure($id, 'int'), secure($offset, 'int', false), secure($system['min_results_even'], 'int', false) )) or _error("SQL_ERROR_THROWEN");
                 if($get_photos->num_rows > 0) {
                     while($photo = $get_photos->fetch_assoc()) {
-                        if($this->_check_privacy($photo['privacy'], $id)) {
+                        if($this->check_privacy($photo['privacy'], $id)) {
                             $photo['manage'] = $manage_photos;
                             $photos[] = $photo;
                         }
                     }
                 }
                 break;
-
+            
             case 'page':
                 /* check manage photos */
                 $manage_photos = false;
@@ -5115,7 +5551,7 @@ class User {
 
     /**
      * get_photo
-     *
+     * 
      * @param integer $photo_id
      * @param boolean $full_details
      * @param boolean $get_gallery
@@ -5123,7 +5559,7 @@ class User {
      * @return array
      */
     public function get_photo($photo_id, $full_details = false, $get_gallery = false, $context = 'photos') {
-        global $db;
+        global $db, $system;
 
         /* get photo */
         $get_photo = $db->query(sprintf("SELECT * FROM posts_photos WHERE photo_id = %s", secure($photo_id, 'int') )) or _error("SQL_ERROR_THROWEN");
@@ -5154,7 +5590,7 @@ class User {
         }
 
         /* check photo type [single|mutiple] */
-        $check_single = $db->query(sprintf("SELECT count(*) as count FROM posts_photos WHERE post_id = %s", secure($photo['post_id'], 'int') ))  or _error("SQL_ERROR_THROWEN");
+        $check_single = $db->query(sprintf("SELECT COUNT(*) as count FROM posts_photos WHERE post_id = %s", secure($photo['post_id'], 'int') ))  or _error("SQL_ERROR_THROWEN");
         $photo['is_single'] = ($check_single->fetch_assoc()['count'] > 1)? false : true;
 
         /* get reactions */
@@ -5171,6 +5607,7 @@ class User {
             $photo['i_react'] = $post['i_react'];
             $photo['i_reaction'] = $post['i_reaction'];
             $photo['i_reaction_details'] = $post['i_reaction_details'];
+
         } else {
             /* [Case: 2] mutiple photo => get (reactions) of photo */
 
@@ -5198,6 +5635,7 @@ class User {
                     $photo['i_reaction_details'] = get_reaction_details($photo['i_reaction']);
                 }
             }
+
         }
 
         /* get full details (comments) */
@@ -5224,41 +5662,63 @@ class User {
         if($get_gallery) {
             switch ($context) {
                 case 'post':
-                    $get_post_photos = $db->query(sprintf("SELECT photo_id, source FROM posts_photos WHERE post_id = %s", secure($post['post_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                    $get_post_photos = $db->query(sprintf("SELECT photo_id, source FROM posts_photos WHERE post_id = %s ORDER BY photo_id ASC", secure($post['post_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                     while($post_photo = $get_post_photos->fetch_assoc()) {
                         $post_photos[$post_photo['photo_id']] = $post_photo;
                     }
-                    $photo['next'] = $post_photos[get_array_key($post_photos, $photo['photo_id'], -1)];
-                    $photo['prev'] =  $post_photos[get_array_key($post_photos, $photo['photo_id'], 1)];
+                    $photo['next'] = $post_photos[get_array_key($post_photos, $photo['photo_id'], 1)];
+                    $photo['prev'] = $post_photos[get_array_key($post_photos, $photo['photo_id'], -1)];
                     break;
-
+                
                 case 'album':
-                    $get_album_photos = $db->query(sprintf("SELECT photo_id, source FROM posts_photos WHERE album_id = %s", secure($photo['album_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                    $get_album_photos = $db->query(sprintf("SELECT posts_photos.photo_id, posts_photos.source, posts.user_id, posts.privacy FROM posts_photos INNER JOIN posts ON posts_photos.post_id = posts.post_id WHERE posts_photos.album_id = %s", secure($photo['album_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                     while($album_photo = $get_album_photos->fetch_assoc()) {
-                        $album_photos[$album_photo['photo_id']] = $album_photo;
+                        /* check the photo privacy */
+                        if($album_photo['privacy'] == "public" || $album_photo['privacy'] == "custom") {
+                            $album_photos[$album_photo['photo_id']] = $album_photo;
+                        } else {
+                            /* check the photo privacy */
+                            if($this->check_privacy($album_photo['privacy'], $album_photo['user_id'])) {
+                                $album_photos[$album_photo['photo_id']] = $album_photo;
+                            }
+                        }
                     }
                     $photo['next'] = $album_photos[get_array_key($album_photos, $photo['photo_id'], -1)];
-                    $photo['prev'] =  $album_photos[get_array_key($album_photos, $photo['photo_id'], 1)];
+                    $photo['prev'] = $album_photos[get_array_key($album_photos, $photo['photo_id'], 1)];
                     break;
 
                 case 'photos':
                     if($post['in_group']) {
-                        $get_target_photos = $db->query(sprintf("SELECT posts_photos.photo_id, posts_photos.source FROM posts INNER JOIN posts_photos ON posts.post_id = posts_photos.post_id WHERE posts.in_group = '1' AND posts.group_id = %s", secure($post['group_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                        $get_target_photos = $db->query(sprintf("SELECT posts_photos.photo_id, posts_photos.source, posts.user_id, posts.privacy FROM posts_photos INNER JOIN posts ON posts_photos.post_id = posts.post_id WHERE posts.in_group = '1' AND posts.group_id = %s", secure($post['group_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                     } elseif ($post['in_event']) {
-                        $get_target_photos = $db->query(sprintf("SELECT posts_photos.photo_id, posts_photos.source FROM posts INNER JOIN posts_photos ON posts.post_id = posts_photos.post_id WHERE posts.in_event = '1' AND posts.event_id = %s", secure($post['event_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                        $get_target_photos = $db->query(sprintf("SELECT posts_photos.photo_id, posts_photos.source, posts.user_id, posts.privacy FROM posts_photos INNER JOIN posts ON posts_photos.post_id = posts.post_id WHERE posts.in_event = '1' AND posts.event_id = %s", secure($post['event_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                     } elseif ($post['user_type'] == "page") {
-                        $get_target_photos = $db->query(sprintf("SELECT posts_photos.photo_id, posts_photos.source FROM posts INNER JOIN posts_photos ON posts.post_id = posts_photos.post_id WHERE posts.user_type = 'page' AND posts.user_id = %s", secure($post['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                        $get_target_photos = $db->query(sprintf("SELECT posts_photos.photo_id, posts_photos.source, posts.user_id, posts.privacy FROM posts_photos INNER JOIN posts ON posts_photos.post_id = posts.post_id WHERE posts.user_type = 'page' AND posts.user_id = %s", secure($post['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                     } elseif ($post['user_type'] == "user") {
-                        $get_target_photos = $db->query(sprintf("SELECT posts_photos.photo_id, posts_photos.source FROM posts INNER JOIN posts_photos ON posts.post_id = posts_photos.post_id WHERE posts.user_type = 'user' AND posts.user_id = %s", secure($post['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                        $get_target_photos = $db->query(sprintf("SELECT posts_photos.photo_id, posts_photos.source, posts.user_id, posts.privacy FROM posts_photos INNER JOIN posts ON posts_photos.post_id = posts.post_id WHERE posts.user_type = 'user' AND posts.user_id = %s", secure($post['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                     }
                     while($target_photo = $get_target_photos->fetch_assoc()) {
-                        $target_photos[$target_photo['photo_id']] = $target_photo;
+                        /* check the photo privacy */
+                        if($target_photo['privacy'] == "public" || $target_photo['privacy'] == "custom") {
+                            $target_photos[$target_photo['photo_id']] = $target_photo;
+                        } else {
+                            /* check the photo privacy */
+                            if($this->check_privacy($target_photo['privacy'], $target_photo['user_id'])) {
+                                $target_photos[$target_photo['photo_id']] = $target_photo;
+                            }
+                        }
                     }
                     $photo['next'] = $target_photos[get_array_key($target_photos, $photo['photo_id'], -1)];
-                    $photo['prev'] =  $target_photos[get_array_key($target_photos, $photo['photo_id'], 1)];
+                    $photo['prev'] = $target_photos[get_array_key($target_photos, $photo['photo_id'], 1)];
                     break;
-            }
+            }       
         }
+
+        /* og-meta tags */
+        $photo['og_title'] = $post['post_author_name'];
+        $photo['og_title'] .= ($post['text'] != "")? " - ".$post['text'] : "";
+        $photo['og_description'] = $post['text'];
+        $photo['og_image'] = $system['system_uploads'].'/'.$photo['source'];
 
         /* return post array with photo */
         $photo['post'] = $post;
@@ -5268,7 +5728,7 @@ class User {
 
     /**
      * delete_photo
-     *
+     * 
      * @param integer $photo_id
      * @return void
      */
@@ -5297,13 +5757,13 @@ class User {
 
     /**
      * react_photo
-     *
+     * 
      * @param integer $photo_id
      * @param string $reaction
      * @return void
      */
     public function react_photo($photo_id, $reaction) {
-        global $db;
+        global $db, $date;
         /* check reation */
         if(!in_array($reaction, ['like', 'love', 'haha', 'yay', 'wow', 'sad', 'angry'])) {
             _error(403);
@@ -5329,18 +5789,20 @@ class User {
             /* delete notification */
             $this->delete_notification($post['author_id'], 'react_'.$photo['i_reaction'], 'photo', $photo_id);
         }
-        $db->query(sprintf("INSERT INTO posts_photos_reactions (user_id, photo_id, reaction) VALUES (%s, %s, %s)", secure($this->_data['user_id'], 'int'), secure($photo_id, 'int'), secure($reaction) )) or _error("SQL_ERROR_THROWEN");
+        $db->query(sprintf("INSERT INTO posts_photos_reactions (user_id, photo_id, reaction, reaction_time) VALUES (%s, %s, %s, %s)", secure($this->_data['user_id'], 'int'), secure($photo_id, 'int'), secure($reaction), secure($date) )) or _error("SQL_ERROR_THROWEN");
         /* update photo reaction counter */
         $reaction_field = "reaction_".$reaction."_count";
         $db->query(sprintf("UPDATE posts_photos SET $reaction_field = $reaction_field + 1 WHERE photo_id = %s", secure($photo_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         /* post notification */
         $this->post_notification( array('to_user_id'=>$post['author_id'], 'action'=>'react_'.$reaction, 'node_type'=>'photo', 'node_url'=>$photo_id) );
+        /* points balance */
+        $this->points_balance("add", "reaction", $this->_data['user_id']);
     }
 
 
     /**
      * unreact_photo
-     *
+     * 
      * @param integer $photo_id
      * @param string $reaction
      * @return void
@@ -5360,12 +5822,14 @@ class User {
         $db->query(sprintf("UPDATE posts_photos SET $reaction_field = IF($reaction_field=0,0,$reaction_field-1) WHERE photo_id = %s", secure($photo_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         /* delete notification */
         $this->delete_notification($post['author_id'], 'react_'.$reaction, 'photo', $photo_id);
+        /* points balance */
+        $this->points_balance("delete", "reaction", $this->_data['user_id']);
     }
 
 
     /**
      * get_albums
-     *
+     * 
      * @param integer $user_id
      * @param string $type
      * @param integer $offset
@@ -5384,7 +5848,7 @@ class User {
             case 'page':
                 $get_albums = $db->query(sprintf("SELECT album_id FROM posts_photos_albums WHERE user_type = 'page' AND user_id = %s LIMIT %s, %s", secure($id, 'int'), secure($offset, 'int', false), secure($system['max_results_even'], 'int', false) )) or _error("SQL_ERROR_THROWEN");
                 break;
-
+            
             case 'group':
                 $get_albums = $db->query(sprintf("SELECT album_id FROM posts_photos_albums WHERE in_group = '1' AND group_id = %s LIMIT %s, %s", secure($id, 'int'), secure($offset, 'int', false), secure($system['max_results_even'], 'int', false) )) or _error("SQL_ERROR_THROWEN");
                 break;
@@ -5398,7 +5862,7 @@ class User {
                 $album = $this->get_album($album['album_id'], false); /* $full_details = false */
                 if($album) {
                     $albums[] = $album;
-                }
+                }                    
             }
         }
         return $albums;
@@ -5407,7 +5871,7 @@ class User {
 
     /**
      * get_album
-     *
+     * 
      * @param integer $album_id
      * @param boolean $full_details
      * @return array
@@ -5431,7 +5895,7 @@ class User {
             $pass_privacy_check = true;
         }
         if(!$pass_privacy_check) {
-            if(!$this->_check_privacy($album['privacy'], $album['author_id'])) {
+            if(!$this->check_privacy($album['privacy'], $album['author_id'])) {
                 return false;
             }
         }
@@ -5463,7 +5927,7 @@ class User {
             $album['cover'] = $system['system_uploads'].'/'.$cover['source'];
         }
         /* get album total photos count */
-        $get_album_photos_count = $db->query(sprintf("SELECT count(*) as count FROM posts_photos WHERE album_id = %s", secure($album_id, 'int') )) or _error("SQL_ERROR");
+        $get_album_photos_count = $db->query(sprintf("SELECT COUNT(*) as count FROM posts_photos WHERE album_id = %s", secure($album_id, 'int') )) or _error("SQL_ERROR");
         $album['photos_count'] = $get_album_photos_count->fetch_assoc()['count'];
         /* check if viewer can manage album [Edit|Update|Delete] */
         $album['is_page_admin'] = ($this->_logged_in && $this->_data['user_id'] == $album['page_admin'])? true : false;
@@ -5500,7 +5964,7 @@ class User {
 
     /**
      * delete_album
-     *
+     * 
      * @param integer $album_id
      * @return void
      */
@@ -5531,7 +5995,7 @@ class User {
 
     /**
      * edit_album
-     *
+     * 
      * @param integer $album_id
      * @param string $title
      * @return void
@@ -5558,7 +6022,7 @@ class User {
 
     /**
      * add_photos
-     *
+     * 
      * @param array $args
      * @return array
      */
@@ -5623,7 +6087,7 @@ class User {
 
     /**
      * get_videos
-     *
+     * 
      * @param integer $id
      * @param string $type
      * @param integer $offset
@@ -5639,13 +6103,13 @@ class User {
                 $get_videos = $db->query(sprintf("SELECT posts_videos.*, posts.privacy FROM posts_videos INNER JOIN posts ON posts_videos.post_id = posts.post_id WHERE posts.user_id = %s AND posts.user_type = 'user' AND posts.in_group = '0' AND posts.in_event = '0' ORDER BY posts_videos.video_id DESC LIMIT %s, %s", secure($id, 'int'), secure($offset, 'int', false), secure($system['min_results_even'], 'int', false) )) or _error("SQL_ERROR_THROWEN");
                 if($get_videos->num_rows > 0) {
                     while($video = $get_videos->fetch_assoc()) {
-                        if($this->_check_privacy($video['privacy'], $id)) {
+                        if($this->check_privacy($video['privacy'], $id)) {
                             $videos[] = $video;
                         }
                     }
                 }
                 break;
-
+            
             case 'page':
                 $offset *= $system['min_results_even'];
                 $get_videos = $db->query(sprintf("SELECT posts_videos.* FROM posts_videos INNER JOIN posts ON posts_videos.post_id = posts.post_id WHERE posts.user_id = %s AND posts.user_type = 'page' ORDER BY posts_videos.video_id DESC LIMIT %s, %s", secure($id, 'int'), secure($offset, 'int', false), secure($system['min_results_even'], 'int', false) )) or _error("SQL_ERROR_THROWEN");
@@ -5688,14 +6152,14 @@ class User {
     }
 
 
-
+    
     /* ------------------------------- */
     /* Post Actions */
     /* ------------------------------- */
 
     /**
      * share
-     *
+     * 
      * @param integer $post_id
      * @param array $args
      *@return void
@@ -5733,7 +6197,7 @@ class User {
 
             case 'page':
                 /* check if the page is valid */
-                $check_page = $db->query(sprintf("SELECT count(*) as count FROM pages WHERE page_id = %s", secure($args['page'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check_page = $db->query(sprintf("SELECT COUNT(*) as count FROM pages WHERE page_id = %s", secure($args['page'], 'int') )) or _error("SQL_ERROR_THROWEN");
                 if($check_page->fetch_assoc()['count'] == 0) {
                     _error(400);
                 }
@@ -5754,7 +6218,7 @@ class User {
                 /* insert the new shared post */
                 $db->query(sprintf("INSERT INTO posts (user_id, user_type, post_type, origin_id, time, privacy, text, in_group, group_id) VALUES (%s, 'user', 'shared', %s, %s, 'public', %s, '1', %s)", secure($this->_data['user_id'], 'int'), secure($post_id, 'int'), secure($date), secure($args['message']), secure($args['group'], 'int') )) or _error("SQL_ERROR_THROWEN");
                 break;
-
+            
             default:
                 _error(403);
                 break;
@@ -5768,7 +6232,7 @@ class User {
 
     /**
      * delete_posts
-     *
+     * 
      * @param integer $node_id
      * @param string $node_type
      * @return void
@@ -5803,7 +6267,7 @@ class User {
 
     /**
      * delete_post
-     *
+     * 
      * @param integer $post_id
      * @return boolean
      */
@@ -5834,7 +6298,6 @@ class User {
             case 'group_picture':
             case 'event_cover':
             case 'product':
-            case 'project':
                 /* delete uploads from uploads folder */
                 foreach ($post['photos'] as $photo) {
                     delete_uploads_file($photo['source']);
@@ -5915,10 +6378,6 @@ class User {
                         /* delete nested table row */
                         $db->query(sprintf("DELETE FROM posts_products WHERE post_id = %s", secure($post_id, 'int') )) or _error("SQL_ERROR_THROWEN");
                         break;
-                    case 'project':
-                        /* delete nested table row */
-                        $db->query(sprintf("DELETE FROM posts_projects WHERE post_id = %s", secure($post_id, 'int') )) or _error("SQL_ERROR_THROWEN");
-                        break;
                 }
                 break;
 
@@ -5973,7 +6432,7 @@ class User {
 
     /**
      * edit_post
-     *
+     * 
      * @param integer $post_id
      * @param string $message
      * @return array
@@ -5988,6 +6447,12 @@ class User {
         /* check if viewer can edit post */
         if(!$post['manage_post']) {
             _error(403);
+        }
+        /* check post max length */
+        if($system['max_post_length'] > 0 && $this->_data['user_group'] >= 3) {
+            if(strlen($message) >= $system['max_post_length']) {
+                modal("MESSAGE", __("Text Length Limit Reached"), __("Your message characters length is over the allowed limit"." (".$system['max_post_length']." ".__("Characters").")"));
+            }
         }
         /* delete hashtags */
         $this->delete_hashtags($post_id);
@@ -6005,7 +6470,7 @@ class User {
 
     /**
      * edit_product
-     *
+     * 
      * @param integer $post_id
      * @param string $message
      * @param string $name
@@ -6032,39 +6497,11 @@ class User {
         $location = (!is_empty($location) && valid_location($location))? $location: '';
         $db->query(sprintf("UPDATE posts_products SET name = %s, price = %s, category_id = %s, status = %s, location = %s WHERE post_id = %s", secure($name), secure($price), secure($category_id, 'int'), secure($status), secure($location), secure($post_id, 'int') )) or _error("SQL_ERROR_THROWEN");
     }
-    public function edit_project($post_id, $message, $name, $pattern, $craft, $status, $made, $needle, $colorway, $yarn, $sta_date, $fini_date, $how_much, $dye_lot, $photos) {
-        global $db, $system;
-        /* (check|get) post */
-        $post = $this->_check_post($post_id, true);
-        if(!$post) {
-            _error(403);
-        }
-        /* check if viewer can edit post */
-        if(!$post['manage_post']) {
-            _error(403);
-        }
-        /* update post */
-        $db->query(sprintf("UPDATE posts SET text = %s WHERE post_id = %s", secure($message), secure($post_id, 'int') )) or _error("SQL_ERROR_THROWEN");
-        /* update photos */
 
-
-        if($photos){
-            $db->query(sprintf("DELETE FROM posts_photos WHERE post_id = %s", secure($post_id, 'int')));
-            foreach ($photos as $photo){
-
-                $db->query(sprintf("INSERT INTO posts_photos(post_id, source) VALUES (%s,%s)", secure($post_id, 'int'), secure($photo)));
-           }
-
-        }else{
-
-        }
-
-        $db->query(sprintf("UPDATE posts_projects SET name = %s, pattern = %s, craft = %s, status = %s , made = %s, needle = %s, colorway = %s, yarn = %s, sta_date = %s, fini_date = %s, how_much = %s, dye_lot = %s WHERE post_id = %s", secure($name), secure($pattern), secure($craft), secure($status), secure($made), secure($needle), secure($colorway), secure($yarn), secure($sta_date), secure($fini_date), secure($how_much), secure($dye_lot), secure($post_id, 'int') )) or _error("SQL_ERROR_THROWEN");
-    }
 
     /**
      * edit_privacy
-     *
+     * 
      * @param integer $post_id
      * @param string $privacy
      * @return void
@@ -6087,7 +6524,7 @@ class User {
 
     /**
      * disable_post_comments
-     *
+     * 
      * @param integer $post_id
      * @return void
      */
@@ -6109,7 +6546,7 @@ class User {
 
     /**
      * enable_post_comments
-     *
+     * 
      * @param integer $post_id
      * @return void
      */
@@ -6131,7 +6568,7 @@ class User {
 
     /**
      * sold_post
-     *
+     * 
      * @param integer $post_id
      * @return void
      */
@@ -6153,7 +6590,7 @@ class User {
 
     /**
      * unsold_post
-     *
+     * 
      * @param integer $post_id
      * @return void
      */
@@ -6175,7 +6612,7 @@ class User {
 
     /**
      * save_post
-     *
+     * 
      * @param integer $post_id
      * @return void
      */
@@ -6195,7 +6632,7 @@ class User {
 
     /**
      * unsave_post
-     *
+     * 
      * @param integer $post_id
      * @return void
      */
@@ -6215,7 +6652,7 @@ class User {
 
     /**
      * boost_post
-     *
+     * 
      * @param integer $post_id
      * @return void
      */
@@ -6236,21 +6673,17 @@ class User {
         }
         /* boost post */
         if(!$post['boosted']) {
-
-                $db->query(sprintf("UPDATE posts SET boosted = '1', boosted_by = %s WHERE post_id = %s ", secure($this->_data['user_id'], 'int'), secure($post_id, 'int'))) or _error("SQL_ERROR_THROWEN");
-
             /* boost post */
-
+            $db->query(sprintf("UPDATE posts SET boosted = '1', boosted_by = %s WHERE post_id = %s", secure($this->_data['user_id'], 'int'), secure($post_id, 'int'))) or _error("SQL_ERROR_THROWEN");
             /* update user */
             $db->query(sprintf("UPDATE users SET user_boosted_posts = user_boosted_posts + 1 WHERE user_id = %s", secure($this->_data['user_id'], 'int'))) or _error("SQL_ERROR_THROWEN");
-            $db->query(sprintf("UPDATE posts_projects SET boosted = '1', boosted_by = %s WHERE post_id = %s", secure($this->_data['user_id'], 'int'), secure($post_id, 'int')));
         }
     }
 
 
     /**
      * unboost_post
-     *
+     * 
      * @param integer $post_id
      * @return void
      */
@@ -6277,7 +6710,7 @@ class User {
 
     /**
      * pin_post
-     *
+     * 
      * @param integer $post_id
      * @return void
      */
@@ -6317,7 +6750,7 @@ class User {
 
     /**
      * unpin_post
-     *
+     * 
      * @param integer $post_id
      * @return void
      */
@@ -6357,13 +6790,13 @@ class User {
 
     /**
      * react_post
-     *
+     * 
      * @param integer $post_id
      * @param string $reaction
      * @return void
      */
     public function react_post($post_id, $reaction) {
-        global $db;
+        global $db, $date;
         /* check reation */
         if(!in_array($reaction, ['like', 'love', 'haha', 'yay', 'wow', 'sad', 'angry'])) {
             _error(403);
@@ -6389,7 +6822,7 @@ class User {
             /* points balance */
             $this->points_balance("delete", "reaction", $this->_data['user_id']);
         }
-        $db->query(sprintf("INSERT INTO posts_reactions (user_id, post_id, reaction) VALUES (%s, %s, %s)", secure($this->_data['user_id'], 'int'), secure($post_id, 'int'), secure($reaction) )) or _error("SQL_ERROR_THROWEN");
+        $db->query(sprintf("INSERT INTO posts_reactions (user_id, post_id, reaction, reaction_time) VALUES (%s, %s, %s, %s)", secure($this->_data['user_id'], 'int'), secure($post_id, 'int'), secure($reaction), secure($date) )) or _error("SQL_ERROR_THROWEN");
         /* update post reaction counter */
         $reaction_field = "reaction_".$reaction."_count";
         $db->query(sprintf("UPDATE posts SET $reaction_field = $reaction_field + 1 WHERE post_id = %s", secure($post_id, 'int') )) or _error("SQL_ERROR_THROWEN");
@@ -6402,7 +6835,7 @@ class User {
 
     /**
      * unreact_post
-     *
+     * 
      * @param integer $post_id
      * @param string $reaction
      * @return void
@@ -6438,7 +6871,7 @@ class User {
 
     /**
      * hide_post
-     *
+     * 
      * @param integer $post_id
      * @return void
      */
@@ -6460,7 +6893,7 @@ class User {
 
     /**
      * unhide_post
-     *
+     * 
      * @param integer $post_id
      * @return void
      */
@@ -6478,7 +6911,7 @@ class User {
 
     /**
      * add_vote
-     *
+     * 
      * @param integer $option_id
      * @return void
      */
@@ -6487,7 +6920,7 @@ class User {
         /* get poll */
         $get_poll = $db->query(sprintf("SELECT posts_polls.* FROM posts_polls_options INNER JOIN posts_polls ON posts_polls_options.poll_id = posts_polls.poll_id WHERE option_id = %s", secure($option_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         if($get_poll->num_rows == 0) {
-            _error(403);
+             _error(403);
         }
         $poll = $get_poll->fetch_assoc();
         /* (check|get) post */
@@ -6512,7 +6945,7 @@ class User {
 
     /**
      * delete_vote
-     *
+     * 
      * @param integer $option_id
      * @return void
      */
@@ -6521,7 +6954,7 @@ class User {
         /* get poll */
         $get_poll = $db->query(sprintf("SELECT posts_polls.* FROM posts_polls_options INNER JOIN posts_polls ON posts_polls_options.poll_id = posts_polls.poll_id WHERE option_id = %s", secure($option_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         if($get_poll->num_rows == 0) {
-            _error(403);
+             _error(403);
         }
         $poll = $get_poll->fetch_assoc();
         /* (check|get) post */
@@ -6546,7 +6979,7 @@ class User {
 
     /**
      * change_vote
-     *
+     * 
      * @param integer $option_id
      * @param integer $checked_id
      * @return void
@@ -6556,7 +6989,7 @@ class User {
         /* get poll */
         $get_poll = $db->query(sprintf("SELECT posts_polls.* FROM posts_polls_options INNER JOIN posts_polls ON posts_polls_options.poll_id = posts_polls.poll_id WHERE option_id = %s", secure($option_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         if($get_poll->num_rows == 0) {
-            _error(403);
+             _error(403);
         }
         $poll = $get_poll->fetch_assoc();
         /* (check|get) post */
@@ -6579,7 +7012,7 @@ class User {
 
     /**
      * update_media_views
-     *
+     * 
      * @param string $media_type
      * @param integer $video_id
      * @return void
@@ -6598,14 +7031,14 @@ class User {
     }
 
 
-
+    
     /* ------------------------------- */
     /* Articles */
     /* ------------------------------- */
 
     /**
      * get_articles
-     *
+     * 
      * @param array $args
      * @return array
      */
@@ -6637,7 +7070,7 @@ class User {
 
     /**
      * post_article
-     *
+     * 
      * @param string $title
      * @param string $text
      * @param string $cover
@@ -6666,12 +7099,12 @@ class User {
         if(is_empty($category_id)) {
             throw new Exception(__("You must select valid category for your article"));
         }
-        $check = $db->query(sprintf("SELECT count(*) as count FROM blogs_categories WHERE category_id = %s", secure($category_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        $check = $db->query(sprintf("SELECT COUNT(*) as count FROM blogs_categories WHERE category_id = %s", secure($category_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         if($check->fetch_assoc()['count'] == 0) {
             throw new Exception(__("You must select valid category for your article"));
         }
         /* insert the post */
-        $db->query(sprintf("INSERT INTO posts (user_id, user_type, post_type, text, time, privacy) VALUES (%s, 'user', 'article', %s, %s, 'public')", secure($this->_data['user_id'], 'int'), secure($text), secure($date) )) or _error("SQL_ERROR_THROWEN");
+        $db->query(sprintf("INSERT INTO posts (user_id, user_type, post_type, time, privacy) VALUES (%s, 'user', 'article', %s, 'public')", secure($this->_data['user_id'], 'int'), secure($date) )) or _error("SQL_ERROR_THROWEN");
         $post_id = $db->insert_id;
         /* insert article */
         $db->query(sprintf("INSERT INTO posts_articles (post_id, cover, title, text, category_id, tags) VALUES (%s, %s, %s, %s, %s, %s)", secure($post_id, 'int'), secure($cover), secure($title), secure($text), secure($category_id, 'int'), secure($tags) )) or _error("SQL_ERROR_THROWEN");
@@ -6683,7 +7116,7 @@ class User {
 
     /**
      * update_article
-     *
+     * 
      * @param integer $post_id
      * @param string $title
      * @param string $text
@@ -6722,7 +7155,7 @@ class User {
         if(is_empty($category_id)) {
             throw new Exception(__("You must select valid category for your article"));
         }
-        $check = $db->query(sprintf("SELECT count(*) as count FROM blogs_categories WHERE category_id = %s", secure($category_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        $check = $db->query(sprintf("SELECT COUNT(*) as count FROM blogs_categories WHERE category_id = %s", secure($category_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         if($check->fetch_assoc()['count'] == 0) {
             throw new Exception(__("You must select valid category for your article"));
         }
@@ -6733,7 +7166,7 @@ class User {
 
     /**
      * update_article_views
-     *
+     * 
      * @param integer $article_id
      * @return void
      */
@@ -6746,7 +7179,7 @@ class User {
 
     /**
      * get_blogs_categories_ids
-     *
+     * 
      * @return array
      */
     public function get_blogs_categories_ids() {
@@ -6764,7 +7197,7 @@ class User {
 
     /**
      * get_blogs_categories
-     *
+     * 
      * @return array
      */
     public function get_blogs_categories() {
@@ -6788,7 +7221,7 @@ class User {
 
     /**
      * get_pages
-     *
+     * 
      * @param array $args
      * @return array
      */
@@ -6819,29 +7252,28 @@ class User {
             } else {
                 $get_pages = $db->query(sprintf("SELECT * FROM pages ".$random_statement." LIMIT %s, %s", secure($offset, 'int', false), secure($results, 'int', false) )) or _error("SQL_ERROR_THROWEN");
             }
-            /* get the "viewer" boosted pages */
+        /* get the "viewer" boosted pages */
         } elseif($boosted) {
             $get_pages = $db->query(sprintf("SELECT * FROM pages WHERE page_boosted = '1' AND page_boosted_by = %s LIMIT %s, %s", secure($this->_data['user_id'], 'int'), secure($offset, 'int', false), secure($results, 'int', false) )) or _error("SQL_ERROR_THROWEN");
-            /* get the "taget" all pages who admin */
+        /* get the "taget" all pages who admin */
         } elseif($managed) {
             $get_pages = $db->query(sprintf("SELECT pages.* FROM pages_admins INNER JOIN pages ON pages_admins.page_id = pages.page_id WHERE pages_admins.user_id = %s ORDER BY page_id DESC", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
-            /* get the "viewer" pages who admin */
+        /* get the "viewer" pages who admin */
         } elseif($user_id == null) {
             $get_pages = $db->query(sprintf("SELECT pages.* FROM pages_admins INNER JOIN pages ON pages_admins.page_id = pages.page_id WHERE pages_admins.user_id = %s ORDER BY page_id DESC LIMIT %s, %s", secure($this->_data['user_id'], 'int'), secure($offset, 'int', false), secure($results, 'int', false) )) or _error("SQL_ERROR_THROWEN");
-            /* get the "target" liked pages*/
+        /* get the "target" liked pages*/
         } else {
             /* get the target user's privacy */
             $get_privacy = $db->query(sprintf("SELECT user_privacy_pages FROM users WHERE user_id = %s", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
             $privacy = $get_privacy->fetch_assoc();
             /* check the target user's privacy  */
-            if(!$this->_check_privacy($privacy['user_privacy_pages'], $user_id)) {
+            if(!$this->check_privacy($privacy['user_privacy_pages'], $user_id)) {
                 return $pages;
             }
             $get_pages = $db->query(sprintf("SELECT pages.* FROM pages INNER JOIN pages_likes ON pages.page_id = pages_likes.page_id WHERE pages_likes.user_id = %s LIMIT %s, %s", secure($user_id, 'int'), secure($offset, 'int', false), secure($results, 'int', false) )) or _error("SQL_ERROR_THROWEN");
         }
         if($get_pages->num_rows > 0) {
             while($page = $get_pages->fetch_assoc()) {
-
                 $page['page_picture'] = get_picture($page['page_picture'], 'page');
                 /* check if the viewer liked the page */
                 $page['i_like'] = $this->check_page_membership($this->_data['user_id'], $page['page_id']);
@@ -6854,7 +7286,7 @@ class User {
 
     /**
      * get_pages_categories
-     *
+     * 
      * @return array
      */
     public function get_pages_categories() {
@@ -6872,7 +7304,7 @@ class User {
 
     /**
      * create_page
-     *
+     * 
      * @param array $args
      * @return void
      */
@@ -6906,7 +7338,7 @@ class User {
         if(is_empty($args['category'])) {
             throw new Exception(__("You must select valid category for your page"));
         }
-        $check = $db->query(sprintf("SELECT count(*) as count FROM pages_categories WHERE category_id = %s", secure($args['category'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        $check = $db->query(sprintf("SELECT COUNT(*) as count FROM pages_categories WHERE category_id = %s", secure($args['category'], 'int') )) or _error("SQL_ERROR_THROWEN");
         if($check->fetch_assoc()['count'] == 0) {
             throw new Exception(__("You must select valid category for your page"));
         }
@@ -6931,7 +7363,7 @@ class User {
 
     /**
      * edit_page
-     *
+     * 
      * @param integer $page_id
      * @param string $edit
      * @param array $args
@@ -6954,7 +7386,7 @@ class User {
         /* viewer is (admin|moderator) */
         if($this->_data['user_group'] < 3) {
             $can_edit = true;
-            /* viewer is the admin of page */
+        /* viewer is the admin of page */
         } elseif($this->check_page_adminship($this->_data['user_id'], $page_id)) {
             $can_edit = true;
         }
@@ -6992,7 +7424,7 @@ class User {
                 if(is_empty($args['category'])) {
                     throw new Exception(__("You must select valid category for your page"));
                 }
-                $check = $db->query(sprintf("SELECT count(*) as count FROM pages_categories WHERE category_id = %s", secure($args['category'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check = $db->query(sprintf("SELECT COUNT(*) as count FROM pages_categories WHERE category_id = %s", secure($args['category'], 'int') )) or _error("SQL_ERROR_THROWEN");
                 if($check->fetch_assoc()['count'] == 0) {
                     throw new Exception(__("You must select valid category for your page"));
                 }
@@ -7015,7 +7447,7 @@ class User {
 
             case 'action':
                 /* validate action color */
-                if(!in_array($args['action_color'], array('default', 'primary', 'success', 'info', 'warning', 'danger'))) {
+                if(!in_array($args['action_color'], array('light', 'primary', 'success', 'info', 'warning', 'danger'))) {
                     throw new Exception(__("Please select a valid action button color"));
                 }
                 /* validate action URL */
@@ -7065,7 +7497,7 @@ class User {
 
     /**
      * delete_page
-     *
+     * 
      * @param integer $page_id
      * @return void
      */
@@ -7106,7 +7538,7 @@ class User {
 
     /**
      * get_page_admins_ids
-     *
+     * 
      * @param integer $page_id
      * @return array
      */
@@ -7125,7 +7557,7 @@ class User {
 
     /**
      * get_page_admins
-     *
+     * 
      * @param integer $page_id
      * @param integer $offset
      * @return array
@@ -7151,7 +7583,7 @@ class User {
 
     /**
      * get_page_members
-     *
+     * 
      * @param integer $page_id
      * @param integer $offset
      * @return array
@@ -7179,7 +7611,7 @@ class User {
 
     /**
      * get_page_invites
-     *
+     * 
      * @param integer $page_id
      * @param integer $offset
      * @return array
@@ -7226,7 +7658,7 @@ class User {
 
     /**
      * check_page_adminship
-     *
+     * 
      * @param integer $user_id
      * @param integer $page_id
      * @return boolean
@@ -7245,7 +7677,7 @@ class User {
 
     /**
      * check_page_membership
-     *
+     * 
      * @param integer $user_id
      * @param integer $page_id
      * @return boolean
@@ -7253,7 +7685,7 @@ class User {
     public function check_page_membership($user_id, $page_id) {
         global $db;
         if($this->_logged_in) {
-            $get_likes = $db->query(sprintf("SELECT count(*) as count FROM pages_likes WHERE user_id = %s AND page_id = %s", secure($user_id, 'int'), secure($page_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+            $get_likes = $db->query(sprintf("SELECT COUNT(*) as count FROM pages_likes WHERE user_id = %s AND page_id = %s", secure($user_id, 'int'), secure($page_id, 'int') )) or _error("SQL_ERROR_THROWEN");
             if($get_likes->fetch_assoc()['count'] > 0) {
                 return true;
             }
@@ -7269,7 +7701,7 @@ class User {
 
     /**
      * get_groups
-     *
+     * 
      * @param array $args
      * @return array
      */
@@ -7298,20 +7730,20 @@ class User {
             $sort_statement = ($random) ? " ORDER BY RAND() " : " ORDER BY group_id DESC ";
             $limit_statement = ($get_all)? "" : sprintf("LIMIT %s, %s", secure($offset, 'int', false), secure($results, 'int', false) );
             $get_groups = $db->query("SELECT * FROM groups WHERE group_privacy != 'secret' ".$where_statement.$sort_statement.$limit_statement) or _error("SQL_ERROR_THROWEN");
-            /* get the "taget" all groups who admin */
+        /* get the "taget" all groups who admin */
         } elseif($managed) {
             $get_groups = $db->query(sprintf("SELECT groups.* FROM groups_admins INNER JOIN groups ON groups_admins.group_id = groups.group_id WHERE groups_admins.user_id = %s ORDER BY group_id DESC", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
-            /* get the "viewer" groups who admin */
+        /* get the "viewer" groups who admin */
         } elseif($user_id == null) {
             $limit_statement = ($get_all)? "" : sprintf("LIMIT %s, %s", secure($offset, 'int', false), secure($results, 'int', false) );
             $get_groups = $db->query(sprintf("SELECT groups.* FROM groups_admins INNER JOIN groups ON groups_admins.group_id = groups.group_id WHERE groups_admins.user_id = %s ORDER BY group_id DESC ".$limit_statement, secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
-            /* get the "target" groups*/
+        /* get the "target" groups*/
         } else {
             /* get the target user's privacy */
             $get_privacy = $db->query(sprintf("SELECT user_privacy_groups FROM users WHERE user_id = %s", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
             $privacy = $get_privacy->fetch_assoc();
             /* check the target user's privacy  */
-            if(!$this->_check_privacy($privacy['user_privacy_groups'], $user_id)) {
+            if(!$this->check_privacy($privacy['user_privacy_groups'], $user_id)) {
                 return $groups;
             }
             /* if the viewer not the target exclude secret groups */
@@ -7333,7 +7765,7 @@ class User {
 
     /**
      * get_groups_categories
-     *
+     * 
      * @return array
      */
     public function get_groups_categories() {
@@ -7351,7 +7783,7 @@ class User {
 
     /**
      * create_group
-     *
+     * 
      * @param array $args
      * @return void
      */
@@ -7385,7 +7817,7 @@ class User {
         if(is_empty($args['category'])) {
             throw new Exception(__("You must select valid category for your group"));
         }
-        $check = $db->query(sprintf("SELECT count(*) as count FROM groups_categories WHERE category_id = %s", secure($args['category'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        $check = $db->query(sprintf("SELECT COUNT(*) as count FROM groups_categories WHERE category_id = %s", secure($args['category'], 'int') )) or _error("SQL_ERROR_THROWEN");
         if($check->fetch_assoc()['count'] == 0) {
             throw new Exception(__("You must select valid category for your group"));
         }
@@ -7414,7 +7846,7 @@ class User {
 
     /**
      * edit_group
-     *
+     * 
      * @param integer $group_id
      * @param array $args
      * @return void
@@ -7436,7 +7868,7 @@ class User {
         /* viewer is (admin|moderator) */
         if($this->_data['user_group'] < 3) {
             $can_edit = true;
-            /* viewer is the admin of group */
+        /* viewer is the admin of group */
         } elseif($this->check_group_adminship($this->_data['user_id'], $group_id)) {
             $can_edit = true;
         }
@@ -7473,7 +7905,7 @@ class User {
         if(is_empty($args['category'])) {
             throw new Exception(__("You must select valid category for your group"));
         }
-        $check = $db->query(sprintf("SELECT count(*) as count FROM groups_categories WHERE category_id = %s", secure($args['category'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        $check = $db->query(sprintf("SELECT COUNT(*) as count FROM groups_categories WHERE category_id = %s", secure($args['category'], 'int') )) or _error("SQL_ERROR_THROWEN");
         if($check->fetch_assoc()['count'] == 0) {
             throw new Exception(__("You must select valid category for your group"));
         }
@@ -7486,7 +7918,7 @@ class User {
 
     /**
      * delete_group
-     *
+     * 
      * @param integer $group_id
      * @return void
      */
@@ -7527,7 +7959,7 @@ class User {
 
     /**
      * get_group_admins_ids
-     *
+     * 
      * @param integer $group_id
      * @return array
      */
@@ -7546,7 +7978,7 @@ class User {
 
     /**
      * get_group_admins
-     *
+     * 
      * @param integer $group_id
      * @param integer $offset
      * @return array
@@ -7572,7 +8004,7 @@ class User {
 
     /**
      * get_group_members
-     *
+     * 
      * @param integer $group_id
      * @param integer $offset
      * @param boolean $manage
@@ -7606,7 +8038,7 @@ class User {
 
     /**
      * get_group_invites
-     *
+     * 
      * @param integer $group_id
      * @param integer $offset
      * @return array
@@ -7639,7 +8071,7 @@ class User {
 
     /**
      * get_group_requests
-     *
+     * 
      * @param integer $group_id
      * @param integer $offset
      * @return array
@@ -7663,20 +8095,20 @@ class User {
 
     /**
      * get_group_requests_total
-     *
+     * 
      * @param integer $group_id
      * @return integer
      */
     public function get_group_requests_total($group_id) {
         global $db, $system;
-        $get_requests = $db->query(sprintf("SELECT count(*) as count FROM groups_members WHERE approved = '0' AND group_id = %s", secure($group_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        $get_requests = $db->query(sprintf("SELECT COUNT(*) as count FROM groups_members WHERE approved = '0' AND group_id = %s", secure($group_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         return $get_requests->fetch_assoc()['count'];
     }
 
 
     /**
      * check_group_adminship
-     *
+     * 
      * @param integer $user_id
      * @param integer $group_id
      * @return boolean
@@ -7695,7 +8127,7 @@ class User {
 
     /**
      * check_group_membership
-     *
+     * 
      * @param integer $user_id
      * @param integer $group_id
      * @return mixed
@@ -7720,7 +8152,7 @@ class User {
 
     /**
      * get_events
-     *
+     * 
      * @param array $args
      * @return array
      */
@@ -7750,10 +8182,10 @@ class User {
             $sort_statement = ($random) ? " ORDER BY RAND() " : " ORDER BY event_id DESC ";
             $limit_statement = ($get_all)? "" : sprintf("LIMIT %s, %s", secure($offset, 'int', false), secure($results, 'int', false) );
             $get_events = $db->query("SELECT * FROM events WHERE event_privacy != 'secret' ".$where_statement.$sort_statement.$limit_statement) or _error("SQL_ERROR_THROWEN");
-            /* get the "taget" all events who admin */
+        /* get the "taget" all events who admin */
         } elseif($managed) {
             $get_events = $db->query(sprintf("SELECT * FROM events WHERE event_admin = %s ORDER BY event_id DESC", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
-            /* get the "viewer" events who (going|interested|invited|admin) */
+        /* get the "viewer" events who (going|interested|invited|admin) */
         } elseif($user_id == null) {
             $limit_statement = ($get_all)? "" : sprintf("LIMIT %s, %s", secure($offset, 'int', false), secure($results, 'int', false) );
             switch ($filter) {
@@ -7768,18 +8200,18 @@ class User {
                 case 'invited':
                     $get_events = $db->query(sprintf("SELECT events.* FROM events INNER JOIN events_members ON events.event_id = events_members.event_id WHERE events_members.is_invited = '1' AND events_members.user_id = %s ORDER BY event_id DESC ".$limit_statement, secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                     break;
-
+                
                 default:
                     $get_events = $db->query(sprintf("SELECT * FROM events WHERE event_admin = %s ORDER BY event_id DESC ".$limit_statement, secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                     break;
             }
-            /* get the "target" events */
+        /* get the "target" events */
         } else {
             /* get the target user's privacy */
             $get_privacy = $db->query(sprintf("SELECT user_privacy_events FROM users WHERE user_id = %s", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
             $privacy = $get_privacy->fetch_assoc();
             /* check the target user's privacy  */
-            if(!$this->_check_privacy($privacy['user_privacy_events'], $user_id)) {
+            if(!$this->check_privacy($privacy['user_privacy_events'], $user_id)) {
                 return $events;
             }
             /* if the viewer not the target exclude secret groups */
@@ -7801,7 +8233,7 @@ class User {
 
     /**
      * get_events_categories
-     *
+     * 
      * @return array
      */
     public function get_events_categories() {
@@ -7819,7 +8251,7 @@ class User {
 
     /**
      * create_event
-     *
+     * 
      * @param array $args
      * @return integer
      */
@@ -7843,7 +8275,7 @@ class User {
         if(is_empty($args['end_date'])) {
             throw new Exception(__("You have to enter the event end date"));
         }
-        if(strtotime($args['start_date']) > strtotime($args['end_date'])) {
+        if(strtotime(set_datetime($args['start_date'])) > strtotime(set_datetime($args['end_date']))) {
             throw new Exception(__("Event end date must be after the start date"));
         }
         /* validate privacy */
@@ -7854,7 +8286,7 @@ class User {
         if(is_empty($args['category'])) {
             throw new Exception(__("You must select valid category for your event"));
         }
-        $check = $db->query(sprintf("SELECT count(*) as count FROM events_categories WHERE category_id = %s", secure($args['category'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        $check = $db->query(sprintf("SELECT COUNT(*) as count FROM events_categories WHERE category_id = %s", secure($args['category'], 'int') )) or _error("SQL_ERROR_THROWEN");
         if($check->fetch_assoc()['count'] == 0) {
             throw new Exception(__("You must select valid category for your event"));
         }
@@ -7879,7 +8311,7 @@ class User {
 
     /**
      * edit_event
-     *
+     * 
      * @param integer $event_id
      * @param string $title
      * @param string $location
@@ -7907,7 +8339,7 @@ class User {
         /* viewer is (admin|moderator) */
         if($this->_data['user_group'] < 3) {
             $can_edit = true;
-            /* viewer is the admin of event */
+        /* viewer is the admin of event */
         } elseif($this->_data['user_id'] == $event['event_admin']) {
             $can_edit = true;
         }
@@ -7928,7 +8360,7 @@ class User {
         if(is_empty($args['end_date'])) {
             throw new Exception(__("You have to enter the event end date"));
         }
-        if(strtotime($args['start_date']) > strtotime($args['end_date'])) {
+        if(strtotime(set_datetime($args['start_date'])) > strtotime(set_datetime($args['end_date']))) {
             throw new Exception(__("Event end date must be after the start date"));
         }
         /* validate privacy */
@@ -7939,7 +8371,7 @@ class User {
         if(is_empty($args['category'])) {
             throw new Exception(__("You must select valid category for your event"));
         }
-        $check = $db->query(sprintf("SELECT count(*) as count FROM events_categories WHERE category_id = %s", secure($args['category'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        $check = $db->query(sprintf("SELECT COUNT(*) as count FROM events_categories WHERE category_id = %s", secure($args['category'], 'int') )) or _error("SQL_ERROR_THROWEN");
         if($check->fetch_assoc()['count'] == 0) {
             throw new Exception(__("You must select valid category for your event"));
         }
@@ -7952,7 +8384,7 @@ class User {
 
     /**
      * delete_event
-     *
+     * 
      * @param integer $event_id
      * @return void
      */
@@ -7973,7 +8405,7 @@ class User {
         /* viewer is (admin|moderator) */
         if($this->_data['user_group'] < 3) {
             $can_delete = true;
-            /* viewer is the admin of event */
+        /* viewer is the admin of event */
         } elseif($this->_data['user_id'] == $event['event_admin']) {
             $can_delete = true;
         }
@@ -7987,7 +8419,7 @@ class User {
 
     /**
      * get_event_members
-     *
+     * 
      * @param integer $event_id
      * @param string $handle
      * @param integer $offset
@@ -8009,7 +8441,7 @@ class User {
             case 'invited':
                 $get_members = $db->query(sprintf("SELECT users.user_id, users.user_name, users.user_firstname, users.user_lastname, users.user_gender, users.user_picture, users.user_subscribed, users.user_verified FROM events_members INNER JOIN users ON events_members.user_id = users.user_id WHERE  events_members.is_invited = '1' AND events_members.event_id = %s LIMIT %s, %s", secure($event_id, 'int'), secure($offset, 'int', false), secure($system['max_results_even'], 'int', false) )) or _error("SQL_ERROR_THROWEN");
                 break;
-
+            
             default:
                 _error(400);
                 break;
@@ -8028,7 +8460,7 @@ class User {
 
     /**
      * get_event_invites
-     *
+     * 
      * @param integer $event_id
      * @param integer $offset
      * @return array
@@ -8061,7 +8493,7 @@ class User {
 
     /**
      * check_event_adminship
-     *
+     * 
      * @param integer $user_id
      * @param integer $event_id
      * @return boolean
@@ -8069,7 +8501,7 @@ class User {
     public function check_event_adminship($user_id, $event_id) {
         global $db;
         if($this->_logged_in) {
-            $check = $db->query(sprintf("SELECT count(*) as count FROM events WHERE event_admin = %s AND event_id = %s", secure($user_id, 'int'), secure($event_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+            $check = $db->query(sprintf("SELECT COUNT(*) as count FROM events WHERE event_admin = %s AND event_id = %s", secure($user_id, 'int'), secure($event_id, 'int') )) or _error("SQL_ERROR_THROWEN");
             if($check->fetch_assoc()['count'] > 0) {
                 return true;
             }
@@ -8080,7 +8512,7 @@ class User {
 
     /**
      * check_event_membership
-     *
+     * 
      * @param integer $user_id
      * @param integer $event_id
      * @return mixed
@@ -8104,7 +8536,7 @@ class User {
 
     /**
      * get_forums
-     *
+     * 
      * @param integer $node_id
      * @param boolean $reverse
      * @return array
@@ -8151,7 +8583,7 @@ class User {
 
     /**
      * get_child_forums
-     *
+     * 
      * @param integer $node_id
      * @param integer $iteration
      * @return array
@@ -8183,7 +8615,7 @@ class User {
 
     /**
      * get_child_forums_ids
-     *
+     * 
      * @param array $nodes
      * @return void
      */
@@ -8192,7 +8624,7 @@ class User {
             foreach($nodes as $node){
                 $list[] = $node['forum_id'];
                 if($node['childs']){
-                    $this->get_child_forums_ids($node['childs'], $list);
+                   $this->get_child_forums_ids($node['childs'], $list);
                 }
             }
         }
@@ -8201,7 +8633,7 @@ class User {
 
     /**
      * delete_forum
-     *
+     * 
      * @param integer $node_id
      * @return void
      */
@@ -8223,7 +8655,7 @@ class User {
 
     /**
      * delete_child_forums
-     *
+     * 
      * @param array $nodes
      * @return void
      */
@@ -8248,7 +8680,7 @@ class User {
 
     /**
      * get_forum
-     *
+     * 
      * @param integer $forum_id
      * @param boolean $get_childs
      * @return array
@@ -8278,7 +8710,7 @@ class User {
 
     /**
      * get_forum_threads
-     *
+     * 
      * @param array $args
      * @return array
      */
@@ -8292,9 +8724,9 @@ class User {
         $query = !isset($args['query']) ? null : $args['query'];
         /* get threads */
         if($forum !== null) {
-            $get_total = $db->query(sprintf("SELECT count(*) as count FROM forums_threads WHERE forum_id = %s", secure($forum['forum_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+            $get_total = $db->query(sprintf("SELECT COUNT(*) as count FROM forums_threads WHERE forum_id = %s", secure($forum['forum_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
         } elseif ($user_id !== null) {
-            $get_total = $db->query(sprintf("SELECT count(*) as count FROM forums_threads WHERE user_id = %s", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+            $get_total = $db->query(sprintf("SELECT COUNT(*) as count FROM forums_threads WHERE user_id = %s", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         } elseif ($query !== null) {
             /* prepare where statement */
             $where = "";
@@ -8305,7 +8737,7 @@ class User {
                 $forums_list = implode(',',$args['forums_list']);
                 $where = ($where != '')? $where." AND forum_id IN ($forums_list) " : $where;
             }
-            $get_total = $db->query("SELECT count(*) as count FROM forums_threads".$where) or _error("SQL_ERROR_THROWEN");
+            $get_total = $db->query("SELECT COUNT(*) as count FROM forums_threads".$where) or _error("SQL_ERROR_THROWEN");
         }
         $total_items = $get_total->fetch_assoc()['count'];
         if($total_items > 0) {
@@ -8352,7 +8784,7 @@ class User {
 
     /**
      * get_forum_thread
-     *
+     * 
      * @param integer $thread_id
      * @param boolean $update_views
      * @return array
@@ -8396,7 +8828,7 @@ class User {
 
     /**
      * post_forum_thread
-     *
+     * 
      * @param string $forum_id
      * @param string $title
      * @param string $text
@@ -8439,7 +8871,7 @@ class User {
 
     /**
      * edit_forum_thread
-     *
+     * 
      * @param string $thread_id
      * @param string $title
      * @param string $text
@@ -8479,7 +8911,7 @@ class User {
 
     /**
      * delete_forum_thread
-     *
+     * 
      * @param string $thread_id
      * @return array
      */
@@ -8511,7 +8943,7 @@ class User {
 
     /**
      * get_forum_replies
-     *
+     * 
      * @param array $args
      * @return array
      */
@@ -8525,9 +8957,9 @@ class User {
         $query = !isset($args['query']) ? null : $args['query'];
         /* get replies */
         if($thread !== null) {
-            $get_total = $db->query(sprintf("SELECT count(*) as count FROM forums_replies WHERE thread_id = %s", secure($thread['thread_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+            $get_total = $db->query(sprintf("SELECT COUNT(*) as count FROM forums_replies WHERE thread_id = %s", secure($thread['thread_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
         } elseif ($user_id !== null) {
-            $get_total = $db->query(sprintf("SELECT count(*) as count FROM forums_replies WHERE user_id = %s", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+            $get_total = $db->query(sprintf("SELECT COUNT(*) as count FROM forums_replies WHERE user_id = %s", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         } elseif ($query !== null) {
             /* prepare where statement */
             $where = "";
@@ -8538,7 +8970,7 @@ class User {
                 $forums_list = implode(',',$args['forums_list']);
                 $where = ($where != '')? $where." AND forums_threads.forum_id IN ($forums_list) " : $where;
             }
-            $get_total = $db->query("SELECT count(*) as count FROM forums_replies INNER JOIN forums_threads ON forums_replies.thread_id = forums_threads.thread_id".$where) or _error("SQL_ERROR_THROWEN");
+            $get_total = $db->query("SELECT COUNT(*) as count FROM forums_replies INNER JOIN forums_threads ON forums_replies.thread_id = forums_threads.thread_id".$where) or _error("SQL_ERROR_THROWEN");
         }
         $total_items = $get_total->fetch_assoc()['count'];
         if($total_items > 0) {
@@ -8598,7 +9030,7 @@ class User {
 
     /**
      * get_forum_reply
-     *
+     * 
      * @param integer $reply_id
      * @return array
      */
@@ -8632,7 +9064,7 @@ class User {
 
     /**
      * post_forum_reply
-     *
+     * 
      * @param string $thread_id
      * @param string $text
      * @return array
@@ -8668,7 +9100,7 @@ class User {
 
     /**
      * edit_forum_reply
-     *
+     * 
      * @param string $reply_id
      * @param string $text
      * @return array
@@ -8701,7 +9133,7 @@ class User {
 
     /**
      * delete_forum_reply
-     *
+     * 
      * @param string $reply_id
      * @return void
      */
@@ -8734,7 +9166,7 @@ class User {
 
     /**
      * search_forums
-     *
+     * 
      * @param string $query
      * @param string $type
      * @param mixed $forum
@@ -8779,7 +9211,7 @@ class User {
 
     /**
      * get_forum_online_users
-     *
+     * 
      * @return array
      */
     public function get_forum_online_users() {
@@ -8803,7 +9235,7 @@ class User {
 
     /**
      * report
-     *
+     * 
      * @param integer $id
      * @param string $handle
      * @return void
@@ -8813,46 +9245,42 @@ class User {
         switch ($handle) {
             case 'user':
                 /* check the user */
-                $check = $db->query(sprintf("SELECT count(*) as count FROM users WHERE user_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check = $db->query(sprintf("SELECT COUNT(*) as count FROM users WHERE user_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 break;
 
             case 'page':
                 /* check the page */
-                $check = $db->query(sprintf("SELECT count(*) as count FROM pages WHERE page_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check = $db->query(sprintf("SELECT COUNT(*) as count FROM pages WHERE page_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 break;
 
             case 'group':
                 /* check the group */
-                $check = $db->query(sprintf("SELECT count(*) as count FROM groups WHERE group_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check = $db->query(sprintf("SELECT COUNT(*) as count FROM groups WHERE group_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 break;
 
             case 'event':
                 /* check the event */
-                $check = $db->query(sprintf("SELECT count(*) as count FROM events WHERE event_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check = $db->query(sprintf("SELECT COUNT(*) as count FROM events WHERE event_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 break;
-            case 'project':
-                /* check the project*/
-                $check = $db->query(sprintf("SELECT count(*) as count FROM posts_projects WHERE project_id = %s", secure($id, 'int'))) or _error("SQL_ERROR_THROWEN");
-                break;
-
+            
             case 'post':
                 /* check the post */
-                $check = $db->query(sprintf("SELECT count(*) as count FROM posts WHERE post_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check = $db->query(sprintf("SELECT COUNT(*) as count FROM posts WHERE post_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 break;
 
             case 'comment':
                 /* check the comment */
-                $check = $db->query(sprintf("SELECT count(*) as count FROM posts_comments WHERE comment_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check = $db->query(sprintf("SELECT COUNT(*) as count FROM posts_comments WHERE comment_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 break;
 
             case 'forum_thread':
                 /* check the forum thread */
-                $check = $db->query(sprintf("SELECT count(*) as count FROM forums_threads WHERE thread_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check = $db->query(sprintf("SELECT COUNT(*) as count FROM forums_threads WHERE thread_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 break;
 
             case 'forum_reply':
                 /* check the forum thread */
-                $check = $db->query(sprintf("SELECT count(*) as count FROM forums_replies WHERE reply_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check = $db->query(sprintf("SELECT COUNT(*) as count FROM forums_replies WHERE reply_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 break;
 
             default:
@@ -8864,7 +9292,7 @@ class User {
             _error(403);
         }
         /* check old reports */
-        $check = $db->query(sprintf("SELECT count(*) as count FROM reports WHERE user_id = %s AND node_id = %s AND node_type = %s", secure($this->_data['user_id'], 'int'), secure($id, 'int'), secure($handle) )) or _error("SQL_ERROR_THROWEN");
+        $check = $db->query(sprintf("SELECT COUNT(*) as count FROM reports WHERE user_id = %s AND node_id = %s AND node_type = %s", secure($this->_data['user_id'], 'int'), secure($id, 'int'), secure($handle) )) or _error("SQL_ERROR_THROWEN");
         if($check->fetch_assoc()['count'] > 0) {
             throw new Exception(__("You have already reported this before!"));
         }
@@ -8880,7 +9308,7 @@ class User {
 
     /**
      * get_movies_genres
-     *
+     * 
      * @return array
      */
     public function get_movies_genres() {
@@ -8898,7 +9326,7 @@ class User {
 
     /**
      * get_movies_genre
-     *
+     * 
      * @param integer $genre_id
      * @return array
      */
@@ -8916,7 +9344,7 @@ class User {
 
     /**
      * get_movie_genres
-     *
+     * 
      * @param string $movie_genres
      * @return array
      */
@@ -8938,7 +9366,7 @@ class User {
 
     /**
      * get_movie
-     *
+     * 
      * @param integer $movie_id
      * @return array
      */
@@ -8965,7 +9393,7 @@ class User {
 
     /**
      * get_games
-     *
+     * 
      * @param integer $offset
      * @param boolean $played
      * @return array
@@ -8984,7 +9412,7 @@ class User {
                 $game['thumbnail'] = get_picture($game['thumbnail'], 'game');
                 $game['title_url'] = get_url_text($game['title']);
                 $game['played'] = ($played)? $game['last_played_time']: false;
-
+                
                 $games[] = $game;
             }
         }
@@ -8994,7 +9422,7 @@ class User {
 
     /**
      * get_game
-     *
+     * 
      * @param integer $game_id
      * @return array
      */
@@ -9022,7 +9450,7 @@ class User {
 
     /**
      * get_market_categories_ids
-     *
+     * 
      * @return array
      */
     public function get_market_categories_ids() {
@@ -9040,7 +9468,7 @@ class User {
 
     /**
      * get_market_categories
-     *
+     * 
      * @return array
      */
     public function get_market_categories() {
@@ -9064,7 +9492,7 @@ class User {
 
     /**
      * get_packages
-     *
+     * 
      * @return array
      */
     public function get_packages() {
@@ -9083,7 +9511,7 @@ class User {
 
     /**
      * get_package
-     *
+     * 
      * @param integer $package_id
      * @return array|false
      */
@@ -9100,7 +9528,7 @@ class User {
 
     /**
      * check_user_package
-     *
+     * 
      * @return void
      */
     public function check_user_package() {
@@ -9147,7 +9575,7 @@ class User {
 
     /**
      * check_users_package
-     *
+     * 
      * @return void
      */
     public function check_users_package() {
@@ -9198,20 +9626,32 @@ class User {
 
     /**
      * update_user_package
-     *
+     * 
      * @param integer $package_id
      * @param string $package_name
      * @param string $package_price
+     * @param boolean $package_verification
+     * @param integer $user_id
      * @return void
      */
-    public function update_user_package($package_id, $package_name, $package_price) {
+    public function update_user_package($package_id, $package_name, $package_price, $package_verification, $user_id = null) {
         global $db, $date;
+        /* check user */
+        if($user_id == null) {
+            $process_affiliates = true;
+            $user_id = $this->_data['user_id'];
+        } else {
+            $process_affiliates = false;
+        }
         /* update user package */
-        $db->query(sprintf("UPDATE users SET user_verified = '1', user_subscribed = '1', user_package = %s, user_subscription_date = %s, user_boosted_posts = '0', user_boosted_pages = '0' WHERE user_id = %s", secure($package_id, 'int'), secure($date), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        $verification_statement = ($package_verification)? "user_verified = '1',": ""; /* to not affect already verified users */
+        $db->query(sprintf("UPDATE users SET ".$verification_statement." user_subscribed = '1', user_package = %s, user_subscription_date = %s, user_boosted_posts = '0', user_boosted_pages = '0' WHERE user_id = %s", secure($package_id, 'int'), secure($date), secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
         /* insert the payment */
         $db->query(sprintf("INSERT INTO packages_payments (payment_date, package_name, package_price) VALUES (%s, %s, %s)", secure($date), secure($package_name), secure($package_price) )) or _error("SQL_ERROR_THROWEN");
         /* affiliates system */
-        $this->process_affiliates("packages", $this->_data['user_id'], $this->_data['user_referrer_id'], $package_price);
+        if($process_affiliates) {
+            $this->process_affiliates("packages", $this->_data['user_id'], $this->_data['user_referrer_id'], $package_price);
+        }
     }
 
 
@@ -9222,7 +9662,7 @@ class User {
 
     /**
      * init_affiliates
-     *
+     * 
      * @return void
      */
     public function init_affiliates() {
@@ -9235,7 +9675,7 @@ class User {
 
     /**
      * affiliates_balance
-     *
+     * 
      * @param string $type
      * @param integer $referee_id
      * @param integer $referrer_id
@@ -9273,7 +9713,7 @@ class User {
 
     /**
      * get_affiliates
-     *
+     * 
      * @param integer $user_id
      * @param integer $offset
      * @return array
@@ -9302,7 +9742,7 @@ class User {
 
     /**
      * get_custom_fields
-     *
+     * 
      * @param array $args
      * @return array
      */
@@ -9311,7 +9751,7 @@ class User {
         $fields = [];
         /* prepare "for" [user|page|group|event] - default -> user */
         $args['for'] = (isset($args['for']))? $args['for']: "user";
-        if(!in_array($args['for'], array('user', 'page', 'group', 'event', 'project'))) {
+        if(!in_array($args['for'], array('user', 'page', 'group', 'event'))) {
             _error(400);
         }
         /* prepare "get" [registration|profile|settings] - default -> registration */
@@ -9361,7 +9801,7 @@ class User {
 
     /**
      * set_custom_fields
-     *
+     * 
      * @param array $input_fields
      * @param string $for
      * @param string $set
@@ -9372,7 +9812,7 @@ class User {
         global $db, $system;
         $custom_fields = [];
         /* prepare "for" [user|page|group|event] - default -> user */
-        if(!in_array($for, array('user', 'page', 'group', 'event', 'project'))) {
+        if(!in_array($for, array('user', 'page', 'group', 'event'))) {
             _error(400);
         }
         /* prepare "set" [registration|settings] - default -> registration */
@@ -9439,7 +9879,7 @@ class User {
 
     /**
      * announcements
-     *
+     * 
      * @param array $place
      * @return array
      */
@@ -9449,7 +9889,7 @@ class User {
         $get_announcement = $db->query(sprintf('SELECT * FROM announcements WHERE start_date <= %1$s AND end_date >= %1$s', secure($date))) or _error("SQL_ERROR_THROWEN");
         if($get_announcement->num_rows > 0) {
             while($announcement = $get_announcement->fetch_assoc()) {
-                $check = $db->query(sprintf("SELECT count(*) as count FROM announcements_users WHERE announcement_id = %s AND user_id = %s", secure($announcement['announcement_id'], 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                $check = $db->query(sprintf("SELECT COUNT(*) as count FROM announcements_users WHERE announcement_id = %s AND user_id = %s", secure($announcement['announcement_id'], 'int'), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                 if($check->fetch_assoc()['count'] == 0) {
                     $announcement['code'] = html_entity_decode($announcement['code'], ENT_QUOTES);
                     $announcements[] = $announcement;
@@ -9462,14 +9902,14 @@ class User {
 
     /**
      * hide_announcement
-     *
+     * 
      * @param integer $id
      * @return void
      */
     public function hide_announcement($id) {
         global $db, $system;
         /* check announcement */
-        $check = $db->query(sprintf("SELECT count(*) as count FROM announcements WHERE announcement_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        $check = $db->query(sprintf("SELECT COUNT(*) as count FROM announcements WHERE announcement_id = %s", secure($id, 'int') )) or _error("SQL_ERROR_THROWEN");
         if($check->fetch_assoc()['count'] == 0) {
             _error(403);
         }
@@ -9485,7 +9925,7 @@ class User {
 
     /**
      * ads
-     *
+     * 
      * @param string $place
      * @return array
      */
@@ -9505,7 +9945,7 @@ class User {
 
     /**
      * ads_campaigns
-     *
+     * 
      * @param string $place
      * @return array
      */
@@ -9605,7 +10045,7 @@ class User {
 
     /**
      * get_campaigns
-     *
+     * 
      * @return array
      */
     public function get_campaigns() {
@@ -9623,7 +10063,7 @@ class User {
 
     /**
      * get_campaign
-     *
+     * 
      * @param integer $campaign_id
      * @return array
      */
@@ -9644,7 +10084,7 @@ class User {
 
     /**
      * create_campaign
-     *
+     * 
      * @param array $args
      * @return void
      */
@@ -9665,10 +10105,10 @@ class User {
         if(is_empty($args['campaign_end_date'])) {
             throw new Exception(__("You have to enter the campaign end date"));
         }
-        if(strtotime($args['campaign_start_date']) >= strtotime($args['campaign_end_date'])) {
+        if(strtotime(set_datetime($args['campaign_start_date'])) >= strtotime(set_datetime($args['campaign_end_date']))) {
             throw new Exception(__("Campaign end date must be after the start date"));
         }
-        if(strtotime($args['campaign_end_date']) <= strtotime($date)) {
+        if(strtotime(set_datetime($args['campaign_end_date'])) <= strtotime($date)) {
             throw new Exception(__("Campaign end date must be after today datetime"));
         }
         /* validate campaign budget */
@@ -9732,7 +10172,7 @@ class User {
                 $args['ads_page'] = 'null';
                 $args['ads_group'] = 'null';
                 break;
-
+            
             default:
                 throw new Exception(__("You have to select a valid ads type"));
                 break;
@@ -9765,32 +10205,32 @@ class User {
             ads_event, 
             ads_placement, 
             ads_image, 
-            campaign_created_date) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-            secure($this->_data['user_id'], 'int'),
-            secure($args['campaign_title']),
-            secure($args['campaign_start_date'], 'datetime'),
-            secure($args['campaign_end_date'], 'datetime'),
-            secure($args['campaign_budget']),
-            secure($args['campaign_bidding']),
-            secure($args['audience_countries']),
-            secure($args['audience_gender']),
-            secure($args['audience_relationship']),
-            secure($args['ads_title']),
-            secure($args['ads_description']),
-            secure($args['ads_type']),
-            secure($args['ads_url']),
-            secure($args['ads_page']),
-            secure($args['ads_group']),
-            secure($args['ads_event']),
-            secure($args['ads_placement']),
-            secure($args['ads_image']),
+            campaign_created_date) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", 
+            secure($this->_data['user_id'], 'int'), 
+            secure($args['campaign_title']), 
+            secure($args['campaign_start_date'], 'datetime'), 
+            secure($args['campaign_end_date'], 'datetime'), 
+            secure($args['campaign_budget']), 
+            secure($args['campaign_bidding']), 
+            secure($args['audience_countries']), 
+            secure($args['audience_gender']), 
+            secure($args['audience_relationship']), 
+            secure($args['ads_title']), 
+            secure($args['ads_description']), 
+            secure($args['ads_type']), 
+            secure($args['ads_url']), 
+            secure($args['ads_page']), 
+            secure($args['ads_group']), 
+            secure($args['ads_event']), 
+            secure($args['ads_placement']), 
+            secure($args['ads_image']), 
             secure($date) )) or _error("SQL_ERROR_THROWEN");
     }
 
 
     /**
      * edit_campaign
-     *
+     * 
      * @param integer $campaign_id
      * @param array $args
      * @return void
@@ -9812,7 +10252,7 @@ class User {
         /* viewer is (admin|moderator) */
         if($this->_data['user_group'] < 3) {
             $can_edit = true;
-            /* viewer is the creator of campaign */
+        /* viewer is the creator of campaign */
         } elseif($this->_data['user_id'] == $campaign['campaign_user_id']) {
             $can_edit = true;
         }
@@ -9831,10 +10271,10 @@ class User {
         if(is_empty($args['campaign_end_date'])) {
             throw new Exception(__("You have to enter the campaign end date"));
         }
-        if(strtotime($args['campaign_start_date']) > strtotime($args['campaign_end_date'])) {
+        if(strtotime(set_datetime($args['campaign_start_date'])) > strtotime(set_datetime($args['campaign_end_date']))) {
             throw new Exception(__("Campaign end date must be after the start date"));
         }
-        if(strtotime($args['campaign_end_date']) <= strtotime($date)) {
+        if(strtotime(set_datetime($args['campaign_end_date'])) <= strtotime($date)) {
             throw new Exception(__("Campaign end date must be after today datetime"));
         }
         /* validate campaign budget */
@@ -9909,7 +10349,7 @@ class User {
                 $args['ads_page'] = 'null';
                 $args['ads_group'] = 'null';
                 break;
-
+            
             default:
                 throw new Exception(__("You have to select a valid ads type"));
                 break;
@@ -9941,31 +10381,31 @@ class User {
             ads_event = %s, 
             ads_placement = %s, 
             ads_image = %s, 
-            campaign_is_active = '1' WHERE campaign_id = %s",
-            secure($args['campaign_title']),
-            secure($args['campaign_start_date'], 'datetime'),
-            secure($args['campaign_end_date'], 'datetime'),
-            secure($args['campaign_budget']),
-            secure($args['campaign_bidding']),
-            secure($args['audience_countries']),
-            secure($args['audience_gender']),
-            secure($args['audience_relationship']),
-            secure($args['ads_title']),
-            secure($args['ads_description']),
-            secure($args['ads_type']),
-            secure($args['ads_url']),
-            secure($args['ads_page']),
-            secure($args['ads_group']),
-            secure($args['ads_event']),
-            secure($args['ads_placement']),
-            secure($args['ads_image']),
+            campaign_is_active = '1' WHERE campaign_id = %s", 
+            secure($args['campaign_title']), 
+            secure($args['campaign_start_date'], 'datetime'), 
+            secure($args['campaign_end_date'], 'datetime'), 
+            secure($args['campaign_budget']), 
+            secure($args['campaign_bidding']), 
+            secure($args['audience_countries']), 
+            secure($args['audience_gender']), 
+            secure($args['audience_relationship']), 
+            secure($args['ads_title']), 
+            secure($args['ads_description']), 
+            secure($args['ads_type']), 
+            secure($args['ads_url']), 
+            secure($args['ads_page']), 
+            secure($args['ads_group']), 
+            secure($args['ads_event']), 
+            secure($args['ads_placement']), 
+            secure($args['ads_image']), 
             secure($campaign_id, 'int') )) or _error("SQL_ERROR_THROWEN");
     }
 
 
     /**
      * delete_campaign
-     *
+     * 
      * @param integer $campaign_id
      * @return void
      */
@@ -9986,7 +10426,7 @@ class User {
         /* viewer is (admin|moderator) */
         if($this->_data['user_group'] < 3) {
             $can_delete = true;
-            /* viewer is the creator of campaign */
+        /* viewer is the creator of campaign */
         } elseif($this->_data['user_id'] == $campaign['campaign_user_id']) {
             $can_delete = true;
         }
@@ -10000,7 +10440,7 @@ class User {
 
     /**
      * update_campaign_status
-     *
+     * 
      * @param integer $campaign_id
      * @param boolean $is_active
      * @return void
@@ -10022,7 +10462,7 @@ class User {
         /* viewer is (admin|moderator) */
         if($this->_data['user_group'] < 3) {
             $can_edit = true;
-            /* viewer is the creator of campaign */
+        /* viewer is the creator of campaign */
         } elseif($this->_data['user_id'] == $campaign['campaign_user_id']) {
             $can_edit = true;
         }
@@ -10060,7 +10500,7 @@ class User {
 
     /**
      * update_campaign_bidding
-     *
+     * 
      * @param integer $campaign_id
      * @return void
      */
@@ -10088,7 +10528,7 @@ class User {
 
     /**
      * campaign_estimated_reach
-     *
+     * 
      * @param array $counties
      * @param string $gender
      * @param string $relationship
@@ -10129,7 +10569,7 @@ class User {
             }
         }
         /* get users */
-        $get_users = $db->query("SELECT count(*) as count FROM users".$where) or _error("SQL_ERROR_THROWEN");
+        $get_users = $db->query("SELECT COUNT(*) as count FROM users".$where) or _error("SQL_ERROR_THROWEN");
         $results = $get_users->fetch_assoc()['count'];
         return $results;
     }
@@ -10142,7 +10582,7 @@ class User {
 
     /**
      * wallet_transfer
-     *
+     * 
      * @param integer $user_id
      * @param integer $amount
      * @return void
@@ -10164,7 +10604,7 @@ class User {
         if($this->_data['user_id'] == $user_id) {
             throw new Exception(__("You can't send money to yourself!"));
         }
-        $check_user = $db->query(sprintf("SELECT count(*) as count FROM users WHERE user_id = %s", secure($user_id, 'int'))) or _error("SQL_ERROR_THROWEN");
+        $check_user = $db->query(sprintf("SELECT COUNT(*) as count FROM users WHERE user_id = %s", secure($user_id, 'int'))) or _error("SQL_ERROR_THROWEN");
         if($check_user->fetch_assoc()['count'] == 0) {
             throw new Exception(__("You can't send money to this user!"));
         }
@@ -10188,7 +10628,7 @@ class User {
 
     /**
      * wallet_withdraw_affiliates
-     *
+     * 
      * @param integer $amount
      * @return void
      */
@@ -10222,7 +10662,7 @@ class User {
 
     /**
      * wallet_withdraw_points
-     *
+     * 
      * @param integer $amount
      * @return void
      */
@@ -10258,7 +10698,7 @@ class User {
 
     /**
      * wallet_set_transaction
-     *
+     * 
      * @param integer $user_id
      * @param string $node_type
      * @param integer $node_id
@@ -10274,7 +10714,7 @@ class User {
 
     /**
      * wallet_get_transactions
-     *
+     * 
      * @return array
      */
     public function wallet_get_transactions() {
@@ -10293,6 +10733,41 @@ class User {
     }
 
 
+    /**
+     * wallet_package_payment
+     * 
+     * @param integer $package_id
+     * @return void
+     */
+    public function wallet_package_payment($package_id) {
+        global $db, $system;
+        /* check if ads enabled */
+        if(!$system['packages_enabled'] || !$system['ads_enabled'] || !$system['packages_wallet_payment_enabled']) {
+            throw new Exception(__("This feature has been disabled by the admin"));
+        }
+        /* check package */
+        $package = $this->get_package($package_id);
+        if(!$package) {
+            _error(400);
+        }
+        /* check if user already subscribed to this package */
+        if($this->_data['user_subscribed'] && $this->_data['user_package'] == $package['package_id']) {
+            modal("SUCCESS", __("Subscribed"), __("You already subscribed to this package, Please select different package"));
+        }
+        /* check viewer balance */
+        if($this->_data['user_wallet_balance'] < $package['price']) {
+            modal("ERROR", __("Sorry"), __("There is no enough credit in your wallet to buy this").", ".__("Recharge your wallet to continue"));
+        }
+        /* decrease viewer user wallet balance */
+        $db->query(sprintf('UPDATE users SET user_wallet_balance = IF(user_wallet_balance-%1$s<=0,0,user_wallet_balance-%1$s) WHERE user_id = %2$s', secure($package['price']), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+        /* log this transaction */
+        $this->wallet_set_transaction($this->_data['user_id'], 'package_payment', $package['package_id'], $package['price'], 'out');
+        /* update user package */
+        $this->update_user_package($package['package_id'], $package['name'], $package['price'], $package['verification_badge_enabled']);
+        $_SESSION['wallet_package_payment_amount'] = $package['price'];
+    }
+
+
 
     /* ------------------------------- */
     /* Points System */
@@ -10300,7 +10775,7 @@ class User {
 
     /**
      * points_balance
-     *
+     * 
      * @param string $type
      * @param string $node_type
      * @param integer $user_id
@@ -10324,17 +10799,56 @@ class User {
             case 'reaction':
                 $points_per_node = $system['points_per_reaction'];
                 break;
-
+            
         }
         switch ($type) {
             case 'add':
+                /* check user daily limits */
+                if($this->get_remaining_points($user_id) == 0) {
+                    return;
+                }
+                /* add points */
                 $db->query(sprintf("UPDATE users SET user_points = user_points + %s WHERE user_id = %s", secure($points_per_node, 'int'), secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 break;
 
             case 'delete':
+                /* delete points */
                 $db->query(sprintf('UPDATE users SET user_points = IF(user_points-%1$s<=0,0,user_points-%1$s) WHERE user_id = %2$s', secure($points_per_node, 'int'), secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
                 break;
         }
+    }
+
+
+    /**
+     * get_remaining_points
+     * 
+     * @param integer $user_id
+     * @return integer
+     */
+    public function get_remaining_points($user_id) {
+        global $db, $system;
+        /* posts */
+        $get_posts = $db->query(sprintf("SELECT COUNT(*) as count FROM posts WHERE posts.time >= DATE_SUB(NOW(),INTERVAL 1 DAY) AND user_id = %s AND user_type = 'user'", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        $total_posts_points = $get_posts->fetch_assoc()['count'] * $system['points_per_post'];
+        /* comments */
+        $get_comments = $db->query(sprintf("SELECT COUNT(*) as count FROM posts_comments WHERE posts_comments.time >= DATE_SUB(NOW(),INTERVAL 1 DAY) AND user_id = %s AND user_type = 'user'", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        $total_comments_points = $get_comments->fetch_assoc()['count'] * $system['points_per_comment'];
+        /* reactions */
+        $total_reactions_points = 0;
+        $get_reactions_posts = $db->query(sprintf("SELECT COUNT(*) as count FROM posts_reactions WHERE posts_reactions.reaction_time >= DATE_SUB(NOW(),INTERVAL 1 DAY) AND user_id = %s", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        $total_reactions_points += $get_reactions_posts->fetch_assoc()['count'];
+        $get_reactions_photos = $db->query(sprintf("SELECT COUNT(*) as count FROM posts_photos_reactions WHERE posts_photos_reactions.reaction_time >= DATE_SUB(NOW(),INTERVAL 1 DAY) AND user_id = %s", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        $total_reactions_points += $get_reactions_photos->fetch_assoc()['count'];
+        $get_reactions_comments = $db->query(sprintf("SELECT COUNT(*) as count FROM posts_comments_reactions WHERE posts_comments_reactions.reaction_time >= DATE_SUB(NOW(),INTERVAL 1 DAY) AND user_id = %s", secure($user_id, 'int') )) or _error("SQL_ERROR_THROWEN");
+        $total_reactions_points += $get_reactions_comments->fetch_assoc()['count'];
+        $total_reactions_points *= $system['points_per_reaction'];
+        /* total daily points*/
+        $total_daily_points = $total_posts_points + $total_comments_points + $total_reactions_points;
+        /* total daily limit */
+        $total_daily_limit = ($system['packages_enabled'] && $this->_data['user_subscribed'])? $system['points_limit_pro'] : $system['points_limit_user'];
+        /* return remaining points */
+        $remaining_points = $total_daily_limit - $total_daily_points;
+        return ($remaining_points > 0)? $remaining_points : 0;
     }
 
 
@@ -10345,7 +10859,7 @@ class User {
 
     /**
      * widget
-     *
+     * 
      * @param array $place
      * @return array
      */
@@ -10370,13 +10884,10 @@ class User {
 
     /**
      * settings
-     *
+     * 
      * @param string $edit
      * @param array $args
-     *
-     *
-     *
-     *
+     * @return void
      */
     public function settings($edit, $args) {
         global $db, $system;
@@ -10436,7 +10947,7 @@ class User {
                 if($args['country'] == "none") {
                     throw new Exception(__("You must select valid country"));
                 } else {
-                    $check_country = $db->query(sprintf("SELECT count(*) as count FROM system_countries WHERE country_id = %s", secure($args['country'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                    $check_country = $db->query(sprintf("SELECT COUNT(*) as count FROM system_countries WHERE country_id = %s", secure($args['country'], 'int') )) or _error("SQL_ERROR_THROWEN");
                     if($check_country->fetch_assoc()['count'] == 0) {
                         throw new Exception(__("You must select valid country"));
                     }
@@ -10613,8 +11124,20 @@ class User {
                 if(!in_array($args['privacy_wall'], $privacy) || !in_array($args['privacy_birthdate'], $privacy) || !in_array($args['privacy_relationship'], $privacy) || !in_array($args['privacy_basic'], $privacy) || !in_array($args['privacy_work'], $privacy) || !in_array($args['privacy_location'], $privacy) || !in_array($args['privacy_education'], $privacy) || !in_array($args['privacy_other'], $privacy) || !in_array($args['privacy_friends'], $privacy) || !in_array($args['privacy_photos'], $privacy) || !in_array($args['privacy_pages'], $privacy) || !in_array($args['privacy_groups'], $privacy) || !in_array($args['privacy_events'], $privacy)) {
                     _error(400);
                 }
+                if($system['pokes_enabled']) {
+                    if(!in_array($args['privacy_poke'], $privacy)) {
+                        _error(400);
+                    }
+                    $poke_statement = sprintf("user_privacy_poke = %s, ", secure($args['privacy_poke']));
+                }
+                if($system['gifts_enabled']) {
+                    if(!in_array($args['privacy_gifts'], $privacy)) {
+                        _error(400);
+                    }
+                    $gifts_statement = sprintf("user_privacy_gifts = %s, ", secure($args['privacy_gifts']));
+                }
                 /* update user */
-                $db->query(sprintf("UPDATE users SET user_chat_enabled = %s, user_privacy_wall = %s, user_privacy_birthdate = %s, user_privacy_relationship = %s, user_privacy_basic = %s, user_privacy_work = %s, user_privacy_location = %s, user_privacy_education = %s, user_privacy_other = %s, user_privacy_friends = %s, user_privacy_photos = %s, user_privacy_pages = %s, user_privacy_groups = %s, user_privacy_events = %s, user_privacy_newsletter = %s WHERE user_id = %s", secure($args['privacy_chat']), secure($args['privacy_wall']), secure($args['privacy_birthdate']), secure($args['privacy_relationship']), secure($args['privacy_basic']), secure($args['privacy_work']), secure($args['privacy_location']), secure($args['privacy_education']), secure($args['privacy_other']), secure($args['privacy_friends']), secure($args['privacy_photos']), secure($args['privacy_pages']), secure($args['privacy_groups']), secure($args['privacy_events']), secure($args['privacy_newsletter']), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                $db->query(sprintf("UPDATE users SET user_chat_enabled = %s, user_privacy_newsletter = %s, ".$poke_statement.$gifts_statement." user_privacy_wall = %s, user_privacy_birthdate = %s, user_privacy_relationship = %s, user_privacy_basic = %s, user_privacy_work = %s, user_privacy_location = %s, user_privacy_education = %s, user_privacy_other = %s, user_privacy_friends = %s, user_privacy_photos = %s, user_privacy_pages = %s, user_privacy_groups = %s, user_privacy_events = %s WHERE user_id = %s", secure($args['privacy_chat']), secure($args['privacy_newsletter']), secure($args['privacy_wall']), secure($args['privacy_birthdate']), secure($args['privacy_relationship']), secure($args['privacy_basic']), secure($args['privacy_work']), secure($args['privacy_location']), secure($args['privacy_education']), secure($args['privacy_other']), secure($args['privacy_friends']), secure($args['privacy_photos']), secure($args['privacy_pages']), secure($args['privacy_groups']), secure($args['privacy_events']), secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
                 break;
 
             case 'notifications':
@@ -10651,7 +11174,7 @@ class User {
                 if($args['country'] == "none") {
                     throw new Exception(__("You must select valid country"));
                 } else {
-                    $check_country = $db->query(sprintf("SELECT count(*) as count FROM system_countries WHERE country_id = %s", secure($args['country'], 'int') )) or _error("SQL_ERROR_THROWEN");
+                    $check_country = $db->query(sprintf("SELECT COUNT(*) as count FROM system_countries WHERE country_id = %s", secure($args['country'], 'int') )) or _error("SQL_ERROR_THROWEN");
                     if($check_country->fetch_assoc()['count'] == 0) {
                         throw new Exception(__("You must select valid country"));
                     }
@@ -10678,7 +11201,7 @@ class User {
 
     /**
      * sign_up
-     *
+     * 
      * @param array $args
      * @return void
      */
@@ -10822,15 +11345,15 @@ class User {
         /* set cookies */
         $this->_set_cookies($user_id);
     }
-
+    
 
     /**
      * sign_in
-     *
+     * 
      * @param string $username_email
      * @param string $password
      * @param boolean $remember
-     *
+     * 
      * @return void
      */
     public function sign_in($username_email, $password, $remember = false) {
@@ -10896,7 +11419,7 @@ class User {
                         throw new Exception(__("Two-factor authentication email could not be sent"));
                     }
                     break;
-
+                
                 case 'sms':
                     /* system two-factor method = sms but not user phone not verified */
                     if(!$user['user_phone_verified']) {
@@ -10932,7 +11455,7 @@ class User {
 
     /**
      * sign_out
-     *
+     * 
      * @return void
      */
     public function sign_out() {
@@ -10951,7 +11474,7 @@ class User {
 
     /**
      * _set_cookies
-     *
+     * 
      * @param integer $user_id
      * @param boolean $remember
      * @param string $path
@@ -10979,7 +11502,7 @@ class User {
 
     /**
      * _check_ip
-     *
+     * 
      * @return void
      */
     private function _check_ip() {
@@ -11000,10 +11523,10 @@ class User {
 
     /**
      * socail_login
-     *
+     * 
      * @param string $provider
      * @param object $user_profile
-     *
+     * 
      * @return void
      */
     public function socail_login($provider, $user_profile) {
@@ -11013,7 +11536,7 @@ class User {
                 $social_id = "facebook_id";
                 $social_connected = "facebook_connected";
                 break;
-
+            
             case 'twitter':
                 $social_id = "twitter_id";
                 $social_connected = "twitter_connected";
@@ -11070,7 +11593,7 @@ class User {
 
     /**
      * socail_register
-     *
+     * 
      * @param string $first_name
      * @param string $last_name
      * @param string $username
@@ -11090,7 +11613,7 @@ class User {
                 $social_id = "facebook_id";
                 $social_connected = "facebook_connected";
                 break;
-
+            
             case 'twitter':
                 $social_id = "twitter_id";
                 $social_connected = "twitter_connected";
@@ -11197,7 +11720,7 @@ class User {
 
     /**
      * two_factor_authentication
-     *
+     * 
      * @param string $two_factor_key
      * @param integer $user_id
      * @param boolean $remember
@@ -11221,7 +11744,7 @@ class User {
             }
         } else {
             /* check two-factor key */
-            $check_key = $db->query(sprintf("SELECT count(*) as count FROM users WHERE user_id = %s AND user_two_factor_key = %s", secure($user_id, 'int'), secure($two_factor_key) )) or _error("SQL_ERROR_THROWEN");
+            $check_key = $db->query(sprintf("SELECT COUNT(*) as count FROM users WHERE user_id = %s AND user_two_factor_key = %s", secure($user_id, 'int'), secure($two_factor_key) )) or _error("SQL_ERROR_THROWEN");
             if($check_key->fetch_assoc()['count'] == 0) {
                 throw new Exception(__("Invalid code, please try again"));
             }
@@ -11233,9 +11756,9 @@ class User {
 
     /**
      * disable_two_factor_authentication
-     *
+     * 
      * @param integer $user_id
-     *
+     * 
      * @return void
      */
     public function disable_two_factor_authentication($user_id) {
@@ -11251,7 +11774,7 @@ class User {
 
     /**
      * download_user_information
-     *
+     * 
      * @return array
      */
     public function download_user_information() {
@@ -11316,12 +11839,12 @@ class User {
 
     /**
      * fake_users_generator
-     *
+     * 
      * @param integer $users_num
      * @param string $default_password
      * @param boolean $random_Avatar
      * @param string $language
-     *
+     * 
      * @return integer
      */
     public function fake_users_generator($users_num, $default_password, $random_Avatar, $language) {
@@ -11367,7 +11890,7 @@ class User {
 
     /**
      * auto_friend
-     *
+     * 
      * @param integer $user_id
      * @return void
      */
@@ -11405,7 +11928,7 @@ class User {
 
     /**
      * auto_follow
-     *
+     * 
      * @param integer $user_id
      * @return void
      */
@@ -11441,7 +11964,7 @@ class User {
 
     /**
      * auto_like
-     *
+     * 
      * @param integer $user_id
      * @return void
      */
@@ -11479,7 +12002,7 @@ class User {
 
     /**
      * auto_join
-     *
+     * 
      * @param integer $user_id
      * @return void
      */
@@ -11522,7 +12045,7 @@ class User {
 
     /**
      * backup_database
-     *
+     * 
      * @param string $backup_folder_name
      * @return void
      */
@@ -11546,12 +12069,12 @@ class User {
                         $content .= "\nINSERT INTO ".$table." VALUES";
                     }
                     $content .= "\n(";
-                    for($j=0; $j<$fields_count; $j++) {
-                        $row[$j] = str_replace("\n","\\n", addslashes($row[$j]) );
+                    for($j=0; $j<$fields_count; $j++) { 
                         if (isset($row[$j])) {
-                            $content .= '"'.$row[$j].'"' ;
+                            $row[$j] = str_replace("\n","\\n", addslashes($row[$j]) );
+                            $content .= '"'.$row[$j].'"' ; 
                         } else {
-                            $content .= '""';
+                            $content .= ($row[$j] == null)? 'null' : '""';
                         }
                         if ($j<($fields_count-1)) {
                             $content.= ',';
@@ -11562,7 +12085,7 @@ class User {
                         $content .= ";";
                     } else {
                         $content .= ",";
-                    }
+                    } 
                     $st_counter = $st_counter+1;
                 }
             }
@@ -11582,14 +12105,14 @@ class User {
         $sql_backup_name = 'Database-Backup'.'_'.date('d-m-Y').'.sql';
         $write_file = @file_put_contents(ABSPATH.$backup_folder_name . '/' . $sql_backup_name, $content);
         if(!$write_file) {
-            throw new Exception(__("Backup failed!"));
+           throw new Exception(__("Backup failed!"));
         }
     }
 
 
     /**
      * backup_files
-     *
+     * 
      * @param string $backup_folder_name
      * @return void
      */
@@ -11627,7 +12150,7 @@ class User {
 
     /**
      * backup_full
-     *
+     * 
      * @return void
      */
     public function backup_full() {
@@ -11653,7 +12176,7 @@ class User {
 
     /**
      * get_invitation_code
-     *
+     * 
      * @return string
      */
     public function get_invitation_code() {
@@ -11669,14 +12192,14 @@ class User {
 
     /**
      * check_invitation_code
-     *
+     * 
      * @param string $code
      * @return boolean
-     *
+     * 
      */
     public function check_invitation_code($code) {
         global $db;
-        $query = $db->query(sprintf("SELECT count(*) as count FROM invitation_codes WHERE code = %s AND valid = '1'", secure($code) )) or _error("SQL_ERROR_THROWEN");
+        $query = $db->query(sprintf("SELECT COUNT(*) as count FROM invitation_codes WHERE code = %s AND valid = '1'", secure($code) )) or _error("SQL_ERROR_THROWEN");
         if($query->fetch_assoc()['count'] > 0) {
             return true;
         }
@@ -11686,7 +12209,7 @@ class User {
 
     /**
      * update_invitation_code
-     *
+     * 
      * @param string $code
      * @return void
      */
@@ -11698,7 +12221,7 @@ class User {
 
     /**
      * send_invitation_code
-     *
+     * 
      * @param string $code
      * @param string $email
      * @return void
@@ -11731,6 +12254,49 @@ class User {
     }
 
 
+    /**
+     * send_invitation_email
+     * 
+     * @param string $email
+     * @return void
+     */
+    public function send_invitation_email($email) {
+        global $db, $system, $date;
+        /* check email */
+        if(!valid_email($email)) {
+            throw new Exception(__("Please enter a valid email address"));
+        }
+        if($this->check_email($email)) {
+            throw new Exception(__("Sorry, it looks like")." <strong>".$email."</strong> ".__("belongs to an existing account"));
+        }
+        /* check if viewer already invited this email before */
+        $check_email = $db->query(sprintf("SELECT COUNT(*) as count FROM users_invitations WHERE email = %s", secure($email) )) or _error("SQL_ERROR_THROWEN");
+        if($check_email->fetch_assoc()['count'] > 0) {
+            throw new Exception(__("You already invited this email before"));
+        }
+        /* check if viewer overload the system limit */
+        if($system['invitation_widget_max'] > 0) {
+            $check_limit = $db->query(sprintf("SELECT COUNT(*) as count FROM users_invitations WHERE invitation_date > DATE_SUB(CURDATE(), INTERVAL 1 DAY) AND user_id = %s GROUP BY user_id", secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+            if($check_limit->fetch_assoc()['count'] >= $system['invitation_widget_max']) {
+                throw new Exception(__("You have reached the maximum number of invitations per day"));
+            }
+        }
+        /* prepare invitation email */
+        $subject = $this->_data['user_firstname']." ".$this->_data['user_lastname']." ".__("Invite you to join")." ".$system['system_title'];
+        $body  = __("Hi").",";
+        $body .= "\r\n\r\n".__("Your friend")." ".$this->_data['user_firstname']." ".$this->_data['user_lastname']." ".__("invite you to our website")." ".$system['system_title'];
+        $body .= "\r\n\r\n".__("To complete the registration process, please follow this link:");
+        $body .= "\r\n\r\n".$system['system_url']."/signup/";
+        $body .= "\r\n\r".$system['system_title']." ".__("Team");
+        /* send email */
+        if(!_email($email, $subject, $body)) {
+            throw new Exception(__("Invitation email could not be sent"));
+        }
+        /* add to log */
+        $db->query(sprintf("INSERT INTO users_invitations (user_id, email, invitation_date) VALUES (%s, %s, %s)", secure($this->_data['user_id'], 'int'), secure($email), secure($date) )) or _error("SQL_ERROR_THROWEN");
+    }
+
+
 
     /* ------------------------------- */
     /* Password */
@@ -11738,7 +12304,7 @@ class User {
 
     /**
      * forget_password
-     *
+     * 
      * @param string $email
      * @param string $recaptcha_response
      * @return void
@@ -11780,7 +12346,7 @@ class User {
 
     /**
      * forget_password_confirm
-     *
+     * 
      * @param string $email
      * @param string $reset_key
      * @return void
@@ -11791,7 +12357,7 @@ class User {
             throw new Exception(__("Invalid email, please try again"));
         }
         /* check reset key */
-        $check_key = $db->query(sprintf("SELECT count(*) as count FROM users WHERE user_email = %s AND user_reset_key = %s AND user_reseted = '1'", secure($email), secure($reset_key))) or _error("SQL_ERROR_THROWEN");
+        $check_key = $db->query(sprintf("SELECT COUNT(*) as count FROM users WHERE user_email = %s AND user_reset_key = %s AND user_reseted = '1'", secure($email), secure($reset_key))) or _error("SQL_ERROR_THROWEN");
         if($check_key->fetch_assoc()['count'] == 0) {
             throw new Exception(__("Invalid code, please try again"));
         }
@@ -11800,7 +12366,7 @@ class User {
 
     /**
      * forget_password_reset
-     *
+     * 
      * @param string $email
      * @param string $reset_key
      * @param string $password
@@ -11813,7 +12379,7 @@ class User {
             throw new Exception(__("Invalid email, please try again"));
         }
         /* check reset key */
-        $check_key = $db->query(sprintf("SELECT count(*) as count FROM users WHERE user_email = %s AND user_reset_key = %s AND user_reseted = '1'", secure($email), secure($reset_key))) or _error("SQL_ERROR_THROWEN");
+        $check_key = $db->query(sprintf("SELECT COUNT(*) as count FROM users WHERE user_email = %s AND user_reset_key = %s AND user_reseted = '1'", secure($email), secure($reset_key))) or _error("SQL_ERROR_THROWEN");
         if($check_key->fetch_assoc()['count'] == 0) {
             throw new Exception(__("Invalid code, please try again"));
         }
@@ -11837,7 +12403,7 @@ class User {
 
     /**
      * activation_email_resend
-     *
+     * 
      * @return void
      */
     public function activation_email_resend() {
@@ -11862,7 +12428,7 @@ class User {
 
     /**
      * activation_email_reset
-     *
+     * 
      * @param string $email
      * @return void
      */
@@ -11900,7 +12466,7 @@ class User {
 
     /**
      * activation_email
-     *
+     * 
      * @param integer $user_id
      * @param string $code
      * @return void
@@ -11940,7 +12506,7 @@ class User {
 
     /**
      * activation_phone_resend
-     *
+     * 
      * @return void
      */
     public function activation_phone_resend() {
@@ -11960,7 +12526,7 @@ class User {
 
     /**
      * activation_phone_reset
-     *
+     * 
      * @param string $phone
      * @return void
      */
@@ -11993,7 +12559,7 @@ class User {
 
     /**
      * activation_phone
-     *
+     * 
      * @param string $code
      * @return void
      */
@@ -12016,7 +12582,7 @@ class User {
             /* [2] just verify his phone */
             /* check if phone already verified */
             if($this->_data['user_phone_verified']) {
-                modal(SUCCESS, __("Verified"), __("Your phone already verified"));
+                modal("SUCCESS", __("Verified"), __("Your phone already verified"));
             }
             $db->query(sprintf("UPDATE users SET user_phone_verified = '1' WHERE user_id = %s", secure($this->_data['user_id'], 'int') )) or _error("SQL_ERROR_THROWEN");
         }
@@ -12027,14 +12593,14 @@ class User {
     /* ------------------------------- */
     /* Security Checks */
     /* ------------------------------- */
-
+    
     /**
      * check_email
-     *
+     * 
      * @param string $email
      * @param boolean $return_info
      * @return boolean|array
-     *
+     * 
      */
     public function check_email($email, $return_info = false) {
         global $db;
@@ -12052,14 +12618,14 @@ class User {
 
     /**
      * check_phone
-     *
+     * 
      * @param string $phone
      * @return boolean
-     *
+     * 
      */
     public function check_phone($phone) {
         global $db;
-        $query = $db->query(sprintf("SELECT count(*) as count FROM users WHERE user_phone = %s", secure($phone) )) or _error("SQL_ERROR_THROWEN");
+        $query = $db->query(sprintf("SELECT COUNT(*) as count FROM users WHERE user_phone = %s", secure($phone) )) or _error("SQL_ERROR_THROWEN");
         if($query->fetch_assoc()['count'] > 0) {
             return true;
         }
@@ -12069,7 +12635,7 @@ class User {
 
     /**
      * check_username
-     *
+     * 
      * @param string $username
      * @param string $type
      * @param boolean $return_info
@@ -12086,7 +12652,7 @@ class User {
             case 'group':
                 $query = $db->query(sprintf("SELECT * FROM groups WHERE group_name = %s", secure($username) )) or _error("SQL_ERROR_THROWEN");
                 break;
-
+            
             default:
                 $query = $db->query(sprintf("SELECT * FROM users WHERE user_name = %s", secure($username) )) or _error("SQL_ERROR_THROWEN");
                 break;
@@ -12100,7 +12666,7 @@ class User {
         }
         return false;
     }
-
+    
 }
 
 ?>

@@ -1,32 +1,32 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-25 04:02:29
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_post.body.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d8ae6d5157e81_90294153',
+  'unifunc' => 'content_5d8edec7714c61_79581538',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '36c26a88bcb85d48a9f63872dcd4eaf2591f11d2' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_post.body.tpl',
-      1 => 1569384139,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
-    'file:__feeds_post.text.tpl' => 3,
+    'file:__feeds_post.text.tpl' => 2,
     'file:__feeds_post.body.tpl' => 2,
   ),
 ),false)) {
-function content_5d8ae6d5157e81_90294153 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec7714c61_79581538 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_html/includes/libs/Smarty/plugins/modifier.truncate.php','function'=>'smarty_modifier_truncate',),));
 ?>
 <!-- post header -->
-<div class="post-header" xmlns="http://www.w3.org/1999/html">
+<div class="post-header">
     <!-- post picture -->
     <div class="post-avatar">
         <a class="post-avatar-picture" href="<?php echo $_smarty_tpl->tpl_vars['_post']->value['post_author_url'];?>
@@ -43,7 +43,7 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
             <div class="float-right dropdown">
                 <i class="fa fa-chevron-down dropdown-toggle" data-toggle="dropdown" data-display="static"></i>
                 <div class="dropdown-menu dropdown-menu-right post-dropdown-menu">
-                    <?php if ($_smarty_tpl->tpl_vars['_post']->value['manage_post'] && $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "product" && $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "project") {?>
+                    <?php if ($_smarty_tpl->tpl_vars['_post']->value['manage_post'] && $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "product") {?>
                         <?php if ($_smarty_tpl->tpl_vars['_post']->value['product']['available']) {?>
                             <div class="dropdown-item pointer js_sold-post">
                                 <div class="action no-desc">
@@ -133,15 +133,6 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
 
                                 </div>
                             </div>
-                        <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "project") {?>
-                            <div class="dropdown-item pointer" data-toggle="modal" data-url="posts/project.php?do=edit&post_id=<?php echo $_smarty_tpl->tpl_vars['_post']->value['post_id'];?>
-">
-
-                                <div class="action no-desc">
-                                    <i class="fa fa-pencil-alt fa-fw"></i> <?php echo __("Edit Project");?>
-
-                                </div>
-                            </div>
                         <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "article") {?>
                             <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
 /blogs/edit/<?php echo $_smarty_tpl->tpl_vars['_post']->value['post_id'];?>
@@ -161,30 +152,12 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
                         <?php }?>
                         <!-- Edit -->
                         <!-- Delete -->
-                        <?php if ($_smarty_tpl->tpl_vars['_post']->value['post_type'] != "product" && $_smarty_tpl->tpl_vars['_post']->value['post_type'] != "project") {?>
-                            <div class="dropdown-item pointer js_delete-post">
-                                <div class="action no-desc">
-                                    <i class="fa fa-trash-alt fa-fw"></i> <?php echo __("Delete Post");?>
+                        <div class="dropdown-item pointer js_delete-post">
+                            <div class="action no-desc">
+                                <i class="fa fa-trash-alt fa-fw"></i> <?php echo __("Delete Post");?>
 
-                                </div>
                             </div>
-
-                        <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "product") {?>
-                            <div class="dropdown-item pointer js_delete-post">
-                                <div class="action no-desc">
-                                    <i class="fa fa-trash-alt fa-fw"></i> <?php echo __("Delete Product");?>
-
-                                </div>
-                            </div>
-                        <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "project") {?>
-                            <div class="dropdown-item pointer js_delete-post">
-                                <div class="action no-desc">
-                                    <i class="fa fa-trash-alt fa-fw"></i> <?php echo __("Delete Project");?>
-
-                                </div>
-                            </div>
-
-                        <?php }?>
+                        </div>
                         <!-- Delete -->
                         <!-- Disable Comments -->
                         <?php if ($_smarty_tpl->tpl_vars['_post']->value['comments_disabled']) {?>
@@ -274,7 +247,7 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
         <span class="post-title">
             <?php if (!$_smarty_tpl->tpl_vars['_shared']->value && $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "shared") {?>
                 <?php echo __("shared");?>
-
+ 
                 <span class="js_user-popover" data-type="<?php echo $_smarty_tpl->tpl_vars['_post']->value['origin']['user_type'];?>
 " data-uid="<?php echo $_smarty_tpl->tpl_vars['_post']->value['origin']['user_id'];?>
 ">
@@ -284,54 +257,54 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
 
                     </a><?php echo __("'s");?>
 
-                </span>
+                </span> 
                 <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
 /posts/<?php echo $_smarty_tpl->tpl_vars['_post']->value['origin']['post_id'];?>
 ">
                     <?php if ($_smarty_tpl->tpl_vars['_post']->value['origin']['post_type'] == 'photos') {?>
-                <?php if ($_smarty_tpl->tpl_vars['_post']->value['origin']['photos_num'] > 1) {
+                        <?php if ($_smarty_tpl->tpl_vars['_post']->value['origin']['photos_num'] > 1) {
 echo __("photos");
 } else {
 echo __("photo");
 }?>
-            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['origin']['post_type'] == 'media') {?>
-                <?php if ($_smarty_tpl->tpl_vars['_post']->value['origin']['media']['media_type'] != "soundcloud") {?>
-                    <?php echo __("video");?>
+                    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['origin']['post_type'] == 'media') {?>
+                        <?php if ($_smarty_tpl->tpl_vars['_post']->value['origin']['media']['media_type'] != "soundcloud") {?>
+                            <?php echo __("video");?>
 
-                <?php } else { ?>
-                    <?php echo __("song");?>
+                        <?php } else { ?>
+                            <?php echo __("song");?>
 
-                <?php }?>
-            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['origin']['post_type'] == 'link') {?>
-                <?php echo __("link");?>
+                        <?php }?>
+                    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['origin']['post_type'] == 'link') {?>
+                        <?php echo __("link");?>
 
-            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['origin']['post_type'] == 'poll') {?>
-                <?php echo __("poll");?>
+                    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['origin']['post_type'] == 'poll') {?>
+                        <?php echo __("poll");?>
 
-            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['origin']['post_type'] == 'album') {?>
-                <?php echo __("album");?>
+                    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['origin']['post_type'] == 'album') {?>
+                        <?php echo __("album");?>
 
-            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['origin']['post_type'] == 'video') {?>
-                <?php echo __("video");?>
+                    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['origin']['post_type'] == 'video') {?>
+                        <?php echo __("video");?>
 
-            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['origin']['post_type'] == 'audio') {?>
-                <?php echo __("audio");?>
+                    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['origin']['post_type'] == 'audio') {?>
+                        <?php echo __("audio");?>
 
-            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['origin']['post_type'] == 'file') {?>
-                <?php echo __("file");?>
+                    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['origin']['post_type'] == 'file') {?>
+                        <?php echo __("file");?>
 
-            <?php } else { ?>
-                <?php echo __("post");?>
+                    <?php } else { ?>
+                        <?php echo __("post");?>
 
-            <?php }?>
-        </a>
+                    <?php }?>
+                </a>
 
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "link") {?>
-        <?php echo __("shared a link");?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "link") {?>
+                <?php echo __("shared a link");?>
 
 
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "album") {?>
-        <?php echo __("added");?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "album") {?>
+                <?php echo __("added");?>
  <?php echo $_smarty_tpl->tpl_vars['_post']->value['photos_num'];?>
  <?php echo __("photos to the album");?>
 : <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
@@ -340,199 +313,193 @@ echo __("photo");
 "><?php echo $_smarty_tpl->tpl_vars['_post']->value['album']['title'];?>
 </a>
 
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "poll") {?>
-        <?php echo __("created a poll");?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "poll") {?>
+                <?php echo __("created a poll");?>
 
 
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "product") {?>
-        <?php echo __("added new product for sale");?>
-
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "project") {?>
-        <?php echo __("added new project for people");?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "product") {?>
+                <?php echo __("added new product for sale");?>
 
 
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "article") {?>
-        <?php echo __("added new article");?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "article") {?>
+                <?php echo __("added new article");?>
 
 
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "video") {?>
-        <?php echo __("added a video");?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "video") {?>
+                <?php echo __("added a video");?>
 
 
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "audio") {?>
-        <?php echo __("added an audio");?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "audio") {?>
+                <?php echo __("added an audio");?>
 
 
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "file") {?>
-        <?php echo __("added a file");?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "file") {?>
+                <?php echo __("added a file");?>
 
 
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "photos") {?>
-        <?php if ($_smarty_tpl->tpl_vars['_post']->value['photos_num'] == 1) {?>
-            <?php echo __("added a photo");?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "photos") {?>
+                <?php if ($_smarty_tpl->tpl_vars['_post']->value['photos_num'] == 1) {?>
+                    <?php echo __("added a photo");?>
 
-        <?php } else { ?>
-            <?php echo __("added");?>
+                <?php } else { ?>
+                    <?php echo __("added");?>
  <?php echo $_smarty_tpl->tpl_vars['_post']->value['photos_num'];?>
  <?php echo __("photos");?>
 
-        <?php }?>
+                <?php }?>
 
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "profile_picture") {?>
-        <?php echo __("updated the profile picture");?>
-
-
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "profile_cover") {?>
-        <?php echo __("updated the cover photo");?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "profile_picture") {?>
+                <?php echo __("updated the profile picture");?>
 
 
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "page_picture") {?>
-        <?php echo __("updated page picture");?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "profile_cover") {?>
+                <?php echo __("updated the cover photo");?>
 
 
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "page_cover") {?>
-        <?php echo __("updated cover photo");?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "page_picture") {?>
+                <?php echo __("updated page picture");?>
 
 
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "group_picture") {?>
-        <?php echo __("updated group picture");?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "page_cover") {?>
+                <?php echo __("updated cover photo");?>
 
 
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "group_cover") {?>
-        <?php echo __("updated group cover");?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "group_picture") {?>
+                <?php echo __("updated group picture");?>
 
 
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "event_cover") {?>
-        <?php echo __("updated event cover");?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "group_cover") {?>
+                <?php echo __("updated group cover");?>
 
 
-    <?php }?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "event_cover") {?>
+                <?php echo __("updated event cover");?>
 
-    <?php if ($_smarty_tpl->tpl_vars['_get']->value != 'posts_group' && $_smarty_tpl->tpl_vars['_post']->value['in_group']) {?>
-        <i class="fa fa-caret-right ml5 mr5"></i><i class="fa fa-flag ml5 mr5"></i><a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+                
+            <?php }?>
+
+            <?php if ($_smarty_tpl->tpl_vars['_get']->value != 'posts_group' && $_smarty_tpl->tpl_vars['_post']->value['in_group']) {?>
+                <i class="fa fa-caret-right ml5 mr5"></i><i class="fa fa-flag ml5 mr5"></i><a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
 /groups/<?php echo $_smarty_tpl->tpl_vars['_post']->value['group_name'];?>
 "><?php echo $_smarty_tpl->tpl_vars['_post']->value['group_title'];?>
 </a>
 
-    <?php } elseif ($_smarty_tpl->tpl_vars['_get']->value != 'posts_event' && $_smarty_tpl->tpl_vars['_post']->value['in_event']) {?>
-        <i class="fa fa-caret-right ml5 mr5"></i><i class="fa fa-calendar ml5 mr5"></i><a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_get']->value != 'posts_event' && $_smarty_tpl->tpl_vars['_post']->value['in_event']) {?>
+                <i class="fa fa-caret-right ml5 mr5"></i><i class="fa fa-calendar ml5 mr5"></i><a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
 /events/<?php echo $_smarty_tpl->tpl_vars['_post']->value['event_id'];?>
 "><?php echo $_smarty_tpl->tpl_vars['_post']->value['event_title'];?>
 </a>
 
-    <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['in_wall']) {?>
-        <i class="fa fa-caret-right ml5 mr5"></i>
-        <span class="js_user-popover" data-type="user" data-uid="<?php echo $_smarty_tpl->tpl_vars['_post']->value['wall_id'];?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['in_wall']) {?>
+                <i class="fa fa-caret-right ml5 mr5"></i>
+                <span class="js_user-popover" data-type="user" data-uid="<?php echo $_smarty_tpl->tpl_vars['_post']->value['wall_id'];?>
 ">
-            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+                    <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
 /<?php echo $_smarty_tpl->tpl_vars['_post']->value['wall_username'];?>
 "><?php echo $_smarty_tpl->tpl_vars['_post']->value['wall_fullname'];?>
 </a>
+                </span>
+            <?php }?>
         </span>
-    <?php }?>
-</span>
-<!-- post-title -->
+        <!-- post-title -->
 
-<!-- post feeling -->
-<?php if ($_smarty_tpl->tpl_vars['_post']->value['feeling_action']) {?>
-    <span class="post-title">
-        <?php if ($_smarty_tpl->tpl_vars['_post']->value['post_type'] != '' && $_smarty_tpl->tpl_vars['_post']->value['post_type'] != "map") {?> & <?php }
+        <!-- post feeling -->
+        <?php if ($_smarty_tpl->tpl_vars['_post']->value['feeling_action']) {?>
+            <span class="post-title">
+                <?php if ($_smarty_tpl->tpl_vars['_post']->value['post_type'] != '' && $_smarty_tpl->tpl_vars['_post']->value['post_type'] != "map") {?> & <?php }
 echo __("is");?>
  <?php echo __($_smarty_tpl->tpl_vars['_post']->value["feeling_action"]);?>
  <?php echo __($_smarty_tpl->tpl_vars['_post']->value["feeling_value"]);?>
  <i class="twa twa-lg twa-<?php echo $_smarty_tpl->tpl_vars['_post']->value['feeling_icon'];?>
 "></i>
-    </span>
-<?php }?>
-<!-- post feeling -->
-
-<!-- post time & location & privacy -->
-<div class="post-time">
-    <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+            </span>
+        <?php }?>
+        <!-- post feeling -->
+        
+        <!-- post time & location & privacy -->
+        <div class="post-time">
+            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
 /posts/<?php echo $_smarty_tpl->tpl_vars['_post']->value['post_id'];?>
 " class="js_moment" data-time="<?php echo $_smarty_tpl->tpl_vars['_post']->value['time'];?>
 "><?php echo $_smarty_tpl->tpl_vars['_post']->value['time'];?>
 </a>
-    <?php if ($_smarty_tpl->tpl_vars['_post']->value['location']) {?>
-        - <i class="fa fa-map-marker"></i> <span><?php echo $_smarty_tpl->tpl_vars['_post']->value['location'];?>
+            <?php if ($_smarty_tpl->tpl_vars['_post']->value['location']) {?>
+             - <i class="fa fa-map-marker"></i> <span><?php echo $_smarty_tpl->tpl_vars['_post']->value['location'];?>
 </span>
-    <?php }?>
-    <?php if ($_smarty_tpl->tpl_vars['system']->value['post_translation_enabled']) {?>
-        - <span class="text-link js_translator"><?php echo __("Translate");?>
+            <?php }?>
+            <?php if ($_smarty_tpl->tpl_vars['system']->value['post_translation_enabled']) {?>
+             - <span class="text-link js_translator"><?php echo __("Translate");?>
 </span>
-    <?php }?>
-    -
-    <?php if (!$_smarty_tpl->tpl_vars['_shared']->value && $_smarty_tpl->tpl_vars['_post']->value['manage_post'] && $_smarty_tpl->tpl_vars['_post']->value['user_type'] == 'user' && !$_smarty_tpl->tpl_vars['_post']->value['in_group'] && !$_smarty_tpl->tpl_vars['_post']->value['in_event'] && $_smarty_tpl->tpl_vars['_post']->value['post_type'] != "product" && $_smarty_tpl->tpl_vars['_post']->value['post_type'] != "article" && $_smarty_tpl->tpl_vars['_post']->value['post_type'] != "profile_picture" && $_smarty_tpl->tpl_vars['_post']->value['post_type'] != "profile_cover") {?>
-        <!-- privacy -->
-        <?php if ($_smarty_tpl->tpl_vars['_post']->value['privacy'] == "me") {?>
-            <div class="btn-group" data-toggle="tooltip" data-placement="top" data-value="me" title='<?php echo __("Shared with: Only Me");?>
+            <?php }?>
+            - 
+            <?php if (!$_smarty_tpl->tpl_vars['_shared']->value && $_smarty_tpl->tpl_vars['_post']->value['manage_post'] && $_smarty_tpl->tpl_vars['_post']->value['user_type'] == 'user' && !$_smarty_tpl->tpl_vars['_post']->value['in_group'] && !$_smarty_tpl->tpl_vars['_post']->value['in_event'] && $_smarty_tpl->tpl_vars['_post']->value['post_type'] != "product" && $_smarty_tpl->tpl_vars['_post']->value['post_type'] != "article") {?>
+                <!-- privacy -->
+                <?php if ($_smarty_tpl->tpl_vars['_post']->value['privacy'] == "me") {?>
+                    <div class="btn-group" data-toggle="tooltip" data-placement="top" data-value="me" title='<?php echo __("Shared with: Only Me");?>
 '>
-                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" data-display="static">
-                    <i class="btn-group-icon fa fa-lock"></i>
-                </button>
-            </div>
-        <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['privacy'] == "friends") {?>
-            <div class="btn-group" data-toggle="tooltip" data-placement="top" data-value="friends" title='<?php echo __("Shared with: Friends");?>
+                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" data-display="static">
+                            <i class="btn-group-icon fa fa-lock"></i>
+                        </button>
+                <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['privacy'] == "friends") {?>
+                    <div class="btn-group" data-toggle="tooltip" data-placement="top" data-value="friends" title='<?php echo __("Shared with: Friends");?>
 '>
-                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" data-display="static">
-                    <i class="btn-group-icon fa fa-users"></i>
-                </button>
-            </div>
-        <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['privacy'] == "public") {?>
-            <div class="btn-group" data-toggle="tooltip" data-placement="top" data-value="public" title='<?php echo __("Shared with: Public");?>
+                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" data-display="static">
+                            <i class="btn-group-icon fa fa-users"></i>
+                        </button>
+                <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['privacy'] == "public") {?>
+                    <div class="btn-group" data-toggle="tooltip" data-placement="top" data-value="public" title='<?php echo __("Shared with: Public");?>
 '>
-                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" data-display="static">
-                    <i class="btn-group-icon fa fa-globe"></i>
-                </button>
-            </div>
-        <?php }?>
-        <div class="dropdown-menu dropdown-menu-right">
-            <div class="dropdown-item pointer js_edit-privacy" data-title='<?php echo __("Shared with: Public");?>
+                        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" data-display="static">
+                            <i class="btn-group-icon fa fa-globe"></i>
+                        </button>
+                <?php }?>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-item pointer js_edit-privacy" data-title='<?php echo __("Shared with: Public");?>
 ' data-value="public">
-                <i class="fa fa-globe"></i> <?php echo __("Public");?>
+                            <i class="fa fa-globe"></i> <?php echo __("Public");?>
 
-            </div>
-            <div class="dropdown-item pointer js_edit-privacy" data-title='<?php echo __("Shared with: Friends");?>
+                        </div>
+                        <div class="dropdown-item pointer js_edit-privacy" data-title='<?php echo __("Shared with: Friends");?>
 ' data-value="friends">
-                <i class="fa fa-users"></i> <?php echo __("Friends");?>
+                            <i class="fa fa-users"></i> <?php echo __("Friends");?>
 
-            </div>
-            <div class="dropdown-item pointer js_edit-privacy" data-title='<?php echo __("Shared with: Only Me");?>
+                        </div>
+                        <div class="dropdown-item pointer js_edit-privacy" data-title='<?php echo __("Shared with: Only Me");?>
 ' data-value="me">
-                <i class="fa fa-lock"></i> <?php echo __("Only Me");?>
+                            <i class="fa fa-lock"></i> <?php echo __("Only Me");?>
 
-            </div>
-        </div>
-
-        <!-- privacy -->
-    <?php } else { ?>
-        <?php if ($_smarty_tpl->tpl_vars['_post']->value['privacy'] == "me") {?>
-            <i class="fa fa-lock" data-toggle="tooltip" data-placement="top" title='<?php echo __("Shared with");?>
+                        </div>
+                    </div>
+                </div>
+                <!-- privacy -->
+            <?php } else { ?>
+                <?php if ($_smarty_tpl->tpl_vars['_post']->value['privacy'] == "me") {?>
+                    <i class="fa fa-lock" data-toggle="tooltip" data-placement="top" title='<?php echo __("Shared with");?>
  <?php echo __("Only Me");?>
 '></i>
-        <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['privacy'] == "friends") {?>
-            <i class="fa fa-users" data-toggle="tooltip" data-placement="top" title='<?php echo __("Shared with");?>
+                <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['privacy'] == "friends") {?>
+                    <i class="fa fa-users" data-toggle="tooltip" data-placement="top" title='<?php echo __("Shared with");?>
  <?php echo __("Friends");?>
 '></i>
-        <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['privacy'] == "public") {?>
-            <i class="fa fa-globe" data-toggle="tooltip" data-placement="top" title='<?php echo __("Shared with");?>
+                <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['privacy'] == "public") {?>
+                    <i class="fa fa-globe" data-toggle="tooltip" data-placement="top" title='<?php echo __("Shared with");?>
  <?php echo __("Public");?>
 '></i>
-        <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['privacy'] == "custom") {?>
-            <i class="fa fa-cog" data-toggle="tooltip" data-placement="top" title='<?php echo __("Shared with");?>
+                <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['privacy'] == "custom") {?>
+                    <i class="fa fa-cog" data-toggle="tooltip" data-placement="top" title='<?php echo __("Shared with");?>
  <?php echo __("Custom People");?>
 '></i>
-        <?php }?>
-    <?php }?>
+                <?php }?>
+            <?php }?>
+        </div>
+        <!-- post time & location & privacy -->
+    </div>
+    <!-- post meta -->
 </div>
-<!-- post time & location & privacy -->
-</div>
-<!-- post meta -->
-
 <!-- post header -->
 
 <!-- post text -->
-<?php if ($_smarty_tpl->tpl_vars['_post']->value['post_type'] != "product" && $_smarty_tpl->tpl_vars['_post']->value['post_type'] != "project" && $_smarty_tpl->tpl_vars['_post']->value['post_type'] != "article") {?>
+<?php if ($_smarty_tpl->tpl_vars['_post']->value['post_type'] != "product") {?>
     <?php if (!$_smarty_tpl->tpl_vars['_shared']->value) {?>
         <?php $_smarty_tpl->_subTemplateRender('file:__feeds_post.text.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
@@ -542,9 +509,264 @@ echo __("is");?>
         <div class="post-text-translation x-hidden" dir="auto"></div>
     <?php }
 }?>
+<!-- post text -->
 
-<?php if ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "article" && $_smarty_tpl->tpl_vars['_post']->value['article']) {?>
+<?php if ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "album" || ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "product" && $_smarty_tpl->tpl_vars['_post']->value['photos_num'] > 0) || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "photos" || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "profile_picture" || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "profile_cover" || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "page_picture" || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "page_cover" || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "group_picture" || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "group_cover" || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "event_cover") {?>
+    <div class="mt10 clearfix">
+        <div class="pg_wrapper">
+            <?php if ($_smarty_tpl->tpl_vars['_post']->value['photos_num'] == 1) {?>
+                <div class="pg_1x">
+                    <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/photos/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['photo_id'];?>
+" class="js_lightbox" data-id="<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['photo_id'];?>
+" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['source'];?>
+" data-context="<?php if ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == 'product') {?>post<?php } else { ?>album<?php }?>">
+                        <img src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['source'];?>
+">
+                    </a>
+                </div>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['photos_num'] == 2) {?>
+                <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['_post']->value['photos'], 'photo');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['photo']->value) {
+?>
+                    <div class="pg_2x">
+                        <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/photos/<?php echo $_smarty_tpl->tpl_vars['photo']->value['photo_id'];?>
+" class="js_lightbox" data-id="<?php echo $_smarty_tpl->tpl_vars['photo']->value['photo_id'];?>
+" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['photo']->value['source'];?>
+" data-context="post" style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['photo']->value['source'];?>
+');"></a>
+                    </div>
+                <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['photos_num'] == 3) {?>
+                <div class="pg_3x">
+                    <div class="pg_2o3">
+                        <div class="pg_2o3_in">
+                            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/photos/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['photo_id'];?>
+" class="js_lightbox" data-id="<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['photo_id'];?>
+" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['source'];?>
+" data-context="post" style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['source'];?>
+');"></a>
+                        </div>
+                    </div>
+                    <div class="pg_1o3">
+                        <div class="pg_1o3_in">
+                            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/photos/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][1]['photo_id'];?>
+" class="js_lightbox" data-id="<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][1]['photo_id'];?>
+" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][1]['source'];?>
+" data-context="post" style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][1]['source'];?>
+');"></a>
+                        </div>
+                        <div class="pg_1o3_in">
+                            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/photos/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][2]['photo_id'];?>
+" class="js_lightbox" data-id="<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][2]['photo_id'];?>
+" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][2]['source'];?>
+" data-context="post" style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][2]['source'];?>
+');"></a>
+                        </div>
+                    </div>
+                </div>
+            <?php } else { ?>
+                <div class="pg_4x">
+                    <div class="pg_2o3">
+                        <div class="pg_2o3_in">
+                            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/photos/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['photo_id'];?>
+" class="js_lightbox" data-id="<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['photo_id'];?>
+" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['source'];?>
+" data-context="post" style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['source'];?>
+');"></a>
+                        </div>
+                    </div>
+                    <div class="pg_1o3">
+                        <div class="pg_1o3_in">
+                            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/photos/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][1]['photo_id'];?>
+" class="js_lightbox" data-id="<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][1]['photo_id'];?>
+" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][1]['source'];?>
+" data-context="post" style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][1]['source'];?>
+');"></a>
+                        </div>
+                        <div class="pg_1o3_in">
+                            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/photos/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][2]['photo_id'];?>
+" class="js_lightbox" data-id="<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][2]['photo_id'];?>
+" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][2]['source'];?>
+" data-context="post" style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][2]['source'];?>
+');"></a>
+                        </div>
+                        <div class="pg_1o3_in">
+                            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/photos/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][3]['photo_id'];?>
+" class="js_lightbox" data-id="<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][3]['photo_id'];?>
+" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][3]['source'];?>
+" data-context="post" style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][3]['source'];?>
+');">
+                                <?php if ($_smarty_tpl->tpl_vars['_post']->value['photos_num'] > 4) {?>
+                                <span class="more">+<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos_num']-4;?>
+</span>
+                                <?php }?>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <?php }?>
+        </div>
+    </div>
+<?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "media" && $_smarty_tpl->tpl_vars['_post']->value['media']) {?>
+    <div class="mt10">
+        <?php if ($_smarty_tpl->tpl_vars['_post']->value['media']['source_type'] == "photo") {?>
+            <div class="post-media">
+                <div class="post-media-image">
+                    <div style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['_post']->value['media']['source_url'];?>
+');"></div>
+                </div>
+                <div class="post-media-meta">
+                    <div class="source"><a target="_blank" href="<?php echo $_smarty_tpl->tpl_vars['_post']->value['media']['source_url'];?>
+"><?php echo $_smarty_tpl->tpl_vars['_post']->value['media']['source_provider'];?>
+</a></div>
+                </div>
+            </div>
+        <?php } else { ?>
+            <?php if ($_smarty_tpl->tpl_vars['_post']->value['media']['source_provider'] == "YouTube") {?>
+                <?php if ($_smarty_tpl->tpl_vars['system']->value['smart_yt_player']) {?>
+                    <?php $_tmp_array = isset($_smarty_tpl->tpl_vars['_post']) ? $_smarty_tpl->tpl_vars['_post']->value : array();
+if (!is_array($_tmp_array) || $_tmp_array instanceof ArrayAccess) {
+settype($_tmp_array, 'array');
+}
+$_tmp_array['media']['vidoe_id'] = get_youtube_id($_smarty_tpl->tpl_vars['_post']->value['media']['source_html']);
+$_smarty_tpl->_assignInScope('_post', $_tmp_array);?>
+                    <div class="youtube-player" data-id="<?php echo $_smarty_tpl->tpl_vars['_post']->value['media']['vidoe_id'];?>
+">
+                        <img src="https://i.ytimg.com/vi/<?php echo $_smarty_tpl->tpl_vars['_post']->value['media']['vidoe_id'];?>
+/hqdefault.jpg">
+                        <div class="play"></div>
+                    </div>
+                <?php } else { ?>
+                    <div class="post-media">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <?php echo html_entity_decode($_smarty_tpl->tpl_vars['_post']->value['media']['source_html'],ENT_QUOTES);?>
 
+                        </div>
+                    </div>
+                    <div class="post-media-meta">
+                        <a class="title mb5" href="<?php echo $_smarty_tpl->tpl_vars['_post']->value['media']['source_url'];?>
+" target="_blank"><?php echo $_smarty_tpl->tpl_vars['_post']->value['media']['source_title'];?>
+</a>
+                        <div class="text mb5"><?php echo $_smarty_tpl->tpl_vars['_post']->value['media']['source_text'];?>
+</div>
+                        <div class="source"><?php echo $_smarty_tpl->tpl_vars['_post']->value['media']['source_provider'];?>
+</div>
+                    </div>
+                <?php }?>
+                    
+            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['media']['source_provider'] == "Vimeo" || $_smarty_tpl->tpl_vars['_post']->value['media']['source_provider'] == "SoundCloud" || $_smarty_tpl->tpl_vars['_post']->value['media']['source_provider'] == "Vine") {?>
+                <div class="post-media">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <?php echo html_entity_decode($_smarty_tpl->tpl_vars['_post']->value['media']['source_html'],ENT_QUOTES);?>
+
+                    </div>
+                </div>
+                <div class="post-media-meta">
+                    <a class="title mb5" href="<?php echo $_smarty_tpl->tpl_vars['_post']->value['media']['source_url'];?>
+" target="_blank"><?php echo $_smarty_tpl->tpl_vars['_post']->value['media']['source_title'];?>
+</a>
+                    <div class="text mb5"><?php echo $_smarty_tpl->tpl_vars['_post']->value['media']['source_text'];?>
+</div>
+                    <div class="source"><?php echo $_smarty_tpl->tpl_vars['_post']->value['media']['source_provider'];?>
+</div>
+                </div>
+            <?php } else { ?>
+                <div class="embed-ifram-wrapper">
+                    <?php echo html_entity_decode($_smarty_tpl->tpl_vars['_post']->value['media']['source_html'],ENT_QUOTES);?>
+
+                </div>
+            <?php }?>
+        <?php }?>
+    </div>
+<?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "link" && $_smarty_tpl->tpl_vars['_post']->value['link']) {?>
+    <div class="mt10">
+        <div class="post-media">
+            <?php if ($_smarty_tpl->tpl_vars['_post']->value['link']['source_thumbnail']) {?>
+                <div class="post-media-image">
+                    <div style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['_post']->value['link']['source_thumbnail'];?>
+');"></div>
+                </div>
+            <?php }?>
+            <div class="post-media-meta">
+                <a class="title mb5" href="<?php echo $_smarty_tpl->tpl_vars['_post']->value['link']['source_url'];?>
+" target="_blank"><?php echo $_smarty_tpl->tpl_vars['_post']->value['link']['source_title'];?>
+</a>
+                <div class="text mb5"><?php echo $_smarty_tpl->tpl_vars['_post']->value['link']['source_text'];?>
+</div>
+                <div class="source"><?php echo mb_strtoupper($_smarty_tpl->tpl_vars['_post']->value['link']['source_host'], 'UTF-8');?>
+</div>
+            </div>
+        </div>
+    </div>
+<?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "poll" && $_smarty_tpl->tpl_vars['_post']->value['poll']) {?>
+    <div class="poll-options mt10" data-poll-votes="<?php echo $_smarty_tpl->tpl_vars['_post']->value['poll']['votes'];?>
+">
+        <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['_post']->value['poll']['options'], 'option');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['option']->value) {
+?>
+            <div class="mb5">
+                <div class="poll-option js_poll-vote" data-id="<?php echo $_smarty_tpl->tpl_vars['option']->value['option_id'];?>
+" data-option-votes="<?php echo $_smarty_tpl->tpl_vars['option']->value['votes'];?>
+">
+                    <div class="percentage-bg" <?php if ($_smarty_tpl->tpl_vars['_post']->value['poll']['votes'] > 0) {?> style="width: <?php echo ($_smarty_tpl->tpl_vars['option']->value['votes']/$_smarty_tpl->tpl_vars['_post']->value['poll']['votes'])*100;?>
+%"<?php }?>></div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" name="poll_<?php echo $_smarty_tpl->tpl_vars['_post']->value['poll']['poll_id'];?>
+" id="option_<?php echo $_smarty_tpl->tpl_vars['option']->value['option_id'];?>
+" class="custom-control-input" <?php if ($_smarty_tpl->tpl_vars['option']->value['checked']) {?>checked<?php }?>>
+                        <label class="custom-control-label" for="option_<?php echo $_smarty_tpl->tpl_vars['option']->value['option_id'];?>
+"><?php echo $_smarty_tpl->tpl_vars['option']->value['text'];?>
+</label>
+                    </div>
+                </div>
+                <div class="poll-voters">
+                    <div class="more" data-toggle="modal" data-url="posts/who_votes.php?option_id=<?php echo $_smarty_tpl->tpl_vars['option']->value['option_id'];?>
+">
+                        <?php echo $_smarty_tpl->tpl_vars['option']->value['votes'];?>
+
+                    </div>
+                </div>
+            </div>
+        <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+    </div>
+<?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "article" && $_smarty_tpl->tpl_vars['_post']->value['article']) {?>
     <div class="mt10">
         <div class="post-media">
             <?php if ($_smarty_tpl->tpl_vars['_post']->value['article']['cover']) {?>
@@ -557,19 +779,17 @@ echo __("is");?>
 ');"></div>
                 </a>
             <?php }?>
-
             <div class="post-media-meta">
                 <a class="title mb5" href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
 /blogs/<?php echo $_smarty_tpl->tpl_vars['_post']->value['post_id'];?>
 /<?php echo $_smarty_tpl->tpl_vars['_post']->value['article']['title_url'];?>
 "><?php echo $_smarty_tpl->tpl_vars['_post']->value['article']['title'];?>
 </a>
-                <div class="text mb5"><?php echo html_entity_decode(smarty_modifier_truncate($_smarty_tpl->tpl_vars['_post']->value['article']['text'],400));?>
+                <div class="text mb5"><?php echo smarty_modifier_truncate($_smarty_tpl->tpl_vars['_post']->value['article']['text_snippet'],400);?>
 </div>
             </div>
         </div>
     </div>
-
 <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "video" && $_smarty_tpl->tpl_vars['_post']->value['video']) {?>
     <div>
         <video id="video-<?php echo $_smarty_tpl->tpl_vars['_post']->value['video']['video_id'];?>
@@ -580,455 +800,149 @@ echo __("is");?>
             <source src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
 /<?php echo $_smarty_tpl->tpl_vars['_post']->value['video']['source'];?>
 " type="video/mp4">
-                <source src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+            <source src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
 /<?php echo $_smarty_tpl->tpl_vars['_post']->value['video']['source'];?>
 " type="video/webm">
-                    </video>
-                    </div>
-                <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "audio" && $_smarty_tpl->tpl_vars['_post']->value['audio']) {?>
-                    <div>
-                        <audio id="audio-<?php echo $_smarty_tpl->tpl_vars['_post']->value['audio']['audio_id'];?>
+        </video>
+    </div>
+<?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "audio" && $_smarty_tpl->tpl_vars['_post']->value['audio']) {?>
+    <div>
+        <audio id="audio-<?php echo $_smarty_tpl->tpl_vars['_post']->value['audio']['audio_id'];?>
 " onplay="update_media_views('audio', <?php echo $_smarty_tpl->tpl_vars['_post']->value['audio']['audio_id'];?>
 )" controls preload="auto" style="width: 100%;">
-                            <source src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+            <source src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
 /<?php echo $_smarty_tpl->tpl_vars['_post']->value['audio']['source'];?>
 " type="audio/mpeg">
-                                <source src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+            <source src="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
 /<?php echo $_smarty_tpl->tpl_vars['_post']->value['audio']['source'];?>
 " type="audio/mp3">
-                                    <?php echo __("Your browser does not support HTML5 audio");?>
+            <?php echo __("Your browser does not support HTML5 audio");?>
 
-                                    </audio>
-                                    </div>
-                                <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "file" && $_smarty_tpl->tpl_vars['_post']->value['file']) {?>
-                                    <div class="post-downloader">
-                                        <div class="icon">
-                                            <i class="fa fa-file-alt fa-2x"></i>
-                                        </div>
-                                        <div class="info">
-                                            <strong><?php echo __("File Type");?>
+        </audio>
+    </div>
+<?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "file" && $_smarty_tpl->tpl_vars['_post']->value['file']) {?>
+    <div class="post-downloader">
+        <div class="icon">
+            <i class="fa fa-file-alt fa-2x"></i>
+        </div>
+        <div class="info">
+            <strong><?php echo __("File Type");?>
 </strong>: <?php ob_start();
 echo $_smarty_tpl->tpl_vars['_post']->value['file']['source'];
 $_prefixVariable1 = ob_get_clean();
 echo get_extension($_prefixVariable1);?>
 
-                                            <div class="mt10">
-                                                <a class="btn btn-primary btn-sm" href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
+            <div class="mt10">
+                <a class="btn btn-primary btn-sm" href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
 /<?php echo $_smarty_tpl->tpl_vars['_post']->value['file']['source'];?>
 "><?php echo __("Download");?>
 </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "map") {?>
-                                    <div class="post-map">
-                                        <img src="https://maps.googleapis.com/maps/api/staticmap?center=<?php echo $_smarty_tpl->tpl_vars['_post']->value['location'];?>
+            </div>
+        </div>
+    </div>
+<?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "map") {?>
+    <div class="post-map">
+        <img src="https://maps.googleapis.com/maps/api/staticmap?center=<?php echo $_smarty_tpl->tpl_vars['_post']->value['location'];?>
 &amp;zoom=13&amp;size=600x250&amp;maptype=roadmap&amp;markers=color:red%7C<?php echo $_smarty_tpl->tpl_vars['_post']->value['location'];?>
 &amp;key=<?php echo $_smarty_tpl->tpl_vars['system']->value['geolocation_key'];?>
 " width="100%">
-                                    </div>
-                                <?php } elseif (!$_smarty_tpl->tpl_vars['_shared']->value && $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "shared" && $_smarty_tpl->tpl_vars['_post']->value['origin']) {?>
-                                    <?php if ($_smarty_tpl->tpl_vars['_snippet']->value) {?>
-                                        <span class="text-link js_show-attachments"><?php echo __("Show Attachments");?>
+    </div>
+<?php } elseif (!$_smarty_tpl->tpl_vars['_shared']->value && $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "shared" && $_smarty_tpl->tpl_vars['_post']->value['origin']) {?>
+    <?php if ($_smarty_tpl->tpl_vars['_snippet']->value) {?>
+    <span class="text-link js_show-attachments"><?php echo __("Show Attachments");?>
 </span>
-                                    <?php }?>
-                                    <div class="mt10 <?php if ($_smarty_tpl->tpl_vars['_snippet']->value) {?>x-hidden<?php }?>">
-                                        <div class="post-media">
-                                            <div class="post-media-meta">
-                                                <?php $_smarty_tpl->_subTemplateRender('file:__feeds_post.body.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('_post'=>$_smarty_tpl->tpl_vars['_post']->value['origin'],'_shared'=>true), 0, true);
+    <?php }?>
+    <div class="mt10 <?php if ($_smarty_tpl->tpl_vars['_snippet']->value) {?>x-hidden<?php }?>">
+        <div class="post-media">
+            <div class="post-media-meta">
+            <?php $_smarty_tpl->_subTemplateRender('file:__feeds_post.body.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('_post'=>$_smarty_tpl->tpl_vars['_post']->value['origin'],'_shared'=>true), 0, true);
 ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "poll" && $_smarty_tpl->tpl_vars['_post']->value['poll']) {?>
-                                    <div class="poll-options mt10" data-poll-votes="<?php echo $_smarty_tpl->tpl_vars['_post']->value['poll']['votes'];?>
-">
-                                        <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['_post']->value['poll']['options'], 'option');
-if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['option']->value) {
-?>
-                                            <div class="mb5">
-                                                <div class="poll-option js_poll-vote" data-id="<?php echo $_smarty_tpl->tpl_vars['option']->value['option_id'];?>
-" data-option-votes="<?php echo $_smarty_tpl->tpl_vars['option']->value['votes'];?>
-">
-                                                    <div class="percentage-bg" <?php if ($_smarty_tpl->tpl_vars['_post']->value['poll']['votes'] > 0) {?> style="width: <?php echo ($_smarty_tpl->tpl_vars['option']->value['votes']/$_smarty_tpl->tpl_vars['_post']->value['poll']['votes'])*100;?>
-%"<?php }?>></div>
-                                                    <div class="custom-control custom-radio custom-control-inline">
-                                                        <input type="radio" name="poll_<?php echo $_smarty_tpl->tpl_vars['_post']->value['poll']['poll_id'];?>
-" id="option_<?php echo $_smarty_tpl->tpl_vars['option']->value['option_id'];?>
-" class="custom-control-input" <?php if ($_smarty_tpl->tpl_vars['option']->value['checked']) {?>checked<?php }?>>
-                                                            <label class="custom-control-label" for="option_<?php echo $_smarty_tpl->tpl_vars['option']->value['option_id'];?>
-"><?php echo $_smarty_tpl->tpl_vars['option']->value['text'];?>
-</label>
-                                                    </div>
-                                                </div>
-                                                <div class="poll-voters">
-                                                    <div class="more" data-toggle="modal" data-url="posts/who_votes.php?option_id=<?php echo $_smarty_tpl->tpl_vars['option']->value['option_id'];?>
-">
-                                                        <?php echo $_smarty_tpl->tpl_vars['option']->value['votes'];?>
+            </div>
+        </div>
+    </div>
+<?php }?>
 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        <?php
-}
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-                                    </div>
-
-                                <?php }?>
-
-                                <!-- post text -->
-
-
-                                <?php if ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "album" || ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "product" || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "project" || $_smarty_tpl->tpl_vars['_post']->value['photos_num'] > 0) || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "photos" || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "profile_picture" || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "profile_cover" || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "page_picture" || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "page_cover" || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "group_picture" || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "group_cover" || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == "event_cover") {?>
-                                    <div class="mt10 clearfix">
-                                        <div class="pg_wrapper">
-                                            <?php if ($_smarty_tpl->tpl_vars['_post']->value['photos_num'] == 1) {?>
-                                                <div class="pg_1x">
-                                                    <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/photos/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['photo_id'];?>
-" data-id="<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['photo_id'];?>
-" data-image="<?php if ($_smarty_tpl->tpl_vars['_post']->value['photos'][0]['source'] != '') {
-echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['source'];
-} else {
-echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/content/themes/default/images/blank_product.jpg<?php }?>" data-context="<?php if ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == 'product' || $_smarty_tpl->tpl_vars['_post']->value['post_type'] == 'project') {?>post<?php } else { ?>album<?php }?>">
-                                                        <img src="<?php if ($_smarty_tpl->tpl_vars['_post']->value['photos'][0]['source'] != '') {
-echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['source'];
-} else {
-echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/content/themes/default/images/blank_product.jpg<?php }?>">
-                                                    </a>
-                                                </div>
-                                            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['photos_num'] == 2) {?>
-                                                <?php
-$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['_post']->value['photos'], 'photo');
-if ($_from !== null) {
-foreach ($_from as $_smarty_tpl->tpl_vars['photo']->value) {
-?>
-                                                    <div class="pg_2x">
-                                                        <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/photos/<?php echo $_smarty_tpl->tpl_vars['photo']->value['photo_id'];?>
-" data-id="<?php echo $_smarty_tpl->tpl_vars['photo']->value['photo_id'];?>
-" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['photo']->value['source'];?>
-" data-context="post" style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['photo']->value['source'];?>
-');"></a>
-                                                    </div>
-                                                <?php
-}
-}
-$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
-                                            <?php } elseif ($_smarty_tpl->tpl_vars['_post']->value['photos_num'] == 3) {?>
-                                                <div class="pg_3x">
-                                                    <div class="pg_2o3">
-                                                        <div class="pg_2o3_in">
-                                                            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/photos/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['photo_id'];?>
-"  data-id="<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['photo_id'];?>
-" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['source'];?>
-" data-context="post" style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['source'];?>
-');"></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="pg_1o3">
-                                                        <div class="pg_1o3_in">
-                                                            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/photos/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][1]['photo_id'];?>
-" data-id="<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][1]['photo_id'];?>
-" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][1]['source'];?>
-" data-context="post" style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][1]['source'];?>
-');"></a>
-                                                        </div>
-                                                        <div class="pg_1o3_in">
-                                                            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/photos/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][2]['photo_id'];?>
-"  data-id="<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][2]['photo_id'];?>
-" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][2]['source'];?>
-" data-context="post" style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][2]['source'];?>
-');"></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            <?php } else { ?>
-                                                <div class="pg_4x">
-                                                    <div class="pg_2o3">
-                                                        <div class="pg_2o3_in">
-                                                            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/photos/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['photo_id'];?>
-"  data-id="<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['photo_id'];?>
-" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['source'];?>
-" data-context="post" style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][0]['source'];?>
-');"></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="pg_1o3">
-                                                        <div class="pg_1o3_in">
-                                                            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/photos/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][1]['photo_id'];?>
-" data-id="<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][1]['photo_id'];?>
-" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][1]['source'];?>
-" data-context="post" style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][1]['source'];?>
-');"></a>
-                                                        </div>
-                                                        <div class="pg_1o3_in">
-                                                            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/photos/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][2]['photo_id'];?>
-"  data-id="<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][2]['photo_id'];?>
-" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][2]['source'];?>
-" data-context="post" style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][2]['source'];?>
-');"></a>
-                                                        </div>
-                                                        <div class="pg_1o3_in">
-                                                            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
-/photos/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][3]['photo_id'];?>
-"  data-id="<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][3]['photo_id'];?>
-" data-image="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][3]['source'];?>
-" data-context="post" style="background-image:url('<?php echo $_smarty_tpl->tpl_vars['system']->value['system_uploads'];?>
-/<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos'][3]['source'];?>
-');">
-                                                                <?php if ($_smarty_tpl->tpl_vars['_post']->value['photos_num'] > 4) {?>
-                                                                    <span class="more">+<?php echo $_smarty_tpl->tpl_vars['_post']->value['photos_num']-4;?>
-</span>
-                                                                <?php }?>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            <?php }?>
-
-
-
-                                            <?php if ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "product") {?>
-                                                <div class="mtb10 text-lg">
-                                                    <strong><?php echo $_smarty_tpl->tpl_vars['_post']->value['product']['name'];?>
+<!-- product -->
+<?php if ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "product") {?>
+    <div class="mtb10 text-lg">
+        <strong><?php echo $_smarty_tpl->tpl_vars['_post']->value['product']['name'];?>
 </strong>
-                                                </div>
-                                                <?php if ($_smarty_tpl->tpl_vars['_post']->value['product']['location']) {?>
-                                                    <div class="mb10 text-muted">
-                                                        <i class="fa fa-map-marker fa-fw"></i> <?php echo $_smarty_tpl->tpl_vars['_post']->value['product']['location'];?>
+    </div>
+    <?php if ($_smarty_tpl->tpl_vars['_post']->value['product']['location']) {?>
+        <div class="mb10 text-muted">
+            <i class="fa fa-map-marker fa-fw"></i> <?php echo $_smarty_tpl->tpl_vars['_post']->value['product']['location'];?>
 
-                                                    </div>
-                                                <?php }?>
-                                                <!-- post text -->
-                                                <?php if (!$_smarty_tpl->tpl_vars['_shared']->value) {?>
-                                                    <?php $_smarty_tpl->_subTemplateRender('file:__feeds_post.text.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
+        </div>
+    <?php }?>
+    <!-- post text -->
+    <?php if (!$_smarty_tpl->tpl_vars['_shared']->value) {?>
+        <?php $_smarty_tpl->_subTemplateRender('file:__feeds_post.text.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
 ?>
-                                                <?php } else { ?>
-                                                    <div class="post-text js_readmore text-muted" dir="auto"><?php echo $_smarty_tpl->tpl_vars['_post']->value['text'];?>
+    <?php } else { ?>
+        <div class="post-text js_readmore text-muted" dir="auto"><?php echo $_smarty_tpl->tpl_vars['_post']->value['text'];?>
 </div>
-                                                    <div class="post-text-translation x-hidden" dir="auto"></div>
-                                                <?php }?>
-                                                <!-- post text -->
-                                                <div class="post-product-wrapper mt10">
-                                                    <div class="post-product-details">
-                                                        <div class="title">
-                                                            <i class="fa fa-tag fa-fw mr5" style="color: #1f9cff;"></i><?php echo __("Type");?>
+        <div class="post-text-translation x-hidden" dir="auto"></div>
+    <?php }?>
+    <!-- post text -->
+    <div class="post-product-wrapper mt10">
+        <div class="post-product-details">
+            <div class="title">
+                <i class="fa fa-tag fa-fw mr5" style="color: #1f9cff;"></i><?php echo __("Type");?>
 
-                                                        </div>
-                                                        <div class="description">
-                                                            <?php if ($_smarty_tpl->tpl_vars['_post']->value['product']['status'] == "new") {?>
-                                                                <?php echo __("New");?>
+            </div>
+            <div class="description">
+                <?php if ($_smarty_tpl->tpl_vars['_post']->value['product']['status'] == "new") {?>
+                    <?php echo __("New");?>
 
-                                                            <?php } else { ?>
-                                                                <?php echo __("Used");?>
+                <?php } else { ?>
+                    <?php echo __("Used");?>
 
-                                                            <?php }?>
-                                                        </div>
-                                                    </div>
-                                                    <div class="post-product-details">
-                                                        <div class="title">
-                                                            <i class="fa fa-money-bill-alt fa-fw mr5" style="color: #2bb431;"></i><?php echo __("Price");?>
+                <?php }?>
+            </div>
+        </div>
+        <div class="post-product-details">
+            <div class="title">
+                <i class="fa fa-money-bill-alt fa-fw mr5" style="color: #2bb431;"></i><?php echo __("Price");?>
 
-                                                        </div>
-                                                        <div class="description">
-                                                            <?php if ($_smarty_tpl->tpl_vars['_post']->value['product']['price'] > 0) {?>
-                                                                <?php echo $_smarty_tpl->tpl_vars['system']->value['system_currency_symbol'];
+            </div>
+            <div class="description">
+                <?php if ($_smarty_tpl->tpl_vars['_post']->value['product']['price'] > 0) {?>
+                    <?php echo $_smarty_tpl->tpl_vars['system']->value['system_currency_symbol'];
 echo $_smarty_tpl->tpl_vars['_post']->value['product']['price'];?>
  (<?php echo $_smarty_tpl->tpl_vars['system']->value['system_currency'];?>
 )
-                                                            <?php } else { ?>
-                                                                <?php echo __("Free");?>
+                <?php } else { ?>
+                    <?php echo __("Free");?>
 
-                                                            <?php }?>
-                                                        </div>
-                                                    </div>
-                                                    <div class="post-product-details">
-                                                        <div class="title">
-                                                            <i class="fa fa-box fa-fw mr5" style="color: #a038b2;"></i><?php echo __("Status");?>
+                <?php }?>
+            </div>
+        </div>
+        <div class="post-product-details">
+            <div class="title">
+                <i class="fa fa-box fa-fw mr5" style="color: #a038b2;"></i><?php echo __("Status");?>
 
-                                                        </div>
-                                                        <div class="description">
-                                                            <?php if ($_smarty_tpl->tpl_vars['_post']->value['product']['available']) {?>
-                                                                <?php echo __("In stock");?>
+            </div>
+            <div class="description">
+                <?php if ($_smarty_tpl->tpl_vars['_post']->value['product']['available']) {?>
+                    <?php echo __("In stock");?>
 
-                                                            <?php } else { ?>
-                                                                <?php echo __("SOLD");?>
+                <?php } else { ?>
+                    <?php echo __("SOLD");?>
 
-                                                            <?php }?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <?php if ($_smarty_tpl->tpl_vars['_post']->value['author_id'] != $_smarty_tpl->tpl_vars['user']->value->_data['user_id']) {?>
-                                                    <div class="mt10 clearfix">
-                                                        <button type="button" class="btn btn-sm btn-primary float-right js_chat-start" data-uid="<?php echo $_smarty_tpl->tpl_vars['_post']->value['author_id'];?>
+                <?php }?>
+            </div>
+        </div>
+    </div>
+    <?php if ($_smarty_tpl->tpl_vars['_post']->value['author_id'] != $_smarty_tpl->tpl_vars['user']->value->_data['user_id']) {?>
+        <div class="mt10 clearfix">
+            <button type="button" class="btn btn-sm btn-primary float-right js_chat-start" data-uid="<?php echo $_smarty_tpl->tpl_vars['_post']->value['author_id'];?>
 " data-name="<?php echo $_smarty_tpl->tpl_vars['_post']->value['post_author_name'];?>
 ">
-                                                            <i class="fa fa-comments mr5"></i><?php echo __("Contact Seller");?>
+                <i class="fa fa-comments mr5"></i><?php echo __("Contact Seller");?>
 
-                                                        </button>
-                                                    </div>
-
-                                                <?php }?>
-
-                                            <?php }?>
-
-
-
-
-
-
-
-
-
-
-                                            <?php if ($_smarty_tpl->tpl_vars['_post']->value['post_type'] == "project") {?>
-                                                <div class="container" style="text-align: center">
-
-                                                    <center><label class="form-control-label" style="font-size: 16px;color:#2b53a4"><strong><?php echo __("Project Info");?>
-</strong></label></center>
-                                                    <fieldset>
-                                                        <div class="container">
-                                                            <div class="container">
-                                                                <div class="row">
-                                                                    <label class="form-control-label"><?php echo __("Project Name");?>
-: </label> <strong>   <?php echo $_smarty_tpl->tpl_vars['_post']->value['project']['name'];?>
-</strong>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <label class="form-control-label"><?php echo __("Pattern");?>
-: </label>    <p><?php echo $_smarty_tpl->tpl_vars['_post']->value['project']['pattern'];?>
-</p>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <label class="form-control-label"><?php echo __("Craft");?>
-: </label> <p>   <?php echo $_smarty_tpl->tpl_vars['_post']->value['project']['craft'];?>
-</p>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <label class="form-control-label"><?php echo __("Made for");?>
-: </label> <p>   <?php echo $_smarty_tpl->tpl_vars['_post']->value['project']['made'];?>
-</p>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <label class="form-control-label"><?php echo __("Size");?>
-: </label> <p>   <?php echo $_smarty_tpl->tpl_vars['_post']->value['project']['size'];?>
-</p>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <label class="form-control-label"><?php echo __("Start Date");?>
-: </label> <p>   <?php echo $_smarty_tpl->tpl_vars['_post']->value['project']['sta_date'];?>
-</p>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <label class="form-control-label"><?php echo __("Completed Date");?>
-: </label> <p>   <?php echo $_smarty_tpl->tpl_vars['_post']->value['project']['fini_date'];?>
-</p>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-
-                                                    </fieldset>
-                                                    <center><label class="form-control-label" style="font-size: 16px;color:#2b53a4"><strong><?php echo __("Needles & Yarn");?>
-</strong></label></center>
-                                                    <fieldset>
-                                                        <div class="container">
-                                                            <div class="container">
-                                                                <div class="row">
-                                                                    <label class="form-control-label"><?php echo __("Needle");?>
-: </label> <p>   <?php echo $_smarty_tpl->tpl_vars['_post']->value['project']['needle'];?>
-</p>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <label class="form-control-label"><?php echo __("Yarn");?>
-: </label> <p>   <?php echo $_smarty_tpl->tpl_vars['_post']->value['project']['yarn'];?>
-</p>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <label class="form-control-label"><?php echo __("Colorway");?>
-: </label> <p>   <?php echo $_smarty_tpl->tpl_vars['_post']->value['project']['colorway'];?>
-</p>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <label class="form-control-label"><?php echo __("How much");?>
-: </label><p>   <?php echo $_smarty_tpl->tpl_vars['_post']->value['project']['how_much'];?>
-</p>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <label class="form-control-label"><?php echo __("Dye lots");?>
-: </label><p>   <?php echo $_smarty_tpl->tpl_vars['_post']->value['project']['dye_lot'];?>
-</p>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </fieldset>
-                                                    <div class="container">
-                                                        <div class="container">
-
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <center><label class="form-control-label" style="font-size: 16px;color:#2b53a4"><strong><?php echo __("Notes");?>
-</strong></label></center>
-                                                    <fieldset>
-                                                        <div class="container">
-                                                            <div class="container">
-                                                                <?php if (!$_smarty_tpl->tpl_vars['_shared']->value) {?>
-                                                                    <?php $_smarty_tpl->_subTemplateRender('file:__feeds_post.text.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
-?>
-                                                                <?php } else { ?>
-                                                                    <div class="post-text js_readmore text-muted" dir="auto">
-                                                                        <div class="row">
-                                                                            <div class="container">
-                                                                                <p><?php echo $_smarty_tpl->tpl_vars['_post']->value['text'];?>
-</p>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="post-text-translation x-hidden" dir="auto"></div>
-                                                                    <?php }?>
-                                                                </div>
-                                                            </div>
-
-                                                    </fieldset>
-                                                </div>
-                                            <?php }?>
-                                        </div>
-
-                                    </div>
-
-                                <?php }?>
-                                </div>
-<?php }
+            </button>
+        </div>
+    <?php }
+}?>
+<!-- product --><?php }
 }

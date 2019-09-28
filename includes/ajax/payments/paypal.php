@@ -15,6 +15,11 @@ is_ajax();
 // user access
 user_access(true);
 
+// check if PayPal enabled
+if(!$system['paypal_enabled']) {
+	modal("MESSAGE", __("Error"), __("This feature has been disabled by the admin"));
+}
+
 // paypal
 try {
 
@@ -32,7 +37,7 @@ try {
 			}
 			/* check if user already subscribed to this package */
 			if($user->_data['user_subscribed'] && $user->_data['user_package'] == $package['package_id']) {
-				modal(SUCCESS, __("Subscribed"), __("You already subscribed to this package, Please select different package"));
+				modal("SUCCESS", __("Subscribed"), __("You already subscribed to this package, Please select different package"));
 			}
 
 			// get paypal link

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:13:50
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_post.comments.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0c4e82f785_39731698',
+  'unifunc' => 'content_5d8edec775d115_83742412',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ff80015fd4bbdf14af896336dede602a9c20404b' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_post.comments.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:__feeds_comment.form.tpl' => 2,
   ),
 ),false)) {
-function content_5d7a0c4e82f785_39731698 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec775d115_83742412 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="post-comments">
     <?php if ($_smarty_tpl->tpl_vars['user']->value->_logged_in) {?>
         <?php if ($_smarty_tpl->tpl_vars['_is_photo']->value) {?>

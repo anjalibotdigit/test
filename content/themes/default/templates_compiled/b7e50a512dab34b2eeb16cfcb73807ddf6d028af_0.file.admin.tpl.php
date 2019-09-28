@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:35:21
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:21
   from '/home/cryptocodex/public_html/content/themes/default/templates/admin.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a1159314eb8_70315970',
+  'unifunc' => 'content_5d8eded1777d92_02756500',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b7e50a512dab34b2eeb16cfcb73807ddf6d028af' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/admin.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -24,7 +24,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:_footer.tpl' => 1,
   ),
 ),false)) {
-function content_5d7a1159314eb8_70315970 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8eded1777d92_02756500 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_subTemplateRender('file:_head.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 $_smarty_tpl->_subTemplateRender('file:_header.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
@@ -120,7 +120,7 @@ $_smarty_tpl->_subTemplateRender('file:_header.tpl', $_smarty_tpl->cache_id, $_s
                                     <li <?php if ($_smarty_tpl->tpl_vars['view']->value == "settings" && $_smarty_tpl->tpl_vars['sub_view']->value == "payments") {?>class="active"<?php }?>>
                                         <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
 /admincp/settings/payments">
-                                            <i class="fa fa-money-bill-alt fa-fw mr10"></i><?php echo __("Payments Settings");?>
+                                            <i class="fa fa-credit-card fa-fw mr10"></i><?php echo __("Payments Settings");?>
 
                                         </a>
                                     </li>
@@ -172,6 +172,16 @@ $_smarty_tpl->_subTemplateRender('file:_header.tpl', $_smarty_tpl->cache_id, $_s
                             </a>
                         </li>
                         <!-- Languages -->
+
+                        <!-- Currencies -->
+                        <li <?php if ($_smarty_tpl->tpl_vars['view']->value == "currencies") {?>class="active"<?php }?>>
+                            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/admincp/currencies">
+                                <i class="fa fa-money-bill-alt fa-fw mr10" style="color: #3F51B5"></i><?php echo __("Currencies");?>
+
+                            </a>
+                        </li>
+                        <!-- Currencies -->
 
                     </ul>
                 </div>
@@ -424,7 +434,7 @@ $_smarty_tpl->_subTemplateRender('file:_header.tpl', $_smarty_tpl->cache_id, $_s
 
             <div class="card mb5">
                 <div class="card-header block-title">
-                    <?php echo __("Making Money");?>
+                    <?php echo __("Money");?>
 
                 </div>
                 <div class="card-body with-nav">
@@ -497,6 +507,20 @@ $_smarty_tpl->_subTemplateRender('file:_header.tpl', $_smarty_tpl->cache_id, $_s
                             </div>
                         </li>
                         <!-- Packages -->
+
+                        <!-- Bank Receipts -->
+                        <?php if ($_smarty_tpl->tpl_vars['system']->value['bank_transfers_enabled']) {?>
+                            <li <?php if ($_smarty_tpl->tpl_vars['view']->value == "bank") {?>class="active"<?php }?>>
+                                <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/admincp/bank">
+                                    <?php if ($_smarty_tpl->tpl_vars['bank_transfers_insights']->value) {?><span class="float-right badge badge-pill badge-danger"><?php echo $_smarty_tpl->tpl_vars['bank_transfers_insights']->value;?>
+</span><?php }?>
+                                    <i class="fa fa-university fa-fw mr10" style="color: #4CAF50"></i><?php echo __("Bank Receipts");?>
+
+                                </a>
+                            </li>
+                        <?php }?>
+                        <!-- Bank Receipts -->
 
                         <!-- Affiliates -->
                         <li <?php if ($_smarty_tpl->tpl_vars['view']->value == "affiliates") {?>class="active"<?php }?>>
@@ -720,6 +744,16 @@ $_smarty_tpl->_subTemplateRender('file:_header.tpl', $_smarty_tpl->cache_id, $_s
                             </a>
                         </li>
                         <!-- Stickers -->
+
+                        <!-- Gifts -->
+                        <li <?php if ($_smarty_tpl->tpl_vars['view']->value == "gifts") {?>class="active"<?php }?>>
+                            <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/admincp/gifts">
+                                <i class="fa fa-gift fa-fw mr10" style="color: #FF5722"></i><?php echo __("Gifts");?>
+
+                            </a>
+                        </li>
+                        <!-- Gifts -->
 
                     </ul>
                 </div>

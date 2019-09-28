@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:23:07
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_notification.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0e7b93b479_01134177',
+  'unifunc' => 'content_5d8edec716a9d0_93365603',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'e3b45c220f9d4a0a270acc891c0c833fd4d31233' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_notification.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -21,7 +21,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:__reaction_emojis.tpl' => 1,
   ),
 ),false)) {
-function content_5d7a0e7b93b479_01134177 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec716a9d0_93365603 (Smarty_Internal_Template $_smarty_tpl) {
 ?><li class="feeds-item <?php if (!$_smarty_tpl->tpl_vars['notification']->value['seen']) {?>unread<?php }?>" data-id="<?php echo $_smarty_tpl->tpl_vars['notification']->value['notification_id'];?>
 ">
     <a class="data-container" href="<?php echo $_smarty_tpl->tpl_vars['notification']->value['url'];?>

@@ -93,7 +93,12 @@ try {
 	}
 
     // save croped picture
-    $image_name = save_picture_from_file($system['system_uploads'].'/'.$full_picture, true);
+    if($system['s3_enabled']) {
+        $image_url = $system['system_uploads'].'/'.$full_picture;
+    } else {
+        $image_url = ABSPATH.$system['uploads_directory'].'/'.$full_picture;
+    }
+    $image_name = save_picture_from_file($image_url, true);
 
     // update picture
     $db->query(sprintf("UPDATE %s SET %s = %s WHERE %s = %s", $table_name, $table_picture_field, secure($image_name), $table_id_field, secure($_POST['id'], 'int') )) or _error("SQL_ERROR_THROWEN");

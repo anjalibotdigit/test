@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-25 18:08:23
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_conversation.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d8bad17210d10_93032452',
+  'unifunc' => 'content_5d8edec712cc26_58801281',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'dea8d73321933e261f9969b83c08ce02e923180c' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_conversation.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d8bad17210d10_93032452 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec712cc26_58801281 (Smarty_Internal_Template $_smarty_tpl) {
 ?><li class="feeds-item <?php if (!$_smarty_tpl->tpl_vars['conversation']->value['seen']) {?>unread<?php }?>" data-last-message="<?php echo $_smarty_tpl->tpl_vars['conversation']->value['last_message_id'];?>
 ">
     <?php if ($_smarty_tpl->tpl_vars['conversation']->value['multiple_recipients']) {?>

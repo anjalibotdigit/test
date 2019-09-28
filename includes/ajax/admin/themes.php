@@ -32,6 +32,12 @@ try {
 			/* if default is set -> set all as not default first */
 			if($_POST['default']) {
 				$db->query("UPDATE system_themes SET system_themes.default = '0'") or _error("SQL_ERROR_THROWEN");
+			} else {
+				/*  default is not set -> check if this theme is the default one */
+				$check_themes = $db->query(sprintf("SELECT COUNT(*) as count FROM system_themes WHERE system_themes.default = '1' and theme_id = %s", secure($_GET['id'], 'int') )) or _error("SQL_ERROR_THROWEN");
+				if($check_themes->fetch_assoc()['count'] > 0) {
+					throw new Exception(__("This is your only default theme you need to mark other theme as default before change/delete this one"));
+				}
 			}
 			/* update */
 			$db->query(sprintf("UPDATE system_themes SET system_themes.default = %s, name = %s WHERE theme_id = %s", secure($_POST['default']), secure($_POST['name']), secure($_GET['id'], 'int') )) or _error("SQL_ERROR_THROWEN");

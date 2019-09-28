@@ -22,7 +22,7 @@ if(is_empty($_GET['username']) || !valid_username($_GET['username'])) {
 try {
 
 	// [1] get main profile info
-	$get_profile = $db->query(sprintf("SELECT users.*, picture_photo.source as user_picture_full, cover_photo.source as user_cover_full, packages.name as package_name, packages.color as package_color FROM users LEFT JOIN posts_photos as picture_photo ON users.user_picture_id = picture_photo.photo_id LEFT JOIN posts_photos as cover_photo ON users.user_cover_id = cover_photo.photo_id LEFT JOIN packages ON users.user_subscribed = '1' AND users.user_package = packages.package_id WHERE users.user_name = %s", secure($_GET['username']))) or _error("SQL_ERROR_THROWEN");
+	$get_profile = $db->query(sprintf("SELECT users.*, picture_photo.source as user_picture_full, picture_photo_post.privacy as user_picture_privacy, cover_photo.source as user_cover_full, cover_photo_post.privacy as cover_photo_privacy, packages.name as package_name, packages.color as package_color FROM users LEFT JOIN posts_photos as picture_photo ON users.user_picture_id = picture_photo.photo_id LEFT JOIN posts as picture_photo_post ON picture_photo.post_id = picture_photo_post.post_id LEFT JOIN posts_photos as cover_photo ON users.user_cover_id = cover_photo.photo_id LEFT JOIN posts as cover_photo_post ON cover_photo.post_id = cover_photo_post.post_id LEFT JOIN packages ON users.user_subscribed = '1' AND users.user_package = packages.package_id WHERE users.user_name = %s", secure($_GET['username']))) or _error("SQL_ERROR_THROWEN");
 	if($get_profile->num_rows == 0) {
 		_error(404);
 	}
@@ -43,10 +43,12 @@ try {
 	$profile['user_picture_default'] = ($profile['user_picture'])? false : true;
 	$profile['user_picture'] = get_picture($profile['user_picture'], $profile['user_gender']);
 	$profile['user_picture_full'] = ($profile['user_picture_full'])? $system['system_uploads'].'/'.$profile['user_picture_full'] : $profile['user_picture_full'];
+	$profile['user_picture_lightbox'] = $user->check_privacy($profile['user_picture_privacy'], $profile['user_id']);
 	/* get profile cover */
 	$profile['user_cover_default'] = ($profile['user_cover'])? false : true;
 	$profile['user_cover'] = ($profile['user_cover'])? $system['system_uploads'].'/'.$profile['user_cover'] : $profile['user_cover'];
 	$profile['user_cover_full'] = ($profile['user_cover_full'])? $system['system_uploads'].'/'.$profile['user_cover_full'] : $profile['user_cover_full'];
+	$profile['user_cover_lightbox'] = $user->check_privacy($profile['cover_photo_privacy'], $profile['user_id']);
 	/* get the connection &  mutual friends */
 	if($user->_logged_in && $profile['user_id'] != $user->_data['user_id']) {
 		/* get the connection */
@@ -55,6 +57,7 @@ try {
 		$profile['i_request'] = (in_array($profile['user_id'], $user->_data['friend_requests_sent_ids']))? true: false;
 		$profile['i_follow'] = (in_array($profile['user_id'], $user->_data['followings_ids']))? true: false;
 		$profile['friendship_declined'] = $user->friendship_declined($profile['user_id']);
+		$profile['i_poked'] = $user->poked($profile['user_id']);
 		/* get mutual friends */
 		$profile['mutual_friends_count'] = $user->get_mutual_friends_count($profile['user_id']);
 		$profile['mutual_friends'] = $user->get_mutual_friends($profile['user_id']);
@@ -107,6 +110,21 @@ try {
 			/* get custom fields */
 			$smarty->assign('custom_fields', $user->get_custom_fields( array("for" => "user", "get" => "profile", "node_id" => $profile['user_id']) ));
 
+			/* gifts system */
+			if($system['gifts_enabled']) {
+				/* get gifts */
+				$gifts = $user->get_gifts();
+				/* assign variables */
+				$smarty->assign('gifts', $gifts);
+
+				/* get gift */
+				if(isset($_GET['gift']) && is_numeric($_GET['gift'])) {
+					$gift = $user->get_gift($_GET['gift']);
+					/* assign variables */
+					$smarty->assign('gift', $gift);
+				}
+			}
+
 			/* get friends */
 			$profile['friends'] = $user->get_friends($profile['user_id']);
 			if(count($profile['friends']) > 0) {
@@ -124,16 +142,15 @@ try {
 
 			/* get events */
 			$profile['events'] = $user->get_events( array('user_id' => $profile['user_id'], 'results' => $system['min_results_even']) );
-			/*get projects*/
-            $profile['projects'] = $user->get_posts(array('get' => 'posts_profile', 'id' => $profile['user_id'], 'filter' => 'project', 'results' => $system['min_results_even']));
+
 			/* get pinned post */
-        /*print_r($profile['projects']);exit;*/
 			$pinned_post = $user->get_post($profile['user_pinned_post']);
 			$smarty->assign('pinned_post', $pinned_post);
 
 			/* prepare publisher */
 			$smarty->assign('feelings', get_feelings());
 			$smarty->assign('feelings_types', get_feelings_types());
+
 			/* get posts */
 			$posts = $user->get_posts( array('get' => 'posts_profile', 'id' => $profile['user_id']) );
 			/* assign variables */
@@ -205,10 +222,6 @@ try {
 			/* get events */
 			$profile['events'] = $user->get_events( array('user_id' => $profile['user_id']) );
 			break;
-        case 'projects':
-
-            $profile['projects'] = $user->get_posts(array('get' => 'posts_profile', 'id' => $profile['user_id'], 'filter' => 'project', 'results' => $system['min_results_even']));
-             break;
 
 		default:
 			_error(404);

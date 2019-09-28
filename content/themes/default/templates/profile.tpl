@@ -25,7 +25,7 @@
                         <!-- full-cover -->
                         
                         <!-- cropped-cover -->
-                        <img class="js_position-cover-cropped js_lightbox" data-init-position="{$profile['user_cover_position']}" data-id="{$profile['user_cover_id']}" data-image="{$profile['user_cover_full']}" data-context="album" src="{$profile['user_cover']}" alt="{$profile['user_firstname']} {$profile['user_lastname']}">
+                        <img class="js_position-cover-cropped {if $user->_logged_in && $profile['user_cover_lightbox']}js_lightbox{/if}" data-init-position="{$profile['user_cover_position']}" data-id="{$profile['user_cover_id']}" data-image="{$profile['user_cover_full']}" data-context="album" src="{$profile['user_cover']}" alt="{$profile['user_firstname']} {$profile['user_lastname']}">
                         <!-- cropped-cover -->
                     {/if}
                     
@@ -67,7 +67,7 @@
 
                 <!-- profile-avatar -->
                 <div class="profile-avatar-wrapper">
-                    <img {if $profile['user_picture_id']} class="js_lightbox" data-id="{$profile['user_picture_id']}" data-context="album" data-image="{$profile['user_picture_full']}" {elseif !$profile['user_picture_default']} class="js_lightbox-nodata" data-image="{$profile['user_picture']}" {/if}  src="{$profile['user_picture']}" alt="{$profile['user_firstname']} {$profile['user_lastname']}">
+                    <img {if $profile['user_picture_id']} {if $user->_logged_in && $profile['user_picture_lightbox']}class="js_lightbox"{/if} data-id="{$profile['user_picture_id']}" data-context="album" data-image="{$profile['user_picture_full']}" {elseif !$profile['user_picture_default']} class="js_lightbox-nodata" data-image="{$profile['user_picture']}" {/if}  src="{$profile['user_picture']}" alt="{$profile['user_firstname']} {$profile['user_lastname']}">
                     
                     {if $profile['user_id'] == $user->_data['user_id']}
                         <!-- buttons -->
@@ -151,12 +151,25 @@
                                     <i class="fa fa-ellipsis-v fa-fw"></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
+                                    <!-- poke -->
+                                    {if $system['pokes_enabled'] && !$profile['i_poked']}
+                                        {if $profile['user_privacy_poke'] == "public" || ($profile['user_privacy_poke'] == "friends" && $profile['we_friends'])}
+                                            <div class="dropdown-item pointer js_poke" data-id="{$profile['user_id']}" data-name="{$profile['user_firstname']} {$profile['user_lastname']}">
+                                                <i class="fa fa-hand-point-right fa-fw mr10"></i>{__("Poke")}
+                                            </div>
+                                        {/if}
+                                    {/if}
+                                    <!-- poke -->
+                                    <!-- report -->
                                     <div class="dropdown-item pointer js_report" data-handle="user" data-id="{$profile['user_id']}">
                                         <i class="fa fa-flag fa-fw mr10"></i>{__("Report")}
                                     </div>
+                                    <!-- report -->
+                                    <!-- block -->
                                     <div class="dropdown-item pointer js_block-user" data-uid="{$profile['user_id']}">
                                         <i class="fa fa-minus-circle fa-fw mr10"></i>{__("Block")}
                                     </div>
+                                    <!-- block -->
                                 </div>
                             </div>
                             <!-- report & block -->
@@ -209,11 +222,6 @@
                                 <i class="fa fa-calendar fa-fw mr5"></i>{__("Events")}
                             </a>
                         </li>
-                        <li>
-                            <a href="{$system['system_url']}/{$profile['user_name']}/projects" {if $view == "projects"}class="active"{/if}>
-                                <i class="fa fa-tag fa-fw mr5"></i>{__("Projects")}
-                            </a>
-                        </li>
                     </ul>
                 </div>
                 <!-- profile-tabs -->
@@ -223,7 +231,7 @@
             <!-- profile-content -->
             <div class="row">
                 <!-- panel [mutual-friends] -->
-                {if $user->_logged_in && $user->_data['user_id'] != $profile['user_id'] && !$profile['we_friends']}
+                {if $user->_logged_in && $user->_data['user_id'] != $profile['user_id'] && !$profile['we_friends'] && !$profile['friendship_declined']}
                     <div class="col-sm-12">
                         <div class="card panel-mutual-friends">
                             <div class="card-header text-uppercase">
@@ -694,6 +702,16 @@
                     
                     <!-- right panel -->
                     <div class="order-2 col-lg-3 order-lg-3">
+                        <!-- gifts -->
+                        {if $user->_logged_in && $user->_data['user_id'] != $profile['user_id'] && $system['gifts_enabled']}
+                            {if $profile['user_privacy_gifts'] == "public" || ($profile['user_privacy_gifts'] == "friends" && $profile['we_friends'])}
+                                <button type="button" class="btn btn-block btn-md bg-gradient-pink border-0 rounded-pill mb20" data-toggle="modal" data-url="#gifts" data-options='{literal}{{/literal}"uid": {$profile["user_id"]}{literal}}{/literal}'>
+                                    <i class="fas fa-gift fa-lg mr10"></i>{__("Send a Gift")}
+                                </button>
+                            {/if}
+                        {/if}
+                        <!-- gifts -->
+
                         <!-- photos -->
                         {if $profile['photos']}
                             <div class="card panel-photos">
@@ -711,36 +729,7 @@
                             </div>
                         {/if}
                         <!-- photos -->
-                    <!-- recent projects -->
-                  {if count($profile['projects']) > 0}
 
-                            <div class="card">
-                                <div class="card-header bg-transparent">
-                                    <i class="fa fa-tag mr5"></i>
-                                    <strong><a href="{$system['system_url']}/{$profile['user_name']}/projects">{__("Projects")}</a></strong>
-                                </div>
-                                <div class="card-body ptb10 plr10">
-                                    <div class="row no-gutters">
-                                        {for $i=0 to 5}
-                                            <div class="col-3 col-lg-4">
-                                                <div class="circled-user-box">
-                                                    <a class="user-box" href="{$system['system_url']}/posts/{$profile['projects'][$i]['project']['post_id']}">
-
-                                                        <img alt="{$profile['projects'][$i]['project']['name']}" src="{if $profile['projects'][$i]['photos'][0]['source'] != ''}{$system['system_uploads']}/{$profile['projects'][$i]['photos'][0]['source']}{else}{$system['system_url']}/content/themes/{$system['theme']}/images/blank_product.png{/if}" />
-                                                        <div class="name" title="{$profile['projects'][$i]['project']['name']}">
-                                                            {$profile['projects'][$i]['project']['name']}
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        {/for}
-                                    </div>
-
-                                </div>
-                            </div>
-                        {/if}
-
-                    <!-- recent projects -->
                         <!-- friends -->
                         {if $profile['friends_count'] > 0}
                             <div class="card">
@@ -1332,51 +1321,6 @@
                     </div>
                     <!-- events -->
                 
-
-                {elseif $view == "projects"}
-
-                    <!-- projects -->
-                   <div class="col-12">
-
-                        <div class="card">
-                            <div class="card-header with-icon">
-                                <!-- panel title -->
-                                <i class="fa fa-users mr10"></i>{__("Projects")}
-                                <!-- panel title -->
-                            </div>
-                            <div class="card-body">
-                                {if $profile['user_id'] == $user->_data['user_id'] || $profile['user_privacy_projects'] == "public" || ($profile['user_privacy_projects'] == "friends" && $profile['we_friends'])}
-                                    {if count($profile['projects']) > 0}
-                                        <ul class="row">
-                                            {foreach $profile['projects'] as $_project}
-                                                {include file='__feeds_project.tpl' _tpl="box"}
-                                            {/foreach}
-                                        </ul>
-
-                                        {if count($profile['projects']) >= $system['max_results_even']}
-                                            <!-- see-more -->
-                                            <div class="alert alert-info see-more js_see-more" data-get="profile_projects" data-uid="{$profile['user_id']}">
-                                                <span>{__("See More")}</span>
-                                                <div class="loader loader_small x-hidden"></div>
-                                            </div>
-                                            <!-- see-more -->
-                                        {/if}
-                                    {else}
-                                        <p class="text-center text-muted mt10">
-                                            {__("No projects to show")}
-                                        </p>
-                                    {/if}
-
-                                {else}
-                                    <p class="text-center text-muted mt10">
-                                        {__("No projects to show")}
-                                    </p>
-                                {/if}
-                            </div>
-                        </div>
-                    </div>
-                    <!-- projects -->
-
                 {/if}
                 <!-- view content -->
             </div>
@@ -1389,3 +1333,11 @@
 <!-- page content -->
 
 {include file='_footer.tpl'}
+
+{if $gift}
+    <script>
+        $(function () {
+            modal('#gift');
+        });
+    </script>
+{/if}

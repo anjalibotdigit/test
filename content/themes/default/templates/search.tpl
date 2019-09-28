@@ -34,7 +34,7 @@
                     <form class="js_search-form">
                         <div class="form-group mb0">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="query" placeholder='{__("Search for people, pages and #hashtags")}'>
+                                <input type="text" class="form-control" name="query" placeholder='{__("Search for people, pages and #hashtags")}' {if $query}value="{$query}"{/if} >
                                 <div class="input-group-append">
                                     <button type="submit" name="submit" class="btn btn-danger plr30"><i class="fas fa-search mr10"></i>{__("Search")}</button>
                                 </div>
@@ -53,11 +53,6 @@
                         <li class="nav-item">
                             <a class="nav-link rounded-pill active" href="#posts" data-toggle="tab">
                                 <i class="fa fa-newspaper mr5"></i><strong>{__("Posts")}</strong>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link rounded-pill" href="#projects" data-toggle="tab">
-                                <i class="fa fa-newspaper mr5"></i><strong>{__("Projects")}</strong>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -85,7 +80,6 @@
                                 <i class="fa fa-calendar mr5"></i><strong>{__("Events")}</strong>
                             </a>
                         </li>
-
                     </ul>
                     <!-- panel nav -->
                     
@@ -106,24 +100,8 @@
                                 </div>
                             {/if}
                         </div>
-
-
-                        <div class="tab-pane" id="projects">
-
-                            {if count($results['projects']) > 0}
-                                <ul>
-                                    {foreach $results['projects'] as $post}
-                                        {include file='__feeds_post.tpl'}
-                                    {/foreach}
-                                </ul>
-                            {else}
-                                <div class="text-center text-muted mtb10">
-                                    <img width="25%" src="{$system['system_url']}/content/themes/{$system['theme']}/images/no_results.png">
-                                    <p class="mt10 mb10"><strong>{__("No results to show")}</strong></p>
-                                </div>
-                            {/if}
-                        </div>
                         <!-- posts -->
+
                         <!-- blogd -->
                         {if $system['blogs_enabled']}
                             <div class="tab-pane" id="articles">

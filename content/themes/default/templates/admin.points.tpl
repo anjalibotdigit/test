@@ -25,7 +25,7 @@
 
                 <div class="form-table-row">
                     <div>
-                        <div class="form-control-label h6">{__("Users can withdraw earned money")}</div>
+                        <div class="form-control-label h6">{__("Users Can Withdraw Earned Money")}</div>
                         <div class="form-text d-none d-sm-block">{__("If enabled users will be able to withdraw earned money")}</div>
                     </div>
                     <div class="text-right">
@@ -75,7 +75,7 @@
 
                 <div class="form-table-row">
                     <div>
-                        <div class="form-control-label h6">{__("Users can transfer earned money to wallet")}</div>
+                        <div class="form-control-label h6">{__("Users Can Transfer Earned Money To Wallet")}</div>
                         <div class="form-text d-none d-sm-block">{__("If Ads enabled users will be able to transfer earned money to their wallet")}</div>
                     </div>
                     <div class="text-right">
@@ -132,6 +132,32 @@
                         <input type="text" class="form-control" name="points_per_reaction" value="{$system['points_per_reaction']}">
                         <span class="form-text">
                             {__("How many points user will get for each reaction")}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        {__("Free Users Daily Limit")}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="points_limit_user" value="{$system['points_limit_user']}">
+                        <span class="form-text">
+                            {__("The maximum number of points regular user can get per day")}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        {__("Pro Users Daily Limit")}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="points_limit_pro" value="{$system['points_limit_pro']}">
+                        <span class="form-text">
+                            {__("The maximum number of points pro user can get per day")}
                         </span>
                     </div>
                 </div>

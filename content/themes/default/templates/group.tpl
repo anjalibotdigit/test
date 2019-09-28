@@ -654,6 +654,9 @@
                                                 </div>
                                                 <input type="text" class="form-control" name="username" id="username" value="{$group['group_name']}">
                                             </div>
+                                            <span class="form-text">
+                                                {__("Can only contain alphanumeric characters (A–Z, 0–9) and periods ('.')")}
+                                            </span>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-control-label" for="privacy">{__("Select Privacy")}</label>

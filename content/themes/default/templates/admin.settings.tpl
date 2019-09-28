@@ -168,6 +168,8 @@
                             </div>
                         </div>
 
+                        <div class="divider"></div>
+
                         <div class="form-table-row">
                             <div>
                                 <div class="form-control-label h6"> {__("Directory")}</div>
@@ -183,6 +185,8 @@
                                 </label>
                             </div>
                         </div>
+
+                        <div class="divider"></div>
 
                         <div class="form-table-row">
                             <div>
@@ -288,6 +292,8 @@
                             </div>
                         </div>
 
+                        <div class="divider"></div>
+
                         <div class="form-table-row">
                             <div>
                                 <div class="form-control-label h6">{__("DayTime Messages")}</div>
@@ -300,6 +306,36 @@
                                 </label>
                             </div>
                         </div>
+
+                        <div class="divider"></div>
+
+                        <div class="form-table-row">
+                            <div>
+                                <div class="form-control-label h6">{__("Pokes")}</div>
+                                <div class="form-text d-none d-sm-block">{__("Enable users to poke each others")}</div>
+                            </div>
+                            <div class="text-right">
+                                <label class="switch" for="pokes_enabled">
+                                    <input type="checkbox" name="pokes_enabled" id="pokes_enabled" {if $system['pokes_enabled']}checked{/if}>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-table-row">
+                            <div>
+                                <div class="form-control-label h6">{__("Gifts")}</div>
+                                <div class="form-text d-none d-sm-block">{__("Enable users to send gifts to each others")}</div>
+                            </div>
+                            <div class="text-right">
+                                <label class="switch" for="gifts_enabled">
+                                    <input type="checkbox" name="gifts_enabled" id="gifts_enabled" {if $system['gifts_enabled']}checked{/if}>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
 
                         <div class="form-table-row">
                             <div>
@@ -341,6 +377,8 @@
                                 </label>
                             </div>
                         </div>
+
+                        <div class="divider"></div>
 
                         <div class="form-table-row">
                             <div>
@@ -417,6 +455,60 @@
                     </div>
                 </div>
 
+                <div class="divider"></div>
+
+                <div class="form-table-row">
+                    <div>
+                        <div class="form-control-label h6">{__("Popular Posts")}</div>
+                        <div class="form-text d-none d-sm-block">
+                            {__("Turn the popular posts On and Off")}<br>
+                            {__("Popular posts are public posts ordered by most reactions, comments & shares")}
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <label class="switch" for="popular_posts_enabled">
+                            <input type="checkbox" name="popular_posts_enabled" id="popular_posts_enabled" {if $system['popular_posts_enabled']}checked{/if}>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-table-row">
+                    <div>
+                        <div class="form-control-label h6">{__("Discover Posts")}</div>
+                        <div class="form-text d-none d-sm-block">
+                            {__("Turn the discover posts On and Off")}<br>
+                            {__("Discover posts are public posts ordered from most recent to old")}
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <label class="switch" for="discover_posts_enabled">
+                            <input type="checkbox" name="discover_posts_enabled" id="discover_posts_enabled" {if $system['discover_posts_enabled']}checked{/if}>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="form-table-row">
+                    <div>
+                        <div class="form-control-label h6">{__("Memories")}</div>
+                        <div class="form-text d-none d-sm-block">
+                            {__("Turn the memories On and Off")}<br>
+                            {__("Memories are posts from the same day on last year")}
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <label class="switch" for="memories_enabled">
+                            <input type="checkbox" name="memories_enabled" id="memories_enabled" {if $system['memories_enabled']}checked{/if}>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
                 <div class="form-table-row">
                     <div>
                         <div class="form-control-label h6">{__("Wall Posts")}</div>
@@ -430,6 +522,8 @@
                     </div>
                 </div>
 
+                <div class="divider"></div>
+
                 <div class="form-table-row">
                     <div>
                         <div class="form-control-label h6">{__("Polls")}</div>
@@ -440,49 +534,6 @@
                             <input type="checkbox" name="polls_enabled" id="polls_enabled" {if $system['polls_enabled']}checked{/if}>
                             <span class="slider round"></span>
                         </label>
-                    </div>
-                </div>
-
-                <div class="divider"></div>
-
-                <div class="form-table-row">
-                    <div>
-                        <div class="form-control-label h6">{__("Trending Hashtags")}</div>
-                        <div class="form-text d-none d-sm-block">{__("Turn the trending hashtags feature On and Off")}</div>
-                    </div>
-                    <div class="text-right">
-                        <label class="switch" for="trending_hashtags_enabled">
-                            <input type="checkbox" name="trending_hashtags_enabled" id="trending_hashtags_enabled" {if $system['trending_hashtags_enabled']}checked{/if}>
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group form-row">
-                    <label class="col-md-3 form-control-label">
-                        {__("Trending Interval")}
-                    </label>
-                    <div class="col-md-9">
-                        <select class="form-control" name="trending_hashtags_interval">
-                            <option {if $system['trending_hashtags_interval'] == "day"}selected{/if} value="day">{__("Last 24 Hours")}</option>
-                            <option {if $system['trending_hashtags_interval'] == "week"}selected{/if} value="week">{__("Last Week")}</option>
-                            <option {if $system['trending_hashtags_interval'] == "month"}selected{/if} value="month">{__("Last Month")}</option>
-                        </select>
-                        <span class="form-text">
-                            {__("Select the interval of trending hashtags")}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="form-group form-row">
-                    <label class="col-md-3 form-control-label">
-                        {__("Hashtags Limit")}
-                    </label>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control" name="trending_hashtags_limit" value="{$system['trending_hashtags_limit']}">
-                        <span class="form-text">
-                            {__("How many hashtags you want to display")}
-                        </span>
                     </div>
                 </div>
 
@@ -571,8 +622,8 @@
 
                 <div class="form-table-row">
                     <div>
-                        <div class="form-control-label h6">{__("Social Share")}</div>
-                        <div class="form-text d-none d-sm-block">{__("Turn the social share for posts On and Off")}</div>
+                        <div class="form-control-label h6">{__("Social Media Share")}</div>
+                        <div class="form-text d-none d-sm-block">{__("Turn the social media share for posts On and Off")}</div>
                     </div>
                     <div class="text-right">
                         <label class="switch" for="social_share_enabled">
@@ -597,9 +648,59 @@
                     </div>
                 </div>
 
+                <div class="divider"></div>
+
                 <div class="form-group form-row">
                     <label class="col-md-3 form-control-label">
-                        {__("Default Privacy")}
+                        {__("Max Post Characters")}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="max_post_length" value="{$system['max_post_length']}">
+                        <span class="form-text">
+                            {__("The Maximum allowed post characters length (0 for unlimited)")}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        {__("Max Comment Characters")}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="max_comment_length" value="{$system['max_comment_length']}">
+                        <span class="form-text">
+                            {__("The Maximum allowed comment characters length (0 for unlimited)")}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        {__("Max Posts/Hour")}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="max_posts_hour" value="{$system['max_posts_hour']}">
+                        <span class="form-text">
+                            {__("The Maximum number of posts that user can publish per hour (0 for unlimited)")}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        {__("Max Comments/Hour")}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="max_comments_hour" value="{$system['max_comments_hour']}">
+                        <span class="form-text">
+                            {__("The Maximum number of comments that user can publish per hour (0 for unlimited)")}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        {__("Default Posts Privacy")}
                     </label>
                     <div class="col-md-9">
                         <select class="form-control selectpicker" name="default_privacy">
@@ -607,6 +708,49 @@
                             <option value="friends" {if $system['default_privacy'] == "friends"}selected{/if} data-content="<div class='option'><div class='icon'><i class='fa fa-users fa-lg fa-fw'></i></div><div class='text'><b>{__("Friends")}</b><br>{__("Only post author friends can see the post")}</div></div>">{__("Friends")}</option>
                             <option value="me" {if $system['default_privacy'] == "me"}selected{/if} data-content="<div class='option'><div class='icon'><i class='fa fa-lock fa-lg fa-fw'></i></div><div class='text'><b>{__("Only Me")}</b><br>{__("Only post author can see the post")}</div></div>">{__("Only Me")}</option>
                         </select>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="form-table-row">
+                    <div>
+                        <div class="form-control-label h6">{__("Trending Hashtags")}</div>
+                        <div class="form-text d-none d-sm-block">{__("Turn the trending hashtags feature On and Off")}</div>
+                    </div>
+                    <div class="text-right">
+                        <label class="switch" for="trending_hashtags_enabled">
+                            <input type="checkbox" name="trending_hashtags_enabled" id="trending_hashtags_enabled" {if $system['trending_hashtags_enabled']}checked{/if}>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        {__("Trending Interval")}
+                    </label>
+                    <div class="col-md-9">
+                        <select class="form-control" name="trending_hashtags_interval">
+                            <option {if $system['trending_hashtags_interval'] == "day"}selected{/if} value="day">{__("Last 24 Hours")}</option>
+                            <option {if $system['trending_hashtags_interval'] == "week"}selected{/if} value="week">{__("Last Week")}</option>
+                            <option {if $system['trending_hashtags_interval'] == "month"}selected{/if} value="month">{__("Last Month")}</option>
+                        </select>
+                        <span class="form-text">
+                            {__("Select the interval of trending hashtags")}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        {__("Hashtags Limit")}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="trending_hashtags_limit" value="{$system['trending_hashtags_limit']}">
+                        <span class="form-text">
+                            {__("How many hashtags you want to display")}
+                        </span>
                     </div>
                 </div>
 
@@ -708,13 +852,38 @@
                         <div class="form-table-row">
                             <div>
                                 <div class="form-control-label h6">{__("Invitation Enabled")}</div>
-                                <div class="form-text d-none d-sm-block">{__("This system is used to invite users if the registration is turned off")}</div>
+                                <div class="form-text d-none d-sm-block">{__("This option is used to invite users by sending invitation code only by admin if the registration is turned off")}</div>
                             </div>
                             <div class="text-right">
                                 <label class="switch" for="invitation_enabled">
                                     <input type="checkbox" name="invitation_enabled" id="invitation_enabled" {if $system['invitation_enabled']}checked{/if}>
                                     <span class="slider round"></span>
                                 </label>
+                            </div>
+                        </div>
+
+                        <div class="form-table-row">
+                            <div>
+                                <div class="form-control-label h6">{__("Invite Friends Widget")}</div>
+                                <div class="form-text d-none d-sm-block">{__("Enable users to invite their friends by sending invitation emails (registration must be enabled)")}</div>
+                            </div>
+                            <div class="text-right">
+                                <label class="switch" for="invitation_widget_enabled">
+                                    <input type="checkbox" name="invitation_widget_enabled" id="invitation_widget_enabled" {if $system['invitation_widget_enabled']}checked{/if}>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <label class="col-md-3 form-control-label">
+                                {__("Invitations/Day")}
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="invitation_widget_max" value="{$system['invitation_widget_max']}">
+                                <span class="form-text">
+                                    {__("Number of invitations allowed to each user per day (0 for unlimited)")}
+                                </span>
                             </div>
                         </div>
 
@@ -731,6 +900,22 @@
                             <div class="text-right">
                                 <label class="switch" for="packages_enabled">
                                     <input type="checkbox" name="packages_enabled" id="packages_enabled" {if $system['packages_enabled']}checked{/if}>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-table-row">
+                            <div>
+                                <div class="form-control-label h6">{__("Users Can Buy Packages From Wallet Balance")}</div>
+                                <div class="form-text d-none d-sm-block">
+                                    {__("Enable users to buy packages from their wallet balance")}<br>
+                                    {__("Make sure you have enabled")} <a href="{$system['system_url']}/admincp/ads">{__("Ads System")}</a>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <label class="switch" for="packages_wallet_payment_enabled">
+                                    <input type="checkbox" name="packages_wallet_payment_enabled" id="packages_wallet_payment_enabled" {if $system['packages_wallet_payment_enabled']}checked{/if}>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -893,14 +1078,28 @@
                             </div>
                         </div>
 
+                        <div class="divider"></div>
+
                         <div class="form-group form-row">
                             <label class="col-md-3 form-control-label">
-                                {__("Accounts/IP")}
+                                {__("Max Accounts/IP")}
                             </label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="max_accounts" value="{$system['max_accounts']}">
                                 <span class="form-text">
-                                    {__("Number of accounts allowed to register per IP (0 for unlimited)")}
+                                    {__("The Maximum number of accounts allowed to register per IP (0 for unlimited)")}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <label class="col-md-3 form-control-label">
+                                {__("Max Friends/User")}
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="max_friends" value="{$system['max_friends']}">
+                                <span class="form-text">
+                                    {__("The Maximum number of friends allowed per User (0 for unlimited)")}
                                 </span>
                             </div>
                         </div>
@@ -1528,6 +1727,88 @@
                     </div>
                 </div>
 
+                <div class="form-table-row">
+                    <div>
+                        <div class="form-control-label h6">{__("Typing Status Enabled")}</div>
+                        <div class="form-text d-none d-sm-block">{__("Turn the Typing Status On and Off")}</div>
+                    </div>
+                    <div class="text-right">
+                        <label class="switch" for="chat_typing_enabled">
+                            <input type="checkbox" name="chat_typing_enabled" id="chat_typing_enabled" {if $system['chat_typing_enabled']}checked{/if}>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-table-row">
+                    <div>
+                        <div class="form-control-label h6">{__("Seen Status Enabled")}</div>
+                        <div class="form-text d-none d-sm-block">{__("Turn the Seen Status On and Off")}</div>
+                    </div>
+                    <div class="text-right">
+                        <label class="switch" for="chat_seen_enabled">
+                            <input type="checkbox" name="chat_seen_enabled" id="chat_seen_enabled" {if $system['chat_seen_enabled']}checked{/if}>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="form-table-row">
+                    <div>
+                        <div class="form-control-label h6">{__("Video Call Enabled")}</div>
+                        <div class="form-text d-none d-sm-block">{__("Turn the video call system On and Off")}</div>
+                    </div>
+                    <div class="text-right">
+                        <label class="switch" for="video_call_enabled">
+                            <input type="checkbox" name="video_call_enabled" id="video_call_enabled" {if $system['video_call_enabled']}checked{/if}>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-table-row">
+                    <div>
+                        <div class="form-control-label h6">{__("Audio Call Enabled")}</div>
+                        <div class="form-text d-none d-sm-block">{__("Turn the audio call system On and Off")}</div>
+                    </div>
+                    <div class="text-right">
+                        <label class="switch" for="audio_call_enabled">
+                            <input type="checkbox" name="audio_call_enabled" id="audio_call_enabled" {if $system['audio_call_enabled']}checked{/if}>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        {__("Twilio Account SID")}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="twilio_sid" value="{$system['twilio_sid']}">
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        {__("Twilio API SID")}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="twilio_apisid" value="{$system['twilio_apisid']}">
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        {__("Twilio API SECRET")}
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="twilio_apisecret" value="{$system['twilio_apisecret']}">
+                    </div>
+                </div>
+
                 <!-- success -->
                 <div class="alert alert-success mb0 x-hidden"></div>
                 <!-- success -->
@@ -2038,7 +2319,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#Stripe" data-toggle="tab">
-                        <i class="fa fa-credit-card fa-fw mr5"></i><strong class="pr5">{__("Stripe")}</strong>
+                        <i class="fab fa-stripe-s fa-fw mr5"></i><strong class="pr5">{__("Stripe")}</strong>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#Bank" data-toggle="tab">
+                        <i class="fa fa-university fa-fw mr5"></i><strong class="pr5">{__("Bank Transfers")}</strong>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -2228,41 +2514,129 @@
             </div>
             <!-- Stripe -->
 
+            <!-- Bank -->
+            <div class="tab-pane" id="Bank">
+                <form class="js_ajax-forms " data-url="admin/settings.php?edit=bank">
+                    <div class="card-body">
+                        <div class="form-table-row">
+                            <div>
+                                <div class="form-control-label h6">{__("Bank Transfers Enabled")}</div>
+                                <div class="form-text d-none d-sm-block">{__("Enable payments via Bank Transfers")}</div>
+                            </div>
+                            <div class="text-right">
+                                <label class="switch" for="bank_transfers_enabled">
+                                    <input type="checkbox" name="bank_transfers_enabled" id="bank_transfers_enabled" {if $system['bank_transfers_enabled']}checked{/if}>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <label class="col-md-3 form-control-label">
+                                {__("Bank Name")}
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="bank_name" value="{$system['bank_name']}">
+                                <span class="form-text">
+                                    {__("Your Bank Name")}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <label class="col-md-3 form-control-label">
+                                {__("Bank Account Number")}
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="bank_account_number" value="{$system['bank_account_number']}">
+                                <span class="form-text">
+                                    {__("Your Bank Account Number")}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <label class="col-md-3 form-control-label">
+                                {__("Bank Account Name")}
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="bank_account_name" value="{$system['bank_account_name']}">
+                                <span class="form-text">
+                                    {__("Your Bank Account Name")}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <label class="col-md-3 form-control-label">
+                                {__("Bank Account Routing Code")}
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="bank_account_routing" value="{$system['bank_account_routing']}">
+                                <span class="form-text">
+                                    {__("Your Bank Account Routing Code or SWIFT Code")}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <label class="col-md-3 form-control-label">
+                                {__("Bank Account Country")}
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="bank_account_country" value="{$system['bank_account_country']}">
+                                <span class="form-text">
+                                    {__("Your Bank Account Country")}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <label class="col-md-3 form-control-label">
+                                {__("Transfer Note")}
+                            </label>
+                            <div class="col-md-9">
+                                <textarea class="form-control" name="bank_transfer_note" rows="5">{$system['bank_transfer_note']}</textarea>
+                                <span class="form-text">
+                                    {__("This note will be displayed to the user while upload his bank transfer receipt")}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- success -->
+                        <div class="alert alert-success mb0 x-hidden"></div>
+                        <!-- success -->
+
+                        <!-- error -->
+                        <div class="alert alert-danger mb0 x-hidden"></div>
+                        <!-- error -->
+                    </div>
+                    <div class="card-footer text-right">
+                        <button type="submit" class="btn btn-primary">{__("Save Changes")}</button>
+                    </div>
+                </form>
+            </div>
+            <!-- Bank -->
+
             <!-- Currency -->
             <div class="tab-pane" id="Currency">
                 <form class="js_ajax-forms " data-url="admin/settings.php?edit=currency">
                     <div class="card-body">
                         <div class="form-group form-row">
                             <label class="col-md-3 form-control-label">
-                                {__("Currency")}
+                                {__("Website Currency")}
                             </label>
                             <div class="col-md-9">
                                 <select class="form-control" name="system_currency">
-                                    <option {if $system['system_currency'] == "AUD"}selected{/if} value="AUD">Australian Dollar</option>
-                                    <option {if $system['system_currency'] == "BRL"}selected{/if} value="BRL">Brazilian Real</option>
-                                    <option {if $system['system_currency'] == "CAD"}selected{/if} value="CAD">Canadian Dollar</option>
-                                    <option {if $system['system_currency'] == "CZK"}selected{/if} value="CZK">Czech Koruna</option>
-                                    <option {if $system['system_currency'] == "DKK"}selected{/if} value="DKK">Danish Krone</option>
-                                    <option {if $system['system_currency'] == "EUR"}selected{/if} value="EUR">Euro</option>
-                                    <option {if $system['system_currency'] == "HKD"}selected{/if} value="HKD">Hong Kong Dollar</option>
-                                    <option {if $system['system_currency'] == "HUF"}selected{/if} value="HUF">Hungarian Forint</option>
-                                    <option {if $system['system_currency'] == "ILS"}selected{/if} value="ILS">Israeli New Sheqel</option>
-                                    <option {if $system['system_currency'] == "JPY"}selected{/if} value="JPY">Japanese Yen</option>
-                                    <option {if $system['system_currency'] == "MYR"}selected{/if} value="MYR">Malaysian Ringgit</option>
-                                    <option {if $system['system_currency'] == "MXN"}selected{/if} value="MXN">Mexican Peso</option>
-                                    <option {if $system['system_currency'] == "NOK"}selected{/if} value="NOK">Norwegian Krone</option>
-                                    <option {if $system['system_currency'] == "NZD"}selected{/if} value="NZD">New Zealand Dollar</option>
-                                    <option {if $system['system_currency'] == "PHP"}selected{/if} value="PHP">Philippine Peso</option>
-                                    <option {if $system['system_currency'] == "PLN"}selected{/if} value="PLN">Polish Zloty</option>
-                                    <option {if $system['system_currency'] == "GBP"}selected{/if} value="GBP">Pound Sterling</option>
-                                    <option {if $system['system_currency'] == "RUB"}selected{/if} value="RUB">Russian Ruble</option>
-                                    <option {if $system['system_currency'] == "SGD"}selected{/if} value="SGD">Singapore Dollar</option>
-                                    <option {if $system['system_currency'] == "SEK"}selected{/if} value="SEK">Swedish Krona</option>
-                                    <option {if $system['system_currency'] == "CHF"}selected{/if} value="CHF">Swiss Franc</option>
-                                    <option {if $system['system_currency'] == "THB"}selected{/if} value="THB">Thai Baht</option>
-                                    <option {if $system['system_currency'] == "TRY"}selected{/if} value="TRY">Turkish Lira</option>
-                                    <option {if $system['system_currency'] == "USD"}selected{/if} value="USD">U.S. Dollar</option>
+                                    {foreach $system_currencies as $currency}
+                                        <option {if $currency['default']}selected{/if} value="{$currency['currency_id']}">
+                                            {$currency['name']} ({$currency['code']})
+                                        </option>
+                                    {/foreach}
                                 </select>
+                                <div class="form-text">
+                                    {__("You can add, edit or delete currencies from")} <a href="{$system['system_url']}/admincp/currencies">{__("Currencies")}</a>
+                                </div>
                             </div>
                         </div>
 

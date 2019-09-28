@@ -24,7 +24,7 @@ if(!isset($_POST['id']) || !is_numeric($_POST['id'])) {
 try {
 
 	$user->report($_POST['id'], $_POST['handle']);
-	modal(SUCCESS, __("Thanks"), __("Your report has been submitted"));
+	modal("SUCCESS", __("Thanks"), __("Your report has been submitted"));
 
 } catch (Exception $e) {
 	modal("ERROR", __("Error"), $e->getMessage());

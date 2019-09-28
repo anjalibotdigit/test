@@ -443,7 +443,7 @@
                             </a>
                         </div>
                     </div>
-                    <form class="js_ajax-forms " data-url="posts/article.php?do=edit&id={$article['post_id']}">
+                    <div class="js_ajax-forms-html " data-url="posts/article.php?do=edit&id={$article['post_id']}">
                         <div class="card-body">
                             <div class="form-group form-row">
                                 <label class="col-md-2 form-control-label">
@@ -531,7 +531,7 @@
                             </button>
                             <button type="submit" class="btn btn-primary">{__("Publish")}</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <!-- content -->
             </div>
@@ -552,7 +552,7 @@
                     <div class="card-header with-icon">
                         <i class="fa fa-edit mr10"></i>{__("Write New Article")}
                     </div>
-                    <form class="js_ajax-forms " data-url="posts/article.php?do=create">
+                    <div class="js_ajax-forms-html" data-url="posts/article.php?do=create">
                         <div class="card-body">
                             <div class="form-group form-row">
                                 <label class="col-md-2 form-control-label">
@@ -622,7 +622,7 @@
                         <div class="card-footer text-right">
                             <button type="submit" class="btn btn-primary">{__("Publish")}</button>
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <!-- content -->
             </div>

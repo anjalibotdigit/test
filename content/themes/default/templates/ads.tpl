@@ -676,6 +676,12 @@
                                 {__("Congratulation! Your wallet credit replenished successfully with")} <span class="badge badge-pill badge-lg badge-light">{$system['system_currency_symbol']}{$wallet_withdraw_points_amount|number_format:2}</span> {__("from your points credit")}
                             </div>
                         {/if}
+                        {if $wallet_package_payment_amount}
+                            <div class="alert alert-success mb20">
+                                <i class="fas fa-check-circle mr5"></i>
+                                {__("Your")} <span class="badge badge-pill badge-lg badge-light">{$system['system_currency_symbol']}{$wallet_package_payment_amount|number_format:2}</span> {__("payment transaction successfuly done")}
+                            </div>
+                        {/if}
 
                         <div class="row">
                             <!-- credit -->
@@ -800,6 +806,8 @@
                                                                 {__("Affiliates Credit")}
                                                             {elseif $transaction['node_type'] == "withdraw_points"}
                                                                 {__("Points Credit")}
+                                                             {elseif $transaction['node_type'] == "package_payment"}
+                                                                {__("Buy Pro Package")}
                                                             {/if}
                                                         </td>
                                                         <td><span class="js_moment" data-time="{$transaction['date']}">{$transaction['date']}</span></td>

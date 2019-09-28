@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:13:50
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/__reaction_emojis.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0c4e825e55_37552462',
+  'unifunc' => 'content_5d8edec77338e1_79388929',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b1dc1a87782f40a10470274fd2cd1449b0fa28c5' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/__reaction_emojis.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d7a0c4e825e55_37552462 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec77338e1_79388929 (Smarty_Internal_Template $_smarty_tpl) {
 if ($_smarty_tpl->tpl_vars['_reaction']->value == "like") {?>
 
 	<!-- like -->

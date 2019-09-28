@@ -15,6 +15,11 @@ is_ajax();
 // user access
 user_access(true);
 
+// check if Stripe enabled
+if(!$system['creditcard_enabled'] && !$system['alipay_enabled']) {
+	modal("MESSAGE", __("Error"), __("This feature has been disabled by the admin"));
+}
+
 // stripe
 try {
 
@@ -35,7 +40,7 @@ try {
 			}
 			/* check if user already subscribed to this package */
 			if($user->_data['user_subscribed'] && $user->_data['user_package'] == $package['package_id']) {
-				modal(SUCCESS, __("Subscribed"), __("You already subscribed to this package, Please select different package"));
+				modal("SUCCESS", __("Subscribed"), __("You already subscribed to this package, Please select different package"));
 			}
 
 			// process
@@ -53,7 +58,7 @@ try {
 		    ));
 		    if($charge) {
 		    	// update user package
-				$user->update_user_package($package['package_id'], $package['name'], $package['price']);
+				$user->update_user_package($package['package_id'], $package['name'], $package['price'], $package['verification_badge_enabled']);
 		    }
 
 			// return & exit
@@ -98,8 +103,7 @@ try {
 			_error(400);
 			break;
 	}
-
-			
+	
 
 } catch (Exception $e) {
 	modal("ERROR", __("Error"), $e->getMessage());

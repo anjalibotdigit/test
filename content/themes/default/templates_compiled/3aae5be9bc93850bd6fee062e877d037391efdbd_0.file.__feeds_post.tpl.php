@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-25 02:18:55
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_post.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d8ace8fe8d0b0_10164933',
+  'unifunc' => 'content_5d8edec741a2b0_22592810',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3aae5be9bc93850bd6fee062e877d037391efdbd' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_post.tpl',
-      1 => 1569377934,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -23,30 +23,39 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:__feeds_post.comments.tpl' => 1,
   ),
 ),false)) {
-function content_5d8ace8fe8d0b0_10164933 (Smarty_Internal_Template $_smarty_tpl) {
-if (!$_smarty_tpl->tpl_vars['standalone']->value) {?><ul><li><?php }?>
+function content_5d8edec741a2b0_22592810 (Smarty_Internal_Template $_smarty_tpl) {
+if (!$_smarty_tpl->tpl_vars['standalone']->value) {?><li><?php }?>
     <!-- post -->
     <div class="post <?php if ($_smarty_tpl->tpl_vars['boosted']->value) {?>boosted<?php }?>" data-id="<?php echo $_smarty_tpl->tpl_vars['post']->value['post_id'];?>
 ">
-        <?php if ($_smarty_tpl->tpl_vars['pinned']->value) {?>
+
+        <?php if ($_smarty_tpl->tpl_vars['standalone']->value && $_smarty_tpl->tpl_vars['pinned']->value) {?>
             <div class="pin-icon" data-toggle="tooltip" title="<?php echo __("Pinned Post");?>
 ">
                 <i class="fa fa-bookmark"></i>
             </div>
         <?php }?>
 
-        <?php if ($_smarty_tpl->tpl_vars['boosted']->value) {?>
+        <?php if ($_smarty_tpl->tpl_vars['standalone']->value && $_smarty_tpl->tpl_vars['boosted']->value) {?>
             <div class="boosted-icon" data-toggle="tooltip" title="<?php echo __("Promoted");?>
 ">
                 <i class="fa fa-bullhorn"></i>
             </div>
         <?php }?>
 
-
+        <!-- memory post -->
+        <?php if ($_smarty_tpl->tpl_vars['_get']->value == "memories") {?>
+            <div class="post-memory-header">
+                <span class="js_moment" data-time="<?php echo $_smarty_tpl->tpl_vars['post']->value['time'];?>
+"><?php echo $_smarty_tpl->tpl_vars['post']->value['time'];?>
+</span>
+            </div>
+        <?php }?>
+        <!-- memory post -->
 
         <!-- post body -->
         <div class="post-body">
-            
+
             <?php $_smarty_tpl->_subTemplateRender('file:__feeds_post.body.tpl', $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array('_post'=>$_smarty_tpl->tpl_vars['post']->value,'_shared'=>false), 0, false);
 ?>
 
@@ -86,11 +95,21 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 <!-- reactions stats -->
 
                 <!-- video views -->
+                <?php if ($_smarty_tpl->tpl_vars['post']->value['post_type'] == "video") {?>
+                    <span>
+                        <i class="fa fa-eye"></i> <?php echo $_smarty_tpl->tpl_vars['post']->value['video']['views'];?>
 
+                    </span>
+                <?php }?>
                 <!-- video views -->
 
                 <!-- audio views -->
+                <?php if ($_smarty_tpl->tpl_vars['post']->value['post_type'] == "audio") {?>
+                    <span>
+                        <i class="fa fa-eye"></i> <?php echo $_smarty_tpl->tpl_vars['post']->value['audio']['views'];?>
 
+                    </span>
+                <?php }?>
                 <!-- audio views -->
 
                 <!-- comments & shares -->
@@ -152,7 +171,7 @@ $_smarty_tpl->tpl_vars['reaction']->iteration = 0;
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['reaction']->value) {
 $_smarty_tpl->tpl_vars['reaction']->iteration++;
-$__foreach_reaction_1_saved = $_smarty_tpl->tpl_vars['reaction'];
+$__foreach_reaction_21_saved = $_smarty_tpl->tpl_vars['reaction'];
 ?>
                                 <div class="reactions_item duration-<?php echo $_smarty_tpl->tpl_vars['reaction']->iteration;?>
  js_react-post" data-reaction="<?php echo $_smarty_tpl->tpl_vars['reaction']->value['reaction'];?>
@@ -163,7 +182,7 @@ $__foreach_reaction_1_saved = $_smarty_tpl->tpl_vars['reaction'];
 ?>
                                 </div>
                             <?php
-$_smarty_tpl->tpl_vars['reaction'] = $__foreach_reaction_1_saved;
+$_smarty_tpl->tpl_vars['reaction'] = $__foreach_reaction_21_saved;
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
@@ -206,6 +225,6 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 
     </div>
     <!-- post -->
-        <?php if (!$_smarty_tpl->tpl_vars['standalone']->value) {?></li></ul><?php }
+<?php if (!$_smarty_tpl->tpl_vars['standalone']->value) {?></li><?php }
 }
 }

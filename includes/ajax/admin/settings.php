@@ -48,6 +48,8 @@ try {
 			$_POST['movies_enabled'] = (isset($_POST['movies_enabled']))? '1' : '0';
 			$_POST['games_enabled'] = (isset($_POST['games_enabled']))? '1' : '0';
 			$_POST['daytime_msg_enabled'] = (isset($_POST['daytime_msg_enabled']))? '1' : '0';
+			$_POST['pokes_enabled'] = (isset($_POST['pokes_enabled']))? '1' : '0';
+			$_POST['gifts_enabled'] = (isset($_POST['gifts_enabled']))? '1' : '0';
 			$_POST['profile_notification_enabled'] = (isset($_POST['profile_notification_enabled']))? '1' : '0';
 			$_POST['browser_notifications_enabled'] = (isset($_POST['browser_notifications_enabled']))? '1' : '0';
 			$_POST['noty_notifications_enabled'] = (isset($_POST['noty_notifications_enabled']))? '1' : '0';
@@ -65,30 +67,35 @@ try {
 						movies_enabled = %s, 
 						games_enabled = %s, 
 						daytime_msg_enabled = %s, 
+						pokes_enabled = %s, 
+						gifts_enabled = %s, 
 						profile_notification_enabled = %s, 
 						browser_notifications_enabled = %s, 
 						noty_notifications_enabled = %s, 
 						cookie_consent_enabled = %s, 
-						adblock_detector_enabled = %s ", secure($_POST['contact_enabled']), secure($_POST['directory_enabled']), secure($_POST['pages_enabled']), secure($_POST['groups_enabled']), secure($_POST['events_enabled']), secure($_POST['blogs_enabled']), secure($_POST['users_blogs_enabled']), secure($_POST['market_enabled']), secure($_POST['movies_enabled']), secure($_POST['games_enabled']), secure($_POST['daytime_msg_enabled']), secure($_POST['profile_notification_enabled']), secure($_POST['browser_notifications_enabled']), secure($_POST['noty_notifications_enabled']), secure($_POST['cookie_consent_enabled']), secure($_POST['adblock_detector_enabled']) )) or _error("SQL_ERROR_THROWEN");
+						adblock_detector_enabled = %s ", secure($_POST['contact_enabled']), secure($_POST['directory_enabled']), secure($_POST['pages_enabled']), secure($_POST['groups_enabled']), secure($_POST['events_enabled']), secure($_POST['blogs_enabled']), secure($_POST['users_blogs_enabled']), secure($_POST['market_enabled']), secure($_POST['movies_enabled']), secure($_POST['games_enabled']), secure($_POST['daytime_msg_enabled']), secure($_POST['pokes_enabled']), secure($_POST['gifts_enabled']), secure($_POST['profile_notification_enabled']), secure($_POST['browser_notifications_enabled']), secure($_POST['noty_notifications_enabled']), secure($_POST['cookie_consent_enabled']), secure($_POST['adblock_detector_enabled']) )) or _error("SQL_ERROR_THROWEN");
 			break;
 
 		case 'posts':
 			$_POST['stories_enabled'] = (isset($_POST['stories_enabled']))? '1' : '0';
+			$_POST['popular_posts_enabled'] = (isset($_POST['popular_posts_enabled']))? '1' : '0';
+			$_POST['discover_posts_enabled'] = (isset($_POST['discover_posts_enabled']))? '1' : '0';
+			$_POST['memories_enabled'] = (isset($_POST['memories_enabled']))? '1' : '0';
 			$_POST['wall_posts_enabled'] = (isset($_POST['wall_posts_enabled']))? '1' : '0';
 			$_POST['polls_enabled'] = (isset($_POST['polls_enabled']))? '1' : '0';
-			$_POST['trending_hashtags_enabled'] = (isset($_POST['trending_hashtags_enabled']))? '1' : '0';
 			$_POST['gif_enabled'] = (isset($_POST['gif_enabled']))? '1' : '0';
 			$_POST['geolocation_enabled'] = (isset($_POST['geolocation_enabled']))? '1' : '0';
 			$_POST['post_translation_enabled'] = (isset($_POST['post_translation_enabled']))? '1' : '0';
 			$_POST['social_share_enabled'] = (isset($_POST['social_share_enabled']))? '1' : '0';
 			$_POST['smart_yt_player'] = (isset($_POST['smart_yt_player']))? '1' : '0';
+			$_POST['trending_hashtags_enabled'] = (isset($_POST['trending_hashtags_enabled']))? '1' : '0';
 			$db->query(sprintf("UPDATE system_options SET 
 						stories_enabled = %s, 
+						popular_posts_enabled = %s, 
+						discover_posts_enabled = %s, 
+						memories_enabled = %s, 
 						wall_posts_enabled = %s, 
 						polls_enabled = %s, 
-						trending_hashtags_enabled = %s, 
-						trending_hashtags_interval = %s, 
-						trending_hashtags_limit = %s, 
 						gif_enabled = %s, 
 						giphy_key = %s, 
 						geolocation_enabled = %s, 
@@ -97,13 +104,22 @@ try {
 						yandex_key = %s, 
 						social_share_enabled = %s, 
 						smart_yt_player = %s, 
-						default_privacy = %s", secure($_POST['stories_enabled']), secure($_POST['wall_posts_enabled']), secure($_POST['polls_enabled']), secure($_POST['trending_hashtags_enabled']), secure($_POST['trending_hashtags_interval']), secure($_POST['trending_hashtags_limit'], 'int'), secure($_POST['gif_enabled']), secure($_POST['giphy_key']), secure($_POST['geolocation_enabled']), secure($_POST['geolocation_key']), secure($_POST['post_translation_enabled']), secure($_POST['yandex_key']), secure($_POST['social_share_enabled']), secure($_POST['smart_yt_player']), secure($_POST['default_privacy']) )) or _error("SQL_ERROR_THROWEN");
+						max_post_length = %s, 
+						max_comment_length = %s, 
+						max_posts_hour = %s, 
+						max_comments_hour = %s, 
+						default_privacy = %s, 
+						trending_hashtags_enabled = %s, 
+						trending_hashtags_interval = %s, 
+						trending_hashtags_limit = %s ", secure($_POST['stories_enabled']), secure($_POST['popular_posts_enabled']), secure($_POST['discover_posts_enabled']), secure($_POST['memories_enabled']), secure($_POST['wall_posts_enabled']), secure($_POST['polls_enabled']), secure($_POST['gif_enabled']), secure($_POST['giphy_key']), secure($_POST['geolocation_enabled']), secure($_POST['geolocation_key']), secure($_POST['post_translation_enabled']), secure($_POST['yandex_key']), secure($_POST['social_share_enabled']), secure($_POST['smart_yt_player']), secure($_POST['max_post_length'], 'int'), secure($_POST['max_comment_length'], 'int'), secure($_POST['max_posts_hour'], 'int'), secure($_POST['max_comments_hour'], 'int'), secure($_POST['default_privacy']), secure($_POST['trending_hashtags_enabled']), secure($_POST['trending_hashtags_interval']), secure($_POST['trending_hashtags_limit'], 'int') )) or _error("SQL_ERROR_THROWEN");
 			break;
 
 		case 'registration':
 			$_POST['registration_enabled'] = (isset($_POST['registration_enabled']))? '1' : '0';
 			$_POST['invitation_enabled'] = (isset($_POST['invitation_enabled']))? '1' : '0';
+			$_POST['invitation_widget_enabled'] = (isset($_POST['invitation_widget_enabled']))? '1' : '0';
 			$_POST['packages_enabled'] = (isset($_POST['packages_enabled']) || $_POST['registration_type'] == "paid")? '1' : '0';
+			$_POST['packages_wallet_payment_enabled'] = (isset($_POST['packages_wallet_payment_enabled']))? '1' : '0';
 			$_POST['activation_enabled'] = (isset($_POST['activation_enabled']))? '1' : '0';
 			$_POST['two_factor_enabled'] = (isset($_POST['two_factor_enabled']))? '1' : '0';
 			$_POST['verification_requests'] = (isset($_POST['verification_requests']))? '1' : '0';
@@ -115,7 +131,10 @@ try {
 						registration_enabled = %s, 
 						registration_type = %s, 
 						invitation_enabled = %s, 
+						invitation_widget_enabled = %s, 
+						invitation_widget_max = %s, 
 						packages_enabled = %s, 
+						packages_wallet_payment_enabled = %s, 
 						activation_enabled = %s, 
 						activation_type = %s, 
 						two_factor_enabled = %s, 
@@ -126,7 +145,8 @@ try {
 						getting_started = %s, 
 						delete_accounts_enabled = %s, 
 						download_info_enabled = %s, 
-						max_accounts = %s ", secure($_POST['registration_enabled']), secure($_POST['registration_type']), secure($_POST['invitation_enabled']), secure($_POST['packages_enabled']), secure($_POST['activation_enabled']), secure($_POST['activation_type']), secure($_POST['two_factor_enabled']), secure($_POST['two_factor_type']), secure($_POST['verification_requests']), secure($_POST['age_restriction']), secure($_POST['minimum_age']), secure($_POST['getting_started']), secure($_POST['delete_accounts_enabled']), secure($_POST['download_info_enabled']), secure($_POST['max_accounts']) )) or _error("SQL_ERROR_THROWEN");
+						max_accounts = %s, 
+						max_friends = %s", secure($_POST['registration_enabled']), secure($_POST['registration_type']), secure($_POST['invitation_enabled']), secure($_POST['invitation_widget_enabled']), secure($_POST['invitation_widget_max'], 'int'), secure($_POST['packages_enabled']), secure($_POST['packages_wallet_payment_enabled']), secure($_POST['activation_enabled']), secure($_POST['activation_type']), secure($_POST['two_factor_enabled']), secure($_POST['two_factor_type']), secure($_POST['verification_requests']), secure($_POST['age_restriction']), secure($_POST['minimum_age'], 'int'), secure($_POST['getting_started']), secure($_POST['delete_accounts_enabled']), secure($_POST['download_info_enabled']), secure($_POST['max_accounts'], 'int'), secure($_POST['max_friends'], 'int') )) or _error("SQL_ERROR_THROWEN");
 			break;
 
 		case 'social_login':
@@ -201,9 +221,20 @@ try {
 		case 'chat':
 			$_POST['chat_enabled'] = (isset($_POST['chat_enabled']))? '1' : '0';
 			$_POST['chat_status_enabled'] = (isset($_POST['chat_status_enabled']))? '1' : '0';
+			$_POST['chat_typing_enabled'] = (isset($_POST['chat_typing_enabled']))? '1' : '0';
+			$_POST['chat_seen_enabled'] = (isset($_POST['chat_seen_enabled']))? '1' : '0';
+			$_POST['video_call_enabled'] = (isset($_POST['video_call_enabled']))? '1' : '0';
+			$_POST['audio_call_enabled'] = (isset($_POST['audio_call_enabled']))? '1' : '0';
 			$db->query(sprintf("UPDATE system_options SET 
-						chat_enabled = %s, 
-						chat_status_enabled = %s ", secure($_POST['chat_enabled']), secure($_POST['chat_status_enabled']) )) or _error("SQL_ERROR_THROWEN");
+						chat_enabled = %s,
+						chat_status_enabled = %s,
+						chat_typing_enabled = %s,
+						chat_seen_enabled = %s,
+						video_call_enabled = %s,
+						audio_call_enabled = %s,
+						twilio_sid = %s,
+						twilio_apisid = %s,
+						twilio_apisecret = %s ", secure($_POST['chat_enabled']), secure($_POST['chat_status_enabled']), secure($_POST['chat_typing_enabled']), secure($_POST['chat_seen_enabled']), secure($_POST['video_call_enabled']), secure($_POST['audio_call_enabled']), secure($_POST['twilio_sid']), secure($_POST['twilio_apisid']), secure($_POST['twilio_apisecret']) )) or _error("SQL_ERROR_THROWEN");
 			break;
 
 		case 'uploads':
@@ -273,9 +304,24 @@ try {
 						stripe_live_publishable = %s", secure($_POST['creditcard_enabled']), secure($_POST['alipay_enabled']), secure($_POST['stripe_mode']), secure($_POST['stripe_test_secret']), secure($_POST['stripe_test_publishable']), secure($_POST['stripe_live_secret']), secure($_POST['stripe_live_publishable']) )) or _error("SQL_ERROR_THROWEN");
 			break;
 
-		case 'currency':
+		case 'bank':
+			$_POST['bank_transfers_enabled'] = (isset($_POST['bank_transfers_enabled']))? '1' : '0';
 			$db->query(sprintf("UPDATE system_options SET 
-						system_currency = %s", secure($_POST['system_currency']) )) or _error("SQL_ERROR_THROWEN");
+						bank_transfers_enabled = %s, 
+						bank_name = %s, 
+						bank_account_number = %s, 
+						bank_account_name = %s, 
+						bank_account_routing = %s, 
+						bank_account_country = %s, 
+						bank_transfer_note = %s", secure($_POST['bank_transfers_enabled']), secure($_POST['bank_name']), secure($_POST['bank_account_number']), secure($_POST['bank_account_name']), secure($_POST['bank_account_routing']), secure($_POST['bank_account_country']), secure($_POST['bank_transfer_note']) )) or _error("SQL_ERROR_THROWEN");
+			break;
+
+		case 'currency':
+			/* remove any default currency */
+			$db->query("UPDATE system_currencies SET system_currencies.default = '0'") or _error("SQL_ERROR_THROWEN");
+			/* set selected currency as default */
+			$db->query(sprintf("UPDATE system_currencies SET 
+						system_currencies.default = '1' WHERE currency_id = %s", secure($_POST['system_currency'], 'int') )) or _error("SQL_ERROR_THROWEN");
 			break;
 
 		case 'limits':
@@ -322,7 +368,9 @@ try {
 						points_per_currency = %s, 
 						points_per_post = %s, 
 						points_per_comment = %s, 
-						points_per_reaction = %s ", secure($_POST['points_enabled']), secure($_POST['points_money_withdraw_enabled']), secure($_POST['points_payment_method']), secure($_POST['points_min_withdrawal']), secure($_POST['points_money_transfer_enabled']), secure($_POST['points_per_currency'], 'int'), secure($_POST['points_per_post'], 'int'), secure($_POST['points_per_comment'], 'int'), secure($_POST['points_per_reaction'], 'int') )) or _error("SQL_ERROR_THROWEN");
+						points_per_reaction = %s,
+						points_limit_user = %s,
+						points_limit_pro = %s ", secure($_POST['points_enabled']), secure($_POST['points_money_withdraw_enabled']), secure($_POST['points_payment_method']), secure($_POST['points_min_withdrawal']), secure($_POST['points_money_transfer_enabled']), secure($_POST['points_per_currency'], 'int'), secure($_POST['points_per_post'], 'int'), secure($_POST['points_per_comment'], 'int'), secure($_POST['points_per_reaction'], 'int'), secure($_POST['points_limit_user'], 'int'), secure($_POST['points_limit_pro'], 'int') )) or _error("SQL_ERROR_THROWEN");
 			break;
 
 		default:

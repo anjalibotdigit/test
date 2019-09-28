@@ -19,7 +19,7 @@ if(!$user->_logged_in) {
 
 // check user activated
 if(!$system['activation_enabled'] || $user->_data['user_activated']) {
-	modal(SUCCESS, __("Activated"), __("Your account already activated!"));
+	modal("SUCCESS", __("Activated"), __("Your account already activated!"));
 }
 
 // check activation type
@@ -30,7 +30,7 @@ if($system['activation_type'] != "email") {
 // activation email reset
 try {
 	$user->activation_email_reset($_POST['email']);
-	modal(SUCCESS, __("Your email has been changed"), __("Please click on the link in that email to complete the verification process"));
+	modal("SUCCESS", __("Your email has been changed"), __("Please click on the link in that email to complete the verification process"));
 } catch (Exception $e) {
 	return_json( array('error' => true, 'message' => $e->getMessage()) );
 }

@@ -45,35 +45,25 @@ if(isset($_POST['poll_options'])) {
 }
 /* filter product */
 if(isset($_POST['product'])) {
-    $_POST['product'] = _json_decode($_POST['product']);
-    if(!is_object($_POST['product'])) {
-        _error(400);
-    }
-    /* check product name */
-    if(is_empty($_POST['product']->name)) {
-        modal("MESSAGE", __("Product Name Needed"), __("Add a name so people know what you are selling"));
-    }
-    /* check product price */
-    if(is_empty($_POST['product']->price)) {
-        modal("MESSAGE", __("Product Price Needed"), __("Please add your product price"));
-    }
-    if(!is_numeric($_POST['product']->price) || $_POST['product']->price <= 0) {
-        modal("MESSAGE", __("Product Price Needed"), __("Please add valid product price"));
-    }
-    /* check product category */
-    if(!in_array($_POST['product']->category_id, $user->get_market_categories_ids())) {
-        modal("MESSAGE", __("Product Category Needed"), __("Please add valid product category"));
-    }
-}
-if(isset($_POST['project'])) {
-    $_POST['project'] = _json_decode($_POST['project']);
-    if(!is_object($_POST['project'])) {
-        _error(400);
-    }
-    /* check product name */
-
-
-
+	$_POST['product'] = _json_decode($_POST['product']);
+	if(!is_object($_POST['product'])) {
+		_error(400);
+	}
+	/* check product name */
+	if(is_empty($_POST['product']->name)) {
+		modal("MESSAGE", __("Product Name Needed"), __("Add a name so people know what you are selling"));
+	}
+	/* check product price */
+	if(is_empty($_POST['product']->price)) {
+		modal("MESSAGE", __("Product Price Needed"), __("Please add your product price"));
+	}
+	if(!is_numeric($_POST['product']->price) || $_POST['product']->price <= 0) {
+		modal("MESSAGE", __("Product Price Needed"), __("Please add valid product price"));
+	}
+	/* check product category */
+	if(!in_array($_POST['product']->category_id, $user->get_market_categories_ids())) {
+		modal("MESSAGE", __("Product Category Needed"), __("Please add valid product category"));
+	}
 }
 /* filter link */
 if(isset($_POST['link'])) {

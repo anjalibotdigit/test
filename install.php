@@ -7,7 +7,7 @@
  */
 
 // set system version
-define('SYS_VER', '2.5.10');
+define('SYS_VER', '2.6');
 
 
 // set absolut & base path
@@ -78,7 +78,6 @@ if(isset($_POST['submit'])) {
 
     // [3] create the database
     $structure = "
-
 
 --
 -- Database: `sngine`
@@ -207,6 +206,25 @@ CREATE TABLE IF NOT EXISTS `announcements_users` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `bank_transfers`
+--
+
+DROP TABLE IF EXISTS `bank_transfers`;
+CREATE TABLE IF NOT EXISTS `bank_transfers` (
+  `transfer_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `handle` varchar(32) NOT NULL,
+  `package_id` int(10) UNSIGNED DEFAULT NULL,
+  `price` varchar(32) DEFAULT NULL,
+  `bank_receipt` varchar(255) NOT NULL,
+  `time` datetime NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`transfer_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `banned_ips`
 --
 
@@ -276,6 +294,48 @@ CREATE TABLE IF NOT EXISTS `conversations` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `conversations_calls_audio`
+--
+
+DROP TABLE IF EXISTS `conversations_calls_audio`;
+CREATE TABLE IF NOT EXISTS `conversations_calls_audio` (
+  `call_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `from_user_id` int(10) UNSIGNED NOT NULL,
+  `from_user_token` text NOT NULL,
+  `to_user_id` int(10) UNSIGNED NOT NULL,
+  `to_user_token` text NOT NULL,
+  `room` varchar(64) NOT NULL,
+  `answered` enum('0','1') NOT NULL DEFAULT '0',
+  `declined` enum('0','1') NOT NULL DEFAULT '0',
+  `created_time` datetime NOT NULL,
+  `updated_time` datetime NOT NULL,
+  PRIMARY KEY (`call_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `conversations_calls_video`
+--
+
+DROP TABLE IF EXISTS `conversations_calls_video`;
+CREATE TABLE IF NOT EXISTS `conversations_calls_video` (
+  `call_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `from_user_id` int(10) UNSIGNED NOT NULL,
+  `from_user_token` text NOT NULL,
+  `to_user_id` int(10) UNSIGNED NOT NULL,
+  `to_user_token` text NOT NULL,
+  `room` varchar(64) NOT NULL,
+  `answered` enum('0','1') NOT NULL DEFAULT '0',
+  `declined` enum('0','1') NOT NULL DEFAULT '0',
+  `created_time` datetime NOT NULL,
+  `updated_time` datetime NOT NULL,
+  PRIMARY KEY (`call_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `conversations_messages`
 --
 
@@ -302,6 +362,7 @@ CREATE TABLE IF NOT EXISTS `conversations_users` (
   `conversation_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `seen` enum('0','1') NOT NULL DEFAULT '0',
+  `typing` enum('0','1') NOT NULL DEFAULT '0',
   `deleted` enum('0','1') NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `conversation_id_user_id` (`conversation_id`,`user_id`)
@@ -727,6 +788,19 @@ CREATE TABLE IF NOT EXISTS `games_players` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `gifts`
+--
+
+DROP TABLE IF EXISTS `gifts`;
+CREATE TABLE IF NOT EXISTS `gifts` (
+  `gift_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `image` varchar(255) NOT NULL,
+  PRIMARY KEY (`gift_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `groups`
 --
 
@@ -993,6 +1067,7 @@ CREATE TABLE IF NOT EXISTS `packages` (
   `period` varchar(32) NOT NULL,
   `color` varchar(32) NOT NULL,
   `icon` varchar(255) NOT NULL,
+  `verification_badge_enabled` enum('0','1') NOT NULL DEFAULT '0',
   `boost_posts_enabled` enum('0','1') NOT NULL DEFAULT '0',
   `boost_posts` int(10) UNSIGNED NOT NULL,
   `boost_pages_enabled` enum('0','1') NOT NULL DEFAULT '0',
@@ -1275,6 +1350,7 @@ CREATE TABLE IF NOT EXISTS `posts_comments_reactions` (
   `comment_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `reaction` varchar(32) DEFAULT 'like',
+  `reaction_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `comment_id_user_id` (`comment_id`,`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
@@ -1400,6 +1476,7 @@ CREATE TABLE IF NOT EXISTS `posts_photos_reactions` (
   `photo_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `reaction` varchar(32) NOT NULL DEFAULT 'like',
+  `reaction_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id_photo_id` (`user_id`,`photo_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=FIXED;
@@ -1479,6 +1556,7 @@ CREATE TABLE IF NOT EXISTS `posts_reactions` (
   `post_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `reaction` varchar(32) NOT NULL DEFAULT 'like',
+  `reaction_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `post_id_user_id` (`post_id`,`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
@@ -1893,6 +1971,52 @@ INSERT INTO `system_countries` (`country_id`, `country_code`, `country_name`) VA
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `system_currencies`
+--
+
+DROP TABLE IF EXISTS `system_currencies`;
+CREATE TABLE IF NOT EXISTS `system_currencies` (
+  `currency_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `symbol` varchar(32) NOT NULL,
+  `default` enum('0','1') NOT NULL,
+  PRIMARY KEY (`currency_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+--
+-- Dumping data for table `system_currencies`
+--
+
+INSERT INTO `system_currencies` (`currency_id`, `name`, `code`, `symbol`, `default`) VALUES
+(1, 'Australia Dollar', 'AUD', '$', '0'),
+(2, 'Brazil Real', 'BRL', 'R$', '0'),
+(3, 'Canada Dollar', 'CAD', '$', '0'),
+(4, 'Czech Republic Koruna', 'CZK', 'Kč', '0'),
+(5, 'Denmark Krone', 'DKK', 'kr', '0'),
+(6, 'Euro', 'EUR', '&euro;', '0'),
+(7, 'Hong Kong Dollar', 'HKD', '$', '0'),
+(8, 'Hungary Forint', 'HUF', 'Ft', '0'),
+(9, 'Israel Shekel', 'ILS', '₪', '0'),
+(10, 'Japan Yen', 'JPY', '&yen;', '0'),
+(11, 'Malaysia Ringgit', 'MYR', 'RM', '0'),
+(12, 'Mexico Peso', 'MXN', '$', '0'),
+(13, 'Norway Krone', 'NOK', 'kr', '0'),
+(14, 'New Zealand Dollar', 'NZD', '$', '0'),
+(15, 'Philippines Peso', 'PHP', '₱', '0'),
+(16, 'Poland Zloty', 'PLN', 'zł', '0'),
+(17, 'United Kingdom Pound', 'GBP', '&pound;', '0'),
+(18, 'Russia Ruble', 'RUB', '₽', '0'),
+(19, 'Singapore Dollar', 'SGD', '$', '0'),
+(20, 'Sweden Krona', 'SEK', 'kr', '0'),
+(21, 'Switzerland Franc', 'CHF', 'CHF', '0'),
+(22, 'Thailand Baht', 'THB', '฿', '0'),
+(23, 'Turkey Lira', 'TRY', 'TRY', '0'),
+(24, 'United States Dollar', 'USD', '$', '1');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `system_languages`
 --
 
@@ -1956,18 +2080,20 @@ CREATE TABLE IF NOT EXISTS `system_options` (
   `movies_enabled` enum('0','1') NOT NULL DEFAULT '0',
   `games_enabled` enum('0','1') NOT NULL DEFAULT '1',
   `daytime_msg_enabled` enum('0','1') NOT NULL DEFAULT '1',
+  `pokes_enabled` enum('0','1') NOT NULL DEFAULT '1',
+  `gifts_enabled` enum('0','1') NOT NULL DEFAULT '0',
   `profile_notification_enabled` enum('0','1') NOT NULL DEFAULT '1',
   `browser_notifications_enabled` enum('0','1') NOT NULL DEFAULT '1',
   `noty_notifications_enabled` enum('0','1') NOT NULL DEFAULT '1',
   `cookie_consent_enabled` enum('0','1') NOT NULL DEFAULT '1',
   `adblock_detector_enabled` enum('0','1') NOT NULL DEFAULT '1',
   `stories_enabled` enum('0','1') NOT NULL DEFAULT '1',
+  `popular_posts_enabled` enum('0','1') NOT NULL DEFAULT '1',
+  `discover_posts_enabled` enum('0','1') NOT NULL DEFAULT '1',
+  `memories_enabled` enum('0','1') NOT NULL DEFAULT '1',
   `wall_posts_enabled` enum('0','1') NOT NULL DEFAULT '1',
   `social_share_enabled` enum('0','1') NOT NULL DEFAULT '1',
   `polls_enabled` enum('0','1') NOT NULL DEFAULT '1',
-  `trending_hashtags_enabled` enum('0','1') NOT NULL DEFAULT '1',
-  `trending_hashtags_interval` enum('day','week','month') NOT NULL DEFAULT 'week',
-  `trending_hashtags_limit` smallint(1) UNSIGNED NOT NULL DEFAULT '5',
   `gif_enabled` enum('0','1') NOT NULL DEFAULT '0',
   `giphy_key` varchar(255) DEFAULT NULL,
   `geolocation_enabled` enum('0','1') NOT NULL DEFAULT '0',
@@ -1975,11 +2101,21 @@ CREATE TABLE IF NOT EXISTS `system_options` (
   `post_translation_enabled` enum('0','1') NOT NULL DEFAULT '0',
   `yandex_key` varchar(255) DEFAULT NULL,
   `smart_yt_player` enum('0','1') NOT NULL DEFAULT '1',
+  `max_post_length` int(10) NOT NULL DEFAULT '5000',
+  `max_comment_length` int(10) NOT NULL DEFAULT '5000',
+  `max_posts_hour` int(10) NOT NULL DEFAULT '0',
+  `max_comments_hour` int(10) NOT NULL DEFAULT '0',
   `default_privacy` enum('public','friends','me') NOT NULL DEFAULT 'public',
+  `trending_hashtags_enabled` enum('0','1') NOT NULL DEFAULT '1',
+  `trending_hashtags_interval` enum('day','week','month') NOT NULL DEFAULT 'week',
+  `trending_hashtags_limit` smallint(1) UNSIGNED NOT NULL DEFAULT '5',
   `registration_enabled` enum('0','1') NOT NULL DEFAULT '1',
   `registration_type` enum('free','paid') NOT NULL DEFAULT 'free',
   `invitation_enabled` enum('0','1') NOT NULL DEFAULT '0',
+  `invitation_widget_enabled` enum('0','1') NOT NULL DEFAULT '1',
+  `invitation_widget_max` int(10) NOT NULL DEFAULT '5',
   `packages_enabled` enum('0','1') NOT NULL DEFAULT '0',
+  `packages_wallet_payment_enabled` enum('0','1') NOT NULL DEFAULT '0',
   `activation_enabled` enum('0','1') NOT NULL DEFAULT '1',
   `activation_type` enum('email','sms') NOT NULL DEFAULT 'email',
   `two_factor_enabled` enum('0','1') NOT NULL DEFAULT '0',
@@ -1991,6 +2127,7 @@ CREATE TABLE IF NOT EXISTS `system_options` (
   `delete_accounts_enabled` enum('0','1') NOT NULL DEFAULT '1',
   `download_info_enabled` enum('0','1') NOT NULL DEFAULT '1',
   `max_accounts` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `max_friends` int(10) UNSIGNED NOT NULL DEFAULT '5000',
   `social_login_enabled` enum('0','1') NOT NULL DEFAULT '0',
   `facebook_login_enabled` enum('0','1') NOT NULL DEFAULT '0',
   `facebook_appid` varchar(255) DEFAULT NULL,
@@ -2026,9 +2163,15 @@ CREATE TABLE IF NOT EXISTS `system_options` (
   `twilio_sid` varchar(255) DEFAULT NULL,
   `twilio_token` varchar(255) DEFAULT NULL,
   `twilio_phone` varchar(255) DEFAULT NULL,
+  `twilio_apisid` varchar(255) DEFAULT NULL,
+  `twilio_apisecret` varchar(255) DEFAULT NULL,
   `system_phone` varchar(255) DEFAULT NULL,
   `chat_enabled` enum('0','1') NOT NULL DEFAULT '1',
   `chat_status_enabled` enum('0','1') NOT NULL DEFAULT '1',
+  `chat_typing_enabled` enum('0','1') NOT NULL DEFAULT '1',
+  `chat_seen_enabled` enum('0','1') NOT NULL DEFAULT '1',
+  `video_call_enabled` enum('0','1') NOT NULL DEFAULT '0',
+  `audio_call_enabled` enum('0','1') NOT NULL DEFAULT '0',
   `s3_enabled` enum('0','1') NOT NULL DEFAULT '0',
   `s3_bucket` varchar(255) DEFAULT NULL,
   `s3_region` varchar(255) DEFAULT NULL,
@@ -2067,7 +2210,13 @@ CREATE TABLE IF NOT EXISTS `system_options` (
   `stripe_test_publishable` varchar(255) DEFAULT NULL,
   `stripe_live_secret` varchar(255) DEFAULT NULL,
   `stripe_live_publishable` varchar(255) DEFAULT NULL,
-  `system_currency` varchar(64) DEFAULT 'USD',
+  `bank_transfers_enabled` enum('0','1') NOT NULL DEFAULT '0',
+  `bank_name` varchar(255) DEFAULT NULL,
+  `bank_account_number` varchar(255) DEFAULT NULL,
+  `bank_account_name` varchar(255) DEFAULT NULL,
+  `bank_account_routing` varchar(255) DEFAULT NULL,
+  `bank_account_country` varchar(255) DEFAULT NULL,
+  `bank_transfer_note` text,
   `data_heartbeat` int(10) UNSIGNED NOT NULL DEFAULT '5',
   `chat_heartbeat` int(10) UNSIGNED NOT NULL DEFAULT '5',
   `offline_time` int(10) UNSIGNED NOT NULL DEFAULT '10',
@@ -2079,6 +2228,8 @@ CREATE TABLE IF NOT EXISTS `system_options` (
   `system_theme_night_on` enum('0','1') NOT NULL DEFAULT '0',
   `system_theme_mode_select` enum('0','1') NOT NULL DEFAULT '1',
   `system_logo` varchar(255) DEFAULT NULL,
+  `system_wallpaper_default` enum('0','1') NOT NULL DEFAULT '1',
+  `system_wallpaper` varchar(255) DEFAULT NULL,
   `system_favicon_default` enum('0','1') NOT NULL DEFAULT '1',
   `system_favicon` varchar(255) DEFAULT NULL,
   `system_ogimage_default` enum('0','1') NOT NULL DEFAULT '1',
@@ -2112,6 +2263,8 @@ CREATE TABLE IF NOT EXISTS `system_options` (
   `points_per_post` int(10) UNSIGNED NOT NULL DEFAULT '20',
   `points_per_comment` int(10) UNSIGNED NOT NULL DEFAULT '10',
   `points_per_reaction` int(10) UNSIGNED NOT NULL DEFAULT '5',
+  `points_limit_user` int(10) UNSIGNED NOT NULL DEFAULT '1000',
+  `points_limit_pro` int(10) UNSIGNED NOT NULL DEFAULT '2000',
   `ads_enabled` enum('0','1') NOT NULL DEFAULT '0',
   `ads_cost_click` varchar(32) NOT NULL DEFAULT '0.05',
   `ads_cost_view` varchar(32) NOT NULL DEFAULT '0.01',
@@ -2131,8 +2284,8 @@ CREATE TABLE IF NOT EXISTS `system_options` (
 -- Dumping data for table `system_options`
 --
 
-INSERT INTO `system_options` (`id`, `system_public`, `system_live`, `system_message`, `system_title`, `system_description`, `system_keywords`, `system_email`, `system_datetime_format`, `contact_enabled`, `directory_enabled`, `pages_enabled`, `groups_enabled`, `events_enabled`, `blogs_enabled`, `users_blogs_enabled`, `market_enabled`, `movies_enabled`, `games_enabled`, `daytime_msg_enabled`, `profile_notification_enabled`, `browser_notifications_enabled`, `noty_notifications_enabled`, `cookie_consent_enabled`, `adblock_detector_enabled`, `stories_enabled`, `wall_posts_enabled`, `social_share_enabled`, `polls_enabled`, `trending_hashtags_enabled`, `trending_hashtags_interval`, `trending_hashtags_limit`, `gif_enabled`, `giphy_key`, `geolocation_enabled`, `geolocation_key`, `post_translation_enabled`, `yandex_key`, `smart_yt_player`, `default_privacy`, `registration_enabled`, `registration_type`, `invitation_enabled`, `packages_enabled`, `activation_enabled`, `activation_type`, `two_factor_enabled`, `two_factor_type`, `verification_requests`, `age_restriction`, `minimum_age`, `getting_started`, `delete_accounts_enabled`, `download_info_enabled`, `max_accounts`, `social_login_enabled`, `facebook_login_enabled`, `facebook_appid`, `facebook_secret`, `twitter_login_enabled`, `twitter_appid`, `twitter_secret`, `instagram_login_enabled`, `instagram_appid`, `instagram_secret`, `linkedin_login_enabled`, `linkedin_appid`, `linkedin_secret`, `vkontakte_login_enabled`, `vkontakte_appid`, `vkontakte_secret`, `email_smtp_enabled`, `email_smtp_authentication`, `email_smtp_ssl`, `email_smtp_server`, `email_smtp_port`, `email_smtp_username`, `email_smtp_password`, `email_smtp_setfrom`, `email_notifications`, `email_post_likes`, `email_post_comments`, `email_post_shares`, `email_wall_posts`, `email_mentions`, `email_profile_visits`, `email_friend_requests`, `twilio_sid`, `twilio_token`, `twilio_phone`, `system_phone`, `chat_enabled`, `chat_status_enabled`, `s3_enabled`, `s3_bucket`, `s3_region`, `s3_key`, `s3_secret`, `uploads_directory`, `uploads_prefix`, `max_avatar_size`, `max_cover_size`, `photos_enabled`, `max_photo_size`, `uploads_quality`, `videos_enabled`, `max_video_size`, `video_extensions`, `audio_enabled`, `max_audio_size`, `audio_extensions`, `file_enabled`, `max_file_size`, `file_extensions`, `censored_words_enabled`, `censored_words`, `reCAPTCHA_enabled`, `reCAPTCHA_site_key`, `reCAPTCHA_secret_key`, `session_hash`, `paypal_enabled`, `paypal_mode`, `paypal_id`, `paypal_secret`, `creditcard_enabled`, `alipay_enabled`, `stripe_mode`, `stripe_test_secret`, `stripe_test_publishable`, `stripe_live_secret`, `stripe_live_publishable`, `system_currency`, `data_heartbeat`, `chat_heartbeat`, `offline_time`, `min_results`, `max_results`, `min_results_even`, `max_results_even`, `analytics_code`, `system_theme_night_on`, `system_theme_mode_select`, `system_logo`, `system_favicon_default`, `system_favicon`, `system_ogimage_default`, `system_ogimage`, `css_customized`, `css_background`, `css_link_color`, `css_header`, `css_header_search`, `css_header_search_color`, `css_btn_primary`, `css_custome_css`, `custome_js_header`, `custome_js_footer`, `forums_enabled`, `forums_online_enabled`, `forums_statistics_enabled`, `affiliates_enabled`, `affiliate_type`, `affiliate_payment_method`, `affiliates_min_withdrawal`, `affiliate_payment_type`, `affiliates_per_user`, `affiliates_percentage`, `points_enabled`, `points_money_withdraw_enabled`, `points_payment_method`, `points_min_withdrawal`, `points_money_transfer_enabled`, `points_per_currency`, `points_per_post`, `points_per_comment`, `points_per_reaction`, `ads_enabled`, `ads_cost_click`, `ads_cost_view`, `auto_friend`, `auto_friend_users`, `auto_follow`, `auto_follow_users`, `auto_like`, `auto_like_pages`, `auto_join`, `auto_join_groups`, `last_backup_time`) VALUES
-(1, '1', '1', '', 'Sngine', '', '', NULL, 'd/m/Y H:i', '1', '1', '1', '1', '1', '1', '1', '1', '0', '0', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', 'week', 5, '0', NULL, '0', NULL, '0', NULL, '1', 'public', '1', 'free', '0', '0', '1', 'email', '1', 'google', '1', '0', 13, '1', '1', '1', 0, '0', '0', NULL, NULL, '0', NULL, NULL, '0', NULL, NULL, '0', NULL, NULL, '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, '1', '1', '0', NULL, NULL, NULL, NULL, 'content/uploads', 'sngine', 5120, 5120, '1', 5120, 'medium', '1', 5120, 'mp4, mov', '1', 5120, 'mp3, wav', '1', 5120, 'txt, zip', '1', 'pussy,fuck,shit,asshole,dick,tits,boobs', '0', NULL, NULL, '', '0', 'sandbox', NULL, NULL, '0', '0', 'test', NULL, NULL, NULL, NULL, 'USD', 5, 5, 10, 5, 10, 6, 12, '', '0', '1', NULL, '1', NULL, '1', NULL, '0', NULL, NULL, NULL, NULL, NULL, NULL, '/* \r\n\r\nAdd here your custom css styles \r\nExample:\r\np { text-align: center; color: red; }\r\n\r\n*/', '/* \r\nYou can add your JavaScript code here\r\n\r\nExample:\r\n\r\nvar x, y, z;\r\nx = 1;\r\ny = 2;\r\nz = x + y;\r\n*/', '/* \r\nYou can add your JavaScript code here\r\n\r\nExample:\r\n\r\nvar x, y, z;\r\nx = 1;\r\ny = 2;\r\nz = x + y;\r\n*/', '0', '1', '1', '0', 'packages', 'both', 50, 'percentage', '0.10', '1', '0', '1', 'both', 50, '1', 100, 20, 10, 5, '1', '0.05', '0.01', '0', '', '0', '', '0', '', '0', '', NULL);
+INSERT INTO `system_options` (`id`, `system_public`, `system_live`, `system_message`, `system_title`, `system_description`, `system_keywords`, `system_email`, `system_datetime_format`, `contact_enabled`, `directory_enabled`, `pages_enabled`, `groups_enabled`, `events_enabled`, `blogs_enabled`, `users_blogs_enabled`, `market_enabled`, `movies_enabled`, `games_enabled`, `daytime_msg_enabled`, `pokes_enabled`, `gifts_enabled`, `profile_notification_enabled`, `browser_notifications_enabled`, `noty_notifications_enabled`, `cookie_consent_enabled`, `adblock_detector_enabled`, `stories_enabled`, `popular_posts_enabled`, `discover_posts_enabled`, `memories_enabled`, `wall_posts_enabled`, `social_share_enabled`, `polls_enabled`, `gif_enabled`, `giphy_key`, `geolocation_enabled`, `geolocation_key`, `post_translation_enabled`, `yandex_key`, `smart_yt_player`, `max_post_length`, `max_comment_length`, `max_posts_hour`, `max_comments_hour`, `default_privacy`, `trending_hashtags_enabled`, `trending_hashtags_interval`, `trending_hashtags_limit`, `registration_enabled`, `registration_type`, `invitation_enabled`, `invitation_widget_enabled`, `invitation_widget_max`, `packages_enabled`, `packages_wallet_payment_enabled`, `activation_enabled`, `activation_type`, `two_factor_enabled`, `two_factor_type`, `verification_requests`, `age_restriction`, `minimum_age`, `getting_started`, `delete_accounts_enabled`, `download_info_enabled`, `max_accounts`, `max_friends`, `social_login_enabled`, `facebook_login_enabled`, `facebook_appid`, `facebook_secret`, `twitter_login_enabled`, `twitter_appid`, `twitter_secret`, `instagram_login_enabled`, `instagram_appid`, `instagram_secret`, `linkedin_login_enabled`, `linkedin_appid`, `linkedin_secret`, `vkontakte_login_enabled`, `vkontakte_appid`, `vkontakte_secret`, `email_smtp_enabled`, `email_smtp_authentication`, `email_smtp_ssl`, `email_smtp_server`, `email_smtp_port`, `email_smtp_username`, `email_smtp_password`, `email_smtp_setfrom`, `email_notifications`, `email_post_likes`, `email_post_comments`, `email_post_shares`, `email_wall_posts`, `email_mentions`, `email_profile_visits`, `email_friend_requests`, `twilio_sid`, `twilio_token`, `twilio_phone`, `twilio_apisid`, `twilio_apisecret`, `system_phone`, `chat_enabled`, `chat_status_enabled`, `chat_typing_enabled`, `chat_seen_enabled`, `video_call_enabled`, `audio_call_enabled`, `s3_enabled`, `s3_bucket`, `s3_region`, `s3_key`, `s3_secret`, `uploads_directory`, `uploads_prefix`, `max_avatar_size`, `max_cover_size`, `photos_enabled`, `max_photo_size`, `uploads_quality`, `videos_enabled`, `max_video_size`, `video_extensions`, `audio_enabled`, `max_audio_size`, `audio_extensions`, `file_enabled`, `max_file_size`, `file_extensions`, `censored_words_enabled`, `censored_words`, `reCAPTCHA_enabled`, `reCAPTCHA_site_key`, `reCAPTCHA_secret_key`, `session_hash`, `paypal_enabled`, `paypal_mode`, `paypal_id`, `paypal_secret`, `creditcard_enabled`, `alipay_enabled`, `stripe_mode`, `stripe_test_secret`, `stripe_test_publishable`, `stripe_live_secret`, `stripe_live_publishable`, `bank_transfers_enabled`, `bank_name`, `bank_account_number`, `bank_account_name`, `bank_account_routing`, `bank_account_country`, `bank_transfer_note`, `data_heartbeat`, `chat_heartbeat`, `offline_time`, `min_results`, `max_results`, `min_results_even`, `max_results_even`, `analytics_code`, `system_theme_night_on`, `system_theme_mode_select`, `system_logo`, `system_wallpaper_default`, `system_wallpaper`, `system_favicon_default`, `system_favicon`, `system_ogimage_default`, `system_ogimage`, `css_customized`, `css_background`, `css_link_color`, `css_header`, `css_header_search`, `css_header_search_color`, `css_btn_primary`, `css_custome_css`, `custome_js_header`, `custome_js_footer`, `forums_enabled`, `forums_online_enabled`, `forums_statistics_enabled`, `affiliates_enabled`, `affiliate_type`, `affiliate_payment_method`, `affiliates_min_withdrawal`, `affiliate_payment_type`, `affiliates_per_user`, `affiliates_percentage`, `points_enabled`, `points_money_withdraw_enabled`, `points_payment_method`, `points_min_withdrawal`, `points_money_transfer_enabled`, `points_per_currency`, `points_per_post`, `points_per_comment`, `points_per_reaction`, `points_limit_user`, `points_limit_pro`, `ads_enabled`, `ads_cost_click`, `ads_cost_view`, `auto_friend`, `auto_friend_users`, `auto_follow`, `auto_follow_users`, `auto_like`, `auto_like_pages`, `auto_join`, `auto_join_groups`, `last_backup_time`) VALUES
+(1, '1', '1', '', 'Sngine', '', '', NULL, 'd/m/Y H:i', '1', '1', '1', '1', '1', '1', '1', '1', '0', '0', '1', '1', '0', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '0', NULL, '0', NULL, '0', NULL, '1', 5000, 5000, 0, 0, 'public', '1', 'week', 5, '1', 'free', '0', '1', 5, '0', '0', '1', 'email', '0', 'google', '1', '0', 13, '1', '1', '1', 0, 5000, '0', '0', NULL, NULL, '0', NULL, NULL, '0', NULL, NULL, '0', NULL, NULL, '0', NULL, NULL, '0', '0', '0', NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', '0', '0', '0', NULL, NULL, NULL, NULL, NULL, NULL, '1', '1', '1', '1', '0', '0', '0', NULL, NULL, NULL, NULL, 'content/uploads', 'sngine', 5120, 5120, '1', 5120, 'medium', '1', 5120, 'mp4, webm, ogg', '1', 5120, 'mp3, wav, ogg', '1', 5120, 'txt, zip', '1', 'pussy,fuck,shit,asshole,dick,tits,boobs', '0', NULL, NULL, '', '0', 'sandbox', NULL, NULL, '0', '0', 'test', NULL, NULL, NULL, NULL, '0', NULL, NULL, NULL, NULL, NULL, 'In order to confirm the bank transfer, you will need to upload a receipt or take a screenshot of your transfer within 1 day from your payment date. If a bank transfer is made but no receipt is uploaded within this period, your order will be cancelled. We will verify and confirm your receipt within 3 working days from the date you upload it.', 5, 5, 10, 5, 10, 6, 12, '', '0', '1', NULL, '1', NULL, '1', NULL, '1', NULL, '0', NULL, NULL, NULL, NULL, NULL, NULL, '/* \r\n\r\nAdd here your custom css styles \r\nExample:\r\np { text-align: center; color: red; }\r\n\r\n*/', '/* \r\nYou can add your JavaScript code here\r\n\r\nExample:\r\n\r\nvar x, y, z;\r\nx = 1;\r\ny = 2;\r\nz = x + y;\r\n*/', '/* \r\nYou can add your JavaScript code here\r\n\r\nExample:\r\n\r\nvar x, y, z;\r\nx = 1;\r\ny = 2;\r\nz = x + y;\r\n*/', '0', '1', '1', '0', 'registration', 'both', 50, 'fixed', '0.10', '1', '0', '1', 'both', 50, '1', 100, 20, 10, 5, 1000, 2000, '0', '0.05', '0.01', '0', '', '0', '', '0', '', '0', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -2233,6 +2386,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_social_linkedin` varchar(255) DEFAULT NULL,
   `user_social_vkontakte` varchar(255) DEFAULT NULL,
   `user_chat_enabled` enum('0','1') NOT NULL DEFAULT '1',
+  `user_privacy_newsletter` enum('0','1') NOT NULL DEFAULT '1',
+  `user_privacy_poke` enum('me','friends','public') NOT NULL DEFAULT 'public',
+  `user_privacy_gifts` enum('me','friends','public') NOT NULL DEFAULT 'public',
   `user_privacy_wall` enum('me','friends','public') NOT NULL DEFAULT 'friends',
   `user_privacy_birthdate` enum('me','friends','public') NOT NULL DEFAULT 'public',
   `user_privacy_relationship` enum('me','friends','public') NOT NULL DEFAULT 'public',
@@ -2246,7 +2402,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_privacy_pages` enum('me','friends','public') NOT NULL DEFAULT 'public',
   `user_privacy_groups` enum('me','friends','public') NOT NULL DEFAULT 'public',
   `user_privacy_events` enum('me','friends','public') NOT NULL DEFAULT 'public',
-  `user_privacy_newsletter` enum('0','1') NOT NULL DEFAULT '1',
   `email_post_likes` enum('0','1') NOT NULL DEFAULT '1',
   `email_post_comments` enum('0','1') NOT NULL DEFAULT '1',
   `email_post_shares` enum('0','1') NOT NULL DEFAULT '1',
@@ -2294,6 +2449,52 @@ CREATE TABLE IF NOT EXISTS `users_blocks` (
   `blocked_id` int(10) UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id_blocked_id` (`user_id`,`blocked_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=FIXED;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_gifts`
+--
+
+DROP TABLE IF EXISTS `users_gifts`;
+CREATE TABLE IF NOT EXISTS `users_gifts` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `from_user_id` int(10) UNSIGNED NOT NULL,
+  `to_user_id` int(10) UNSIGNED NOT NULL,
+  `gift_id` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=FIXED;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_invitations`
+--
+
+DROP TABLE IF EXISTS `users_invitations`;
+CREATE TABLE IF NOT EXISTS `users_invitations` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `email` varchar(64) NOT NULL,
+  `invitation_date` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id_email` (`user_id`,`email`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=FIXED;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_pokes`
+--
+
+DROP TABLE IF EXISTS `users_pokes`;
+CREATE TABLE IF NOT EXISTS `users_pokes` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `poked_id` int(10) UNSIGNED NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id_blocked_id` (`user_id`,`poked_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=FIXED;
 
 -- --------------------------------------------------------

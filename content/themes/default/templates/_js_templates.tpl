@@ -1,202 +1,305 @@
 {strip}
-    <!-- Modals -->
-    <div id="modal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="loader pt10 pb10"></div>
+<!-- Modals -->
+<div id="modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="loader pt10 pb10"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="modal-login" type="text/template">
+    <div class="modal-header">
+        <h6 class="modal-title">{__("Not Logged In")}</h6>
+    </div>
+    <div class="modal-body">
+        <p>{__("Please log in to continue")}</p>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-primary" href="{$system['system_url']}/signin">{__("Login")}</a>
+    </div>
+</script>
+
+<script id="modal-message" type="text/template">
+    <div class="modal-header">
+        <h6 class="modal-title">{literal}{{title}}{/literal}</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>{literal}{{message}}{/literal}</p>
+    </div>
+</script>
+
+<script id="modal-success" type="text/template">
+    <div class="modal-body text-center">
+        <div class="big-icon success">
+            <i class="fa fa-thumbs-up fa-3x"></i>
+        </div>
+        <h4>{literal}{{title}}{/literal}</h4>
+        <p class="mt20">{literal}{{message}}{/literal}</p>
+    </div>
+</script>
+
+<script id="modal-error" type="text/template">
+    <div class="modal-body text-center">
+        <div class="big-icon error">
+            <i class="fa fa-times fa-3x"></i>
+        </div>
+        <h4>{literal}{{title}}{/literal}</h4>
+        <p class="mt20">{literal}{{message}}{/literal}</p>
+    </div>
+</script>
+
+<script id="modal-confirm" type="text/template">
+    <div class="modal-header">
+        <h6 class="modal-title">{literal}{{title}}{/literal}</h6>
+    </div>
+    <div class="modal-body">
+        <p>{literal}{{message}}{/literal}</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-dismiss="modal">{__("Cancel")}</button>
+        <button type="button" class="btn btn-primary" id="modal-confirm-ok">{__("Confirm")}</button>
+    </div>
+</script>
+
+
+<script id="modal-loading" type="text/template">
+    <div class="modal-body text-center">
+        <div class="spinner-border text-primary"></div>
+    </div>
+</script>
+<!-- Modals -->
+
+
+<!-- Translator -->
+<script id="translator" type="text/template">
+    <div class="modal-header">
+        <h6 class="modal-title">{__("Select Your Language")}</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <ul>
+            {foreach $system['languages'] as $language}
+                <li style="width: 18.7%; display: inline-block; text-align: center; margin: 30px 2px 5px;">
+                    <a style="display: table; text-decoration: none; font-weight: 700; font-size: 13px; width: 100%;" href="?lang={$language['code']}">
+                        {$language['title']}
+                        <div style="display: table-caption; width: 50px; height: 50px; background: 0 0; margin: 0 auto 8px; box-shadow: 0 1px 3px rgba(0,0,0,.24); border-radius: 50%; transition: all .2s ease-in-out;">
+                            <img width="50" src="{$language['flag']}">
+                        </div>
+                    </a>
+                </li>
+            {/foreach}
+        </ul>
+    </div>
+</script>
+<!-- Translator -->
+
+
+<!-- Search -->
+<script id="search-for" type="text/template">
+    <div class="ptb10 plr10">
+        <a href="{$system['system_url']}/search/{literal}{{#hashtag}}hashtag/{{/hashtag}}{/literal}{literal}{{query}}{/literal}">
+            <i class="fa fa-search pr5"></i> {__("Search for")} {literal}{{#hashtag}}#{{/hashtag}}{/literal}{literal}{{query}}{/literal}
+        </a>
+    </div>
+</script>
+<!-- Search -->
+
+
+<!-- Lightbox -->
+<script id="lightbox" type="text/template">
+    <div class="lightbox">
+        <div class="container lightbox-container">
+            <div class="lightbox-preview">
+                <div class="lightbox-next js_lightbox-slider">
+                    <i class="fa fa-chevron-right fa-3x"></i>
+                </div>
+                <div class="lightbox-prev js_lightbox-slider">
+                    <i class="fa fa-chevron-left fa-3x"></i>
+                </div>
+                <img alt="" class="img-fluid" src="{literal}{{image}}{/literal}">
+            </div>
+            <div class="lightbox-data">
+                <div class="clearfix">
+                    <div class="pt5 pr5 float-right">
+                        <button type="button" class="close lightbox-close js_lightbox-close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="lightbox-post">
+                    <div class="js_scroller" data-slimScroll-height="100%">
+                        <div class="loader mtb10"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</script>
 
-    <script id="modal-login" type="text/template">
-        <div class="modal-header">
-            <h6 class="modal-title">{__("Not Logged In")}</h6>
+<script id="lightbox-nodata" type="text/template">
+    <div class="lightbox">
+        <div class="container lightbox-container">
+            <div class="lightbox-preview nodata">
+                <img alt="" class="img-fluid" src="{literal}{{image}}{/literal}">
+            </div>
         </div>
-        <div class="modal-body">
-            <p>{__("Please log in to continue")}</p>
-        </div>
-        <div class="modal-footer">
-            <a class="btn btn-primary" href="{$system['system_url']}/signin">{__("Login")}</a>
-        </div>
-    </script>
+    </div>
+</script>
+<!-- Lightbox -->
 
-    <script id="modal-message" type="text/template">
+
+<!-- Payments -->
+<script id="payment" type="text/template">
+    <div class="modal-header">
+        <h6 class="modal-title">{__("Select Your Payment Method")}</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center">
+        {if $system['paypal_enabled']}
+            <button class="js_payment-paypal btn btn-payment mr10 mb10" 
+            data-handle="{literal}{{handle}}{/literal}" 
+            {literal}{{#id}}{/literal} data-id="{literal}{{id}}{/literal}" {literal}{{/id}}{/literal} 
+            {literal}{{#price}}{/literal} data-price="{literal}{{price}}{/literal}" {literal}{{/price}}{/literal} 
+            {literal}{{#name}}{/literal} data-name="{literal}{{name}}{/literal}" {literal}{{/name}}{/literal} 
+            {literal}{{#img}}{/literal} data-img="{literal}{{img}}{/literal}" {literal}{{/img}}{/literal} 
+            >
+                <i class="fab fa-paypal fa-lg fa-fw mr5" style="color: #00186A;"></i>{__("Paypal")}
+            </button>
+        {/if}
+        {if $system['creditcard_enabled']}
+            <button class="js_payment-stripe btn btn-payment mr10 mb10" 
+            data-handle="{literal}{{handle}}{/literal}" 
+            {literal}{{#id}}{/literal} data-id="{literal}{{id}}{/literal}" {literal}{{/id}}{/literal} 
+            {literal}{{#price}}{/literal} data-price="{literal}{{price}}{/literal}" {literal}{{/price}}{/literal} 
+            {literal}{{#name}}{/literal} data-name="{literal}{{name}}{/literal}" {literal}{{/name}}{/literal} 
+            {literal}{{#img}}{/literal} data-img="{literal}{{img}}{/literal}" {literal}{{/img}}{/literal} 
+            data-method="credit"> 
+                <i class="fa fa-credit-card fa-lg fa-fw mr5" style="color: #8798CC;"></i>{__("Credit Card")}
+            </button>
+        {/if}
+        {if $system['alipay_enabled']}
+            <button class="js_payment-stripe btn btn-payment mr10 mb10" 
+            data-handle="{literal}{{handle}}{/literal}" 
+            {literal}{{#id}}{/literal} data-id="{literal}{{id}}{/literal}" {literal}{{/id}}{/literal} 
+            {literal}{{#price}}{/literal} data-price="{literal}{{price}}{/literal}" {literal}{{/price}}{/literal} 
+            {literal}{{#name}}{/literal} data-name="{literal}{{name}}{/literal}" {literal}{{/name}}{/literal} 
+            {literal}{{#img}}{/literal} data-img="{literal}{{img}}{/literal}" {literal}{{/img}}{/literal} 
+            data-method="alipay">
+                <i class="fab fa-alipay fa-lg fa-fw mr5" style="color: #5B9EDD;"></i>{__("Alipay")}
+            </button>
+        {/if}
+        {if $system['bank_transfers_enabled']}
+            <button class="btn btn-payment mr10 mb10" data-toggle="modal" data-url="#bank-transfer" data-options='{literal}{{/literal} "handle": "{literal}{{handle}}{/literal}", "price": "{literal}{{price}}{/literal}", "id": "{literal}{{id}}{/literal}" {literal}}{/literal}' data-size="large">
+                <i class="fa fa-university fa-lg fa-fw mr5" style="color: #4CAF50;"></i>{__("Bank Transfer")}
+            </button>
+        {/if}
+        {if $page == "packages" && $system['ads_enabled'] &&  $system['packages_wallet_payment_enabled']}
+            <button class="js_payment-wallet-package btn btn-payment mb10" data-id="{literal}{{id}}{/literal}">
+                <i class="fa fa-wallet fa-lg fa-fw mr5" style="color: #007bff;"></i>{__("Wallet Credit")}
+            </button>
+        {/if}
+    </div>
+</script>
+
+{if $system['bank_transfers_enabled']}
+    <script id="bank-transfer" type="text/template">
         <div class="modal-header">
-            <h6 class="modal-title">{literal}{{title}}{/literal}</h6>
+            <h6 class="modal-title"><i class="fa fa-university mr5"></i>{__("Bank Transfer")}</h6>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body">
-            <p>{literal}{{message}}{/literal}</p>
-        </div>
-    </script>
-
-    <script id="modal-success" type="text/template">
-        <div class="modal-body text-center">
-            <div class="big-icon success">
-                <i class="fa fa-thumbs-up fa-3x"></i>
-            </div>
-            <h4>{literal}{{title}}{/literal}</h4>
-            <p class="mt20">{literal}{{message}}{/literal}</p>
-        </div>
-    </script>
-
-    <script id="modal-error" type="text/template">
-        <div class="modal-body text-center">
-            <div class="big-icon error">
-                <i class="fa fa-times fa-3x"></i>
-            </div>
-            <h4>{literal}{{title}}{/literal}</h4>
-            <p class="mt20">{literal}{{message}}{/literal}</p>
-        </div>
-    </script>
-
-    <script id="modal-confirm" type="text/template">
-        <div class="modal-header">
-            <h6 class="modal-title">{literal}{{title}}{/literal}</h6>
-        </div>
-        <div class="modal-body">
-            <p>{literal}{{message}}{/literal}</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-dismiss="modal">{__("Cancel")}</button>
-            <button type="button" class="btn btn-primary" id="modal-confirm-ok">{__("Confirm")}</button>
-        </div>
-    </script>
-    <!-- Modals -->
-
-
-    <!-- Translator -->
-    <script id="translator" type="text/template">
-        <div class="modal-header">
-            <h6 class="modal-title">{__("Select Your Language")}</h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <ul>
-                {foreach $system['languages'] as $language}
-                    <li style="width: 18.7%; display: inline-block; text-align: center; margin: 30px 2px 5px;">
-                        <a style="display: table; text-decoration: none; font-weight: 700; font-size: 13px; width: 100%;" href="?lang={$language['code']}">
-                            {$language['title']}
-                            <div style="display: table-caption; width: 50px; height: 50px; background: 0 0; margin: 0 auto 8px; box-shadow: 0 1px 3px rgba(0,0,0,.24); border-radius: 50%; transition: all .2s ease-in-out;">
-                                <img width="50" src="{$language['flag']}">
+        <form class="js_ajax-forms " data-url="payments/bank.php">
+            <div class="modal-body">
+                <div class="page-header rounded bank-transfer mb30">
+                    <div class="circle-1"></div>
+                    <div class="circle-2"></div>
+                    <div class="inner text-left">
+                        <h2 class="mb20"><i class="fa fa-university mr5"></i>{$system['bank_name']}</h2>
+                        <div class="mb10">
+                            <div class="bank-info-meta">{$system['bank_account_number']}</div>
+                            <span class="bank-info-help">{__("Account Number / IBAN")}</span>
+                        </div>
+                        <div class="mb10">
+                            <div class="bank-info-meta">{$system['bank_account_name']}</div>
+                            <span class="bank-info-help">{__("Account Name")}</span>
+                        </div>
+                        <div class="row mb10">
+                            <div class="col-md-6">
+                                <div class="bank-info-meta">{$system['bank_account_routing']}</div>
+                                <span class="bank-info-help">{__("Routing Code")}</span>
                             </div>
-                        </a>
-                    </li>
-                {/foreach}
-            </ul>
-        </div>
-    </script>
-    <!-- Translator -->
-
-
-    <!-- Search -->
-    <script id="search-for" type="text/template">
-        <div class="ptb10 plr10">
-            <a href="{$system['system_url']}/search/{literal}{{#hashtag}}hashtag/{{/hashtag}}{/literal}{literal}{{query}}{/literal}">
-                <i class="fa fa-search pr5"></i> {__("Search for")} {literal}{{#hashtag}}#{{/hashtag}}{/literal}{literal}{{query}}{/literal}
-            </a>
-        </div>
-    </script>
-    <!-- Search -->
-
-
-    <!-- Lightbox -->
-    <script id="lightbox" type="text/template">
-        <div class="lightbox">
-            <div class="container lightbox-container">
-                <div class="lightbox-preview">
-                    <div class="lightbox-next js_lightbox-slider">
-                        <i class="fa fa-chevron-right fa-3x"></i>
+                            <div class="col-md-6">
+                                <div class="bank-info-meta">{$system['bank_account_country']}</div>
+                                <span class="bank-info-help">{__("Country")}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="lightbox-prev js_lightbox-slider">
-                        <i class="fa fa-chevron-left fa-3x"></i>
-                    </div>
-                    <img alt="" class="img-fluid" src="{literal}{{image}}{/literal}">
                 </div>
-                <div class="lightbox-data">
-                    <div class="clearfix">
-                        <div class="pt5 pr5 float-right">
-                            <button type="button" class="close lightbox-close js_lightbox-close">
-                                <span aria-hidden="true">&times;</span>
+                <div class="alert alert-warning">
+                    <div class="icon">
+                        <i class="fa fa-exclamation-triangle fa-2x"></i>
+                    </div>
+                    <div class="text">
+                        {$system['bank_transfer_note']}
+                    </div>
+                </div>
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        {__("Bank Receipt")}
+                    </label>
+                    <div class="col-md-9">
+                        <div class="x-image">
+                            <button type="button" class="close x-hidden js_x-image-remover" title='{__("Remove")}'>
+                                <span>×</span>
                             </button>
+                            <div class="x-image-loader">
+                                <div class="progress x-progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <i class="fa fa-camera fa-lg js_x-uploader" data-handle="x-image"></i>
+                            <input type="hidden" class="js_x-image-input" name="bank_receipt" value="">
+
                         </div>
-                    </div>
-                    <div class="lightbox-post">
-                        <div class="js_scroller js_scroller-lightbox" data-slimScroll-height="100%">
-                            <div class="loader mtb10"></div>
-                        </div>
+                        <span class="form-text">
+                            {__("Please attach your bank receipt")}
+                        </span>
                     </div>
                 </div>
+
+                <!-- success -->
+                <div class="alert alert-success mb0 x-hidden"></div>
+                <!-- success -->
+
+                <!-- error -->
+                <div class="alert alert-danger mb0 x-hidden"></div>
+                <!-- error -->
             </div>
-        </div>
-    </script>
-
-    <script id="lightbox-nodata" type="text/template">
-        <div class="lightbox">
-            <div class="container lightbox-container">
-                <div class="lightbox-preview nodata">
-                    <img alt="" class="img-fluid" src="{literal}{{image}}{/literal}">
-                </div>
+            <div class="modal-footer">
+                <input type="hidden" name="handle" value="{literal}{{handle}}{/literal}">
+                <input type="hidden" name="package_id" value="{literal}{{id}}{/literal}">
+                <input type="hidden" name="price" value="{literal}{{price}}{/literal}">
+                <button type="button" class="btn btn-light" data-dismiss="modal">{__("Cancel")}</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-check-circle mr10"></i>{__("Send")}</button>
             </div>
-        </div>
+        </form>
     </script>
-    <!-- Lightbox -->
+{/if}
+<!-- Payments -->
 
-
-    <!-- Payments -->
-    <script id="payment" type="text/template">
-        <div class="modal-header">
-            <h6 class="modal-title">{__("Select Your Payment Method")}</h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body text-center">
-            {if $system['paypal_enabled']}
-                <button class="js_payment-paypal btn btn-payment mr10 mb10"
-                data-handle="{literal}{{handle}}{/literal}"
-                {literal}{{#id}}{/literal} data-id="{literal}{{id}}{/literal}" {literal}{{/id}}{/literal}
-                {literal}{{#price}}{/literal} data-price="{literal}{{price}}{/literal}" {literal}{{/price}}{/literal}
-                {literal}{{#name}}{/literal} data-name="{literal}{{name}}{/literal}" {literal}{{/name}}{/literal}
-                {literal}{{#img}}{/literal} data-img="{literal}{{img}}{/literal}" {literal}{{/img}}{/literal}
-                >
-                    <i class="fab fa-paypal fa-lg fa-fw mr5" style="color: #00186A;"></i>{__("Paypal")}
-                </button>
-            {/if}
-            {if $system['creditcard_enabled']}
-                <button class="js_payment-stripe btn btn-payment mr10 mb10"
-                data-handle="{literal}{{handle}}{/literal}"
-                {literal}{{#id}}{/literal} data-id="{literal}{{id}}{/literal}" {literal}{{/id}}{/literal}
-                {literal}{{#price}}{/literal} data-price="{literal}{{price}}{/literal}" {literal}{{/price}}{/literal}
-                {literal}{{#name}}{/literal} data-name="{literal}{{name}}{/literal}" {literal}{{/name}}{/literal}
-                {literal}{{#img}}{/literal} data-img="{literal}{{img}}{/literal}" {literal}{{/img}}{/literal}
-                data-method="credit">
-                    <i class="fa fa-credit-card fa-lg fa-fw mr5" style="color: #8798CC;"></i>{__("Credit Card")}
-                </button>
-            {/if}
-            {if $system['alipay_enabled']}
-                <button class="js_payment-stripe btn btn-payment mb10"
-                data-handle="{literal}{{handle}}{/literal}"
-                {literal}{{#id}}{/literal} data-id="{literal}{{id}}{/literal}" {literal}{{/id}}{/literal}
-                {literal}{{#price}}{/literal} data-price="{literal}{{price}}{/literal}" {literal}{{/price}}{/literal}
-                {literal}{{#name}}{/literal} data-name="{literal}{{name}}{/literal}" {literal}{{/name}}{/literal}
-                {literal}{{#img}}{/literal} data-img="{literal}{{img}}{/literal}" {literal}{{/img}}{/literal}
-                data-method="alipay">
-                    <i class="fab fa-alipay fa-lg fa-fw mr5" style="color: #5B9EDD;"></i>{__("Alipay")}
-                </button>
-            {/if}
-        </div>
-    </script>
-    <!-- Payments -->
-
-    {if !$user->_logged_in}
-
+{if !$user->_logged_in}
+    
     <!-- Forget Password -->
     <script id="forget-password-confirm" type="text/template">
         <div class="modal-header">
@@ -232,7 +335,7 @@
             </div>
         </form>
     </script>
-
+    
     <script id="forget-password-reset" type="text/template">
         <div class="modal-header">
             <h6 class="modal-title">{__("Change Your Password!")}</h6>
@@ -296,8 +399,8 @@
     </script>
     <!-- Two-Factor Authentication -->
 
-    {else}
-
+{else}
+    
     <!-- Email Activation -->
     <script id="activation-email-reset" type="text/template">
         <div class="modal-header">
@@ -311,7 +414,7 @@
                 <div class="form-group">
                     <label class="form-control-label mb10">{__("Current Email")}</label><br>
                     <span class="badge badge-lg badge-info">{$user->_data['user_email']}</span>
-
+                    
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="email">{__("New Email")}</label>
@@ -385,7 +488,7 @@
                     <div class="form-group">
                         <label class="form-control-label">{__("Current Phone")}</label>
                         <p class="form-control-plaintext">{$user->_data['user_phone']}</p>
-
+                        
                     </div>
                 {/if}
                 <div class="form-group">
@@ -405,24 +508,23 @@
             </div>
         </form>
     </script>
-    {/if}
     <!-- Phone Activation -->
 
 
     <!-- x-uploader -->
-{/strip}
-<script id="x-uploader" type="text/template">
-    <form class="x-uploader" action="{literal}{{url}}{/literal}" method="post" enctype="multipart/form-data">
-        {literal}{{#multiple}}{/literal}
-        <input name="file[]" type="file" multiple="multiple">
-        {literal}{{/multiple}}{/literal}
-        {literal}{{^multiple}}{/literal}
-        <input name="file" type="file">
-        {literal}{{/multiple}}{/literal}
-        <input type="hidden" name="secret" value="{literal}{{secret}}{/literal}">
-    </form>
-</script>
-{strip}
+    {/strip}
+    <script id="x-uploader" type="text/template">
+        <form class="x-uploader" action="{literal}{{url}}{/literal}" method="post" enctype="multipart/form-data">
+            {literal}{{#multiple}}{/literal}
+            <input name="file[]" type="file" multiple="multiple">
+            {literal}{{/multiple}}{/literal}
+            {literal}{{^multiple}}{/literal}
+            <input name="file" type="file">
+            {literal}{{/multiple}}{/literal}
+            <input type="hidden" name="secret" value="{literal}{{secret}}{/literal}">
+        </form>
+    </script>
+    {strip}
     <!-- x-uploader -->
 
 
@@ -615,58 +717,71 @@
     </script>
 
     <script id="chat-box" type="text/template">
-        <div class="chat-widget chat-box opened" id="{literal}{{chat_key_value}}{/literal}"
-             {literal}{{#user_id}}{/literal}data-uid="{literal}{{user_id}}{/literal}"{literal}{{/user_id}}{/literal}
-        {literal}{{#conversation_id}}{/literal}data-cid="{literal}{{conversation_id}}{/literal}"{literal}{{/conversation_id}}{/literal}>
-        <!-- head -->
-        <div class="chat-widget-head js_chat-color-me">
-            {literal}{{^multiple}}{/literal}
-            <i class="fa fa-user-secret mr5 js_chat-box-status"></i>
-            <a href="{$system['system_url']}/{literal}{{link}}{/literal}" title="{literal}{{name_list}}{/literal}">{literal}{{name}}{/literal}</a>
-            {literal}{{/multiple}}{/literal}
-            {literal}{{#multiple}}{/literal}
-            <a href="{$system['system_url']}/messages/{literal}{{link}}{/literal}" title="{literal}{{name_list}}{/literal}">{literal}{{name}}{/literal}</a>
-            {literal}{{/multiple}}{/literal}
-            <!-- label -->
-            <div class="chat-head-label"><span class="badge badge-pill badge-lg badge-danger js_chat-box-label"></span></div>
-            <!-- label -->
-            <!-- buttons-->
-            <div class="float-right">
-                <i class="fa fa-times-circle js_chat-box-close"></i>
-            </div>
-            <!-- buttons-->
-        </div>
-        <!-- head -->
-        <!-- content -->
-        <div class="chat-widget-content">
-            <div class="chat-conversations js_scroller"><ul></ul></div>
-            <div class="chat-attachments attachments clearfix x-hidden">
-                <ul>
-                    <li class="loading">
-                        <div class="progress x-progress"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div>
-                    </li>
-                </ul>
-            </div>
-            <div class="x-form chat-form">
-                <div class="chat-form-message">
-                    <textarea class="js_autosize js_post-message" dir="auto" rows="1" placeholder='{__("Write a message")}'></textarea>
+        <div class="chat-widget chat-box opened" id="{literal}{{chat_key_value}}{/literal}" 
+        {literal}{{#conversation_id}}{/literal}data-cid="{literal}{{conversation_id}}{/literal}"{literal}{{/conversation_id}}{/literal}
+        {literal}{{#user_id}}{/literal}data-uid="{literal}{{user_id}}{/literal}"{literal}{{/user_id}}{/literal}>
+            <!-- head -->
+            <div class="chat-widget-head js_chat-color-me">
+                {literal}{{^multiple}}{/literal}
+                <i class="fa fa-user-secret mr5 js_chat-box-status"></i>
+                <a href="{$system['system_url']}/{literal}{{link}}{/literal}" title="{literal}{{name_list}}{/literal}">{literal}{{name}}{/literal}</a>
+                {literal}{{/multiple}}{/literal}
+                {literal}{{#multiple}}{/literal}
+                <a href="{$system['system_url']}/messages/{literal}{{link}}{/literal}" title="{literal}{{name_list}}{/literal}">{literal}{{name}}{/literal}</a>
+                {literal}{{/multiple}}{/literal}
+                <!-- label -->
+                <div class="chat-head-label"><span class="badge badge-pill badge-lg badge-danger js_chat-box-label"></span></div>
+                <!-- label -->
+                <!-- buttons-->
+                <div class="float-right">
+                    <!-- video/audio calls (not multiple) -->
+                    {literal}{{^multiple}}{/literal}
+                        {if $system['video_call_enabled']}
+                            <i class="fa fa-video mr10 js_chat-call-start" data-type="video" data-uid="{literal}{{user_id}}{/literal}" data-name="{literal}{{name}}{/literal}"></i>
+                        {/if}
+                        {if $system['audio_call_enabled']}
+                            <i class="fa fa-phone-alt mr10 js_chat-call-start" data-type="audio" data-uid="{literal}{{user_id}}{/literal}" data-name="{literal}{{name}}{/literal}"></i>
+                        {/if}
+                    {literal}{{/multiple}}{/literal}
+                    <!-- video/audio calls (not multiple) -->
+                    <i class="fa fa-times-circle js_chat-box-close"></i>
                 </div>
-                <ul class="x-form-tools clearfix">
-                    {if $system['photos_enabled']}
-                        <li class="x-form-tools-attach">
-                            <i class="far fa-image fa-lg fa-fw js_x-uploader" data-handle="chat"></i>
-                        </li>
-                    {/if}
-                    <li class="x-form-tools-emoji js_emoji-menu-toggle">
-                        <i class="far fa-smile-wink fa-lg fa-fw"></i>
-                    </li>
-                    <li class="x-form-tools-colors js_chat-colors-menu-toggle js_chat-color-me {literal}{{^conversation_id}}{/literal}x-hidden{literal}{{/conversation_id}}{/literal}">
-                        <i class="fa fa-circle fa-lg fa-fw"></i>
-                    </li>
-                </ul>
+                <!-- buttons-->
             </div>
-        </div>
-        <!-- content -->
+            <!-- head -->
+            <!-- content -->
+            <div class="chat-widget-content">
+                <div class="chat-conversations js_scroller"><ul></ul></div>
+                <div class="chat-typing">
+                    <i class="far fa-comment-dots mr5"></i><span class="loading-dots"><span class="js_chat-typing-users"></span> {__("Typing")}</span>
+                </div>
+                <div class="chat-attachments attachments clearfix x-hidden">
+                    <ul>
+                        <li class="loading">
+                            <div class="progress x-progress"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div></div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="x-form chat-form">
+                    <div class="chat-form-message">
+                        <textarea class="js_autosize js_post-message" dir="auto" rows="1" placeholder='{__("Write a message")}'></textarea>
+                    </div>
+                    <ul class="x-form-tools clearfix">
+                        {if $system['photos_enabled']}
+                            <li class="x-form-tools-attach">
+                                <i class="far fa-image fa-lg fa-fw js_x-uploader" data-handle="chat"></i>
+                            </li>
+                        {/if}
+                        <li class="x-form-tools-emoji js_emoji-menu-toggle">
+                            <i class="far fa-smile-wink fa-lg fa-fw"></i>
+                        </li>
+                        <li class="x-form-tools-colors js_chat-colors-menu-toggle js_chat-color-me {literal}{{^conversation_id}}{/literal}x-hidden{literal}{{/conversation_id}}{/literal}">
+                            <i class="fa fa-circle fa-lg fa-fw"></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- content -->
         </div>
     </script>
 
@@ -675,36 +790,80 @@
             <div class="conversation clearfix right" id="{literal}{{id}}{/literal}">
                 <div class="conversation-body">
                     <div class="text js_chat-color-me" {literal}{{#color}}{/literal}style="background-color: {literal}{{color}}{/literal}"{literal}{{/color}}{/literal}>
-                    {literal}{{{message}}}{/literal}
-                    {literal}{{#image}}{/literal}
-                    <span class="text-link js_lightbox-nodata {literal}{{#message}}{/literal}mt5{literal}{{/message}}{/literal}" data-image="{$system['system_uploads']}/{literal}{{image}}{/literal}">
+                        {literal}{{{message}}}{/literal}
+                        {literal}{{#image}}{/literal}
+                            <span class="text-link js_lightbox-nodata {literal}{{#message}}{/literal}mt5{literal}{{/message}}{/literal}" data-image="{$system['system_uploads']}/{literal}{{image}}{/literal}">
                                 <img alt="" class="img-fluid" src="{$system['system_uploads']}/{literal}{{image}}{/literal}">
                             </span>
-                    {literal}{{/image}}{/literal}
+                        {literal}{{/image}}{/literal}
+                    </div>
+                    <div class="time js_moment" data-time="{literal}{{time}}{/literal}">
+                        {literal}{{time}}{/literal}
+                    </div>
                 </div>
-                <div class="time js_moment" data-time="{literal}{{time}}{/literal}">
-                    {literal}{{time}}{/literal}
-                </div>
-            </div>
             </div>
         </li>
     </script>
 
-    <script id="chat-voice-calling" type="text/template">
-        <div class="modal-header">
-            <h6 class="modal-title"><i class="fa fa-phone-volume mr5"></i>{__("Calling")}</h6>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+    <script id="chat-calling" type="text/template">
+        <div class="modal-header border-0">
+            <h6 class="modal-title  mx-auto">
+                {literal}{{#is_video}}{/literal}<i class="fa fa-video mr5"></i>{literal}{{/is_video}}{/literal}
+                {literal}{{#is_audio}}{/literal}<i class="fa fa-phone-volume mr5"></i>{literal}{{/is_audio}}{/literal}
+                {__("Calling")}
+            </h6>
         </div>
-        <form class="js_ajax-forms" data-url="ads/wallet.php?do=wallet_transfer">
-            <div class="modal-body">
-                {__("Please wait for answer")}
+        <div class="modal-body text-center">
+            <h3>{literal}{{name}}{/literal}</h3>
+            <p class="text-lg js_chat-calling-message">{__("Connecting")}<span class="loading-dots"></span></p>
+            
+            <div class="twilio-stream-wrapper">
+                <div class="twilio-stream"></div>
+                <video class="twilio-stream-local" autoplay=""></video>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">{__("Cancel")}</button>
+
+            <div class="mt30">
+                <button type="button" class="btn btn-light x-hidden js_chat-call-close" data-dismiss="modal">{__("Close")}</button>
+                <button type="button" class="btn btn-icon btn-rounded btn-danger x-hidden js_chat-call-cancel" data-type="{literal}{{type}}{/literal}" data-dismiss="modal">
+                    <i class="fas fa-phone-slash fa-lg fa-fw"></i>
+                </button>
+                <button type="button" class="btn btn-icon btn-rounded btn-danger x-hidden js_chat-call-end" data-type="{literal}{{type}}{/literal}" data-dismiss="modal">
+                    <i class="fas fa-phone-slash fa-lg fa-fw"></i>
+                </button>
             </div>
-        </form>
+        </div>
+        <div class="modal-footer border-0"></div>
+    </script>
+
+    <script id="chat-ringing" type="text/template">
+        <div class="modal-header border-0">
+            <h6 class="modal-title mx-auto">
+                {literal}{{#is_video}}{/literal}<i class="fa fa-video mr5"></i>{__("New Video Call")}{literal}{{/is_video}}{/literal}
+                {literal}{{#is_audio}}{/literal}<i class="fa fa-phone-volume mr5"></i>{__("New Audio Call")}{literal}{{/is_audio}}{/literal}
+            </h6>
+        </div>
+        <div class="modal-body text-center">
+            <div class="position-relative mb10" style="height: 106px;">
+                <div class="profile-avatar-wrapper static">
+                    <img src="{literal}{{image}}{/literal}" alt="{literal}{{name}}{/literal}" style="width: 98px; height: 98px;">
+                </div>
+            </div>
+            <h3>{literal}{{name}}{/literal}</h3>
+            {literal}{{#is_video}}{/literal}<p class="text-lg js_chat-ringing-message">{__("Wants to have video call with you")}</p>{literal}{{/is_video}}{/literal}
+            {literal}{{#is_audio}}{/literal}<p class="text-lg js_chat-ringing-message">{__("Wants to have audio call with you")}</p>{literal}{{/is_audio}}{/literal}
+            
+            <div class="twilio-stream-wrapper">
+                <div class="twilio-stream"></div>
+                <video class="twilio-stream-local" autoplay=""></video>
+            </div>
+
+            <div class="mt30">
+                <button type="submit" class="btn btn-icon btn-rounded btn-success mr10 js_chat-call-answer" data-type="{literal}{{type}}{/literal}" data-id="{literal}{{id}}{/literal}"><i class="fas fa-phone-alt fa-lg fa-fw"></i></button>
+                <button type="button" class="btn btn-icon btn-rounded btn-danger js_chat-call-decline" data-type="{literal}{{type}}{/literal}" data-id="{literal}{{id}}{/literal}" data-dismiss="modal"><i class="fas fa-phone-slash fa-lg fa-fw"></i></button>
+                <button type="button" class="btn btn-icon btn-rounded btn-danger x-hidden js_chat-call-end" data-type="{literal}{{type}}{/literal}" data-id="{literal}{{id}}{/literal}" data-dismiss="modal"><i class="fas fa-phone-slash fa-lg fa-fw"></i></button>
+            </div>
+        </div>
+        <div class="modal-footer border-0"></div>
     </script>
 
     <script id="chat-colors-menu" type="text/template">
@@ -797,9 +956,9 @@
     </script>
     <!-- Chat -->
 
-
+    
     <!-- DayTime Messages -->
-    {if $page == "index"}
+    {if $system['daytime_msg_enabled'] && $page == "index"}
         <script id="message-morning" type="text/template">
             <div class="card daytime_message">
                 <button type="button" class="close float-right js_daytime-remover"><span>&times;</span></button>
@@ -815,7 +974,7 @@
                 <strong>{__("Good Afternoon")}, {$user->_data['user_firstname']}</strong>
             </div>
         </script>
-
+        
         <script id="message-evening" type="text/template">
             <div class="card daytime_message">
                 <button type="button" class="close float-right js_daytime-remover"><span>&times;</span></button>
@@ -827,13 +986,60 @@
     <!-- DayTime Messages -->
 
 
-    {if $page == "index" || $page == "profile" || $page == "page" || $page == "group" || $page == "event" || $page == "post" || $page == "photo" || $page == "market" || $page == "blogs" || $page == "directory"}
+    <!-- Gifts -->
+    {if $system['gifts_enabled'] && $page == "profile"}
+        <script id="gifts" type="text/template">
+            <div class="modal-header">
+                <h6 class="modal-title"><i class="fa fa-gift mr5"></i>{__("Gifts")}</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form class="js_ajax-forms" data-url="users/gifts.php?do=send&uid={literal}{{uid}}{/literal}">
+                <div class="modal-body">
+                    <div class="js_scroller" data-slimScroll-height="440">
+                        <div class="row no-gutters">
+                            {foreach from=$gifts item=gift}
+                                <div class="col-12 col-sm-6 col-md-4 ptb5 plr5">
+                                    <input class="x-hidden input-label" type="radio" name="gift" value="{$gift['gift_id']}" id="gift_{$gift['gift_id']}"/>
+                                    <label class="button-label-image" for="gift_{$gift['gift_id']}">
+                                        <img src="{$system['system_uploads']}/{$gift['image']}">
+                                    </label>
+                                </div>
+                            {/foreach}
+                        </div>
+                    </div>
+                    <!-- error -->
+                    <div class="alert alert-danger mb0 mt10 x-hidden"></div>
+                    <!-- error -->
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">{__("Send")}</button>
+                </div>
+            </form>
+        </script>
+
+        <script id="gift" type="text/template">
+            <div class="modal-header">
+                <h6 class="modal-title"><i class="fa fa-gift mr5"></i>{$gift['user_firstname']} {$gift['user_lastname']} {__("sent you a gift")}</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <img class="img-fluid" src="{$system['system_uploads']}/{$gift['image']}">
+            </div>
+        </script>
+    {/if}
+    <!-- Gifts -->
+
+
+    {if $page == "index" || $page == "profile" || $page == "page" || $page == "group" || $page == "event" || $page == "post" || $page == "photo" || $page == "market" || $page == "blogs" || $page == "directory" || $page == "search"}
         <!-- Publisher -->
         <script id="publisher-attachments-image-item" type="text/template">
             <li class="item deletable" data-src="{literal}{{src}}{/literal}">
                 <img alt="" src="{literal}{{image_path}}{/literal}">
                 <button type="button" class="close {literal}{{#mini}}{/literal}js_publisher-mini-attachment-image-remover{literal}{{/mini}}{/literal}{literal}{{^mini}}{/literal}js_publisher-attachment-image-remover{literal}{{/mini}}{/literal}" title='{__("Remove")}'><span>&times;</span></button>
-                <input type="hidden" class="js_x-image-input" name="photos[]" value="{literal}{{src}}{/literal}">
             </li>
         </script>
 
@@ -939,7 +1145,7 @@
                 <small class="text-link js_unedit-post">{__("Cancel")}</small>
             </div>
         </script>
-
+        
         <script id="edit-comment" type="text/template">
             <div class="comment-edit">
                 <div class="x-form comment-form">
@@ -1009,13 +1215,16 @@
                             </div>
                             <input type="text" class="form-control" name="username" id="username">
                         </div>
+                        <span class="form-text">
+                            {__("Can only contain alphanumeric characters (A–Z, 0–9) and periods ('.')")}
+                        </span>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" for="category">{__("Category")}</label>
                         <select class="form-control" name="category" id="category">
                             <option>{__("Select Category")}</option>
                             {foreach $categories as $category}
-                                <option value="{$category['category_id']}">{__($category['category_name'])}</option>
+                            <option value="{$category['category_id']}">{__($category['category_name'])}</option>
                             {/foreach}
                         </select>
                     </div>
@@ -1025,7 +1234,7 @@
                     </div>
                     <!-- custom fields -->
                     {if $custom_fields}
-                        {include file='__custom_fields.tpl' _custom_fields=$custom_fields _registration=true}
+                    {include file='__custom_fields.tpl' _custom_fields=$custom_fields _registration=true}
                     {/if}
                     <!-- custom fields -->
                     <!-- error -->
@@ -1062,6 +1271,9 @@
                             </div>
                             <input type="text" class="form-control" name="username" id="username">
                         </div>
+                        <span class="form-text">
+                            {__("Can only contain alphanumeric characters (A–Z, 0–9) and periods ('.')")}
+                        </span>
                     </div>
                     <div class="form-group">
                         <label class="form-control-label" for="privacy">{__("Select Privacy")}</label>
@@ -1079,7 +1291,7 @@
                         <select class="form-control" name="category" id="category">
                             <option>{__("Select Category")}</option>
                             {foreach $categories as $category}
-                                <option value="{$category['category_id']}">{__($category['category_name'])}</option>
+                            <option value="{$category['category_id']}">{__($category['category_name'])}</option>
                             {/foreach}
                         </select>
                     </div>
@@ -1089,7 +1301,7 @@
                     </div>
                     <!-- custom fields -->
                     {if $custom_fields}
-                        {include file='__custom_fields.tpl' _custom_fields=$custom_fields _registration=true}
+                    {include file='__custom_fields.tpl' _custom_fields=$custom_fields _registration=true}
                     {/if}
                     <!-- custom fields -->
                     <!-- error -->
@@ -1156,7 +1368,7 @@
                         <select class="form-control" name="category" id="category">
                             <option>{__("Select Category")}</option>
                             {foreach $categories as $category}
-                                <option value="{$category['category_id']}">{__($category['category_name'])}</option>
+                            <option value="{$category['category_id']}">{__($category['category_name'])}</option>
                             {/foreach}
                         </select>
                     </div>
@@ -1166,7 +1378,7 @@
                     </div>
                     <!-- custom fields -->
                     {if $custom_fields}
-                        {include file='__custom_fields.tpl' _custom_fields=$custom_fields _registration=true}
+                    {include file='__custom_fields.tpl' _custom_fields=$custom_fields _registration=true}
                     {/if}
                     <!-- custom fields -->
                     <!-- error -->
@@ -1245,7 +1457,7 @@
                 </div>
             </form>
         </script>
-
+        
         <script id="wallet-withdraw-affiliates" type="text/template">
             <div class="modal-header">
                 <h6 class="modal-title"><i class="fa fa-exchange-alt mr5"></i>{__("Withdraw Affiliates Credit")}</h6>
@@ -1416,6 +1628,6 @@
     {/if}
     <!-- Verification Documents -->
 
-
+{/if}
 
 {/strip}

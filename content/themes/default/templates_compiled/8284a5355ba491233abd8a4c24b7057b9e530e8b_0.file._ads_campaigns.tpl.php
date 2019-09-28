@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:13:50
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/_ads_campaigns.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0c4e83c2a7_18970863',
+  'unifunc' => 'content_5d8edec7799bf4_25874708',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '8284a5355ba491233abd8a4c24b7057b9e530e8b' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/_ads_campaigns.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d7a0c4e83c2a7_18970863 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec7799bf4_25874708 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_html/includes/libs/Smarty/plugins/modifier.truncate.php','function'=>'smarty_modifier_truncate',),));
 if ($_smarty_tpl->tpl_vars['ads_campaigns']->value) {?>
 	<!-- ads campaigns -->

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-17 20:55:54
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:21
   from '/home/cryptocodex/public_html/content/themes/default/templates/admin.settings.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d81485acc8099_59683291',
+  'unifunc' => 'content_5d8eded1c14211_50664532',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '615310251e576082d0e5646a645378e981998822' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/admin.settings.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d81485acc8099_59683291 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8eded1c14211_50664532 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_html/includes/libs/Smarty/plugins/modifier.date_format.php','function'=>'smarty_modifier_date_format',),));
 ?>
 <div class="card">
@@ -222,6 +222,8 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
                             </div>
                         </div>
 
+                        <div class="divider"></div>
+
                         <div class="form-table-row">
                             <div>
                                 <div class="form-control-label h6"> <?php echo __("Directory");?>
@@ -240,6 +242,8 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
                                 </label>
                             </div>
                         </div>
+
+                        <div class="divider"></div>
 
                         <div class="form-table-row">
                             <div>
@@ -361,6 +365,8 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
                             </div>
                         </div>
 
+                        <div class="divider"></div>
+
                         <div class="form-table-row">
                             <div>
                                 <div class="form-control-label h6"><?php echo __("DayTime Messages");?>
@@ -375,6 +381,40 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
                                 </label>
                             </div>
                         </div>
+
+                        <div class="divider"></div>
+
+                        <div class="form-table-row">
+                            <div>
+                                <div class="form-control-label h6"><?php echo __("Pokes");?>
+</div>
+                                <div class="form-text d-none d-sm-block"><?php echo __("Enable users to poke each others");?>
+</div>
+                            </div>
+                            <div class="text-right">
+                                <label class="switch" for="pokes_enabled">
+                                    <input type="checkbox" name="pokes_enabled" id="pokes_enabled" <?php if ($_smarty_tpl->tpl_vars['system']->value['pokes_enabled']) {?>checked<?php }?>>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-table-row">
+                            <div>
+                                <div class="form-control-label h6"><?php echo __("Gifts");?>
+</div>
+                                <div class="form-text d-none d-sm-block"><?php echo __("Enable users to send gifts to each others");?>
+</div>
+                            </div>
+                            <div class="text-right">
+                                <label class="switch" for="gifts_enabled">
+                                    <input type="checkbox" name="gifts_enabled" id="gifts_enabled" <?php if ($_smarty_tpl->tpl_vars['system']->value['gifts_enabled']) {?>checked<?php }?>>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
 
                         <div class="form-table-row">
                             <div>
@@ -425,6 +465,8 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
                                 </label>
                             </div>
                         </div>
+
+                        <div class="divider"></div>
 
                         <div class="form-table-row">
                             <div>
@@ -513,6 +555,69 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
                     </div>
                 </div>
 
+                <div class="divider"></div>
+
+                <div class="form-table-row">
+                    <div>
+                        <div class="form-control-label h6"><?php echo __("Popular Posts");?>
+</div>
+                        <div class="form-text d-none d-sm-block">
+                            <?php echo __("Turn the popular posts On and Off");?>
+<br>
+                            <?php echo __("Popular posts are public posts ordered by most reactions, comments & shares");?>
+
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <label class="switch" for="popular_posts_enabled">
+                            <input type="checkbox" name="popular_posts_enabled" id="popular_posts_enabled" <?php if ($_smarty_tpl->tpl_vars['system']->value['popular_posts_enabled']) {?>checked<?php }?>>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-table-row">
+                    <div>
+                        <div class="form-control-label h6"><?php echo __("Discover Posts");?>
+</div>
+                        <div class="form-text d-none d-sm-block">
+                            <?php echo __("Turn the discover posts On and Off");?>
+<br>
+                            <?php echo __("Discover posts are public posts ordered from most recent to old");?>
+
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <label class="switch" for="discover_posts_enabled">
+                            <input type="checkbox" name="discover_posts_enabled" id="discover_posts_enabled" <?php if ($_smarty_tpl->tpl_vars['system']->value['discover_posts_enabled']) {?>checked<?php }?>>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="form-table-row">
+                    <div>
+                        <div class="form-control-label h6"><?php echo __("Memories");?>
+</div>
+                        <div class="form-text d-none d-sm-block">
+                            <?php echo __("Turn the memories On and Off");?>
+<br>
+                            <?php echo __("Memories are posts from the same day on last year");?>
+
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <label class="switch" for="memories_enabled">
+                            <input type="checkbox" name="memories_enabled" id="memories_enabled" <?php if ($_smarty_tpl->tpl_vars['system']->value['memories_enabled']) {?>checked<?php }?>>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
                 <div class="form-table-row">
                     <div>
                         <div class="form-control-label h6"><?php echo __("Wall Posts");?>
@@ -528,6 +633,8 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
                     </div>
                 </div>
 
+                <div class="divider"></div>
+
                 <div class="form-table-row">
                     <div>
                         <div class="form-control-label h6"><?php echo __("Polls");?>
@@ -540,59 +647,6 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
                             <input type="checkbox" name="polls_enabled" id="polls_enabled" <?php if ($_smarty_tpl->tpl_vars['system']->value['polls_enabled']) {?>checked<?php }?>>
                             <span class="slider round"></span>
                         </label>
-                    </div>
-                </div>
-
-                <div class="divider"></div>
-
-                <div class="form-table-row">
-                    <div>
-                        <div class="form-control-label h6"><?php echo __("Trending Hashtags");?>
-</div>
-                        <div class="form-text d-none d-sm-block"><?php echo __("Turn the trending hashtags feature On and Off");?>
-</div>
-                    </div>
-                    <div class="text-right">
-                        <label class="switch" for="trending_hashtags_enabled">
-                            <input type="checkbox" name="trending_hashtags_enabled" id="trending_hashtags_enabled" <?php if ($_smarty_tpl->tpl_vars['system']->value['trending_hashtags_enabled']) {?>checked<?php }?>>
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group form-row">
-                    <label class="col-md-3 form-control-label">
-                        <?php echo __("Trending Interval");?>
-
-                    </label>
-                    <div class="col-md-9">
-                        <select class="form-control" name="trending_hashtags_interval">
-                            <option <?php if ($_smarty_tpl->tpl_vars['system']->value['trending_hashtags_interval'] == "day") {?>selected<?php }?> value="day"><?php echo __("Last 24 Hours");?>
-</option>
-                            <option <?php if ($_smarty_tpl->tpl_vars['system']->value['trending_hashtags_interval'] == "week") {?>selected<?php }?> value="week"><?php echo __("Last Week");?>
-</option>
-                            <option <?php if ($_smarty_tpl->tpl_vars['system']->value['trending_hashtags_interval'] == "month") {?>selected<?php }?> value="month"><?php echo __("Last Month");?>
-</option>
-                        </select>
-                        <span class="form-text">
-                            <?php echo __("Select the interval of trending hashtags");?>
-
-                        </span>
-                    </div>
-                </div>
-
-                <div class="form-group form-row">
-                    <label class="col-md-3 form-control-label">
-                        <?php echo __("Hashtags Limit");?>
-
-                    </label>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control" name="trending_hashtags_limit" value="<?php echo $_smarty_tpl->tpl_vars['system']->value['trending_hashtags_limit'];?>
-">
-                        <span class="form-text">
-                            <?php echo __("How many hashtags you want to display");?>
-
-                        </span>
                     </div>
                 </div>
 
@@ -696,9 +750,9 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
 
                 <div class="form-table-row">
                     <div>
-                        <div class="form-control-label h6"><?php echo __("Social Share");?>
+                        <div class="form-control-label h6"><?php echo __("Social Media Share");?>
 </div>
-                        <div class="form-text d-none d-sm-block"><?php echo __("Turn the social share for posts On and Off");?>
+                        <div class="form-text d-none d-sm-block"><?php echo __("Turn the social media share for posts On and Off");?>
 </div>
                     </div>
                     <div class="text-right">
@@ -726,9 +780,71 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
                     </div>
                 </div>
 
+                <div class="divider"></div>
+
                 <div class="form-group form-row">
                     <label class="col-md-3 form-control-label">
-                        <?php echo __("Default Privacy");?>
+                        <?php echo __("Max Post Characters");?>
+
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="max_post_length" value="<?php echo $_smarty_tpl->tpl_vars['system']->value['max_post_length'];?>
+">
+                        <span class="form-text">
+                            <?php echo __("The Maximum allowed post characters length (0 for unlimited)");?>
+
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        <?php echo __("Max Comment Characters");?>
+
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="max_comment_length" value="<?php echo $_smarty_tpl->tpl_vars['system']->value['max_comment_length'];?>
+">
+                        <span class="form-text">
+                            <?php echo __("The Maximum allowed comment characters length (0 for unlimited)");?>
+
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        <?php echo __("Max Posts/Hour");?>
+
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="max_posts_hour" value="<?php echo $_smarty_tpl->tpl_vars['system']->value['max_posts_hour'];?>
+">
+                        <span class="form-text">
+                            <?php echo __("The Maximum number of posts that user can publish per hour (0 for unlimited)");?>
+
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        <?php echo __("Max Comments/Hour");?>
+
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="max_comments_hour" value="<?php echo $_smarty_tpl->tpl_vars['system']->value['max_comments_hour'];?>
+">
+                        <span class="form-text">
+                            <?php echo __("The Maximum number of comments that user can publish per hour (0 for unlimited)");?>
+
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        <?php echo __("Default Posts Privacy");?>
 
                     </label>
                     <div class="col-md-9">
@@ -746,6 +862,59 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
 </div></div>"><?php echo __("Only Me");?>
 </option>
                         </select>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="form-table-row">
+                    <div>
+                        <div class="form-control-label h6"><?php echo __("Trending Hashtags");?>
+</div>
+                        <div class="form-text d-none d-sm-block"><?php echo __("Turn the trending hashtags feature On and Off");?>
+</div>
+                    </div>
+                    <div class="text-right">
+                        <label class="switch" for="trending_hashtags_enabled">
+                            <input type="checkbox" name="trending_hashtags_enabled" id="trending_hashtags_enabled" <?php if ($_smarty_tpl->tpl_vars['system']->value['trending_hashtags_enabled']) {?>checked<?php }?>>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        <?php echo __("Trending Interval");?>
+
+                    </label>
+                    <div class="col-md-9">
+                        <select class="form-control" name="trending_hashtags_interval">
+                            <option <?php if ($_smarty_tpl->tpl_vars['system']->value['trending_hashtags_interval'] == "day") {?>selected<?php }?> value="day"><?php echo __("Last 24 Hours");?>
+</option>
+                            <option <?php if ($_smarty_tpl->tpl_vars['system']->value['trending_hashtags_interval'] == "week") {?>selected<?php }?> value="week"><?php echo __("Last Week");?>
+</option>
+                            <option <?php if ($_smarty_tpl->tpl_vars['system']->value['trending_hashtags_interval'] == "month") {?>selected<?php }?> value="month"><?php echo __("Last Month");?>
+</option>
+                        </select>
+                        <span class="form-text">
+                            <?php echo __("Select the interval of trending hashtags");?>
+
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        <?php echo __("Hashtags Limit");?>
+
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="trending_hashtags_limit" value="<?php echo $_smarty_tpl->tpl_vars['system']->value['trending_hashtags_limit'];?>
+">
+                        <span class="form-text">
+                            <?php echo __("How many hashtags you want to display");?>
+
+                        </span>
                     </div>
                 </div>
 
@@ -864,7 +1033,7 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
                             <div>
                                 <div class="form-control-label h6"><?php echo __("Invitation Enabled");?>
 </div>
-                                <div class="form-text d-none d-sm-block"><?php echo __("This system is used to invite users if the registration is turned off");?>
+                                <div class="form-text d-none d-sm-block"><?php echo __("This option is used to invite users by sending invitation code only by admin if the registration is turned off");?>
 </div>
                             </div>
                             <div class="text-right">
@@ -872,6 +1041,36 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
                                     <input type="checkbox" name="invitation_enabled" id="invitation_enabled" <?php if ($_smarty_tpl->tpl_vars['system']->value['invitation_enabled']) {?>checked<?php }?>>
                                     <span class="slider round"></span>
                                 </label>
+                            </div>
+                        </div>
+
+                        <div class="form-table-row">
+                            <div>
+                                <div class="form-control-label h6"><?php echo __("Invite Friends Widget");?>
+</div>
+                                <div class="form-text d-none d-sm-block"><?php echo __("Enable users to invite their friends by sending invitation emails (registration must be enabled)");?>
+</div>
+                            </div>
+                            <div class="text-right">
+                                <label class="switch" for="invitation_widget_enabled">
+                                    <input type="checkbox" name="invitation_widget_enabled" id="invitation_widget_enabled" <?php if ($_smarty_tpl->tpl_vars['system']->value['invitation_widget_enabled']) {?>checked<?php }?>>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <label class="col-md-3 form-control-label">
+                                <?php echo __("Invitations/Day");?>
+
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="invitation_widget_max" value="<?php echo $_smarty_tpl->tpl_vars['system']->value['invitation_widget_max'];?>
+">
+                                <span class="form-text">
+                                    <?php echo __("Number of invitations allowed to each user per day (0 for unlimited)");?>
+
+                                </span>
                             </div>
                         </div>
 
@@ -893,6 +1092,27 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
                             <div class="text-right">
                                 <label class="switch" for="packages_enabled">
                                     <input type="checkbox" name="packages_enabled" id="packages_enabled" <?php if ($_smarty_tpl->tpl_vars['system']->value['packages_enabled']) {?>checked<?php }?>>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-table-row">
+                            <div>
+                                <div class="form-control-label h6"><?php echo __("Users Can Buy Packages From Wallet Balance");?>
+</div>
+                                <div class="form-text d-none d-sm-block">
+                                    <?php echo __("Enable users to buy packages from their wallet balance");?>
+<br>
+                                    <?php echo __("Make sure you have enabled");?>
+ <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/admincp/ads"><?php echo __("Ads System");?>
+</a>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <label class="switch" for="packages_wallet_payment_enabled">
+                                    <input type="checkbox" name="packages_wallet_payment_enabled" id="packages_wallet_payment_enabled" <?php if ($_smarty_tpl->tpl_vars['system']->value['packages_wallet_payment_enabled']) {?>checked<?php }?>>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -1087,16 +1307,33 @@ $_smarty_tpl->_checkPlugins(array(0=>array('file'=>'/home/cryptocodex/public_htm
                             </div>
                         </div>
 
+                        <div class="divider"></div>
+
                         <div class="form-group form-row">
                             <label class="col-md-3 form-control-label">
-                                <?php echo __("Accounts/IP");?>
+                                <?php echo __("Max Accounts/IP");?>
 
                             </label>
                             <div class="col-md-9">
                                 <input type="text" class="form-control" name="max_accounts" value="<?php echo $_smarty_tpl->tpl_vars['system']->value['max_accounts'];?>
 ">
                                 <span class="form-text">
-                                    <?php echo __("Number of accounts allowed to register per IP (0 for unlimited)");?>
+                                    <?php echo __("The Maximum number of accounts allowed to register per IP (0 for unlimited)");?>
+
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <label class="col-md-3 form-control-label">
+                                <?php echo __("Max Friends/User");?>
+
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="max_friends" value="<?php echo $_smarty_tpl->tpl_vars['system']->value['max_friends'];?>
+">
+                                <span class="form-text">
+                                    <?php echo __("The Maximum number of friends allowed per User (0 for unlimited)");?>
 
                                 </span>
                             </div>
@@ -1839,6 +2076,102 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                     </div>
                 </div>
 
+                <div class="form-table-row">
+                    <div>
+                        <div class="form-control-label h6"><?php echo __("Typing Status Enabled");?>
+</div>
+                        <div class="form-text d-none d-sm-block"><?php echo __("Turn the Typing Status On and Off");?>
+</div>
+                    </div>
+                    <div class="text-right">
+                        <label class="switch" for="chat_typing_enabled">
+                            <input type="checkbox" name="chat_typing_enabled" id="chat_typing_enabled" <?php if ($_smarty_tpl->tpl_vars['system']->value['chat_typing_enabled']) {?>checked<?php }?>>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-table-row">
+                    <div>
+                        <div class="form-control-label h6"><?php echo __("Seen Status Enabled");?>
+</div>
+                        <div class="form-text d-none d-sm-block"><?php echo __("Turn the Seen Status On and Off");?>
+</div>
+                    </div>
+                    <div class="text-right">
+                        <label class="switch" for="chat_seen_enabled">
+                            <input type="checkbox" name="chat_seen_enabled" id="chat_seen_enabled" <?php if ($_smarty_tpl->tpl_vars['system']->value['chat_seen_enabled']) {?>checked<?php }?>>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="form-table-row">
+                    <div>
+                        <div class="form-control-label h6"><?php echo __("Video Call Enabled");?>
+</div>
+                        <div class="form-text d-none d-sm-block"><?php echo __("Turn the video call system On and Off");?>
+</div>
+                    </div>
+                    <div class="text-right">
+                        <label class="switch" for="video_call_enabled">
+                            <input type="checkbox" name="video_call_enabled" id="video_call_enabled" <?php if ($_smarty_tpl->tpl_vars['system']->value['video_call_enabled']) {?>checked<?php }?>>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-table-row">
+                    <div>
+                        <div class="form-control-label h6"><?php echo __("Audio Call Enabled");?>
+</div>
+                        <div class="form-text d-none d-sm-block"><?php echo __("Turn the audio call system On and Off");?>
+</div>
+                    </div>
+                    <div class="text-right">
+                        <label class="switch" for="audio_call_enabled">
+                            <input type="checkbox" name="audio_call_enabled" id="audio_call_enabled" <?php if ($_smarty_tpl->tpl_vars['system']->value['audio_call_enabled']) {?>checked<?php }?>>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        <?php echo __("Twilio Account SID");?>
+
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="twilio_sid" value="<?php echo $_smarty_tpl->tpl_vars['system']->value['twilio_sid'];?>
+">
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        <?php echo __("Twilio API SID");?>
+
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="twilio_apisid" value="<?php echo $_smarty_tpl->tpl_vars['system']->value['twilio_apisid'];?>
+">
+                    </div>
+                </div>
+
+                <div class="form-group form-row">
+                    <label class="col-md-3 form-control-label">
+                        <?php echo __("Twilio API SECRET");?>
+
+                    </label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control" name="twilio_apisecret" value="<?php echo $_smarty_tpl->tpl_vars['system']->value['twilio_apisecret'];?>
+">
+                    </div>
+                </div>
+
                 <!-- success -->
                 <div class="alert alert-success mb0 x-hidden"></div>
                 <!-- success -->
@@ -2452,7 +2785,13 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#Stripe" data-toggle="tab">
-                        <i class="fa fa-credit-card fa-fw mr5"></i><strong class="pr5"><?php echo __("Stripe");?>
+                        <i class="fab fa-stripe-s fa-fw mr5"></i><strong class="pr5"><?php echo __("Stripe");?>
+</strong>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#Bank" data-toggle="tab">
+                        <i class="fa fa-university fa-fw mr5"></i><strong class="pr5"><?php echo __("Bank Transfers");?>
 </strong>
                     </a>
                 </li>
@@ -2674,42 +3013,164 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
             </div>
             <!-- Stripe -->
 
+            <!-- Bank -->
+            <div class="tab-pane" id="Bank">
+                <form class="js_ajax-forms " data-url="admin/settings.php?edit=bank">
+                    <div class="card-body">
+                        <div class="form-table-row">
+                            <div>
+                                <div class="form-control-label h6"><?php echo __("Bank Transfers Enabled");?>
+</div>
+                                <div class="form-text d-none d-sm-block"><?php echo __("Enable payments via Bank Transfers");?>
+</div>
+                            </div>
+                            <div class="text-right">
+                                <label class="switch" for="bank_transfers_enabled">
+                                    <input type="checkbox" name="bank_transfers_enabled" id="bank_transfers_enabled" <?php if ($_smarty_tpl->tpl_vars['system']->value['bank_transfers_enabled']) {?>checked<?php }?>>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <label class="col-md-3 form-control-label">
+                                <?php echo __("Bank Name");?>
+
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="bank_name" value="<?php echo $_smarty_tpl->tpl_vars['system']->value['bank_name'];?>
+">
+                                <span class="form-text">
+                                    <?php echo __("Your Bank Name");?>
+
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <label class="col-md-3 form-control-label">
+                                <?php echo __("Bank Account Number");?>
+
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="bank_account_number" value="<?php echo $_smarty_tpl->tpl_vars['system']->value['bank_account_number'];?>
+">
+                                <span class="form-text">
+                                    <?php echo __("Your Bank Account Number");?>
+
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <label class="col-md-3 form-control-label">
+                                <?php echo __("Bank Account Name");?>
+
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="bank_account_name" value="<?php echo $_smarty_tpl->tpl_vars['system']->value['bank_account_name'];?>
+">
+                                <span class="form-text">
+                                    <?php echo __("Your Bank Account Name");?>
+
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <label class="col-md-3 form-control-label">
+                                <?php echo __("Bank Account Routing Code");?>
+
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="bank_account_routing" value="<?php echo $_smarty_tpl->tpl_vars['system']->value['bank_account_routing'];?>
+">
+                                <span class="form-text">
+                                    <?php echo __("Your Bank Account Routing Code or SWIFT Code");?>
+
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <label class="col-md-3 form-control-label">
+                                <?php echo __("Bank Account Country");?>
+
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" name="bank_account_country" value="<?php echo $_smarty_tpl->tpl_vars['system']->value['bank_account_country'];?>
+">
+                                <span class="form-text">
+                                    <?php echo __("Your Bank Account Country");?>
+
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group form-row">
+                            <label class="col-md-3 form-control-label">
+                                <?php echo __("Transfer Note");?>
+
+                            </label>
+                            <div class="col-md-9">
+                                <textarea class="form-control" name="bank_transfer_note" rows="5"><?php echo $_smarty_tpl->tpl_vars['system']->value['bank_transfer_note'];?>
+</textarea>
+                                <span class="form-text">
+                                    <?php echo __("This note will be displayed to the user while upload his bank transfer receipt");?>
+
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- success -->
+                        <div class="alert alert-success mb0 x-hidden"></div>
+                        <!-- success -->
+
+                        <!-- error -->
+                        <div class="alert alert-danger mb0 x-hidden"></div>
+                        <!-- error -->
+                    </div>
+                    <div class="card-footer text-right">
+                        <button type="submit" class="btn btn-primary"><?php echo __("Save Changes");?>
+</button>
+                    </div>
+                </form>
+            </div>
+            <!-- Bank -->
+
             <!-- Currency -->
             <div class="tab-pane" id="Currency">
                 <form class="js_ajax-forms " data-url="admin/settings.php?edit=currency">
                     <div class="card-body">
                         <div class="form-group form-row">
                             <label class="col-md-3 form-control-label">
-                                <?php echo __("Currency");?>
+                                <?php echo __("Website Currency");?>
 
                             </label>
                             <div class="col-md-9">
                                 <select class="form-control" name="system_currency">
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "AUD") {?>selected<?php }?> value="AUD">Australian Dollar</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "BRL") {?>selected<?php }?> value="BRL">Brazilian Real</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "CAD") {?>selected<?php }?> value="CAD">Canadian Dollar</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "CZK") {?>selected<?php }?> value="CZK">Czech Koruna</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "DKK") {?>selected<?php }?> value="DKK">Danish Krone</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "EUR") {?>selected<?php }?> value="EUR">Euro</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "HKD") {?>selected<?php }?> value="HKD">Hong Kong Dollar</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "HUF") {?>selected<?php }?> value="HUF">Hungarian Forint</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "ILS") {?>selected<?php }?> value="ILS">Israeli New Sheqel</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "JPY") {?>selected<?php }?> value="JPY">Japanese Yen</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "MYR") {?>selected<?php }?> value="MYR">Malaysian Ringgit</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "MXN") {?>selected<?php }?> value="MXN">Mexican Peso</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "NOK") {?>selected<?php }?> value="NOK">Norwegian Krone</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "NZD") {?>selected<?php }?> value="NZD">New Zealand Dollar</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "PHP") {?>selected<?php }?> value="PHP">Philippine Peso</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "PLN") {?>selected<?php }?> value="PLN">Polish Zloty</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "GBP") {?>selected<?php }?> value="GBP">Pound Sterling</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "RUB") {?>selected<?php }?> value="RUB">Russian Ruble</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "SGD") {?>selected<?php }?> value="SGD">Singapore Dollar</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "SEK") {?>selected<?php }?> value="SEK">Swedish Krona</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "CHF") {?>selected<?php }?> value="CHF">Swiss Franc</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "THB") {?>selected<?php }?> value="THB">Thai Baht</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "TRY") {?>selected<?php }?> value="TRY">Turkish Lira</option>
-                                    <option <?php if ($_smarty_tpl->tpl_vars['system']->value['system_currency'] == "USD") {?>selected<?php }?> value="USD">U.S. Dollar</option>
+                                    <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['system_currencies']->value, 'currency');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['currency']->value) {
+?>
+                                        <option <?php if ($_smarty_tpl->tpl_vars['currency']->value['default']) {?>selected<?php }?> value="<?php echo $_smarty_tpl->tpl_vars['currency']->value['currency_id'];?>
+">
+                                            <?php echo $_smarty_tpl->tpl_vars['currency']->value['name'];?>
+ (<?php echo $_smarty_tpl->tpl_vars['currency']->value['code'];?>
+)
+                                        </option>
+                                    <?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                 </select>
+                                <div class="form-text">
+                                    <?php echo __("You can add, edit or delete currencies from");?>
+ <a href="<?php echo $_smarty_tpl->tpl_vars['system']->value['system_url'];?>
+/admincp/currencies"><?php echo __("Currencies");?>
+</a>
+                                </div>
                             </div>
                         </div>
 

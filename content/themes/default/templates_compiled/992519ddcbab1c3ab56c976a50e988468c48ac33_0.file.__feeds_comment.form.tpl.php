@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:13:50
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_comment.form.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0c4e834c98_89274833',
+  'unifunc' => 'content_5d8edec7771105_20643648',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '992519ddcbab1c3ab56c976a50e988468c48ac33' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_comment.form.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d7a0c4e834c98_89274833 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec7771105_20643648 (Smarty_Internal_Template $_smarty_tpl) {
 ?><div class="comment js_comment-form <?php if ($_smarty_tpl->tpl_vars['post']->value['comments_disabled']) {?>x-hidden<?php }?>" data-handle="<?php echo $_smarty_tpl->tpl_vars['_handle']->value;?>
 " data-id="<?php echo $_smarty_tpl->tpl_vars['_id']->value;?>
 ">

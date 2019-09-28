@@ -29,7 +29,7 @@ try {
 		case 'publish':
 			// publish
 			$user->share($_GET['post_id'], $_POST);
-			modal('SUCCESS', __("Success"),  __("This has been shared Successfully"));
+			modal("SUCCESS", __("Success"),  __("This has been shared Successfully"));
 			
 			break;
 

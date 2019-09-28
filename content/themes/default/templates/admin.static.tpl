@@ -99,7 +99,7 @@
                         {__("Page Content")}
                     </label>
                     <div class="col-md-9">
-                        <textarea class="form-control js_wysiwyg" name="page_text">{$data['page_text']}</textarea>
+                        <textarea class="form-control js_wysiwyg-advanced" name="page_text">{$data['page_text']}</textarea>
                     </div>
                 </div>
 
@@ -166,7 +166,7 @@
                         {__("Page Content")}
                     </label>
                     <div class="col-md-9">
-                        <textarea class="form-control js_wysiwyg" name="page_text"></textarea>
+                        <textarea class="form-control js_wysiwyg-advanced" name="page_text"></textarea>
                     </div>
                 </div>
 

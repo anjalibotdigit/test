@@ -59,7 +59,7 @@ try {
 	// check if chat enabled
 	if($system['chat_enabled']) {
 
-		// [1] [update] master chat sidebar (online & offline users)	
+		// [1] [update] master chat sidebar (online & offline friends list)
 		/* get online friends */
 		$online_friends = $user->get_online_friends();
 		/* get offline friends */
@@ -71,7 +71,7 @@ try {
 		/* return */
 		$return['master']['sidebar'] = $smarty->fetch("ajax.chat.master.sidebar.tpl");
 
-		// [2] [update] master chat widget (online users)
+		// [2] [update] master chat sidebar (online users counter & chat status)
 		/* check chat status on both (client side & server side) */
 		if($user->_data['user_chat_enabled']) {
 			/* return */
@@ -118,13 +118,7 @@ try {
 				$conversation = $user->get_conversation($updated_conversation_id);
 				if($conversation) {
 					$return_this = false;
-					/* check single user's chat status (online|offline) */
-					if(!$conversation['multiple_recipients']) {
-						$return_this = true;
-						/* update single user's chat status */
-						$conversation['user_online'] = ($user->user_online($conversation['recipients'][0]['user_id']))? true: false;
-					}
-					/* check for a new messages for this chat box */
+					/* [1] check for a new messages for this chat box */
 					if($conversation['last_message_id'] != $chat_boxes_opened_client[$conversation['conversation_id']]) {
 						$return_this = true;
 						/* get new messages */
@@ -137,6 +131,21 @@ try {
 						$conversation['messages_count'] = count($messages);
 						$conversation['messages'] = $smarty->fetch("ajax.chat.messages.tpl");
 					}
+					/* [2] check if any recipient typing */
+					if($conversation['typing_name_list']) {
+						$return_this = true;
+					}
+					/* [3] check if any recipient seen */
+					if($conversation['seen_name_list']) {
+						$return_this = true;
+					}
+					/* [4] check single user's chat status (online|offline) */
+					if(!$conversation['multiple_recipients']) {
+						$return_this = true;
+						/* update single user's chat status */
+						$conversation['user_online'] = ($user->user_online($conversation['recipients'][0]['user_id']))? true: false;
+					}
+					/* return */
 					if($return_this) {
 						$chat_boxes_updated[] = $conversation;
 					}
@@ -153,44 +162,62 @@ try {
 			$return['chat_boxes_new'] = $chat_boxes_new;
 		}
 
-		// [7] [get] updated thread
-		if(isset($_POST['opened_thread'])) {
-			/* get conversation */
-			$conversation = $user->get_conversation($_POST['opened_thread']['conversation_id']);
-			if($conversation) {
-				/* check for a new messages for this converstaion */
-				if($conversation['last_message_id'] != $_POST['opened_thread']['last_message_id']) {
-					/* get new messages */
-					$messages = $user->get_conversation_messages($conversation['conversation_id'], 0, $_POST['opened_thread']['last_message_id']);
-					/* assign variables */
-					$smarty->assign('messages', $messages);
-					/* return */
-					$conversation['messages'] = $smarty->fetch("ajax.chat.messages.tpl");
-					$return['thread_updated'] = $conversation;
-				}
+	}
+
+	// [7] [get] updated thread
+	if(isset($_POST['opened_thread'])) {
+		/* get conversation */
+		$conversation = $user->get_conversation($_POST['opened_thread']['conversation_id']);
+		if($conversation) {
+			$return_this = false;
+			/* [1] check for a new messages for this converstaion */
+			if($conversation['last_message_id'] != $_POST['opened_thread']['last_message_id']) {
+				$return_this = true;
+				/* get new messages */
+				$messages = $user->get_conversation_messages($conversation['conversation_id'], 0, $_POST['opened_thread']['last_message_id']);
+				/* assign variables */
+				$smarty->assign('messages', $messages);
+				/* return */
+				$last_message = end($messages);
+				$conversation['is_me'] = ($last_message['user_id'] == $user->_data['user_id'])? true: false;
+				$conversation['messages_count'] = count($messages);
+				$conversation['messages'] = $smarty->fetch("ajax.chat.messages.tpl");
+			}
+			/* [2] check if any recipient typing */
+			if($conversation['typing_name_list']) {
+				$return_this = true;
+			}
+			/* [3] check if any recipient seen */
+			if($conversation['seen_name_list']) {
+				$return_this = true;
+			}
+			/* return */
+			if($return_this) {
+				$return['thread_updated'] = $conversation;
 			}
 		}
+	}
 
-	} else {
-		
-		// [7] [get] updated thread
-		if(isset($_POST['opened_thread'])) {
-			/* get conversation */
-			$conversation = $user->get_conversation($_POST['opened_thread']['conversation_id']);
-			if($conversation) {
-				/* check for a new messages for this converstaion */
-				if($conversation['last_message_id'] != $_POST['opened_thread']['last_message_id']) {
-					/* get new messages */
-					$messages = $user->get_conversation_messages($conversation['conversation_id'], 0, $_POST['opened_thread']['last_message_id']);
-					/* assign variables */
-					$smarty->assign('messages', $messages);
-					/* return */
-					$conversation['messages'] = $smarty->fetch("ajax.chat.messages.tpl");
-					$return['thread_updated'] = $conversation;
-				}
-			}
+	// [8] check for new (audio) calls
+	$return['has_audiocall'] = false;
+	if($system['audio_call_enabled']) {
+		/* check new calls (audio) */
+		$audiocall = $user->check_new_calls("audio");
+		if($audiocall) {
+			$return['has_audiocall'] = true;
+			$return['audiocall'] = $audiocall;
 		}
+	}
 
+	// [9] check for new (video) calls
+	$return['has_videocall'] = false;
+	if($system['video_call_enabled'] && !$return['has_audiocall']) {
+		/* check new calls (video) */
+		$videocall = $user->check_new_calls("video");
+		if($videocall) {
+			$return['has_videocall'] = true;
+			$return['videocall'] = $videocall;
+		}
 	}
 
 	// return & exit

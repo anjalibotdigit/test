@@ -32,13 +32,13 @@
         <div class="row">
 
             <!-- side panel -->
-            <div class="col-lg-3 offcanvas-sidebar js_sticky-sidebar">
+            <div class="col-md-4 col-lg-3 offcanvas-sidebar js_sticky-sidebar">
                 {include file='_sidebar.tpl'}
             </div>
             <!-- side panel -->
 
             <!-- content panel -->
-            <div class="col-lg-9 offcanvas-mainbar">
+            <div class="col-md-8 col-lg-9 offcanvas-mainbar">
                 <div class="row">
                     <!-- center panel -->
                     <div class="col-lg-8">
@@ -84,19 +84,40 @@
                             <!-- boosted post -->
 
                             <!-- posts -->
-
                             {include file='_posts.tpl' _get="newsfeed"}
                             <!-- posts -->
 
                         {elseif $view == "popular"}
-                            <!-- saved posts -->
+                            <!-- popular posts -->
                             {include file='_posts.tpl' _get="popular" _title=__("Popular Posts")}
-                            <!-- saved posts -->
+                            <!-- popular posts -->
+
+                        {elseif $view == "discover"}
+                            <!-- discover posts -->
+                            {include file='_posts.tpl' _get="discover" _title=__("Discover Posts")}
+                            <!-- discover posts -->
 
                         {elseif $view == "saved"}
                             <!-- saved posts -->
                             {include file='_posts.tpl' _get="saved" _title=__("Saved Posts")}
                             <!-- saved posts -->
+
+                        {elseif $view == "memories"}
+                            <!-- page header -->
+                            <div class="page-header mini rounded-top mb10">
+                                <div class="crystal c03"></div>
+                                <div class="circle-1"></div>
+                                <div class="circle-2"></div>
+                                <div class="inner">
+                                    <h2>{__("Memories")}</h2>
+                                    <p>{__("Enjoy looking back on your memories")}</p>
+                                </div>
+                            </div>
+                            <!-- page header -->
+
+                            <!-- memories posts -->
+                            {include file='_posts.tpl' _get="memories" _title=__("ON THIS DAY") _filter="all"}
+                            <!-- memories posts -->
 
                         {elseif $view == "articles"}
                             <!-- articles posts -->
@@ -108,13 +129,6 @@
                             {include file='_posts.tpl' _get="posts_profile" _id=$user->_data['user_id'] _filter="product" _title=__("My Products")}
                             <!-- products posts -->
 
-                        {elseif $view == "projects"}
-                            <!-- projects posts -->
-                            {include file='_posts.tpl' _get="posts_profile" _id=$user->_data['user_id'] _filter="project" _title=__("  ")}
-                        {elseif $view == "globals"}
-                            <!-- projects posts -->
-                            {include file='_posts.tpl' _get="newsfeed" _id=$user->_data['user_id'] _filter="project" _title=__("  ")}
-                            <!-- projects posts -->
                         {elseif $view == "boosted_posts"}
                             {if $user->_is_admin || $user->_data['user_subscribed']}
                                 <!-- boosted posts -->
@@ -184,15 +198,12 @@
                             {/if}
 
                         {/if}
-
                     </div>
-
-
-
                     <!-- center panel -->
 
                     <!-- right panel -->
                     <div class="col-lg-4 js_sticky-sidebar">
+                        
                         <!-- pro users -->
                         {if $pro_members}
                             <div class="card bg-gradient-indigo border-0">
@@ -353,6 +364,36 @@
                         {/if}
                         <!-- suggested events -->
 
+                        <!-- invitation widget -->
+                        {if $system['invitation_widget_enabled']}
+                            <div class="card">
+                                <div class="card-header bg-transparent">
+                                    <i class="fa fa-envelope-open-text mr5"></i> {__("Invite Your Friends")}
+                                </div>
+                                <div class="card-body with-form">
+                                    <form class="js_ajax-forms" data-url="users/invitation.php">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="email" placeholder='{__("Email")}'>
+                                                <div class="input-group-append">
+                                                    <button type="submit" name="submit" class="btn btn-primary plr20"><i class="fas fa-paper-plane"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- success -->
+                                        <div class="alert alert-success mb0 x-hidden"></div>
+                                        <!-- success -->
+
+                                        <!-- error -->
+                                        <div class="alert alert-danger mb0 x-hidden"></div>
+                                        <!-- error -->
+                                    </form>
+                                </div>
+                            </div>
+                        {/if}
+                        <!-- invitation widget -->
+
                         <!-- mini footer -->
                         {if count($user->_data['new_people']) > 0 || count($new_pages) > 0 || count($new_groups) > 0 || count($new_events) > 0}
                             <div class="mtb20 plr10 d-none d-sm-block">
@@ -398,13 +439,13 @@
                         
                     </div>
                     <!-- right panel -->
-
-                 </div>
-
-            <!-- content panel -->
+                </div>
             </div>
+            <!-- content panel -->
+
         </div>
     </div>
+
 {/if}
 <!-- page content -->
 

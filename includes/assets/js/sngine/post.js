@@ -15,7 +15,6 @@ api['posts/comment']  = ajax_path+"posts/comment.php";
 api['posts/reaction']  = ajax_path+"posts/reaction.php";
 api['posts/edit']  = ajax_path+"posts/edit.php";
 api['posts/product'] = ajax_path+"posts/product.php";
-api['posts/project'] = ajax_path+"posts/project.php";
 api['posts/story'] = ajax_path+"posts/story.php";
 /* albums */
 api['albums/action']  = ajax_path+"albums/action.php";
@@ -34,7 +33,6 @@ function publisher_tab(publisher, tab) {
             if(!publisher.find('.js_publisher-tab[data-tab="album"]').hasClass('active')) {
                 publisher.find('.js_publisher-tab[data-tab="gif"]').toggleClass('disabled');
                 publisher.find('.js_publisher-tab[data-tab="product"]').toggleClass('disabled');
-                publisher.find('.js_publisher-tab[data-tab="project"]').toggleClass('disabled');
                 publisher.find('.js_publisher-tab[data-tab="article"]').toggleClass('disabled');
                 publisher.find('.js_publisher-tab[data-tab="poll"]').toggleClass('disabled');
                 publisher.find('.js_publisher-tab[data-tab="video"]').toggleClass('disabled');
@@ -50,7 +48,6 @@ function publisher_tab(publisher, tab) {
             if(!publisher.find('.js_publisher-tab[data-tab="photos"]').hasClass('active')) {
                 publisher.find('.js_publisher-tab[data-tab="gif"]').toggleClass('disabled');
                 publisher.find('.js_publisher-tab[data-tab="product"]').toggleClass('disabled');
-                publisher.find('.js_publisher-tab[data-tab="project"]').toggleClass('disabled');
                 publisher.find('.js_publisher-tab[data-tab="article"]').toggleClass('disabled');
                 publisher.find('.js_publisher-tab[data-tab="poll"]').toggleClass('disabled');
                 publisher.find('.js_publisher-tab[data-tab="video"]').toggleClass('disabled');
@@ -71,7 +68,6 @@ function publisher_tab(publisher, tab) {
             publisher.find('.js_publisher-tab[data-tab="photos"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="album"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="product"]').toggleClass('disabled');
-            publisher.find('.js_publisher-tab[data-tab="project"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="article"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="poll"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="video"]').toggleClass('disabled');
@@ -84,7 +80,7 @@ function publisher_tab(publisher, tab) {
             publisher.find('.publisher-meta[data-meta="poll"]').slideToggle('fast');
             /* toggle textarea placeholder */
             if(publisher.find('.js_publisher-tab[data-tab="poll"]').hasClass('active')) {
-                publisher.find('textarea').attr('placeholder', __["Ask something"]+"...").focus();
+                publisher.find('textarea').attr('placeholder', __['Ask something']+"...").focus();
             } else {
                 publisher.find('textarea').attr('placeholder', publisher.find('textarea').data('init-placeholder')).focus();
             }
@@ -92,7 +88,6 @@ function publisher_tab(publisher, tab) {
             publisher.find('.js_publisher-tab[data-tab="album"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="gif"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="product"]').toggleClass('disabled');
-            publisher.find('.js_publisher-tab[data-tab="project"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="article"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="video"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="audio"]').toggleClass('disabled');
@@ -105,7 +100,6 @@ function publisher_tab(publisher, tab) {
             publisher.find('.js_publisher-tab[data-tab="album"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="gif"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="product"]').toggleClass('disabled');
-            publisher.find('.js_publisher-tab[data-tab="project"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="article"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="poll"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="audio"]').toggleClass('disabled');
@@ -118,7 +112,6 @@ function publisher_tab(publisher, tab) {
             publisher.find('.js_publisher-tab[data-tab="album"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="gif"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="product"]').toggleClass('disabled');
-            publisher.find('.js_publisher-tab[data-tab="project"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="article"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="poll"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="video"]').toggleClass('disabled');
@@ -131,7 +124,6 @@ function publisher_tab(publisher, tab) {
             publisher.find('.js_publisher-tab[data-tab="album"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="gif"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="product"]').toggleClass('disabled');
-            publisher.find('.js_publisher-tab[data-tab="project"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="article"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="poll"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="video"]').toggleClass('disabled');
@@ -144,7 +136,6 @@ function publisher_tab(publisher, tab) {
             publisher.find('.js_publisher-tab[data-tab="album"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="gif"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="product"]').toggleClass('disabled');
-            publisher.find('.js_publisher-tab[data-tab="project"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="article"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="poll"]').toggleClass('disabled');
             publisher.find('.js_publisher-tab[data-tab="video"]').toggleClass('disabled');
@@ -276,7 +267,7 @@ $(function() {
                         _this.next('.dropdown-menu').find('.js_scroller').append($('<div class="item"><img class="js_publisher-gif-add" src="'+response.data[i].images.fixed_height_small.url+'" data-gif="' + response.data[i].images.fixed_height.url + '" autoplay loop></div>'));
                     }
                 } else {
-                    _this.next('.dropdown-menu').show().html('<div class="ptb5 plr10">'+__["No result found"]+'</div>');
+                    _this.next('.dropdown-menu').show().html('<div class="ptb5 plr10">'+__['No result found']+'</div>');
                 }
             }, 'json');
         } else {
@@ -478,23 +469,21 @@ $(function() {
     /* publisher attachment image remover */
     $('body').on('click', '.js_publisher-attachment-image-remover, .js_publisher-mini-attachment-image-remover', function() {
         var mini = ($(this).hasClass('js_publisher-mini-attachment-image-remover'))? true : false;
-        var item = $(this).parents('li.item').length > 0 ? $(this).parents('li.item') : $(this).parents('div.x-image');
+        var item = $(this).parents('li.item');
         var src = item.data('src');
         /* remove the attachment from publisher data */
         var publisher = (!mini)? $(this).parents('.publisher') : $(this).parents('.publisher-mini');
         var files = publisher.data('photos');
-        if(src != undefined || files != undefined) {
-            delete files[src];
-            if (Object.keys(files).length > 0) {
-                publisher.data('photos', files);
-            } else {
-                publisher.removeData('photos');
-                if (!mini) {
-                    publisher.find('.attachments').hide();
-                    /* handle publisher tab */
-                    publisher_tab(publisher, "photos");
-                    publisher.find('.js_publisher-tab[data-tab="photos"]').removeClass('activated');
-                }
+        delete files[src];
+        if(Object.keys(files).length > 0) {
+            publisher.data('photos', files);
+        } else {
+            publisher.removeData('photos');
+            if(!mini) {
+                publisher.find('.attachments').hide();
+                /* handle publisher tab */
+                publisher_tab(publisher, "photos");
+                publisher.find('.js_publisher-tab[data-tab="photos"]').removeClass('activated');
             }
         }
         /* remove the attachment item */
@@ -525,10 +514,10 @@ $(function() {
         publisher.removeData(type);
         publisher.find('.publisher-meta[data-meta="'+type+'"]').hide();
         if(type == "video") {
-            var video_thmbnail = publisher.find('.publisher-custom-thumbnail');
-            video_thmbnail.find('.x-image').removeAttr("style");
-            video_thmbnail.find('input.js_x-image-input').val("");
-            video_thmbnail.hide();
+            var attachments_video_thumbnail = publisher.find('.publisher-custom-thumbnail');
+            attachments_video_thumbnail.find('.x-image').removeAttr("style");
+            attachments_video_thumbnail.find('input.js_x-image-input').val("");
+            attachments_video_thumbnail.hide();
         }
         /* handle publisher tab */
         publisher_tab(publisher, type);
@@ -572,18 +561,11 @@ $(function() {
         } else {
             product = undefined;
         }
-        /* get project */
-        var project = {};
-        publisher.find('.publisher-meta[data-meta="project"] input').each(function(index) {
-            if($(this).val() != "") {
-                project[$(this).attr('name')] = $(this).val();
-            }
-        });
-
         /* get video */
         var attachments_video = publisher.find('.publisher-meta[data-meta="video"]');
         var video = publisher.data('video');
-        var video_thumbnail = publisher.find('.publisher-custom-thumbnail input.js_x-image-input').val();
+        var attachments_video_thumbnail = publisher.find('.publisher-custom-thumbnail');
+        var video_thumbnail = attachments_video_thumbnail.find('input.js_x-image-input').val();
         /* get audio */
         var attachments_audio = publisher.find('.publisher-meta[data-meta="audio"]');
         var audio = publisher.data('audio');
@@ -611,7 +593,7 @@ $(function() {
         /* button loading */
         button_status(_this, "loading");
         posts_stream.data('loading', true);
-        $.post(api['posts/post'], {'handle': handle, 'id': id, 'message': textarea.val(), 'link': JSON.stringify(link), 'album':album.val(), 'poll_options': JSON.stringify(poll_options), 'product': JSON.stringify(product), 'project': JSON.stringify(project), 'video': JSON.stringify(video), 'video_thumbnail': video_thumbnail, 'audio': JSON.stringify(audio), 'file': JSON.stringify(file), 'photos': JSON.stringify(photos), 'feeling_action':feeling.data('action'), 'feeling_value':feeling.val(), 'location':location.val(), 'privacy': privacy}, function(response) {
+        $.post(api['posts/post'], {'handle': handle, 'id': id, 'message': textarea.val(), 'link': JSON.stringify(link), 'album':album.val(), 'poll_options': JSON.stringify(poll_options), 'product': JSON.stringify(product), 'video': JSON.stringify(video), 'video_thumbnail': video_thumbnail, 'audio': JSON.stringify(audio), 'file': JSON.stringify(file), 'photos': JSON.stringify(photos), 'feeling_action':feeling.data('action'), 'feeling_value':feeling.val(), 'location':location.val(), 'privacy': privacy}, function(response) {
             if(response.callback) {
                 /* button reset */
                 button_status(_this, "reset");
@@ -652,6 +634,10 @@ $(function() {
                 publisher.removeData('audio');
                 attachments_file.hide();
                 publisher.removeData('file');
+                /* hide & empty video custom thumbnail */
+                attachments_video_thumbnail.find('.x-image').removeAttr("style");
+                attachments_video_thumbnail.find('input.js_x-image-input').val("");
+                attachments_video_thumbnail.hide();
                 /* hide & empty scraper */
                 $('.publisher-scraper').hide().html('');
                 publisher.removeData('scraping');
@@ -742,52 +728,6 @@ $(function() {
             modal('#modal-message', {title: __['Error'], message: __['There is something that went wrong!']});
         });
     });
-    /* publish new project */
-    $('body').on('click', '.ghost', function() {
-        var _this = $(this);
-        /* get publisher */
-        var publisher = _this.parents('.publisher-mini');
-        /* get product */
-        var project = {};
-        publisher.find('input').each(function(index) {
-            if($(this).val() != "") {
-                project[$(this).attr('name')] = $(this).val();
-            }
-        });
-        if(!$.isEmptyObject(project)) {
-
-            project['status'] = publisher.find('select[name="status"]').val();
-            project['colorway'] = publisher.find('select[name="colorway"]').val();
-
-        } else {
-            return;
-        }
-        /* get text */
-        var textarea = publisher.find('textarea');
-        /* get photos */
-        var photos = publisher.data('photos');
-        console.log("**************");
-        console.log(publisher.data('photos'));
-
-
-        button_status(_this, "loading");
-        $.post(api['posts/project'], {'do': 'publish', 'project': JSON.stringify(project), 'message': textarea.val(), 'photos': JSON.stringify(photos)}, function(response) {
-            /* button reset */
-            button_status(_this, "reset");
-            if(response.error) {
-                publisher.find('.alert.alert-danger').html(response.message).slideDown();
-            } else if(response.callback) {
-                eval(response.callback);
-            }
-        }, "json")
-            .fail(function() {
-                /* button reset */
-                button_status(_this, "reset");
-                modal('#modal-message', {title: __['Error'], message: __['There is something that went wrong!']});
-            });
-    });
-
-
     /* publish new photos to album */
     $('body').on('click', '.js_publisher-album', function() {
         var _this = $(this);
@@ -982,10 +922,6 @@ $(function() {
     /* close the lightbox (when press Esc button) */
     $('body').on('keydown', function(e) {
         if(e.keyCode === 27 && $('.lightbox').length > 0) {
-            if($('.js_scroller-lightbox').parent().hasClass('slimScrollDiv')) {
-                $('.js_scroller-lightbox').parent().replaceWith($('.js_scroller-lightbox'));
-                $('.js_scroller-lightbox').removeAttr('style');
-            }
             $('body').removeClass('lightbox-open');
             $('.lightbox').remove();
         }
@@ -1014,20 +950,19 @@ $(function() {
         var textarea = $(this).parents('.x-form').find('textarea');
         /* check if textarea value is empty || end with a space then no prefix space */
         var prefix = ( textarea.val() == "" || /\s+$/.test(textarea.val()) ) ? "": " ";
-        textarea.val(textarea.val()+prefix+emoji+" ").focus();
+        textarea.val(textarea.val()+prefix+emoji+" ").change().focus();
     });
 
 	
 	// handle post
     /* edit post */
     $('body').on('click', '.js_edit-post', function (e) {
-
         e.preventDefault();
         var post = $(this).parents('.post');
         if(post.find('.post-edit').length > 0) {
             return;
         }
-        post.find('.post-replace').hide().after(render_template("#edit-post", {'text': post.find('.post-text').slice(0,1).text()}));
+        post.find('.post-replace').hide().after(render_template("#edit-post", {'text': post.find('.post-text-plain').text()}));
     });
     /* unedit post */
     $('body').on('click', '.js_unedit-post', function () {
@@ -1087,8 +1022,7 @@ $(function() {
             modal('#modal-message', {title: __['Error'], message: __['There is something that went wrong!']});
         });
     });
-    
-        /* delete post */
+    /* delete post */
     $('body').on('click', '.js_delete-post', function (e) {
         e.preventDefault();
         var post = $(this).parents('.post');
@@ -1527,12 +1461,18 @@ $(function() {
         var textarea = comment.find('textarea.js_post-comment');
         var message = textarea.val();
         var attachments = comment.find('.comment-attachments');
+        /* check if there is current (sending) process */
+        if(comment.data('sending')) {
+            return false;
+        }
         /* get photo from comment data */
         var photo = comment.data('photos');
         /* check if message is empty */
         if(is_empty(message) && !photo) {
             return;
         }
+        /* add currenet sending process */
+        comment.data('sending', true);
         $.post(api['posts/comment'], {'handle': handle, 'id': id, 'message': message, 'photo': JSON.stringify(photo)}, function(response) {
             /* check if there is a callback */
             if(response.callback) {
@@ -1545,6 +1485,8 @@ $(function() {
                 comment.removeData('photos');
                 comment.find('.x-form-tools-attach').show();
                 stream.append(response.comment);
+                /* remove currenet sending process */
+                comment.removeData('sending');
             }
         }, 'json')
         .fail(function() {
@@ -1891,20 +1833,20 @@ $(function() {
         var to_lang = $('html').attr('lang').substring(0, 2);
         /* check text */
         if(is_empty(text)) {
-            _this.removeClass('text-link js_translator').text(__["Translated"]);
+            _this.removeClass('text-link js_translator').text(__['Translated']);
             return;
         }
         /* detect language */
         $.get('https://translate.yandex.net/api/v1.5/tr.json/detect', {'key': yandex_key, 'text': text}, function(response) {
             /* check the target langauge is current langauge */
             if(to_lang === response.lang) {
-                _this.removeClass('text-link js_translator').text(__["Translated"]);
+                _this.removeClass('text-link js_translator').text(__['Translated']);
                 return;
             }
             /* translate */
             $.getJSON('https://translate.yandex.net/api/v1.5/tr.json/translate', {'key': yandex_key, 'text': text, 'lang': to_lang}, function(response) {
                 /* check the response */
-                _this.removeClass('text-link js_translator').text(__["Translated"]);
+                _this.removeClass('text-link js_translator').text(__['Translated']);
                 post.find('.post-text-translation:first').text(response.text).show().addClass("x-notifier");
                 setTimeout(function() {
                     post.find('.post-text-translation:first').removeClass("x-notifier");

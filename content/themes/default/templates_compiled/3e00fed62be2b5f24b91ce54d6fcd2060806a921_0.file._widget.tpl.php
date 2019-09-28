@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:13:50
+/* Smarty version 3.1.33, created on 2019-09-28 04:17:11
   from '/home/cryptocodex/public_html/content/themes/default/templates/_widget.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0c4e83f697_66241854',
+  'unifunc' => 'content_5d8edec77a3e63_86250312',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3e00fed62be2b5f24b91ce54d6fcd2060806a921' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/_widget.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5d7a0c4e83f697_66241854 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edec77a3e63_86250312 (Smarty_Internal_Template $_smarty_tpl) {
 if ($_smarty_tpl->tpl_vars['widgets']->value) {?>
 	<!-- Widgets -->
 	<?php

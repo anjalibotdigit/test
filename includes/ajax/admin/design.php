@@ -24,6 +24,7 @@ try {
 	/* prepare */
 	$_POST['system_theme_night_on'] = (isset($_POST['system_theme_night_on']))? '1' : '0';
 	$_POST['system_theme_mode_select'] = (isset($_POST['system_theme_mode_select']))? '1' : '0';
+	$_POST['system_wallpaper_default'] = (isset($_POST['system_wallpaper_default']))? '1' : '0';
 	$_POST['system_favicon_default'] = (isset($_POST['system_favicon_default']))? '1' : '0';
 	$_POST['system_favicon'] = ($_POST['system_favicon_default'])? '' : $_POST['system_favicon'];
 	$_POST['system_ogimage_default'] = (isset($_POST['system_ogimage_default']))? '1' : '0';
@@ -34,6 +35,8 @@ try {
 		system_theme_night_on = %s,
 		system_theme_mode_select = %s,
 		system_logo = %s,
+		system_wallpaper_default = %s,
+		system_wallpaper = %s,
 		system_favicon_default = %s,
 		system_favicon = %s,
 		system_ogimage_default = %s,
@@ -47,7 +50,7 @@ try {
 		css_btn_primary = %s, 
 		css_custome_css = %s,
 		custome_js_header = %s,
-		custome_js_footer = %s ", secure($_POST['system_theme_night_on']), secure($_POST['system_theme_mode_select']), secure($_POST['system_logo']), secure($_POST['system_favicon_default']), secure($_POST['system_favicon']), secure($_POST['system_ogimage_default']), secure($_POST['system_ogimage']), secure($_POST['css_customized']), secure($_POST['css_background']), secure($_POST['css_link_color']), secure($_POST['css_header']), secure($_POST['css_header_search']), secure($_POST['css_header_search_color']), secure($_POST['css_btn_primary']), secure($_POST['css_custome_css']), secure($_POST['custome_js_header']), secure($_POST['custome_js_footer']) )) or _error("SQL_ERROR_THROWEN");
+		custome_js_footer = %s ", secure($_POST['system_theme_night_on']), secure($_POST['system_theme_mode_select']), secure($_POST['system_logo']), secure($_POST['system_wallpaper_default']), secure($_POST['system_wallpaper']), secure($_POST['system_favicon_default']), secure($_POST['system_favicon']), secure($_POST['system_ogimage_default']), secure($_POST['system_ogimage']), secure($_POST['css_customized']), secure($_POST['css_background']), secure($_POST['css_link_color']), secure($_POST['css_header']), secure($_POST['css_header_search']), secure($_POST['css_header_search_color']), secure($_POST['css_btn_primary']), secure($_POST['css_custome_css']), secure($_POST['custome_js_header']), secure($_POST['custome_js_footer']) )) or _error("SQL_ERROR_THROWEN");
 
 	return_json( array('callback' => 'window.location.reload();') );
 

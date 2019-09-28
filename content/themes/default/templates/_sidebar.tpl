@@ -31,14 +31,6 @@
                     </a>
                 </li>
             {/if}
-
-                <li {if $page== "index" && $view == "projects"}class="active"{/if}>
-                    <a href="{$system['system_url']}/projects">
-                        <img src="{$system['system_url']}/content/themes/{$system['theme']}/images/icons/folder.png">
-                        {__("Projects")}
-                    </a>
-                </li>
-
             <!-- basic -->
 
             <!-- favorites -->
@@ -46,11 +38,44 @@
                 <strong><small class="text-muted">{__("favorites")|upper}</small></strong>
             </li>
 
-            <li {if $page== "index" && $view == ""}class="active"{/if}>
-                <a href="{$system['system_url']}">
-                    <img src="{$system['system_url']}/content/themes/{$system['theme']}/images/icons/newfeed.png">
-                    {__("News Feed")}
-                </a>
+            <li {if $page== "index" && ($view == "" || $view == "discover" || $view == "popular")}class="active"{/if}>
+                {if !$system['popular_posts_enabled'] && !$system['discover_posts_enabled']}
+                    <a href="{$system['system_url']}">
+                        <img src="{$system['system_url']}/content/themes/{$system['theme']}/images/icons/newfeed.png">
+                        {__("News Feed")}
+                    </a>
+                {else}
+                    <a href="#newsfeed" data-toggle="collapse" {if $page== "index" && ($view == "" || $view == "discover" || $view == "popular")}aria-expanded="true"{/if}>
+                        <img src="{$system['system_url']}/content/themes/{$system['theme']}/images/icons/newfeed.png">
+                        {__("News Feed")}
+                    </a>
+                    <div class='collapse {if $page== "index" && ($view == "" || $view == "discover" || $view == "popular")}show{/if}' id="newsfeed">
+                        <ul>
+                            <li {if $page== "index" && $view == ""}class="active"{/if}>
+                                <a href="{$system['system_url']}">
+                                    <img src="{$system['system_url']}/content/themes/{$system['theme']}/images/icons/posts_recent.png">
+                                    {__("Recent Updates")}
+                                </a>
+                            </li>
+                            {if $system['popular_posts_enabled']}
+                                <li {if $page== "index" && $view == "popular"}class="active"{/if}>
+                                    <a href="{$system['system_url']}/popular">
+                                        <img src="{$system['system_url']}/content/themes/{$system['theme']}/images/icons/posts_popular.png">
+                                        {__("Popular Posts")}
+                                    </a>
+                                </li>
+                            {/if}
+                            {if $system['discover_posts_enabled']}
+                                <li {if $page== "index" && $view == "discover"}class="active"{/if}>
+                                    <a href="{$system['system_url']}/discover">
+                                        <img src="{$system['system_url']}/content/themes/{$system['theme']}/images/icons/posts_discover.png">
+                                        {__("Discover Posts")}
+                                    </a>
+                                </li>
+                            {/if}
+                        </ul>
+                    </div>
+                {/if}
             </li>
 
             {if $system['blogs_enabled']}
@@ -77,6 +102,15 @@
                     {__("Saved Posts")}
                 </a>
             </li>
+
+            {if $system['memories_enabled']}
+                <li {if $page== "index" && $view == "memories"}class="active"{/if}>
+                    <a href="{$system['system_url']}/memories">
+                        <img src="{$system['system_url']}/content/themes/{$system['theme']}/images/icons/memories.png">
+                        {__("Memories")}
+                    </a>
+                </li>
+            {/if}
             <!-- favorites -->
 
             <!-- advertising -->
@@ -117,17 +151,10 @@
                 <small class="text-muted">{__("explore")|upper}</small>
             </li>
 
-            <li {if $page== "index" && $view == "popular"}class="active"{/if}>
-                <a href="{$system['system_url']}/popular">
-                    <img src="{$system['system_url']}/content/themes/{$system['theme']}/images/icons/hashtag.png">
-                    {__("Popular Posts")}
-                </a>
-            </li>
-
             <li {if $page== "people"}class="active"{/if}>
                 <a href="{$system['system_url']}/people">
                     <img src="{$system['system_url']}/content/themes/{$system['theme']}/images/icons/people.png">
-                    {__("Find People")}
+                    {__("People")}
                 </a>
             </li>
             

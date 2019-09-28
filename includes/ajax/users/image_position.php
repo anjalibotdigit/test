@@ -110,7 +110,12 @@ try {
     $_POST['height'] = "360";
     $_POST['x'] = "0";
     $_POST['y'] = -$_POST['position'];
-    $image_name = save_picture_from_file($system['system_uploads'].'/'.$full_picture, true, true);
+    if($system['s3_enabled']) {
+        $image_url = $system['system_uploads'].'/'.$full_picture;
+    } else {
+        $image_url = ABSPATH.$system['uploads_directory'].'/'.$full_picture;
+    }
+    $image_name = save_picture_from_file($image_url, true, true);
 
     // update cover position
     $db->query(sprintf("UPDATE %s SET %s = %s, %s = %s WHERE %s = %s", $table_name, $table_cover_field, secure($image_name), $table_position_field, secure($_POST['position']), $table_id_field, secure($_POST['id'], 'int') )) or _error("SQL_ERROR_THROWEN");

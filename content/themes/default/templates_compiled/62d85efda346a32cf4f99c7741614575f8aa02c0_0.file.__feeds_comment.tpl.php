@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.33, created on 2019-09-12 09:14:13
+/* Smarty version 3.1.33, created on 2019-09-28 04:18:04
   from '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_comment.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.33',
-  'unifunc' => 'content_5d7a0c65d12b95_47242639',
+  'unifunc' => 'content_5d8edefc727312_67289991',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '62d85efda346a32cf4f99c7741614575f8aa02c0' => 
     array (
       0 => '/home/cryptocodex/public_html/content/themes/default/templates/__feeds_comment.tpl',
-      1 => 1568278182,
+      1 => 1569643106,
       2 => 'file',
     ),
   ),
@@ -23,7 +23,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'file:__feeds_comment.tpl' => 2,
   ),
 ),false)) {
-function content_5d7a0c65d12b95_47242639 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5d8edefc727312_67289991 (Smarty_Internal_Template $_smarty_tpl) {
 ?><li>
     <div class="comment <?php if ($_smarty_tpl->tpl_vars['_is_reply']->value) {?>reply<?php }?>" data-id="<?php echo $_smarty_tpl->tpl_vars['_comment']->value['comment_id'];?>
 " id="comment_<?php echo $_smarty_tpl->tpl_vars['_comment']->value['comment_id'];?>
@@ -136,7 +136,7 @@ $_smarty_tpl->tpl_vars['reaction']->iteration = 0;
 if ($_from !== null) {
 foreach ($_from as $_smarty_tpl->tpl_vars['reaction']->value) {
 $_smarty_tpl->tpl_vars['reaction']->iteration++;
-$__foreach_reaction_21_saved = $_smarty_tpl->tpl_vars['reaction'];
+$__foreach_reaction_20_saved = $_smarty_tpl->tpl_vars['reaction'];
 ?>
                                 <div class="reactions_item duration-<?php echo $_smarty_tpl->tpl_vars['reaction']->iteration;?>
  js_react-comment" data-reaction="<?php echo $_smarty_tpl->tpl_vars['reaction']->value['reaction'];?>
@@ -147,7 +147,7 @@ $__foreach_reaction_21_saved = $_smarty_tpl->tpl_vars['reaction'];
 ?>
                                 </div>
                             <?php
-$_smarty_tpl->tpl_vars['reaction'] = $__foreach_reaction_21_saved;
+$_smarty_tpl->tpl_vars['reaction'] = $__foreach_reaction_20_saved;
 }
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>

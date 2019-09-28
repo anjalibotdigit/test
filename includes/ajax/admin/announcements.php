@@ -40,7 +40,7 @@ try {
 			if(is_empty($_POST['end_date'])) {
 				throw new Exception(__("You have to enter the announcement end date"));
 			}
-			if(strtotime($_POST['end_date']) < strtotime($_POST['start_date'])) {
+			if(strtotime(set_datetime($_POST['end_date'])) < strtotime(set_datetime($_POST['start_date']))) {
 				throw new Exception(__("End Date must be after the Start Date"));
 			}
 			/* update */
@@ -63,7 +63,7 @@ try {
 			if(is_empty($_POST['end_date'])) {
 				throw new Exception(__("You have to enter the announcement end date"));
 			}
-			if(strtotime($_POST['end_date']) < strtotime($_POST['start_date'])) {
+			if(strtotime(set_datetime($_POST['end_date'])) < strtotime(set_datetime($_POST['start_date']))) {
 				throw new Exception(__("End Date must be after the Start Date"));
 			}
 			/* insert */
